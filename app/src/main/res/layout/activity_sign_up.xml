@@ -7,13 +7,19 @@
     android:orientation="vertical"
     tools:context=".entryModule.SignUpActivity">
 
-    <TextView
+    <ImageView
         android:layout_width="match_parent"
+        android:layout_height="@dimen/_140sdp"
+        android:scaleType="fitXY"
+        android:src="@drawable/back_ground_image"/>
+
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="my app"
-        android:gravity="center"
+        android:text="Sign Up"
         android:textSize="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_10sdp"/>
+        android:textStyle="bold"
+        android:layout_margin="@dimen/_15sdp"/>
 
     <EditText
         android:id="@+id/etvName"
@@ -21,7 +27,6 @@
         android:layout_height="wrap_content"
         android:hint="enter your full name"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_50sdp"
         android:paddingStart="@dimen/_10sdp"/>
     <EditText
         android:id="@+id/etvMobileNumber"
@@ -29,7 +34,7 @@
         android:layout_height="wrap_content"
         android:hint="enter your mobile number"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:paddingStart="@dimen/_10sdp"/>
     <EditText
         android:id="@+id/etvEmail"
@@ -37,7 +42,7 @@
         android:layout_height="wrap_content"
         android:hint="enter your Email"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:paddingStart="@dimen/_10sdp"/>
     <EditText
         android:id="@+id/etvPassword"
@@ -45,7 +50,7 @@
         android:layout_height="wrap_content"
         android:hint="enter your password"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:paddingStart="@dimen/_10sdp"/>
     <EditText
         android:id="@+id/etvConfirmPassword"
@@ -56,18 +61,18 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:paddingStart="@dimen/_10sdp"/>
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_marginHorizontal="@dimen/_20sdp"
-        android:text="login"
+        android:text="sign up"
         android:textSize="@dimen/_15sdp"/>
     <TextView
-        android:id="@+id/txtSingUp"
+        android:id="@+id/txtLogin"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="sign up"
+        android:text="login"
         android:gravity="center"
         android:layout_marginTop="@dimen/_30sdp"
         android:textSize="@dimen/_15sdp"/>

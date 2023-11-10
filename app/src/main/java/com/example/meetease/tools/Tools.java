@@ -9,6 +9,9 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.meetease.R;
 
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 
 public class Tools {
     Context context;
@@ -24,6 +27,19 @@ public class Tools {
             return Patterns.EMAIL_ADDRESS.matcher(str.toLowerCase()).matches();
         }
         return false;
+    }
+    public static boolean isValidPassword(String password)
+    {
+        String regex = "^(?=.*[0-9])"
+                + "(?=.*[a-z])(?=.*[A-Z])"
+                + "(?=.*[@#$%^&+=])"
+                + "(?=\\S+$).{8,20}$";
+        Pattern p = Pattern.compile(regex);
+        if (password == null) {
+            return false;
+        }
+        Matcher m = p.matcher(password);
+        return m.matches();
     }
 
     public void showLoading() {

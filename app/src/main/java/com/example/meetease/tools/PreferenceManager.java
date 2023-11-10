@@ -10,11 +10,11 @@ public class PreferenceManager {
         sharedPreferences=context.getSharedPreferences(VariableBag.preferenceName,Context.MODE_PRIVATE);
         editor = sharedPreferences.edit();
     }
-    public void setPreferenceStringValue(String key,String value){
+    public void setKeyValueString(String key,String value){
         editor.putString(key,value);
         editor.commit();
     }
-    public String getPreferenceStringValue(String key,String value){
+    public String getKeyValueString(String key,String value){
         return sharedPreferences.getString(key,value);
     }
     public void removePreferenceValue(String key){
@@ -25,11 +25,11 @@ public class PreferenceManager {
         editor.clear();
         editor.commit();
     }
-    public void setPreferenceBooleanValue(String key,Boolean value){
+    public void setKeyValueBoolean(String key,Boolean value){
         editor.putBoolean(key,value);
         editor.commit();
     }
-    public Boolean getPreferenceBooleanValue(String key){
+    public Boolean getKeyValueBoolean(String key){
         return sharedPreferences.getBoolean(key,false);
     }
 }
