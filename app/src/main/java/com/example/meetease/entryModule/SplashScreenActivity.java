@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 
-import com.example.meetease.HomeScreenActivity;
 import com.example.meetease.R;
 
 public class SplashScreenActivity extends AppCompatActivity {
