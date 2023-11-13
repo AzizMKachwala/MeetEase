@@ -1,4 +1,4 @@
-package com.example.meetease.tools;
+package com.example.meetease.appUtils;
 import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;

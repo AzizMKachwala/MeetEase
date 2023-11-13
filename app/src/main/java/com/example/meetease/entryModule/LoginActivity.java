@@ -2,6 +2,7 @@ package com.example.meetease.entryModule;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
@@ -18,7 +19,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText etvEmailOrPhone,etvPassword;
     Button btnLogin;
-    TextView txtResetPassword;
+    TextView txtResetPassword,txtSignup;
     ImageView imgPasswordCloseEye;
     String password = "Hide";
 
@@ -30,6 +31,7 @@ public class LoginActivity extends AppCompatActivity {
         etvEmailOrPhone = findViewById(R.id.etvEmailOrPhone);
         etvPassword = findViewById(R.id.etvPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        txtSignup = findViewById(R.id.txtSignup);
         txtResetPassword = findViewById(R.id.txtResetPassword);
         imgPasswordCloseEye= findViewById(R.id.imgPasswordCloseEye);
 
@@ -45,6 +47,15 @@ public class LoginActivity extends AppCompatActivity {
                 etvPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 etvPassword.setSelection(etvPassword.length());
                 imgPasswordCloseEye.setImageResource(R.drawable.baseline_eye_24);
+            }
+        });
+
+        txtSignup.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
+                startActivity(intent);
+                finish();
             }
         });
 

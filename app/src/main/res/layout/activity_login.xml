@@ -9,17 +9,17 @@
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_120sdp"
+        android:layout_height="@dimen/_160sdp"
         android:scaleType="fitXY"
-        android:src="@drawable/topScreen" />
+        android:src="@drawable/back_ground_image" />
 
     <TextView
         android:id="@+id/txtHeading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/imgLogo"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:gravity="center"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_80sdp"
         android:text="LOGIN"
         android:textSize="@dimen/_20ssp"
         android:textStyle="bold" />
@@ -28,12 +28,12 @@
         android:id="@+id/etvEmailOrPhone"
         style="@style/edittext"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_40sdp"
+        android:layout_height="wrap_content"
         android:layout_below="@id/txtHeading"
+        android:layout_marginTop="@dimen/_30sdp"
         android:hint="EMAIL OR PHONE"
         android:imeOptions="actionNext"
         android:inputType="textAutoComplete"
-        android:minHeight="@dimen/_30sdp"
         android:paddingStart="@dimen/_20sdp" />
 
 
@@ -51,7 +51,6 @@
             android:hint="PASSWORD"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
-            android:minHeight="@dimen/_30sdp"
             android:padding="@dimen/_10sdp" />
 
         <ImageView
@@ -60,23 +59,23 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_30sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:src="@drawable/baseline_eye_24" />
 
     </RelativeLayout>
 
     <TextView
         android:id="@+id/txtResetPassword"
-        android:gravity="center"
-        android:textSize="@dimen/_15sdp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/lytPassword"
-        android:layout_marginTop="@dimen/_10sdp"
         android:layout_alignParentEnd="true"
-        android:text="Reset My Password"
+        android:layout_marginTop="@dimen/_20sdp"
         android:layout_marginEnd="@dimen/_20sdp"
-        android:textColor="@color/black" />
+        android:gravity="center"
+        android:text="Reset My Password"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_15sdp" />
 
     <Button
         android:id="@+id/btnLogin"
@@ -85,6 +84,23 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txtResetPassword"
         android:layout_centerHorizontal="true"
+        android:paddingStart="@dimen/_40sdp"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:paddingEnd="@dimen/_40sdp"
         android:text="LOGIN" />
+
+    <TextView
+        android:id="@+id/txtSignup"
+        android:layout_below="@id/btnLogin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_5sdp"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:paddingHorizontal="@dimen/_10sdp"
+        android:paddingVertical="@dimen/_10sdp"
+        android:text="@string/don_t_have_an_account_signup"
+        android:textColor="@color/brown"
+        android:textStyle="normal" />
 
 </RelativeLayout>

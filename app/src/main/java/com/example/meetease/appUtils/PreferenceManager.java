@@ -1,4 +1,4 @@
-package com.example.meetease.tools;
+package com.example.meetease.appUtils;
 
 import android.content.Context;
 import android.content.SharedPreferences;

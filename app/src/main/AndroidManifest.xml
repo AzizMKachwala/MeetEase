@@ -15,6 +15,12 @@
         android:theme="@style/Theme.MeetEase"
         tools:targetApi="31">
         <activity
+            android:name=".entryModule.GuideActivity"
+            android:exported="false" />
+        <activity
+            android:name=".entryModule.WelcomeActivity"
+            android:exported="false" />
+        <activity
             android:name=".HomeScreenActivity"
             android:exported="false" />
         <activity
@@ -26,13 +32,11 @@
         <activity
             android:name=".entryModule.SplashScreenActivity"
             android:exported="true">
-
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 
