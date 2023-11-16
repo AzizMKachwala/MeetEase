@@ -1,28 +1,19 @@
 package com.example.meetease.homeScreen;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import androidx.biometric.BiometricPrompt;
-import androidx.core.content.ContextCompat;
-
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.meetease.R;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.CreateReservationActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
-import com.example.meetease.tools.PreferenceManager;
-import com.example.meetease.tools.VariableBag;
-
-import java.util.concurrent.Executor;
 
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
 
@@ -30,14 +21,10 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     ImageView ivSettingProfile, ivSetting;
     TextView tvSettingName, tvTrans;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-
-
 
         layoutUserProfile = findViewById(R.id.layoutUserProfile);
         layoutAddReservation = findViewById(R.id.layoutAddReservation);

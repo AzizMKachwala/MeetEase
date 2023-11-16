@@ -9,7 +9,7 @@
     <ImageView
         android:id="@+id/imgLogo"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_160sdp"
+        android:layout_height="@dimen/_200sdp"
         android:scaleType="fitXY"
         android:src="@drawable/back_ground_image" />
 
@@ -19,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/imgLogo"
         android:layout_marginStart="@dimen/_10sdp"
-        android:layout_marginTop="@dimen/_80sdp"
+        android:layout_marginTop="@dimen/_50sdp"
         android:text="LOGIN"
         android:textSize="@dimen/_20ssp"
         android:textStyle="bold" />

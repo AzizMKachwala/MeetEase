@@ -14,16 +14,16 @@ import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
+import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.homeScreen.HomeScreenActivity;
-import com.example.meetease.tools.PreferenceManager;
-import com.example.meetease.tools.VariableBag;
 
 import java.util.concurrent.Executor;
 
 public class SecurityActivity extends AppCompatActivity {
 
-    BiometricPrompt biometricPrompt;
-    BiometricPrompt.PromptInfo promptInfo;
+   BiometricPrompt biometricPrompt;
+   BiometricPrompt.PromptInfo promptInfo;
     Executor executor;
     PreferenceManager preferenceManager;
     SwitchCompat switchOnOff;

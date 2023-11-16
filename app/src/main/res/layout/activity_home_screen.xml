@@ -233,7 +233,8 @@
         android:layout_height="@dimen/_1sdp"
         android:background="@color/white"
         android:layout_marginBottom="@dimen/_30sdp"
-        app:layout_constraintBottom_toBottomOf="parent"        android:layout_marginTop="@dimen/_28sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="@dimen/_28sdp"
         android:layout_marginHorizontal="@dimen/_60sdp"/>
 
     <TextView
