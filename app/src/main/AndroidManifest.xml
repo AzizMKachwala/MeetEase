@@ -38,7 +38,7 @@
             android:name=".entryModule.SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".ProfileActivity"
+            android:name=".homeScreen.ProfileActivity"
             android:exported="false" />
         <activity
             android:name=".entryModule.WelcomeActivity"

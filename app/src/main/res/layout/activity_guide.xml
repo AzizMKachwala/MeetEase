@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#E1B77F"
-    tools:context=".GuideActivity">
+    tools:context=".entryModule.GuideActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"

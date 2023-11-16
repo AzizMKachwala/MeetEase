@@ -67,9 +67,9 @@ public class BookMeetingActivity extends AppCompatActivity {
 
                             @Override
                             public void onDateSet(DatePicker view, int year1, int monthOfYear, int dayOfMonth) {
-                                tvDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year1);
+                                tvDate.setText(dayOfMonth + "-" + (monthOfYear) + "-" + year1);
                                 year = year1;
-                                month = monthOfYear+1;
+                                month = monthOfYear;
                                 day = dayOfMonth;
                                 upDateDate();
                             }
@@ -129,11 +129,11 @@ public class BookMeetingActivity extends AppCompatActivity {
                 if (tvDate.getText().toString().equals("Select Date")){
                     Toast.makeText(BookMeetingActivity.this, "Select Date First", Toast.LENGTH_SHORT).show();
                 }
-                else if (tvStartTime.getText().toString().equals("tvStartTime")){
+                else if (tvStartTime.getText().toString().equals("Select Start Time")){
                     Toast.makeText(BookMeetingActivity.this, "Select StartTime First", Toast.LENGTH_SHORT).show();
 
                 }
-                else if (tvEndTime.getText().toString().equals("tvEndTime")){
+                else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()){
                     Toast.makeText(BookMeetingActivity.this, "Select EndTime Second", Toast.LENGTH_SHORT).show();
                 }
                 else {
@@ -172,8 +172,8 @@ public class BookMeetingActivity extends AppCompatActivity {
     }
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void createNotificationChannel(Context context) {
-        NotificationChannel channel = new NotificationChannel("alarm_channel", "Alarm Channel", NotificationManager.IMPORTANCE_HIGH);
-        channel.setDescription("Channel for alarm notifications");
+        NotificationChannel channel = new NotificationChannel("booking_channel", "booking Channel", NotificationManager.IMPORTANCE_HIGH);
+        channel.setDescription("Channel for Booking notifications");
         NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
     }

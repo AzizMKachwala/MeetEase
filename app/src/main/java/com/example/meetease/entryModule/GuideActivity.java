@@ -1,4 +1,4 @@
-package com.example.meetease;
+package com.example.meetease.entryModule;
 
 import androidx.appcompat.app.AppCompatActivity;
 
