@@ -1,10 +1,20 @@
 package com.example.meetease.homeScreen.createReservation;
 
-import androidx.annotation.IntRange;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import android.app.DatePickerDialog;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
 import android.app.TimePickerDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.media.MediaPlayer;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -15,6 +25,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.homeScreen.HomeScreenActivity;
 
 import java.util.Calendar;
 
@@ -87,7 +98,6 @@ public class BookMeetingActivity extends AppCompatActivity {
                                 tvEndTime.setText("");
                             }
                         }, mHour, mMinute, false);
-
                 timePickerDialog.show();
             }
         });
@@ -127,6 +137,22 @@ public class BookMeetingActivity extends AppCompatActivity {
                 }
                 else {
                     Toast.makeText(BookMeetingActivity.this, "Booking SuccessFully", Toast.LENGTH_SHORT).show();
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                        createNotificationChannel(BookMeetingActivity.this);
+                    }
+                    Intent resultIntent = new Intent(BookMeetingActivity.this, HomeScreenActivity.class);
+                    resultIntent.putExtra("action","action");
+                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(BookMeetingActivity.this);stackBuilder.addNextIntentWithParentStack(resultIntent);
+                    PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                    Notification notification = new NotificationCompat.Builder(BookMeetingActivity.this, "alarm_channel")
+                            .setContentTitle("Congratulations")
+                            .setContentText("meeting room is booked successFully")
+                            .setSmallIcon(R.drawable.img_meeting_rooms)
+                            .setContentIntent(resultPendingIntent)
+                            .build();
+                    NotificationManager notificationManager = (NotificationManager) BookMeetingActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+                    notificationManager.notify(0, notification);
                 }
             }
         });
@@ -135,12 +161,19 @@ public class BookMeetingActivity extends AppCompatActivity {
     void upDateDate(){
         tvRoomName.setText("");
         tvRoomNumber.setText("");
-        tvBookingDate.setText(day + "-" + (month + 1) + "-" + year);
+        tvBookingDate.setText(day + "-" + (month) + "-" + year);
         int hour = endHour - startHour;
         if(endMinute>startMinute){
             hour++;
         }
         tvBookingTime.setText(hour+" "+"Hour");
         tvPrice.setText(hour*100+" "+"$");
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createNotificationChannel(Context context) {
+        NotificationChannel channel = new NotificationChannel("alarm_channel", "Alarm Channel", NotificationManager.IMPORTANCE_HIGH);
+        channel.setDescription("Channel for alarm notifications");
+        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
     }
 }

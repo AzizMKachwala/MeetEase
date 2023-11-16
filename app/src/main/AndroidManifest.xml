@@ -4,6 +4,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -15,13 +17,7 @@
         android:theme="@style/Theme.MeetEase"
         tools:targetApi="31">
         <activity
-            android:name=".ProfileActivity"
-            android:exported="false" />
-        <activity
             android:name=".homeScreen.setting.SecurityActivity"
-            android:exported="false" />
-        <activity
-            android:name=".entryModule.WelcomeActivity"
             android:exported="false" />
         <activity
             android:name=".homeScreen.createReservation.BookMeetingActivity"
@@ -40,6 +36,12 @@
             android:exported="false" />
         <activity
             android:name=".entryModule.SignUpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ProfileActivity"
+            android:exported="false" />
+        <activity
+            android:name=".entryModule.WelcomeActivity"
             android:exported="false" />
         <activity
             android:name=".entryModule.SplashScreenActivity"

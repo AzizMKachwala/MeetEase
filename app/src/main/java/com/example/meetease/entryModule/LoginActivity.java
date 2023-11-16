@@ -14,6 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.network.RestCall;
+import com.example.meetease.network.RestClient;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -22,12 +25,14 @@ public class LoginActivity extends AppCompatActivity {
     TextView txtResetPassword,txtSignup;
     ImageView imgPasswordCloseEye;
     String password = "Hide";
+    RestCall restCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         etvEmailOrPhone = findViewById(R.id.etvEmailOrPhone);
         etvPassword = findViewById(R.id.etvPassword);
         btnLogin = findViewById(R.id.btnLogin);

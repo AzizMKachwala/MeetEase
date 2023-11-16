@@ -379,7 +379,7 @@
                     android:background="@color/white" />
 
                 <LinearLayout
-                    android:id="@+id/security"
+                    android:id="@+id/security1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
