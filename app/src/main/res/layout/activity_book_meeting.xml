@@ -3,137 +3,153 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="#D5C1A6"
     android:layout_height="match_parent"
+    android:background="#D5C1A6"
     tools:context=".homeScreen.createReservation.BookMeetingActivity">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/leafBrown"
         android:layout_marginHorizontal="@dimen/_10sdp"
-        app:layout_constraintTop_toTopOf="parent"
+        android:backgroundTint="@color/leafBrown"
+        app:cardCornerRadius="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:cardCornerRadius="@dimen/_10sdp">
+        app:layout_constraintTop_toTopOf="parent">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:gravity="center"
                     android:text="Book Meeting Room"
                     android:textColor="@color/black"
-                    android:textStyle="bold"
                     android:textSize="@dimen/_20sdp"
-                    android:gravity="center"
-                    android:layout_marginTop="@dimen/_10sdp"/>
+                    android:textStyle="bold" />
             </LinearLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tvDate"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="Select Date"
-                    android:textSize="@dimen/_15sdp"
-                    android:gravity="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginEnd="@dimen/_45sdp"
-                    android:textColor="@color/black"
                     android:background="@drawable/textview_select_date_time_shape"
-                    android:paddingVertical="@dimen/_5sdp"/>
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:text="Select Date"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <ImageView
                     android:id="@+id/ivDate"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:src="@drawable/img_calendar"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tvStartTime"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="Select Start Time"
-                    android:textSize="@dimen/_15sdp"
-                    android:gravity="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginEnd="@dimen/_45sdp"
-                    android:textColor="@color/black"
                     android:background="@drawable/textview_select_date_time_shape"
-                    android:paddingVertical="@dimen/_5sdp"/>
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:text="Select Start Time"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <ImageView
                     android:id="@+id/ivStartTime"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:src="@drawable/img_time"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_20sdp"
                 android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_20sdp"
                 android:orientation="horizontal">
+
                 <TextView
                     android:id="@+id/tvEndTime"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
-                    app:layout_constraintTop_toTopOf="parent"
-                    android:text="Select End Time"
-                    android:textSize="@dimen/_15sdp"
-                    android:gravity="center"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     android:layout_marginEnd="@dimen/_45sdp"
-                    android:textColor="@color/black"
                     android:background="@drawable/textview_select_date_time_shape"
-                    android:paddingVertical="@dimen/_5sdp"/>
+                    android:gravity="center"
+                    android:paddingVertical="@dimen/_5sdp"
+                    android:text="Select End Time"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_15sdp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
                 <ImageView
                     android:id="@+id/ivEndTime"
                     android:layout_width="@dimen/_40sdp"
                     android:layout_height="@dimen/_40sdp"
                     android:src="@drawable/img_time"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
-                android:backgroundTint="@color/darkLeafBrown"
-                app:cardCornerRadius="@dimen/_10sdp"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="@dimen/_20sdp"
                 android:layout_marginTop="@dimen/_40sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:layout_marginHorizontal="@dimen/_20sdp"
-                android:layout_height="wrap_content">
+                android:backgroundTint="@color/darkLeafBrown"
+                app:cardCornerRadius="@dimen/_10sdp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_20sdp"
-                        android:weightSum="2"
                         android:gravity="center"
-                        android:layout_marginHorizontal="@dimen/_10sdp">
+                        android:weightSum="2">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -141,7 +157,8 @@
                             android:text="Name"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -149,7 +166,8 @@
                             android:text=":"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/tvRoomName"
                             android:layout_width="0dp"
@@ -158,16 +176,18 @@
                             android:text="my meeting"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:weightSum="2"
                         android:gravity="center"
-                        android:layout_marginHorizontal="@dimen/_10sdp">
+                        android:weightSum="2">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -175,7 +195,8 @@
                             android:text="Room No"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -183,7 +204,8 @@
                             android:text=":"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/tvRoomNumber"
                             android:layout_width="0dp"
@@ -192,16 +214,18 @@
                             android:text="102"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
 
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:weightSum="2"
                         android:gravity="center"
-                        android:layout_marginHorizontal="@dimen/_10sdp">
+                        android:weightSum="2">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -209,7 +233,8 @@
                             android:text="Date"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -217,7 +242,8 @@
                             android:text=":"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/tvBookingDate"
                             android:layout_width="0dp"
@@ -226,15 +252,17 @@
                             android:text="12:03:2022"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_16sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:weightSum="2"
                         android:gravity="center"
-                        android:layout_marginHorizontal="@dimen/_10sdp">
+                        android:weightSum="2">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -242,7 +270,8 @@
                             android:text="Time"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -250,7 +279,8 @@
                             android:text=":"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/tvBookingTime"
                             android:layout_width="0dp"
@@ -259,15 +289,17 @@
                             android:text="3 Hour"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_16sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginHorizontal="@dimen/_10sdp"
                         android:layout_marginTop="@dimen/_10sdp"
-                        android:weightSum="2"
                         android:gravity="center"
-                        android:layout_marginHorizontal="@dimen/_10sdp">
+                        android:weightSum="2">
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -275,7 +307,8 @@
                             android:text="Price"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
@@ -283,7 +316,8 @@
                             android:text=":"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
+
                         <TextView
                             android:id="@+id/tvPrice"
                             android:layout_width="0dp"
@@ -292,47 +326,52 @@
                             android:text="400 $"
                             android:textColor="@color/white"
                             android:textSize="@dimen/_18sdp"
-                            android:textStyle="bold"/>
+                            android:textStyle="bold" />
                     </LinearLayout>
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="end"
-                        android:layout_marginTop="@dimen/_10sdp">
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:gravity="end">
+
                         <Button
                             android:id="@+id/btnBookNow"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Book Now"
-                            android:textColor="@color/black"
-                            app:backgroundTint="@color/gray"
-                            android:background="@drawable/button_shape"
                             android:layout_marginVertical="@dimen/_10sdp"
                             android:layout_marginEnd="@dimen/_20sdp"
-                            android:textSize="@dimen/_15sdp"/>
+                            android:background="@drawable/button_shape"
+                            android:text="Book Now"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/_15sdp"
+                            app:backgroundTint="@color/gray" />
                     </LinearLayout>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
-                android:layout_marginTop="@dimen/_10sdp"
                 android:layout_marginHorizontal="@dimen/_20sdp"
-                android:background="@color/white"/>
+                android:layout_marginTop="@dimen/_10sdp"
+                android:background="@color/white" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
                 android:layout_marginHorizontal="@dimen/_40sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:background="@color/white"/>
+                android:background="@color/white" />
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_60sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:layout_marginBottom="@dimen/_10sdp"
-                android:layout_marginHorizontal="@dimen/_60sdp"
-                android:background="@color/white"/>
+                android:background="@color/white" />
 
         </LinearLayout>
 
