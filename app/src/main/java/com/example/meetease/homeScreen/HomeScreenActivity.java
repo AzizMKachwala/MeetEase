@@ -7,19 +7,32 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
+import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.entryModule.LoginActivity;
+import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
 import com.example.meetease.homeScreen.createReservation.CreateReservationActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
 
+import java.util.concurrent.Executor;
+
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
 
-    View scrollView, favoriteRooms, availableRooms, security, howToBookRoom, inviteFriend, helpAndSupport, logout,layoutAddReservation, layoutUpcomingMeeting, layoutPreviousMeeting, layoutUserProfile, layoutContactUs, layoutLogout;
+    View scrollView, favoriteRooms, availableRooms, security1, howToBookRoom, inviteFriend, helpAndSupport, logout,layoutAddReservation, layoutUpcomingMeeting, layoutPreviousMeeting, layoutUserProfile, layoutContactUs, layoutLogout;
     ImageView ivSettingProfile, ivSetting;
     TextView tvSettingName, tvTrans;
+    BiometricPrompt biometricPrompt;
+    BiometricPrompt.PromptInfo promptInfo;
+    Executor executor;
+    PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +47,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         layoutLogout = findViewById(R.id.layoutLogout);
         favoriteRooms = findViewById(R.id.favoriteRooms);
         availableRooms = findViewById(R.id.availableRooms);
-        security = findViewById(R.id.security);
+        security1 = findViewById(R.id.security1);
         tvTrans = findViewById(R.id.tvTrans);
         scrollView = findViewById(R.id.scrollView);
         howToBookRoom = findViewById(R.id.howToBookRoom);
@@ -50,11 +63,13 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         tvTrans.setVisibility(View.GONE);
         ivSetting.setOnClickListener(this);
         logout.setOnClickListener(this);
+        security1.setOnClickListener(this);
         availableRooms.setOnClickListener(this);
         layoutAddReservation.setOnClickListener(this);
         layoutLogout.setOnClickListener(this);
         tvTrans.setOnClickListener(this);
 
+        biometric();
     }
 
     @Override
@@ -63,7 +78,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             scrollView.setVisibility(View.VISIBLE);
             tvTrans.setVisibility(View.VISIBLE);
         }
-        if (view == security) {
+        if (view == security1) {
             Intent intent = new Intent(HomeScreenActivity.this, SecurityActivity.class);
             startActivity(intent);
             finish();
@@ -74,7 +89,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             tvTrans.setVisibility(View.GONE);
         }
         if (view == availableRooms || view == layoutAddReservation) {
-            Intent intent = new Intent(HomeScreenActivity.this, CreateReservationActivity.class);
+            Intent intent = new Intent(HomeScreenActivity.this, BookMeetingActivity.class);
             startActivity(intent);
             finish();
         }
@@ -94,6 +109,42 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             });
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
+        }
+    }
+
+
+    void biometric(){
+        executor = ContextCompat.getMainExecutor(this);
+        preferenceManager = new PreferenceManager(this);
+        if (preferenceManager.getKeyValueBoolean(VariableBag.SecuritySwitchCheck)) {
+            biometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
+                @Override
+                public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
+                    super.onAuthenticationSucceeded(result);
+                }
+
+                @Override
+                public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
+                    super.onAuthenticationError(errorCode, errString);
+                    Toast.makeText(HomeScreenActivity.this, errString, Toast.LENGTH_LONG).show();
+                    finish();
+                }
+
+                @Override
+                public void onAuthenticationFailed() {
+                    super.onAuthenticationFailed();
+
+                    Toast.makeText(HomeScreenActivity.this, "FAILED !!", Toast.LENGTH_LONG).show();
+                }
+            });
+
+            promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                    .setTitle("Touch id required")
+                    .setDescription("Touch the touch id sensor")
+                    .setNegativeButtonText("Exit")
+                    .build();
+
+            biometricPrompt.authenticate(promptInfo);
         }
     }
 }

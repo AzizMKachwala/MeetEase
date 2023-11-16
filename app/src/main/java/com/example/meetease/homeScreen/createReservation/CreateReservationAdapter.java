@@ -83,7 +83,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
     @Override
     public int getItemCount() {
-        return searchList.size();
+        return 0;
     }
 
     static class CreateReservationViewHolder extends RecyclerView.ViewHolder {

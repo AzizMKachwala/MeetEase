@@ -22,22 +22,17 @@ import java.util.concurrent.Executor;
 
 public class SecurityActivity extends AppCompatActivity {
 
-   BiometricPrompt biometricPrompt;
-   BiometricPrompt.PromptInfo promptInfo;
-    Executor executor;
+
     PreferenceManager preferenceManager;
     SwitchCompat switchOnOff;
     ImageView ivBack;
-    View accountStatus,mobileLock,notifyUpdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_security);
 
-        accountStatus = findViewById(R.id.accountStatus);
-        mobileLock = findViewById(R.id.mobileLock);
-        notifyUpdate = findViewById(R.id.notifyUpdate);
+        preferenceManager = new PreferenceManager(this);
         switchOnOff = findViewById(R.id.switchOnOff);
         ivBack = findViewById(R.id.ivBack);
 
@@ -68,38 +63,7 @@ public class SecurityActivity extends AppCompatActivity {
             }
         });
         
-        executor = ContextCompat.getMainExecutor(this);
-        preferenceManager = new PreferenceManager(this);
-        if (preferenceManager.getKeyValueBoolean(VariableBag.SecuritySwitchCheck)) {
-            biometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
-                @Override
-                public void onAuthenticationSucceeded(@NonNull BiometricPrompt.AuthenticationResult result) {
-                    super.onAuthenticationSucceeded(result);
-                }
 
-                @Override
-                public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
-                    super.onAuthenticationError(errorCode, errString);
-                    Toast.makeText(SecurityActivity.this, errString, Toast.LENGTH_LONG).show();
-                    finish();
-                }
-
-                @Override
-                public void onAuthenticationFailed() {
-                    super.onAuthenticationFailed();
-
-                    Toast.makeText(SecurityActivity.this, "FAILED !!", Toast.LENGTH_LONG).show();
-                }
-            });
-
-            promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                    .setTitle("Touch id required")
-                    .setDescription("Touch the touch id sensor")
-                    .setNegativeButtonText("Exit")
-                    .build();
-
-            biometricPrompt.authenticate(promptInfo);
-        }
     }
 }
 
