@@ -4,12 +4,14 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetease.R;
-import com.example.meetease.homeScreen.createReservation.CreateReservationAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -59,7 +61,7 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
     @Override
     public MeetingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.activity_login,parent,false);
+        View view = layoutInflater.inflate(R.layout.previous_meeting_item,parent,false);
         return new MeetingViewHolder(view);
     }
 
@@ -70,12 +72,26 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
 
     @Override
     public int getItemCount() {
-        return searchList.size();
+        return 0;
     }
 
     class MeetingViewHolder extends RecyclerView.ViewHolder {
+
+        ImageView imgRoom;
+        TextView txtName,txtLocation,txtDate,txtTime;
+        RatingBar ratingBar;
+        Button btnBookAgain;
+
         public MeetingViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            btnBookAgain = itemView.findViewById(R.id.btnBookNow);
+            imgRoom = itemView.findViewById(R.id.imgRoom);
+            txtName = itemView.findViewById(R.id.txtName);
+            txtDate = itemView.findViewById(R.id.txtDate);
+            txtTime = itemView.findViewById(R.id.txtTime);
+            txtLocation = itemView.findViewById(R.id.txtLocation);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
         }
     }
 }

@@ -7,6 +7,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -67,14 +69,14 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
     @Override
     public CreateReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.activity_login,parent,false);
+        View view = layoutInflater.inflate(R.layout.meeting_rooms_item,parent,false);
         return new CreateReservationViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CreateReservationViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.btnBook.setOnClickListener(new View.OnClickListener() {
+        holder.btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createReservationAdapterDataClick.bookDataClick(searchList.get(position));
@@ -88,9 +90,20 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
     }
 
     static class CreateReservationViewHolder extends RecyclerView.ViewHolder {
-        Button btnBook;
+        Button btnBookNow;
+        ImageView imgRoom;
+        TextView txtName,txtLocation,txtPrice;
+        RatingBar ratingBar;
+
         public CreateReservationViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            btnBookNow = itemView.findViewById(R.id.btnBookNow);
+            imgRoom = itemView.findViewById(R.id.imgRoom);
+            txtName = itemView.findViewById(R.id.txtName);
+            txtLocation = itemView.findViewById(R.id.txtLocation);
+            txtPrice = itemView.findViewById(R.id.txtPrice);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
         }
     }
 }
