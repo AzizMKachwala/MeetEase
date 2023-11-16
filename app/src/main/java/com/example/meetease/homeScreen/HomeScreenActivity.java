@@ -14,11 +14,10 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
-import com.example.meetease.GuideActivity;
-import com.example.meetease.ProfileActivity;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
 import com.example.meetease.homeScreen.createReservation.CreateReservationActivity;
@@ -88,7 +87,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         if (view == security) {
             Intent intent = new Intent(HomeScreenActivity.this, SecurityActivity.class);
             startActivity(intent);
-            finish();
         }
 
         if (view == tvTrans) {
@@ -99,7 +97,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         if (view == availableRooms || view == layoutAddReservation) {
             Intent intent = new Intent(HomeScreenActivity.this, BookMeetingActivity.class);
             startActivity(intent);
-            finish();
         }
 
         if (view == howToBookRoom) {
@@ -158,9 +155,10 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             });
 
             promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                    .setTitle("Password Or Pattern is Required to Login")
-                    .setDescription("Touch the touch id sensor")
-                    .setNegativeButtonText("Exit")
+                    .setTitle("Unlock MeetEase")
+                    .setDescription("Use Password,Pattern or Fingerprint to Unlock.")
+                    .setDeviceCredentialAllowed(true)
+                    .setNegativeButtonText(null)
                     .build();
 
             biometricPrompt.authenticate(promptInfo);

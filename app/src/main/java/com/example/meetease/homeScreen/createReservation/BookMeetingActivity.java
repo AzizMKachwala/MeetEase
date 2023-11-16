@@ -32,8 +32,9 @@ import java.util.Calendar;
 public class BookMeetingActivity extends AppCompatActivity {
 
     TextView tvDate, tvStartTime, tvEndTime, tvRoomName, tvRoomNumber, tvBookingDate, tvBookingTime, tvPrice;
-    ImageView ivDate, ivStartTime, ivEndDate;
+    ImageView ivDate, ivStartTime, ivEndDate,ivBack;
     Button btnBookNow;
+
     public int mYear, mMonth, mDay, year, mHour, mMinute, month, day, startHour, startMinute, endHour, endMinute;
 
     @Override
@@ -47,6 +48,7 @@ public class BookMeetingActivity extends AppCompatActivity {
         ivStartTime = findViewById(R.id.ivStartTime);
         ivEndDate = findViewById(R.id.ivEndTime);
         btnBookNow = findViewById(R.id.btnBookNow);
+        ivBack = findViewById(R.id.ivBack);
         ivDate = findViewById(R.id.ivDate);
         tvRoomName = findViewById(R.id.tvRoomName);
         tvRoomNumber = findViewById(R.id.tvRoomNumber);
@@ -57,6 +59,12 @@ public class BookMeetingActivity extends AppCompatActivity {
         tvBookingTime.setText("Not Selected");
         tvPrice.setText("0 $");
 
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
         tvDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
