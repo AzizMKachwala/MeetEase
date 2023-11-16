@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.example.meetease.ContactUsActivity;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.VariableBag;
@@ -67,7 +68,9 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         logout.setOnClickListener(this);
         howToBookRoom.setOnClickListener(this);
         layoutUserProfile.setOnClickListener(this);
+        layoutContactUs.setOnClickListener(this);
         security.setOnClickListener(this);
+        helpAndSupport.setOnClickListener(this);
         availableRooms.setOnClickListener(this);
         layoutAddReservation.setOnClickListener(this);
         layoutLogout.setOnClickListener(this);
@@ -93,6 +96,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             tvTrans.setVisibility(View.GONE);
         }
 
+        if(view == layoutContactUs){
+            Intent intent = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
+            startActivity(intent);
+        }
+
         if (view == availableRooms || view == layoutAddReservation) {
             Intent intent = new Intent(HomeScreenActivity.this, BookMeetingActivity.class);
             startActivity(intent);
@@ -105,6 +113,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 
         if (view == layoutUserProfile) {
             Intent intent = new Intent(HomeScreenActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        }
+
+        if(view == helpAndSupport){
+            Intent intent = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
             startActivity(intent);
         }
 
