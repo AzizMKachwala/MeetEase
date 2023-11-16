@@ -21,6 +21,16 @@
             android:padding="@dimen/_10sdp"
             android:orientation="vertical">
 
+            <Button
+                android:id="@+id/btnSkip"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:textColor="@color/black"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="end"
+                android:text="Skip"/>
+
             <ImageView
                 android:id="@+id/imgSteps"
                 android:layout_width="match_parent"
@@ -34,7 +44,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:textSize="@dimen/_20ssp"
-                android:hint="Steps" />
+                android:text="Steps" />
 
             <Button
                 android:id="@+id/btnNext"

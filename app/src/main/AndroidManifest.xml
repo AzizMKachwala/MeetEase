@@ -41,6 +41,9 @@
             android:name=".ProfileActivity"
             android:exported="false" />
         <activity
+            android:name=".GuideActivity"
+            android:exported="false" />
+        <activity
             android:name=".entryModule.WelcomeActivity"
             android:exported="false" />
         <activity

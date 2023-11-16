@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.example.meetease.GuideActivity;
 import com.example.meetease.ProfileActivity;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
@@ -27,7 +28,9 @@ import java.util.concurrent.Executor;
 
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
 
-    View scrollView, favoriteRooms, availableRooms, security1, howToBookRoom, inviteFriend, helpAndSupport, logout,layoutAddReservation, layoutUpcomingMeeting, layoutPreviousMeeting, layoutUserProfile, layoutContactUs, layoutLogout;
+    View scrollView, favoriteRooms, availableRooms, security, howToBookRoom,
+            inviteFriend, helpAndSupport, logout, layoutAddReservation, layoutUpcomingMeeting, layoutPreviousMeeting,
+            layoutUserProfile, layoutContactUs, layoutLogout;
     ImageView ivSettingProfile, ivSetting;
     TextView tvSettingName, tvTrans;
     BiometricPrompt biometricPrompt;
@@ -49,7 +52,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         layoutLogout = findViewById(R.id.layoutLogout);
         favoriteRooms = findViewById(R.id.favoriteRooms);
         availableRooms = findViewById(R.id.availableRooms);
-        security1 = findViewById(R.id.security1);
+        security = findViewById(R.id.security);
         tvTrans = findViewById(R.id.tvTrans);
         scrollView = findViewById(R.id.scrollView);
         howToBookRoom = findViewById(R.id.howToBookRoom);
@@ -60,13 +63,13 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         ivSettingProfile = findViewById(R.id.ivSettingProfile);
         tvSettingName = findViewById(R.id.tvSettingName);
 
-
         scrollView.setVisibility(View.GONE);
         tvTrans.setVisibility(View.GONE);
         ivSetting.setOnClickListener(this);
         logout.setOnClickListener(this);
+        howToBookRoom.setOnClickListener(this);
         layoutUserProfile.setOnClickListener(this);
-        security1.setOnClickListener(this);
+        security.setOnClickListener(this);
         availableRooms.setOnClickListener(this);
         layoutAddReservation.setOnClickListener(this);
         layoutLogout.setOnClickListener(this);
@@ -81,24 +84,34 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             scrollView.setVisibility(View.VISIBLE);
             tvTrans.setVisibility(View.VISIBLE);
         }
-        if (view == security1) {
+
+        if (view == security) {
             Intent intent = new Intent(HomeScreenActivity.this, SecurityActivity.class);
             startActivity(intent);
             finish();
         }
+
         if (view == tvTrans) {
             scrollView.setVisibility(View.GONE);
             tvTrans.setVisibility(View.GONE);
         }
+
         if (view == availableRooms || view == layoutAddReservation) {
             Intent intent = new Intent(HomeScreenActivity.this, BookMeetingActivity.class);
             startActivity(intent);
             finish();
         }
-        if (view == layoutUserProfile){
+
+        if (view == howToBookRoom) {
+            Intent intent = new Intent(HomeScreenActivity.this, GuideActivity.class);
+            startActivity(intent);
+        }
+
+        if (view == layoutUserProfile) {
             Intent intent = new Intent(HomeScreenActivity.this, ProfileActivity.class);
             startActivity(intent);
         }
+
         if (view == layoutLogout || view == logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(HomeScreenActivity.this);
             builder.setMessage("Are You Sure You Want To Logout?");
@@ -106,8 +119,8 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             builder.setCancelable(false);
             builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
-                Intent intent1 = new Intent(HomeScreenActivity.this, LoginActivity.class);
-                startActivity(intent1);
+                Intent intent = new Intent(HomeScreenActivity.this, LoginActivity.class);
+                startActivity(intent);
                 finish();
             });
             builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
@@ -119,7 +132,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     }
 
 
-    void biometric(){
+    void biometric() {
         executor = ContextCompat.getMainExecutor(this);
         preferenceManager = new PreferenceManager(this);
         if (preferenceManager.getKeyValueBoolean(VariableBag.SecuritySwitchCheck)) {
@@ -145,7 +158,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             });
 
             promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                    .setTitle("Touch id required")
+                    .setTitle("Password Or Pattern is Required to Login")
                     .setDescription("Touch the touch id sensor")
                     .setNegativeButtonText("Exit")
                     .build();
