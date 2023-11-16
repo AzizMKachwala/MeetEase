@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 
 import com.example.meetease.R;
+import com.example.meetease.homeScreen.HomeScreenActivity;
 
 public class SplashScreenActivity extends AppCompatActivity {
 
@@ -17,7 +18,7 @@ public class SplashScreenActivity extends AppCompatActivity {
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent = new Intent(SplashScreenActivity.this, WelcomeActivity.class);
+                Intent intent = new Intent(SplashScreenActivity.this, HomeScreenActivity.class);
                 startActivity(intent);
                 finish();
             }

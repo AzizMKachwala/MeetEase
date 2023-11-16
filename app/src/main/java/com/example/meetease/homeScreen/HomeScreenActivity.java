@@ -10,6 +10,7 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.meetease.ProfileActivity;
 import com.example.meetease.R;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.CreateReservationActivity;
@@ -17,7 +18,9 @@ import com.example.meetease.homeScreen.setting.SecurityActivity;
 
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
 
-    View scrollView, favoriteRooms, availableRooms, security, howToBookRoom, inviteFriend, helpAndSupport, logout,layoutAddReservation, layoutUpcomingMeeting, layoutPreviousMeeting, layoutUserProfile, layoutContactUs, layoutLogout;
+    View scrollView, favoriteRooms, availableRooms, security, howToBookRoom,
+            inviteFriend, helpAndSupport, logout,layoutAddReservation, layoutUpcomingMeeting,
+            layoutPreviousMeeting, layoutUserProfile, layoutContactUs, layoutLogout;
     ImageView ivSettingProfile, ivSetting;
     TextView tvSettingName, tvTrans;
 
@@ -45,7 +48,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         ivSettingProfile = findViewById(R.id.ivSettingProfile);
         tvSettingName = findViewById(R.id.tvSettingName);
 
-
         scrollView.setVisibility(View.GONE);
         tvTrans.setVisibility(View.GONE);
         ivSetting.setOnClickListener(this);
@@ -53,6 +55,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         availableRooms.setOnClickListener(this);
         layoutAddReservation.setOnClickListener(this);
         layoutLogout.setOnClickListener(this);
+        layoutUserProfile.setOnClickListener(this);
         tvTrans.setOnClickListener(this);
 
     }
@@ -63,21 +66,29 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             scrollView.setVisibility(View.VISIBLE);
             tvTrans.setVisibility(View.VISIBLE);
         }
+
         if (view == security) {
             Intent intent = new Intent(HomeScreenActivity.this, SecurityActivity.class);
             startActivity(intent);
             finish();
         }
 
+        if(view == layoutUserProfile){
+            Intent intent = new Intent(HomeScreenActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        }
+
         if (view == tvTrans) {
             scrollView.setVisibility(View.GONE);
             tvTrans.setVisibility(View.GONE);
         }
+
         if (view == availableRooms || view == layoutAddReservation) {
             Intent intent = new Intent(HomeScreenActivity.this, CreateReservationActivity.class);
             startActivity(intent);
             finish();
         }
+
         if (view == layoutLogout || view == logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(HomeScreenActivity.this);
             builder.setMessage("Are You Sure You Want To Logout?");

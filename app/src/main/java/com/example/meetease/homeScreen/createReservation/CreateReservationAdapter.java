@@ -1,5 +1,6 @@
 package com.example.meetease.homeScreen.createReservation;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.LayoutInflater;
@@ -71,7 +72,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
     }
 
     @Override
-    public void onBindViewHolder(@NonNull CreateReservationViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull CreateReservationViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.btnBook.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +84,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
     @Override
     public int getItemCount() {
-        return searchList.size();
+        return 0;
     }
 
     static class CreateReservationViewHolder extends RecyclerView.ViewHolder {
