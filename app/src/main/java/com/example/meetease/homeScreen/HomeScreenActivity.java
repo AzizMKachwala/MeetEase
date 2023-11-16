@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.example.meetease.ProfileActivity;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.VariableBag;
@@ -39,6 +40,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+
         layoutUserProfile = findViewById(R.id.layoutUserProfile);
         layoutAddReservation = findViewById(R.id.layoutAddReservation);
         layoutUpcomingMeeting = findViewById(R.id.layoutUpcomingMeeting);
@@ -63,6 +65,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         tvTrans.setVisibility(View.GONE);
         ivSetting.setOnClickListener(this);
         logout.setOnClickListener(this);
+        layoutUserProfile.setOnClickListener(this);
         security1.setOnClickListener(this);
         availableRooms.setOnClickListener(this);
         layoutAddReservation.setOnClickListener(this);
@@ -83,7 +86,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             startActivity(intent);
             finish();
         }
-
         if (view == tvTrans) {
             scrollView.setVisibility(View.GONE);
             tvTrans.setVisibility(View.GONE);
@@ -92,6 +94,10 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             Intent intent = new Intent(HomeScreenActivity.this, BookMeetingActivity.class);
             startActivity(intent);
             finish();
+        }
+        if (view == layoutUserProfile){
+            Intent intent = new Intent(HomeScreenActivity.this, ProfileActivity.class);
+            startActivity(intent);
         }
         if (view == layoutLogout || view == logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(HomeScreenActivity.this);
