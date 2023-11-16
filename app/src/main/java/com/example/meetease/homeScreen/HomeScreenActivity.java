@@ -14,14 +14,12 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
-import com.example.meetease.GuideActivity;
-import com.example.meetease.ProfileActivity;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
-import com.example.meetease.homeScreen.createReservation.CreateReservationActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
 
 import java.util.concurrent.Executor;
@@ -42,7 +40,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-
 
         layoutUserProfile = findViewById(R.id.layoutUserProfile);
         layoutAddReservation = findViewById(R.id.layoutAddReservation);
@@ -65,6 +62,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 
         scrollView.setVisibility(View.GONE);
         tvTrans.setVisibility(View.GONE);
+
         ivSetting.setOnClickListener(this);
         logout.setOnClickListener(this);
         howToBookRoom.setOnClickListener(this);
@@ -88,7 +86,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         if (view == security) {
             Intent intent = new Intent(HomeScreenActivity.this, SecurityActivity.class);
             startActivity(intent);
-            finish();
         }
 
         if (view == tvTrans) {
@@ -99,7 +96,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         if (view == availableRooms || view == layoutAddReservation) {
             Intent intent = new Intent(HomeScreenActivity.this, BookMeetingActivity.class);
             startActivity(intent);
-            finish();
         }
 
         if (view == howToBookRoom) {
