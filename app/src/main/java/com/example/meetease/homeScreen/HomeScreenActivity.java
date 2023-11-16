@@ -20,7 +20,6 @@ import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
-import com.example.meetease.homeScreen.createReservation.CreateReservationActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
 
 import java.util.concurrent.Executor;
@@ -41,7 +40,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
-
 
         layoutUserProfile = findViewById(R.id.layoutUserProfile);
         layoutAddReservation = findViewById(R.id.layoutAddReservation);
@@ -64,6 +62,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 
         scrollView.setVisibility(View.GONE);
         tvTrans.setVisibility(View.GONE);
+
         ivSetting.setOnClickListener(this);
         logout.setOnClickListener(this);
         howToBookRoom.setOnClickListener(this);
@@ -149,7 +148,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
                 @Override
                 public void onAuthenticationFailed() {
                     super.onAuthenticationFailed();
-
                     Toast.makeText(HomeScreenActivity.this, "FAILED !!", Toast.LENGTH_LONG).show();
                 }
             });

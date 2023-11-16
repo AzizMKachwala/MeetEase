@@ -15,10 +15,10 @@
 
     <TextView
         android:id="@+id/txtHeading"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/imgLogo"
-        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_15sdp"
         android:layout_marginTop="@dimen/_50sdp"
         android:text="LOGIN"
         android:textSize="@dimen/_20ssp"
@@ -31,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txtHeading"
         android:layout_marginTop="@dimen/_30sdp"
-        android:hint="EMAIL OR PHONE"
+        android:hint="Email Or Phone"
         android:imeOptions="actionNext"
         android:inputType="textAutoComplete"
         android:paddingStart="@dimen/_20sdp" />
@@ -48,7 +48,7 @@
             style="@style/edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="PASSWORD"
+            android:hint="Password"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:padding="@dimen/_10sdp" />
@@ -84,23 +84,33 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/txtResetPassword"
         android:layout_centerHorizontal="true"
-        android:paddingStart="@dimen/_40sdp"
         android:layout_marginTop="@dimen/_20sdp"
+        android:paddingStart="@dimen/_40sdp"
         android:paddingEnd="@dimen/_40sdp"
         android:text="LOGIN" />
 
-    <TextView
-        android:id="@+id/txtSignup"
-        android:layout_below="@id/btnLogin"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_5sdp"
         android:gravity="center"
-        android:layout_centerHorizontal="true"
+        android:layout_below="@id/btnLogin"
         android:paddingHorizontal="@dimen/_10sdp"
-        android:paddingVertical="@dimen/_10sdp"
-        android:text="@string/don_t_have_an_account_signup"
-        android:textColor="@color/brown"
-        android:textStyle="normal" />
+        android:paddingVertical="@dimen/_10sdp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Don't Have an Account? " />
+
+        <TextView
+            android:id="@+id/txtSignup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/don_t_have_an_account_signup"
+            android:textColor="@color/brown"
+            android:textStyle="bold" />
+
+    </LinearLayout>
 
 </RelativeLayout>

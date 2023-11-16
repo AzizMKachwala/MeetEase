@@ -22,7 +22,6 @@ import java.util.concurrent.Executor;
 
 public class SecurityActivity extends AppCompatActivity {
 
-
     PreferenceManager preferenceManager;
     SwitchCompat switchOnOff;
     ImageView ivBack;
@@ -39,21 +38,21 @@ public class SecurityActivity extends AppCompatActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(SecurityActivity.this, HomeScreenActivity.class);
-                startActivity(intent);
                 finish();
             }
         });
+
         if (preferenceManager.getKeyValueBoolean(VariableBag.SecuritySwitchCheck)){
             switchOnOff.setChecked(true);
         }
         else {
             switchOnOff.setChecked(false);
         }
+
         switchOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-                if (b){
+            public void onCheckedChanged(CompoundButton compoundButton, boolean status) {
+                if (status){
                     preferenceManager.setKeyValueBoolean(VariableBag.SecuritySwitchCheck,true);
                 }
                 else {
@@ -62,14 +61,5 @@ public class SecurityActivity extends AppCompatActivity {
 
             }
         });
-        
-
     }
 }
-
-//<ImageView
-//        android:id="@+id/ivBack"
-//                android:layout_width="@dimen/_30sdp"
-//                android:layout_height="@dimen/_30sdp"
-//                android:src="@drawable/ic_back"
-//                android:layout_margin="@dimen/_15sdp"/>

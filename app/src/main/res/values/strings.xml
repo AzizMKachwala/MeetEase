@@ -1,5 +1,5 @@
 <resources>
     <string name="app_name">MeetEase</string>
-    <string name="account_login"><u>ALREADY HAVE AN ACCOUNT? LOGIN</u></string>
-    <string name="don_t_have_an_account_signup"><u>DON\'T HAVE AN ACCOUNT? SIGNUP</u></string>
+    <string name="account_login"><u>LOGIN</u></string>
+    <string name="don_t_have_an_account_signup"><u>SIGNUP</u></string>
 </resources>
