@@ -148,15 +148,15 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
                 @Override
                 public void onAuthenticationFailed() {
                     super.onAuthenticationFailed();
-
                     Toast.makeText(HomeScreenActivity.this, "FAILED !!", Toast.LENGTH_LONG).show();
                 }
             });
 
             promptInfo = new BiometricPrompt.PromptInfo.Builder()
-                    .setTitle("Password Or Pattern is Required to Login")
-                    .setDescription("Touch the touch id sensor")
-                    .setNegativeButtonText("Exit")
+                    .setTitle("Unlock MeetEase")
+                    .setDescription("Use Password,Pattern or Fingerprint to Unlock.")
+                    .setDeviceCredentialAllowed(true)
+                    .setNegativeButtonText(null)
                     .build();
 
             biometricPrompt.authenticate(promptInfo);
