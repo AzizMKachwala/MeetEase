@@ -45,7 +45,7 @@
         style="@style/edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="EMAIL ADDRESS"
+        android:hint="abc@gmail.com"
         android:imeOptions="actionNext"
         android:inputType="textAutoComplete" />
 
