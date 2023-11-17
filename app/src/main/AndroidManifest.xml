@@ -53,6 +53,9 @@
             android:name=".entryModule.GuideActivity"
             android:exported="false" />
         <activity
+            android:name=".ContactUsActivity"
+            android:exported="false" />
+        <activity
             android:name=".entryModule.WelcomeActivity"
             android:exported="false" />
         <activity
