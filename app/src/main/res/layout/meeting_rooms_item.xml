@@ -34,7 +34,7 @@
                     app:cardCornerRadius="@dimen/_10sdp">
 
                     <ImageView
-                        android:id="@+id/imgRoom"
+                        android:id="@+id/imgRooms"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_100sdp"
                         android:scaleType="fitXY"

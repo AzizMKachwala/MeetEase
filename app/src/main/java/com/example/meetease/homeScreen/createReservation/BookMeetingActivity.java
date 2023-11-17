@@ -35,12 +35,15 @@ public class BookMeetingActivity extends AppCompatActivity {
     ImageView ivDate, ivStartTime, ivEndDate,ivBack;
     Button btnBookNow;
 
+    String roomName,roomPrice,roomLocation;
+
     public int mYear, mMonth, mDay, year, mHour, mMinute, month, day, startHour, startMinute, endHour, endMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_meeting);
+
 
         tvDate = findViewById(R.id.tvDate);
         tvStartTime = findViewById(R.id.tvStartTime);
@@ -59,6 +62,13 @@ public class BookMeetingActivity extends AppCompatActivity {
         tvBookingTime.setText("Not Selected");
         tvPrice.setText("0 $");
 
+        Intent intent = getIntent();
+        roomName = intent.getStringExtra("roomName");
+        roomPrice = intent.getStringExtra("roomPrice");
+        roomLocation = intent.getStringExtra("roomLocation");
+
+        tvRoomNumber.setText(roomLocation);
+        tvRoomName.setText(roomName);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -82,6 +92,8 @@ public class BookMeetingActivity extends AppCompatActivity {
                                 month = monthOfYear + 1;
                                 day = dayOfMonth;
                                 updateDate();
+                                tvStartTime.setText("Select Start Time");
+                                tvEndTime.setText("Select End Time");
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
@@ -105,7 +117,7 @@ public class BookMeetingActivity extends AppCompatActivity {
                                 startHour = hourOfDay;
                                 startMinute = minute;
                                 updateDate();
-                                tvEndTime.setText("");
+                                tvEndTime.setText("Select End Time");
                             }
                         }, mHour, mMinute, false);
                 timePickerDialog.show();
@@ -136,14 +148,19 @@ public class BookMeetingActivity extends AppCompatActivity {
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvDate.getText().toString().equals("Select Date")) {
+                if (tvDate.getText().toString().equals("Select Date") || tvEndTime.getText().toString().isEmpty()) {
                     Toast.makeText(BookMeetingActivity.this, "Select Date First", Toast.LENGTH_SHORT).show();
-                } else if (tvStartTime.getText().toString().equals("tvStartTime")) {
-                    Toast.makeText(BookMeetingActivity.this, "Select StartTime First", Toast.LENGTH_SHORT).show();
+                }
 
-                } else if (tvEndTime.getText().toString().equals("tvEndTime")) {
+                else if (tvStartTime.getText().toString().equals("Select Start Time")) {
+                    Toast.makeText(BookMeetingActivity.this, "Select StartTime First", Toast.LENGTH_SHORT).show();
+                }
+
+                else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()) {
                     Toast.makeText(BookMeetingActivity.this, "Select EndTime Second", Toast.LENGTH_SHORT).show();
-                } else {
+                }
+
+                else {
                     Toast.makeText(BookMeetingActivity.this, "Booking SuccessFully", Toast.LENGTH_SHORT).show();
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -168,15 +185,13 @@ public class BookMeetingActivity extends AppCompatActivity {
     }
 
     void updateDate() {
-        tvRoomName.setText("");
-        tvRoomNumber.setText("");
         tvBookingDate.setText(day + "-" + (month) + "-" + year);
         int hour = endHour - startHour;
         if (endMinute > startMinute) {
             hour++;
         }
         tvBookingTime.setText(hour + " " + "Hour");
-        tvPrice.setText(hour * 100 + " " + "$");
+        tvPrice.setText(hour * Integer.parseInt(roomPrice) + " " + "$");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

@@ -23,17 +23,20 @@ import java.util.List;
 
 public class CreateReservationActivity extends AppCompatActivity {
 
-    RecyclerView recyclerviewPreviousMeeting;
+    RecyclerView recyclerViewMeetingRooms;
     CreateReservationAdapter createReservationAdapter;
     EditText etvSearch;
     TextView tvNoData;
     ImageView ivClose;
+    List<CreateReservationDataModel> roomList;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_reservation);
 
-        recyclerviewPreviousMeeting = findViewById(R.id.recyclerviewPreviousMeeting);
+        roomList = new ArrayList<>();
+        addData();
+        recyclerViewMeetingRooms = findViewById(R.id.recyclerViewMeetingRooms);
         etvSearch = findViewById(R.id.etvSearch);
         tvNoData = findViewById(R.id.tvNoData);
         ivClose = findViewById(R.id.ivClose);
@@ -58,7 +61,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                     else {
                         ivClose.setVisibility(View.GONE);
                     }
-                    createReservationAdapter.search(charSequence,tvNoData,recyclerviewPreviousMeeting);
+                    createReservationAdapter.search(charSequence,tvNoData,recyclerViewMeetingRooms);
                 }
             }
 
@@ -67,19 +70,28 @@ public class CreateReservationActivity extends AppCompatActivity {
 
             }
         });
-        List<CreateReservationDataModel> list = new ArrayList<>();
-        createReservationAdapter = new CreateReservationAdapter(list,this);
+        createReservationAdapter = new CreateReservationAdapter(roomList,this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
-        recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
-        recyclerviewPreviousMeeting.setAdapter(createReservationAdapter);
+        recyclerViewMeetingRooms.setLayoutManager(layoutManager);
+        recyclerViewMeetingRooms.setAdapter(createReservationAdapter);
 
         createReservationAdapter.setUpInterFace(new CreateReservationAdapter.CreateReservationAdapterDataClick() {
             @Override
             public void bookDataClick(CreateReservationDataModel createReservationDataModel) {
                 Intent intent = new Intent(CreateReservationActivity.this,BookMeetingActivity.class);
+                intent.putExtra("roomName",createReservationDataModel.roomName);
+                intent.putExtra("roomPrice",createReservationDataModel.roomPrice);
+                intent.putExtra("roomLocation",createReservationDataModel.roomLocation);
                 startActivity(intent);
                 finish();
             }
         });
+    }
+    void addData(){
+        roomList.add(new CreateReservationDataModel("hotel taj","Ahmedabad","1000","4","https://ballantyneexecutivesuites.com/wp-content/uploads/2015/10/Depositphotos_13534536_original.jpg"));
+        roomList.add(new CreateReservationDataModel("hotel raj","Rajkot","2000","5","https://ballantyneexecutivesuites.com/wp-content/uploads/2015/10/Depositphotos_13534536_original.jpg"));
+        roomList.add(new CreateReservationDataModel("hotel Sky","surat","500","3","https://ballantyneexecutivesuites.com/wp-content/uploads/2015/10/Depositphotos_13534536_original.jpg"));
+        roomList.add(new CreateReservationDataModel("hotel hill","Gandinagar","1500","4","https://images.pexels.com/photos/2976970/pexels-photo-2976970.jpeg"));
+        roomList.add(new CreateReservationDataModel("hotel taj","Baroda","300","2","https://images.pexels.com/photos/2976970/pexels-photo-2976970.jpeg"));
     }
 }

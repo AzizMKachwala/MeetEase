@@ -8,20 +8,18 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
-
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
+import com.example.meetease.homeScreen.createReservation.CreateReservationActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
-
 import java.util.concurrent.Executor;
 
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
@@ -94,7 +92,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == availableRooms || view == layoutAddReservation) {
-            Intent intent = new Intent(HomeScreenActivity.this, BookMeetingActivity.class);
+            Intent intent = new Intent(HomeScreenActivity.this, CreateReservationActivity.class);
             startActivity(intent);
         }
 

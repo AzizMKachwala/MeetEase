@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.meetease.R;
 
 import java.util.ArrayList;
@@ -33,6 +34,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
     }
     public CreateReservationAdapter(List<CreateReservationDataModel> dataModelList, Context context) {
         this.dataModelList = dataModelList;
+        this.searchList = dataModelList;
         this.context = context;
     }
 
@@ -48,10 +50,10 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
             int flag = 0;
             List<CreateReservationDataModel> filterList = new ArrayList<>();
             for (CreateReservationDataModel single : dataModelList){
-//                if (single.getName().toLowerCase().contains(charString.toLowerCase())){
-//                    filterList.add(single);
-//                    flag = 1;
-//                }
+                if (single.roomName.toLowerCase().contains(charString.toLowerCase())){
+                    filterList.add(single);
+                    flag = 1;
+                }
             }
             if (flag == 1){
                 searchList = filterList;
@@ -76,6 +78,14 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
     @Override
     public void onBindViewHolder(@NonNull CreateReservationViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
+        holder.txtName.setText(searchList.get(position).roomName);
+        holder.txtLocation.setText(searchList.get(position).roomLocation);
+        holder.txtPrice.setText(searchList.get(position).roomPrice);
+        Glide
+                .with(context)
+                .load(searchList.get(position).roomImage)
+                .into(holder.imgRoom);
+        holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).roomRating));
         holder.btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,7 +96,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
     @Override
     public int getItemCount() {
-        return 0;
+        return searchList.size();
     }
 
     static class CreateReservationViewHolder extends RecyclerView.ViewHolder {
@@ -99,7 +109,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
             super(itemView);
 
             btnBookNow = itemView.findViewById(R.id.btnBookNow);
-            imgRoom = itemView.findViewById(R.id.imgRoom);
+            imgRoom = itemView.findViewById(R.id.imgRooms);
             txtName = itemView.findViewById(R.id.txtName);
             txtLocation = itemView.findViewById(R.id.txtLocation);
             txtPrice = itemView.findViewById(R.id.txtPrice);
