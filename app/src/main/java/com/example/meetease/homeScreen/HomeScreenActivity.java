@@ -25,8 +25,8 @@ import java.util.concurrent.Executor;
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
 
     View scrollView, favoriteRooms, availableRooms, security, howToBookRoom,
-            inviteFriend, helpAndSupport, logout, layoutAddReservation, layoutUpcomingMeeting, layoutPreviousMeeting,
-            layoutUserProfile, layoutContactUs, layoutLogout;
+            inviteFriend, helpAndSupport, logout, layoutAddReservation, layoutUpcomingMeeting,
+            layoutPreviousMeeting, layoutUserProfile, layoutContactUs, layoutLogout;
     ImageView ivSettingProfile, ivSetting;
     TextView tvSettingName, tvTrans;
     BiometricPrompt biometricPrompt;

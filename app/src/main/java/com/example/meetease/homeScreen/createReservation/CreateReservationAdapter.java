@@ -22,56 +22,58 @@ import java.util.List;
 
 public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReservationAdapter.CreateReservationViewHolder> {
 
-    List<CreateReservationDataModel> dataModelList,searchList;
+    List<CreateReservationDataModel> dataModelList, searchList;
     Context context;
 
     CreateReservationAdapterDataClick createReservationAdapterDataClick;
-    public interface CreateReservationAdapterDataClick{
+
+    public interface CreateReservationAdapterDataClick {
         void bookDataClick(CreateReservationDataModel createReservationDataModel);
     }
-    public void setUpInterFace(CreateReservationAdapterDataClick createReservationAdapterDataClick){
+
+    public void setUpInterFace(CreateReservationAdapterDataClick createReservationAdapterDataClick) {
         this.createReservationAdapterDataClick = createReservationAdapterDataClick;
     }
+
     public CreateReservationAdapter(List<CreateReservationDataModel> dataModelList, Context context) {
         this.dataModelList = dataModelList;
         this.searchList = dataModelList;
         this.context = context;
     }
 
-    void search(CharSequence charSequence, TextView textView, RecyclerView recyclerView){
+    void search(CharSequence charSequence, TextView textView, RecyclerView recyclerView) {
 
         String charString = charSequence.toString().trim();
-        if (charString.isEmpty()){
+        if (charString.isEmpty()) {
             searchList = dataModelList;
             recyclerView.setVisibility(View.VISIBLE);
             textView.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             int flag = 0;
             List<CreateReservationDataModel> filterList = new ArrayList<>();
-            for (CreateReservationDataModel single : dataModelList){
+            for (CreateReservationDataModel single : dataModelList) {
                 if (single.roomName.toLowerCase().contains(charString.toLowerCase())){
                     filterList.add(single);
                     flag = 1;
                 }
             }
-            if (flag == 1){
+            if (flag == 1) {
                 searchList = filterList;
                 recyclerView.setVisibility(View.VISIBLE);
                 textView.setVisibility(View.GONE);
-            }
-            else {
+            } else {
                 recyclerView.setVisibility(View.GONE);
                 textView.setVisibility(View.VISIBLE);
             }
         }
         notifyDataSetChanged();
     }
+
     @NonNull
     @Override
     public CreateReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.meeting_rooms_item,parent,false);
+        View view = layoutInflater.inflate(R.layout.meeting_rooms_item, parent, false);
         return new CreateReservationViewHolder(view);
     }
 
@@ -102,7 +104,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
     static class CreateReservationViewHolder extends RecyclerView.ViewHolder {
         Button btnBookNow;
         ImageView imgRoom;
-        TextView txtName,txtLocation,txtPrice;
+        TextView txtName, txtLocation, txtPrice;
         RatingBar ratingBar;
 
         public CreateReservationViewHolder(@NonNull View itemView) {
