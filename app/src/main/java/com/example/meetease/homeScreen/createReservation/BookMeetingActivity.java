@@ -13,7 +13,6 @@ import android.app.TaskStackBuilder;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -60,7 +59,7 @@ public class BookMeetingActivity extends AppCompatActivity {
         tvPrice = findViewById(R.id.tvPrice);
         tvBookingDate.setText("Not Selected");
         tvBookingTime.setText("Not Selected");
-        tvPrice.setText("0 ₹");
+        tvPrice.setText("0 " + VariableBag.CURRENCY);
 
         Intent intent = getIntent();
         roomName = intent.getStringExtra("roomName");

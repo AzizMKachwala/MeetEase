@@ -21,7 +21,6 @@ import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
-import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
 import com.example.meetease.homeScreen.createReservation.CreateReservationActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
 import java.util.concurrent.Executor;
