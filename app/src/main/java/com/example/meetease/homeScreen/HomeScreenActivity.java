@@ -120,6 +120,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             Intent intent = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
             startActivity(intent);
         }
+
         if(view == helpAndSupport){
             Intent intent = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
             startActivity(intent);
