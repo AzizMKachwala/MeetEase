@@ -32,10 +32,10 @@ import java.util.Calendar;
 public class BookMeetingActivity extends AppCompatActivity {
 
     TextView tvDate, tvStartTime, tvEndTime, tvRoomName, tvRoomNumber, tvBookingDate, tvBookingTime, tvPrice;
-    ImageView ivDate, ivStartTime, ivEndDate,ivBack;
+    ImageView ivDate, ivStartTime, ivEndDate, ivBack;
     Button btnBookNow;
 
-    String roomName,roomPrice,roomLocation;
+    String roomName, roomPrice, roomLocation;
 
     public int mYear, mMonth, mDay, year, mHour, mMinute, month, day, startHour, startMinute, endHour, endMinute;
 
@@ -150,17 +150,11 @@ public class BookMeetingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (tvDate.getText().toString().equals("Select Date") || tvEndTime.getText().toString().isEmpty()) {
                     Toast.makeText(BookMeetingActivity.this, "Select Date First", Toast.LENGTH_SHORT).show();
-                }
-
-                else if (tvStartTime.getText().toString().equals("Select Start Time")) {
-                    Toast.makeText(BookMeetingActivity.this, "Select StartTime First", Toast.LENGTH_SHORT).show();
-                }
-
-                else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()) {
-                    Toast.makeText(BookMeetingActivity.this, "Select EndTime Second", Toast.LENGTH_SHORT).show();
-                }
-
-                else {
+                } else if (tvStartTime.getText().toString().equals("Select Start Time")) {
+                    Toast.makeText(BookMeetingActivity.this, "Select Start Time First", Toast.LENGTH_SHORT).show();
+                } else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()) {
+                    Toast.makeText(BookMeetingActivity.this, "Select End Time Second", Toast.LENGTH_SHORT).show();
+                } else {
                     Toast.makeText(BookMeetingActivity.this, "Booking SuccessFully", Toast.LENGTH_SHORT).show();
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -173,7 +167,7 @@ public class BookMeetingActivity extends AppCompatActivity {
                     PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                     Notification notification = new NotificationCompat.Builder(BookMeetingActivity.this, "alarm_channel")
                             .setContentTitle("Congratulations")
-                            .setContentText("meeting room is booked successFully")
+                            .setContentText("Meeting Room is Booked SuccessFully")
                             .setSmallIcon(R.drawable.img_meeting_rooms)
                             .setContentIntent(resultPendingIntent)
                             .build();

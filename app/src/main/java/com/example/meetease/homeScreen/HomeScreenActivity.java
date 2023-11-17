@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -79,6 +81,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         if (view == ivSetting) {
             scrollView.setVisibility(View.VISIBLE);
             tvTrans.setVisibility(View.VISIBLE);
+
+            Animation slideInAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in);
+            scrollView.startAnimation(slideInAnimation);
+            ivSetting.startAnimation(slideInAnimation);
+            tvTrans.startAnimation(slideInAnimation);
         }
 
         if (view == security) {

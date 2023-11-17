@@ -36,7 +36,6 @@
         android:inputType="textAutoComplete"
         android:paddingStart="@dimen/_20sdp" />
 
-
     <RelativeLayout
         android:id="@+id/lytPassword"
         android:layout_width="match_parent"
