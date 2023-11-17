@@ -14,7 +14,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.homeScreen.HomeScreenActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 
@@ -40,6 +42,17 @@ public class LoginActivity extends AppCompatActivity {
         txtResetPassword = findViewById(R.id.txtResetPassword);
         imgPasswordCloseEye= findViewById(R.id.imgPasswordCloseEye);
 
+        btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
+                PreferenceManager preferenceManager = new PreferenceManager(LoginActivity.this);
+                preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
+                startActivity(intent);
+                finish();
+
+            }
+        });
         imgPasswordCloseEye.setOnClickListener(v -> {
 
             if (password.equals("Hide")) {

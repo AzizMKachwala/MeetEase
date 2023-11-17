@@ -113,6 +113,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             builder.setCancelable(false);
             builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
+                preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,false);
                 Intent intent = new Intent(HomeScreenActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();

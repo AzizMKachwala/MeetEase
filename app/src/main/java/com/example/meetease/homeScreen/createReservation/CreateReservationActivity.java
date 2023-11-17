@@ -78,10 +78,12 @@ public class CreateReservationActivity extends AppCompatActivity {
         createReservationAdapter.setUpInterFace(new CreateReservationAdapter.CreateReservationAdapterDataClick() {
             @Override
             public void bookDataClick(CreateReservationDataModel createReservationDataModel) {
-                Intent intent = new Intent(CreateReservationActivity.this,BookMeetingActivity.class);
+                Intent intent = new Intent(CreateReservationActivity.this,DetailsActivity.class);
                 intent.putExtra("roomName",createReservationDataModel.roomName);
                 intent.putExtra("roomPrice",createReservationDataModel.roomPrice);
                 intent.putExtra("roomLocation",createReservationDataModel.roomLocation);
+                intent.putExtra("roomRating",createReservationDataModel.roomRating);
+                intent.putExtra("roomImage",createReservationDataModel.roomImage);
                 startActivity(intent);
                 finish();
             }
