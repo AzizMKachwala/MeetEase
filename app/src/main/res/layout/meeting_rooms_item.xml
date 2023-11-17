@@ -95,7 +95,8 @@
                         style="?android:attr/ratingBarStyleIndicator"
                         android:rating="4"
                         android:numStars="5"
-                        android:stepSize="1" />
+                        android:stepSize="1"
+                        android:theme="@style/RatingBar"/>
 
                     <Button
                         android:id="@+id/btnBookNow"
