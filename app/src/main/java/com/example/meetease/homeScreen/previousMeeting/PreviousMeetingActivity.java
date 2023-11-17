@@ -24,16 +24,20 @@ public class PreviousMeetingActivity extends AppCompatActivity {
     EditText etvSearch;
     TextView tvNoData;
     ImageView ivClose;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_previous_meeting);
+
         recyclerviewPreviousMeeting = findViewById(R.id.recyclerviewPreviousMeeting);
         etvSearch = findViewById(R.id.etvSearch);
         tvNoData = findViewById(R.id.tvNoData);
         ivClose = findViewById(R.id.ivClose);
+
         ivClose.setVisibility(View.GONE);
         tvNoData.setVisibility(View.GONE);
+
         ivClose.setOnClickListener(view -> {
             ivClose.setVisibility(View.GONE);
             etvSearch.setText("");
@@ -46,14 +50,13 @@ public class PreviousMeetingActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (previousMeetingAdapter != null){
-                    if (!etvSearch.getText().toString().isEmpty()){
+                if (previousMeetingAdapter != null) {
+                    if (!etvSearch.getText().toString().isEmpty()) {
                         ivClose.setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         ivClose.setVisibility(View.GONE);
                     }
-                    previousMeetingAdapter.search(charSequence,tvNoData,recyclerviewPreviousMeeting);
+                    previousMeetingAdapter.search(charSequence, tvNoData, recyclerviewPreviousMeeting);
                 }
             }
 
@@ -63,7 +66,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
             }
         });
         List<PreviousMeetingDataModel> list = new ArrayList<>();
-        previousMeetingAdapter = new PreviousMeetingAdapter(list,this);
+        previousMeetingAdapter = new PreviousMeetingAdapter(list, this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
         recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
         recyclerviewPreviousMeeting.setAdapter(previousMeetingAdapter);

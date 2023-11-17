@@ -93,7 +93,7 @@ public class CreateReservationActivity extends AppCompatActivity {
         roomList.add(new CreateReservationDataModel("hotel taj","Ahmedabad","1000","4","https://ballantyneexecutivesuites.com/wp-content/uploads/2015/10/Depositphotos_13534536_original.jpg"));
         roomList.add(new CreateReservationDataModel("hotel raj","Rajkot","2000","5","https://ballantyneexecutivesuites.com/wp-content/uploads/2015/10/Depositphotos_13534536_original.jpg"));
         roomList.add(new CreateReservationDataModel("hotel Sky","surat","500","3","https://ballantyneexecutivesuites.com/wp-content/uploads/2015/10/Depositphotos_13534536_original.jpg"));
-        roomList.add(new CreateReservationDataModel("hotel hill","Gandinagar","1500","4","https://images.pexels.com/photos/2976970/pexels-photo-2976970.jpeg"));
+        roomList.add(new CreateReservationDataModel("hotel hill","Gandhinagar","1500","4","https://images.pexels.com/photos/2976970/pexels-photo-2976970.jpeg"));
         roomList.add(new CreateReservationDataModel("hotel taj","Baroda","300","2","https://images.pexels.com/photos/2976970/pexels-photo-2976970.jpeg"));
     }
 }

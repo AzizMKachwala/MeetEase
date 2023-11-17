@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.meetease.R;
+import com.example.meetease.appUtils.VariableBag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -82,7 +83,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
         holder.txtName.setText(searchList.get(position).roomName);
         holder.txtLocation.setText(searchList.get(position).roomLocation);
-        holder.txtPrice.setText(searchList.get(position).roomPrice);
+        holder.txtPrice.setText(searchList.get(position).roomPrice + VariableBag.CURRENCY);
         Glide
                 .with(context)
                 .load(searchList.get(position).roomImage)

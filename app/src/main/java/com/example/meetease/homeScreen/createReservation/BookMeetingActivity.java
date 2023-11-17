@@ -25,6 +25,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.homeScreen.HomeScreenActivity;
 
 import java.util.Calendar;
@@ -44,7 +45,6 @@ public class BookMeetingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_meeting);
 
-
         tvDate = findViewById(R.id.tvDate);
         tvStartTime = findViewById(R.id.tvStartTime);
         tvEndTime = findViewById(R.id.tvEndTime);
@@ -60,7 +60,7 @@ public class BookMeetingActivity extends AppCompatActivity {
         tvPrice = findViewById(R.id.tvPrice);
         tvBookingDate.setText("Not Selected");
         tvBookingTime.setText("Not Selected");
-        tvPrice.setText("0 $");
+        tvPrice.setText("0 ₹");
 
         Intent intent = getIntent();
         roomName = intent.getStringExtra("roomName");
@@ -185,7 +185,7 @@ public class BookMeetingActivity extends AppCompatActivity {
             hour++;
         }
         tvBookingTime.setText(hour + " " + "Hour");
-        tvPrice.setText(hour * Integer.parseInt(roomPrice) + " " + "$");
+        tvPrice.setText(hour * Integer.parseInt(roomPrice) + " " + VariableBag.CURRENCY);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
