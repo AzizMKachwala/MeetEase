@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetease.R;
+import com.example.meetease.dataModel.RoomDetailDataModel;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,12 @@ import java.util.List;
 public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeetingAdapter.MeetingViewHolder> {
 
 
-    List<PreviousMeetingDataModel> dataModelList,searchList;
+    List<RoomDetailDataModel.RoomDetailList> dataModelList,searchList;
     Context context;
 
-    public PreviousMeetingAdapter(List<PreviousMeetingDataModel> dataModelList, Context context) {
+    public PreviousMeetingAdapter(List<RoomDetailDataModel.RoomDetailList> dataModelList, Context context) {
         this.dataModelList = dataModelList;
+        this.searchList = dataModelList;
         this.context = context;
     }
 
@@ -37,8 +39,8 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
         }
         else {
             int flag = 0;
-            List<PreviousMeetingDataModel> filterList = new ArrayList<>();
-            for (PreviousMeetingDataModel single : dataModelList){
+            List<RoomDetailDataModel.RoomDetailList> filterList = new ArrayList<>();
+            for (RoomDetailDataModel.RoomDetailList single : dataModelList){
 //                if (single.getName().toLowerCase().contains(charString.toLowerCase())){
 //                    filterList.add(single);
 //                    flag = 1;
@@ -72,7 +74,7 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
 
     @Override
     public int getItemCount() {
-        return 0;
+        return dataModelList.size();
     }
 
     class MeetingViewHolder extends RecyclerView.ViewHolder {

@@ -14,9 +14,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.meetease.R;
-import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingActivity;
-import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingAdapter;
-import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingDataModel;
 
 import java.util.ArrayList;
 import java.util.List;

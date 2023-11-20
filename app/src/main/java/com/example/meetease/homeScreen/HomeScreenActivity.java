@@ -83,6 +83,28 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     }
 
     @Override
+    public void onBackPressed() {
+        if(scrollView.getVisibility() == View.VISIBLE){
+            scrollView.setVisibility(View.GONE);
+            tvTrans.setVisibility(View.GONE);
+        }
+        else {
+            AlertDialog.Builder builder = new AlertDialog.Builder(HomeScreenActivity.this);
+            builder.setMessage("Are You Sure You Want To Exit?");
+            builder.setTitle("Alert !!");
+            builder.setCancelable(false);
+            builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+                dialog.cancel();
+                finish();
+            });
+            builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+                dialog.cancel();
+            });
+            AlertDialog alertDialog = builder.create();
+            alertDialog.show();
+        }
+    }
+    @Override
     public void onClick(View view) {
         if (view == ivSetting) {
             scrollView.setVisibility(View.VISIBLE);

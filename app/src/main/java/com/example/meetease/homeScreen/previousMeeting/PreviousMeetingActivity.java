@@ -113,7 +113,11 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                                 if (roomDetailDataModel.getStatus().equals("200")){
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
-//                                    previousMeetingAdapter = new PreviousMeetingAdapter(List<roomDetailDataModel>)
+//                                    List<RoomDetailDataModel>
+                                    for (int i=0;i<roomDetailDataModel.getRoomDetailList().size();i++){
+                                        //if ()
+                                    }
+                                    previousMeetingAdapter = new PreviousMeetingAdapter(roomDetailDataModel.getRoomDetailList(),PreviousMeetingActivity.this);
                                 }
                             }
                         });
