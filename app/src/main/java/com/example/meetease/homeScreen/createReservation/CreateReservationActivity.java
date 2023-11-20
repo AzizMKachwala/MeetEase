@@ -85,7 +85,6 @@ public class CreateReservationActivity extends AppCompatActivity {
                 intent.putExtra("roomRating",createReservationDataModel.roomRating);
                 intent.putExtra("roomImage",createReservationDataModel.roomImage);
                 startActivity(intent);
-                finish();
             }
         });
     }

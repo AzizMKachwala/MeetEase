@@ -56,20 +56,20 @@ public class DetailsActivity extends AppCompatActivity {
 
         checkFavourite = "0";
         if (checkFavourite.equals("0")){
-            imgFavourite.setImageResource(R.drawable.baseline_star_outline_24);
+            imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
         }
         else {
-            imgFavourite.setImageResource(R.drawable.baseline_star_filled_24);
+            imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
         }
         imgFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkFavourite.equals("0")){
-                    imgFavourite.setImageResource(R.drawable.baseline_star_outline_24);
+                    imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
                     checkFavourite = "1";
                 }
                 else {
-                    imgFavourite.setImageResource(R.drawable.baseline_star_filled_24);
+                    imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
                     checkFavourite = "0";
                 }
             }
