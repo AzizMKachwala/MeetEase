@@ -14,11 +14,13 @@ public class RestClient {
         Gson gson = new GsonBuilder()
                 .setLenient()
                 .create();
+
         Retrofit.Builder builder = new Retrofit.Builder()
                 .baseUrl(baseurl)
                 .client(UnsafeOkHttpClient.getUnsafeOkHttpClient(key,key,key))
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .addCallAdapterFactory(RxJavaCallAdapterFactory.create());
+
         Retrofit retrofit = builder.build();
         return retrofit.create(serviceClass);
     }
