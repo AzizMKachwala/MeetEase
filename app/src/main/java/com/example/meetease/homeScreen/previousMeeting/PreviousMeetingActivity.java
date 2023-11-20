@@ -113,10 +113,14 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                                 if (roomDetailDataModel.getStatus().equals("200")){
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
-//                                    List<RoomDetailDataModel>
+                                    List<RoomDetailDataModel.RoomDetailList> newList = new ArrayList<>();
                                     for (int i=0;i<roomDetailDataModel.getRoomDetailList().size();i++){
-                                        //if ()
+                                        if (roomDetailDataModel.getRoomDetailList().get(i).getUpComingStatus().equals("2")){
+                                            newList.add(roomDetailDataModel.getRoomDetailList().get(i));
+                                        }
                                     }
+                                    roomDetailDataModel.getRoomDetailList().clear();
+                                    roomDetailDataModel.setRoomDetailList(newList);
                                     previousMeetingAdapter = new PreviousMeetingAdapter(roomDetailDataModel.getRoomDetailList(),PreviousMeetingActivity.this);
                                 }
                             }

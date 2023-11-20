@@ -1,11 +1,20 @@
 package com.example.meetease.dataModel;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 
 public class RoomDetailDataModel {
 
+    @SerializedName("roomDetailList")
+    @Expose
     List<RoomDetailList> roomDetailList;
+    @SerializedName("message")
+    @Expose
     String message;
+    @SerializedName("status")
+    @Expose
     String status;
 
     public RoomDetailDataModel(List<RoomDetailList> roomDetailList, String message, String status) {
@@ -39,13 +48,29 @@ public class RoomDetailDataModel {
     }
 
     public class RoomDetailList{
+        @SerializedName("roomId")
+        @Expose
         String roomId;
+        @SerializedName("roomName")
+        @Expose
         String roomName;
+        @SerializedName("RoomImage")
+        @Expose
         String RoomImage;
+        @SerializedName("location")
+        @Expose
         String location;
+        @SerializedName("upComingStatus")
+        @Expose
         String upComingStatus;
+        @SerializedName("favoriteRoom")
+        @Expose
         String favoriteRoom;
+        @SerializedName("roomRating")
+        @Expose
         int roomRating;
+        @SerializedName("roomPrice")
+        @Expose
         int roomPrice;
 
         public RoomDetailList(String roomId, String roomName, String roomImage, String location, String upComingStatus, String favoriteRoom, int roomRating, int roomPrice) {

@@ -13,6 +13,7 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
@@ -22,6 +23,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
+import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.network.RestCall;
+import com.example.meetease.network.RestClient;
+import com.example.meetease.network.UserResponse;
 
 import java.io.File;
 import java.io.IOException;
@@ -29,6 +35,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
 
 public class ProfileActivity extends AppCompatActivity {
 
@@ -40,11 +51,15 @@ public class ProfileActivity extends AppCompatActivity {
     int REQUEST_CAMERA_PERMISSION = 101;
     ActivityResultLauncher<Intent> cameraLauncher;
     File currentPhotoFile;
+    RestCall restCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_profile);
+
+
+        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
 
         ivBack = findViewById(R.id.ivBack);
         imgEdit = findViewById(R.id.imgEdit);
@@ -129,5 +144,49 @@ public class ProfileActivity extends AppCompatActivity {
         currentPhotoFile = image;
         currentPhotoPath = image.getAbsolutePath();
         return image;
+    }
+    void editUser(){
+        PreferenceManager preferenceManager = new PreferenceManager(this);
+        String user_id = preferenceManager.getKeyValueString(VariableBag.user_id,"");
+
+        RequestBody tag = RequestBody.create(MediaType.parse("text/plain"),"UpdateUser");
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), categoryId);
+        RequestBody full_name = RequestBody.create(MediaType.parse("text/plain"), categoryId);
+        RequestBody mobile = RequestBody.create(MediaType.parse("text/plain"), subCategoryId);
+        RequestBody email = RequestBody.create(MediaType.parse("text/plain"), etvProductName.getText().toString());
+        RequestBody password = RequestBody.create(MediaType.parse("text/plain"), etvProductPrice.getText().toString());
+        MultipartBody.Part fileToUploadfile = null;
+        if (fileToUploadfile == null && currentPhotoPath != "") {
+            try {
+                StrictMode.VmPolicy.Builder builder2 = new StrictMode.VmPolicy.Builder();
+                StrictMode.setVmPolicy(builder2.build());
+                File file = new File(currentPhotoPath);
+                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+                fileToUploadfile = MultipartBody.Part.createFormData("product_image", file.getName(), requestBody);
+            } catch (Exception e) {
+                Toast.makeText(this, "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                e.printStackTrace();
+            }
+        }
+        restCall.EditUser(tag,user_id,full_name,mobile,email,password,fileToUploadfile)
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<UserResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+
+                    @Override
+                    public void onNext(UserResponse userResponse) {
+
+                    }
+                });
+
     }
 }

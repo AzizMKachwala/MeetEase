@@ -1,6 +1,8 @@
 package com.example.meetease.homeScreen.createReservation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -24,7 +26,8 @@ public class CreateReservationActivity extends AppCompatActivity {
     CreateReservationAdapter createReservationAdapter;
     EditText etvSearch;
     TextView tvNoData;
-    ImageView ivClose;
+    ImageView ivClose,img_filter;
+    FilterFragment filterFragment;
     List<CreateReservationDataModel> roomList;
     public int year, month, day, startHour, startMinute, endHour, endMinute;
     @Override
@@ -37,6 +40,7 @@ public class CreateReservationActivity extends AppCompatActivity {
         recyclerViewMeetingRooms = findViewById(R.id.recyclerViewMeetingRooms);
         etvSearch = findViewById(R.id.etvSearch);
         tvNoData = findViewById(R.id.tvNoData);
+        img_filter = findViewById(R.id.img_filter);
         ivClose = findViewById(R.id.ivClose);
 
         ivClose.setVisibility(View.GONE);
@@ -46,7 +50,16 @@ public class CreateReservationActivity extends AppCompatActivity {
             ivClose.setVisibility(View.GONE);
             etvSearch.setText("");
         });
-
+        img_filter.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                filterFragment = new FilterFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                filterFragment.show(fragmentTransaction,"#tag");
+                filterFragment.setCancelable(false);
+            }
+        });
         Intent intent = getIntent();
         year = Integer.parseInt(intent.getExtras().getString("year","0"));
         month = Integer.parseInt(intent.getExtras().getString("month","0"));

@@ -53,16 +53,6 @@ public class LoginActivity extends AppCompatActivity {
         tools = new Tools(LoginActivity.this);
         preferenceManager = new PreferenceManager(LoginActivity.this);
 
-//        btnLogin.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
-//                PreferenceManager preferenceManager = new PreferenceManager(LoginActivity.this);
-//                preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
-//                startActivity(intent);
-//                finish();
-//            }
-//        });
         
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -145,6 +135,11 @@ public class LoginActivity extends AppCompatActivity {
                                 if (loginDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
 
                                     preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
+                                    preferenceManager.setKeyValueString(VariableBag.user_id,loginDataModel.getUser_id());
+                                    preferenceManager.setKeyValueString(VariableBag.full_name,loginDataModel.getFull_name());
+                                    preferenceManager.setKeyValueString(VariableBag.mobile,loginDataModel.getMobile());
+                                    preferenceManager.setKeyValueString(VariableBag.email,loginDataModel.getEmail());
+                                    preferenceManager.setKeyValueString(VariableBag.password,etvPassword.getText().toString());
                                     startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class));
                                     finish();
                                 }

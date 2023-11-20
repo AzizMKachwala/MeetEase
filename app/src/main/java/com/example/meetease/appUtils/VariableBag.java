@@ -8,5 +8,10 @@ public class VariableBag {
     public  static String SUCCESS_RESULT = "200";
     public static String SecuritySwitchCheck = "SecuritySwitchCheck";
     public static String SessionManage = "SessionManage";
+    public static String user_id = "user_id";
+    public static String full_name = "full_name";
+    public static String mobile = "mobile";
+    public static String email = "email";
+    public static String password = "password";
 
 }

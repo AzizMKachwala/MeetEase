@@ -4,9 +4,13 @@ package com.example.meetease.network;
 import com.example.meetease.dataModel.LoginDataModel;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
+import retrofit2.http.Part;
 import rx.Single;
 
 public interface RestCall {
@@ -32,4 +36,14 @@ public interface RestCall {
     Single<RoomDetailDataModel> RoomDetails(
             @Field("tag") String tag);
 
+    @Multipart
+    @POST("UserController.php")
+    Single<UserResponse> EditUser(
+            @Part("tag") RequestBody tag,
+            @Part("user_id") RequestBody user_id,
+            @Part("full_name") RequestBody full_name,
+            @Part("mobile") RequestBody mobile,
+            @Part("email") RequestBody email,
+            @Part("password") RequestBody password,
+            @Part MultipartBody.Part profile_photo1);
 }
