@@ -15,10 +15,16 @@ import android.widget.Toast;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
+import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.dataModel.LoginDataModel;
 import com.example.meetease.homeScreen.HomeScreenActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
+
+import rx.Scheduler;
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -28,13 +34,13 @@ public class LoginActivity extends AppCompatActivity {
     ImageView imgPasswordCloseEye;
     String password = "Hide";
     RestCall restCall;
+    Tools tools;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         etvEmailOrPhone = findViewById(R.id.etvEmailOrPhone);
         etvPassword = findViewById(R.id.etvPassword);
         btnLogin = findViewById(R.id.btnLogin);
@@ -42,17 +48,31 @@ public class LoginActivity extends AppCompatActivity {
         txtResetPassword = findViewById(R.id.txtResetPassword);
         imgPasswordCloseEye= findViewById(R.id.imgPasswordCloseEye);
 
+        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
+        tools = new Tools(LoginActivity.this);
+
+        String email = etvEmailOrPhone.getText().toString().trim();
+        String pass = etvPassword.getText().toString().trim();
+
+//        btnLogin.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
+//                PreferenceManager preferenceManager = new PreferenceManager(LoginActivity.this);
+//                preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
+//                startActivity(intent);
+//                finish();
+//
+//            }
+//        });
+        
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(LoginActivity.this, HomeScreenActivity.class);
-                PreferenceManager preferenceManager = new PreferenceManager(LoginActivity.this);
-                preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
-                startActivity(intent);
-                finish();
-
+                loginUser();
             }
         });
+
         imgPasswordCloseEye.setOnClickListener(v -> {
 
             if (password.equals("Hide")) {
@@ -83,5 +103,45 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "RESET PASSWORD", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private void loginUser() {
+        tools.showLoading();
+        restCall.LoginUser("LoginUser",etvEmailOrPhone.getText().toString().trim(),etvPassword.getText().toString().trim())
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<LoginDataModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(LoginDataModel loginDataModel) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                Toast.makeText(LoginActivity.this, loginDataModel.getMessage(), Toast.LENGTH_SHORT).show();
+                                if (loginDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
+                                    startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class));
+                                    finish();
+                                }
+
+                            }
+                        });
+                    }
+                });
     }
 }

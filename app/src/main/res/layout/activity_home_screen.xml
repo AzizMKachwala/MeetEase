@@ -94,7 +94,7 @@
                     android:layout_marginEnd="@dimen/_3sdp"
                     android:gravity="start"
                     android:padding="@dimen/_5sdp"
-                    android:text="Upcoming meeting"
+                    android:text="Upcoming Meetings"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_15sdp" />
 
@@ -128,7 +128,7 @@
                     android:layout_margin="@dimen/_6sdp"
                     android:gravity="start"
                     android:padding="@dimen/_5sdp"
-                    android:text="Previous meeting reservation"
+                    android:text="Previous Meetings"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14sdp" />
 
