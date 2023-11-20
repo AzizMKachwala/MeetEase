@@ -1,10 +1,12 @@
-package com.example.meetease;
+package com.example.meetease.homeScreen.setting;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.example.meetease.R;
 
 public class ContactUsActivity extends AppCompatActivity {
 

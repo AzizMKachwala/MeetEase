@@ -110,7 +110,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (roomDetailDataModel.getStatus().equals("200")){
+                                if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
                                     List<RoomDetailDataModel.RoomDetailList> newList = new ArrayList<>();

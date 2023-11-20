@@ -14,7 +14,7 @@
         android:layout_height="@dimen/_25sdp"
         android:layout_margin="@dimen/_15sdp"
         android:src="@drawable/img_notification"
-        app:layout_constraintEnd_toStartOf="@+id/ivSetting"
+        app:layout_constraintStart_toEndOf="@+id/ivSetting"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
@@ -23,7 +23,7 @@
         android:layout_height="@dimen/_25sdp"
         android:layout_margin="@dimen/_15sdp"
         android:src="@drawable/img_menu"
-        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
@@ -34,7 +34,7 @@
         android:textColor="@color/white"
         android:textSize="@dimen/_20sdp"
         android:textStyle="italic"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -275,12 +275,6 @@
         android:layout_height="match_parent"
         android:weightSum="2">
 
-        <TextView
-            android:id="@+id/tvTrans"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:background="#A6000000" />
 
         <ScrollView
             android:id="@+id/scrollView"
@@ -367,7 +361,7 @@
                         android:layout_marginTop="@dimen/_10sdp"
                         android:layout_marginBottom="@dimen/_10sdp"
                         android:gravity="center_horizontal"
-                        android:text="Available Rooms"
+                        android:text="All Rooms"
                         android:textSize="@dimen/_15sdp"
                         app:backgroundTint="@color/gray" />
                 </LinearLayout>
@@ -530,6 +524,12 @@
             </LinearLayout>
         </ScrollView>
 
+        <TextView
+            android:id="@+id/tvTrans"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:background="#A6000000" />
     </LinearLayout>
 
 

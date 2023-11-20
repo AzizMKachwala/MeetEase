@@ -16,14 +16,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
-import com.example.meetease.ContactUsActivity;
+import com.example.meetease.homeScreen.setting.AvailableRoomsActivity;
+import com.example.meetease.homeScreen.setting.ContactUsActivity;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
-import com.example.meetease.homeScreen.createReservation.CreateReservationActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
 
 import java.util.concurrent.Executor;
@@ -126,7 +126,12 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             tvTrans.setVisibility(View.GONE);
         }
 
-        if (view == availableRooms || view == layoutAddReservation) {
+        if (view == availableRooms ) {
+            Intent intent = new Intent(HomeScreenActivity.this, AvailableRoomsActivity.class);
+            startActivity(intent);
+        }
+
+        if(view == layoutAddReservation){
             Intent intent = new Intent(HomeScreenActivity.this, BookMeetingActivity.class);
             startActivity(intent);
         }

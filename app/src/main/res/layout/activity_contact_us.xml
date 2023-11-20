@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightLeafBrown"
-    tools:context=".ContactUsActivity">
+    tools:context=".homeScreen.setting.ContactUsActivity">
 
     <ImageView
         android:id="@+id/ivBack"

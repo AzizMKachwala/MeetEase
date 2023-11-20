@@ -38,6 +38,7 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
+
         etvName = findViewById(R.id.etvName);
         etvMobileNumber = findViewById(R.id.etvMobileNumber);
         etvPassword = findViewById(R.id.etvPassword);
@@ -165,7 +166,7 @@ public class SignUpActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 Toast.makeText(SignUpActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                                if(userResponse.getStatus().equals("200")){
+                                if(userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
                                     startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
                                     finish();
                                 }
