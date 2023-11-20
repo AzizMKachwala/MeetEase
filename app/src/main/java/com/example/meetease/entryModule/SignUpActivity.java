@@ -15,6 +15,14 @@ import android.widget.Toast;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
+import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.dataModel.AddUserDataModel;
+import com.example.meetease.network.RestCall;
+import com.example.meetease.network.RestClient;
+import com.example.meetease.network.UserResponse;
+
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
 
 public class SignUpActivity extends AppCompatActivity {
 
@@ -24,12 +32,13 @@ public class SignUpActivity extends AppCompatActivity {
     ImageView imgPasswordCloseEye;
     Tools tools;
     String password = "Hide";
-
+    RestCall restCall;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
 
+        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         etvName = findViewById(R.id.etvName);
         etvMobileNumber = findViewById(R.id.etvMobileNumber);
         etvPassword = findViewById(R.id.etvPassword);
@@ -70,9 +79,8 @@ public class SignUpActivity extends AppCompatActivity {
             public void onClick(View view) {
                 validation(etvName, etvMobileNumber, etvEmail, etvPassword, etvConfirmPassword);
                 if (validation(etvName, etvMobileNumber, etvEmail, etvPassword, etvConfirmPassword)) {
-                    Toast.makeText(SignUpActivity.this, "Signup", Toast.LENGTH_SHORT).show();
-                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
-                    finish();
+                    tools.showLoading();
+                    AddUser();
                 }
             }
         });
@@ -128,5 +136,44 @@ public class SignUpActivity extends AppCompatActivity {
         } else {
             return true;
         }
+    }
+
+    void AddUser(){
+        restCall.AddUser("AddUser",etvName.getText().toString(),etvEmail.getText().toString(),etvMobileNumber.getText().toString(),etvPassword.getText().toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<UserResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                Toast.makeText(SignUpActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(UserResponse userResponse) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                Toast.makeText(SignUpActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                if(userResponse.getStatus().equals("200")){
+                                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                                    finish();
+                                }
+                            }
+                        });
+                    }
+                });
+
     }
 }

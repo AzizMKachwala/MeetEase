@@ -2,6 +2,7 @@ package com.example.meetease.network;
 
 
 import com.example.meetease.dataModel.AddUserDataModel;
+import com.example.meetease.dataModel.RoomDetailDataModel;
 
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
@@ -10,11 +11,17 @@ import rx.Single;
 
 public interface RestCall {
     @FormUrlEncoded
-    @POST("CategoryController.php")
-    Single<AddUserDataModel> AddCategory(
+    @POST("UserController.php")
+    Single<UserResponse> AddUser(
             @Field("tag") String tag,
-            @Field("user_id") String user_id,
-            @Field("category_name") String category_name);
+            @Field("full_name") String full_name,
+            @Field("email") String email,
+            @Field("mobile") String mobile,
+            @Field("password") String password);
 
+    @FormUrlEncoded
+    @POST("UserController.php")
+    Single<RoomDetailDataModel> RoomDetails(
+            @Field("tag") String tag);
 
 }

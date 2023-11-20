@@ -1,7 +1,14 @@
 package com.example.meetease.network;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
 public class UserResponse {
+    @SerializedName("message")
+    @Expose
     String message;
+    @SerializedName("status")
+    @Expose
     String status;
 
     public UserResponse(String message, String status) {

@@ -11,11 +11,21 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.Tools;
+import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.dataModel.RoomDetailDataModel;
+import com.example.meetease.entryModule.SignUpActivity;
+import com.example.meetease.network.RestCall;
+import com.example.meetease.network.RestClient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
 
 public class PreviousMeetingActivity extends AppCompatActivity {
 
@@ -24,12 +34,16 @@ public class PreviousMeetingActivity extends AppCompatActivity {
     EditText etvSearch;
     TextView tvNoData;
     ImageView ivClose;
+    RestCall restCall;
+    Tools tools;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_previous_meeting);
 
+        tools = new Tools(this);
+        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         recyclerviewPreviousMeeting = findViewById(R.id.recyclerviewPreviousMeeting);
         etvSearch = findViewById(R.id.etvSearch);
         tvNoData = findViewById(R.id.tvNoData);
@@ -65,10 +79,45 @@ public class PreviousMeetingActivity extends AppCompatActivity {
 
             }
         });
-        List<PreviousMeetingDataModel> list = new ArrayList<>();
-        previousMeetingAdapter = new PreviousMeetingAdapter(list, this);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
-        recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
-        recyclerviewPreviousMeeting.setAdapter(previousMeetingAdapter);
+        tools.showLoading();
+        roomDetail();
+
+    }
+
+    void roomDetail() {
+        restCall.RoomDetails("RoomDetails")
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<RoomDetailDataModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                Toast.makeText(PreviousMeetingActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(RoomDetailDataModel roomDetailDataModel) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (roomDetailDataModel.getStatus().equals("200")){
+                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
+                                    recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
+//                                    previousMeetingAdapter = new PreviousMeetingAdapter(List<roomDetailDataModel>)
+                                }
+                            }
+                        });
+                    }
+                });
     }
 }
