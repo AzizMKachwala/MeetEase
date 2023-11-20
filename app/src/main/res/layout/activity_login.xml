@@ -33,7 +33,7 @@
         android:layout_marginTop="@dimen/_30sdp"
         android:hint="Email Or Phone"
         android:imeOptions="actionNext"
-        android:inputType="textAutoComplete"
+        android:inputType="textEmailAddress"
         android:paddingStart="@dimen/_20sdp" />
 
     <RelativeLayout
