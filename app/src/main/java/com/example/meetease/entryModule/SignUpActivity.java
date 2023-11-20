@@ -29,6 +29,7 @@ public class SignUpActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
+
         etvName = findViewById(R.id.etvName);
         etvMobileNumber = findViewById(R.id.etvMobileNumber);
         etvPassword = findViewById(R.id.etvPassword);
@@ -36,8 +37,9 @@ public class SignUpActivity extends AppCompatActivity {
         etvEmail = findViewById(R.id.etvEmail);
         btnSignUp = findViewById(R.id.btnSignUp);
         txtLogin = findViewById(R.id.txtLogin);
-        tools = new Tools(SignUpActivity.this);
         imgPasswordCloseEye = findViewById(R.id.imgPasswordCloseEye);
+
+        tools = new Tools(SignUpActivity.this);
 
         imgPasswordCloseEye.setOnClickListener(v -> {
 
@@ -69,6 +71,8 @@ public class SignUpActivity extends AppCompatActivity {
                 validation(etvName, etvMobileNumber, etvEmail, etvPassword, etvConfirmPassword);
                 if (validation(etvName, etvMobileNumber, etvEmail, etvPassword, etvConfirmPassword)) {
                     Toast.makeText(SignUpActivity.this, "Signup", Toast.LENGTH_SHORT).show();
+                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                    finish();
                 }
             }
         });
@@ -84,36 +88,45 @@ public class SignUpActivity extends AppCompatActivity {
         if (name.isEmpty()) {
             etvName.setError("Enter Name");
             etvName.requestFocus();
+            return false;
         } else if (name.length() < 2) {
             etvName.setError("Enter Valid Name");
             etvName.requestFocus();
+            return false;
         } else if (mobileNumber.isEmpty()) {
             etvMobileNumber.setError("Enter Mobile Number");
             etvMobileNumber.requestFocus();
+            return false;
         } else if (mobileNumber.length() != 10) {
             etvMobileNumber.setError("Enter Mobile Number with 10 Digits");
             etvMobileNumber.requestFocus();
+            return false;
         } else if (email.isEmpty()) {
             etvEmail.setError("Email Address cannot be Empty");
             etvEmail.requestFocus();
+            return false;
         } else if (!Tools.isValidEmail(email)) {
             etvEmail.setError("Email Address must contain @ and .com in it");
             etvEmail.requestFocus();
+            return false;
         } else if (password.isEmpty()) {
             etvPassword.setError("Password cannot be Empty");
             etvPassword.requestFocus();
+            return false;
         } else if (!Tools.isValidPassword(password)) {
             etvPassword.setError("Password Must Consist Of Minimum length of 7 with At-least 1 UpperCase, 1 LowerCase, 1 Number & 1 Special Character");
             etvPassword.requestFocus();
+            return false;
         } else if (confirmPassword.isEmpty()) {
             etvConfirmPassword.setError("Confirm Password cannot be Empty");
             etvConfirmPassword.requestFocus();
+            return false;
         } else if (!password.equals(confirmPassword)) {
             etvConfirmPassword.setError("Confirm Password does not Match");
             etvConfirmPassword.requestFocus();
+            return false;
         } else {
             return true;
         }
-        return true;
     }
 }

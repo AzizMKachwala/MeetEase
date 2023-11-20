@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_15sdp"
-        android:text="SIGN UP"
+        android:text="SignUp"
         android:textSize="@dimen/_20sdp"
         android:textStyle="bold" />
 
@@ -47,7 +47,7 @@
         android:layout_height="wrap_content"
         android:hint="abc@gmail.com"
         android:imeOptions="actionNext"
-        android:inputType="textAutoComplete" />
+        android:inputType="textEmailAddress" />
 
     <RelativeLayout
         android:id="@+id/lytPassword"
@@ -71,7 +71,7 @@
             android:layout_height="@dimen/_40sdp"
             android:layout_alignParentEnd="true"
             android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginEnd="@dimen/_40sdp"
             android:src="@drawable/baseline_eye_24" />
 
     </RelativeLayout>
