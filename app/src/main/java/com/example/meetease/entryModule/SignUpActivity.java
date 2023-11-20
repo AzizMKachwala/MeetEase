@@ -82,34 +82,34 @@ public class SignUpActivity extends AppCompatActivity {
         String confirmPassword = etvConfirmPassword.getText().toString();
 
         if (name.isEmpty()) {
-            etvName.setError("enter your name");
+            etvName.setError("Enter Name");
             etvName.requestFocus();
         } else if (name.length() < 2) {
-            etvName.setError("enter valid Name");
+            etvName.setError("Enter Valid Name");
             etvName.requestFocus();
         } else if (mobileNumber.isEmpty()) {
-            etvMobileNumber.setError("enter your mobile number");
+            etvMobileNumber.setError("Enter Mobile Number");
             etvMobileNumber.requestFocus();
         } else if (mobileNumber.length() != 10) {
-            etvMobileNumber.setError("enter valid mobile number");
+            etvMobileNumber.setError("Enter Mobile Number with 10 Digits");
             etvMobileNumber.requestFocus();
         } else if (email.isEmpty()) {
-            etvEmail.setError("enter your E-mail");
+            etvEmail.setError("Email Address cannot be Empty");
             etvEmail.requestFocus();
-        } else if (!tools.isValidEmail(email)) {
-            etvEmail.setError("enter valid email");
+        } else if (!Tools.isValidEmail(email)) {
+            etvEmail.setError("Email Address must contain @ and .com in it");
             etvEmail.requestFocus();
         } else if (password.isEmpty()) {
-            etvPassword.setError("enter your password");
+            etvPassword.setError("Password cannot be Empty");
             etvPassword.requestFocus();
-        } else if (!tools.isValidPassword(password)) {
-            etvPassword.setError("enter valid password");
+        } else if (!Tools.isValidPassword(password)) {
+            etvPassword.setError("Password Must Consist Of Minimum length of 7 with At-least 1 UpperCase, 1 LowerCase, 1 Number & 1 Special Character");
             etvPassword.requestFocus();
         } else if (confirmPassword.isEmpty()) {
-            etvConfirmPassword.setError("enter your confirm Password");
+            etvConfirmPassword.setError("Confirm Password cannot be Empty");
             etvConfirmPassword.requestFocus();
         } else if (!password.equals(confirmPassword)) {
-            etvConfirmPassword.setError("confirm password dose not Match");
+            etvConfirmPassword.setError("Confirm Password does not Match");
             etvConfirmPassword.requestFocus();
         } else {
             return true;

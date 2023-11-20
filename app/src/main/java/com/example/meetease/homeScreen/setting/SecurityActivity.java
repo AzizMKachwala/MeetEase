@@ -42,22 +42,12 @@ public class SecurityActivity extends AppCompatActivity {
             }
         });
 
-        if (preferenceManager.getKeyValueBoolean(VariableBag.SecuritySwitchCheck)){
-            switchOnOff.setChecked(true);
-        }
-        else {
-            switchOnOff.setChecked(false);
-        }
+        switchOnOff.setChecked(preferenceManager.getKeyValueBoolean(VariableBag.SecuritySwitchCheck));
 
         switchOnOff.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean status) {
-                if (status){
-                    preferenceManager.setKeyValueBoolean(VariableBag.SecuritySwitchCheck,true);
-                }
-                else {
-                    preferenceManager.setKeyValueBoolean(VariableBag.SecuritySwitchCheck,false);
-                }
+                preferenceManager.setKeyValueBoolean(VariableBag.SecuritySwitchCheck, status);
 
             }
         });
