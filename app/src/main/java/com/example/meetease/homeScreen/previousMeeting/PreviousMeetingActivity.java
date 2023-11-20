@@ -85,6 +85,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
     }
 
     void roomDetail() {
+        tools.showLoading();
         restCall.RoomDetails("RoomDetails")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
@@ -110,6 +111,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                tools.stopLoading();
                                 if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
@@ -122,6 +124,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                                     roomDetailDataModel.getRoomDetailList().clear();
                                     roomDetailDataModel.setRoomDetailList(newList);
                                     previousMeetingAdapter = new PreviousMeetingAdapter(roomDetailDataModel.getRoomDetailList(),PreviousMeetingActivity.this);
+                                    recyclerviewPreviousMeeting.setAdapter(previousMeetingAdapter);
                                 }
                             }
                         });

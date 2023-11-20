@@ -25,7 +25,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
     List<CreateReservationDataModel> dataModelList, searchList;
     Context context;
-    String checkFavourite;
+    String checkFavourite = "0";
 
     CreateReservationAdapterDataClick createReservationAdapterDataClick;
 
@@ -97,20 +97,20 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
             }
         });
 
-        checkFavourite = "0";
         if (checkFavourite.equals("0")) {
             holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
         } else {
             holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
         }
+
         holder.imgFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 if (checkFavourite.equals("0")) {
-                    holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
+                    holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
                     checkFavourite = "1";
                 } else {
-                    holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
+                    holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
                     checkFavourite = "0";
                 }
             }
