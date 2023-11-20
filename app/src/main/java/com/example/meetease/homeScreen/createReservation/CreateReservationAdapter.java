@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.meetease.R;
+import com.example.meetease.appUtils.VariableBag;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
     List<CreateReservationDataModel> dataModelList, searchList;
     Context context;
+    String checkFavourite;
 
     CreateReservationAdapterDataClick createReservationAdapterDataClick;
 
@@ -52,7 +54,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
             int flag = 0;
             List<CreateReservationDataModel> filterList = new ArrayList<>();
             for (CreateReservationDataModel single : dataModelList) {
-                if (single.roomName.toLowerCase().contains(charString.toLowerCase())){
+                if (single.roomName.toLowerCase().contains(charString.toLowerCase())) {
                     filterList.add(single);
                     flag = 1;
                 }
@@ -82,7 +84,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
         holder.txtName.setText(searchList.get(position).roomName);
         holder.txtLocation.setText(searchList.get(position).roomLocation);
-        holder.txtPrice.setText(searchList.get(position).roomPrice);
+        holder.txtPrice.setText(searchList.get(position).roomPrice + VariableBag.CURRENCY);
         Glide
                 .with(context)
                 .load(searchList.get(position).roomImage)
@@ -94,6 +96,25 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
                 createReservationAdapterDataClick.bookDataClick(searchList.get(position));
             }
         });
+
+        checkFavourite = "0";
+        if (checkFavourite.equals("0")) {
+            holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
+        } else {
+            holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
+        }
+        holder.imgFavourite.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (checkFavourite.equals("0")) {
+                    holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
+                    checkFavourite = "1";
+                } else {
+                    holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
+                    checkFavourite = "0";
+                }
+            }
+        });
     }
 
     @Override
@@ -103,7 +124,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
     static class CreateReservationViewHolder extends RecyclerView.ViewHolder {
         Button btnBookNow;
-        ImageView imgRoom;
+        ImageView imgRoom, imgFavourite;
         TextView txtName, txtLocation, txtPrice;
         RatingBar ratingBar;
 
@@ -112,6 +133,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
             btnBookNow = itemView.findViewById(R.id.btnBookNow);
             imgRoom = itemView.findViewById(R.id.imgRooms);
+            imgFavourite = itemView.findViewById(R.id.imgFavourite);
             txtName = itemView.findViewById(R.id.txtName);
             txtLocation = itemView.findViewById(R.id.txtLocation);
             txtPrice = itemView.findViewById(R.id.txtPrice);

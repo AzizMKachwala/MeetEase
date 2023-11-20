@@ -71,6 +71,7 @@ public class ProfileActivity extends AppCompatActivity {
                 }
             }
         });
+
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK) {
                 // Camera capture was successful, handle the result.
@@ -88,6 +89,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
         return true;
     }
+
     private void openCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
@@ -118,6 +120,7 @@ public class ProfileActivity extends AppCompatActivity {
                 .placeholder(R.drawable.baseline_person_24)
                 .into(ivProductImage);
     }
+
     private File createImageFile() throws IOException {
         @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";

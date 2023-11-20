@@ -13,7 +13,6 @@ import android.app.TaskStackBuilder;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -25,6 +24,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.homeScreen.HomeScreenActivity;
 
 import java.util.Calendar;
@@ -32,10 +32,10 @@ import java.util.Calendar;
 public class BookMeetingActivity extends AppCompatActivity {
 
     TextView tvDate, tvStartTime, tvEndTime, tvRoomName, tvRoomNumber, tvBookingDate, tvBookingTime, tvPrice;
-    ImageView ivDate, ivStartTime, ivEndDate,ivBack;
+    ImageView ivDate, ivStartTime, ivEndDate, ivBack;
     Button btnBookNow;
 
-    String roomName,roomPrice,roomLocation;
+    String roomName, roomPrice, roomLocation;
 
     public int mYear, mMonth, mDay, year, mHour, mMinute, month, day, startHour, startMinute, endHour, endMinute;
 
@@ -43,7 +43,6 @@ public class BookMeetingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_book_meeting);
-
 
         tvDate = findViewById(R.id.tvDate);
         tvStartTime = findViewById(R.id.tvStartTime);
@@ -60,7 +59,7 @@ public class BookMeetingActivity extends AppCompatActivity {
         tvPrice = findViewById(R.id.tvPrice);
         tvBookingDate.setText("Not Selected");
         tvBookingTime.setText("Not Selected");
-        tvPrice.setText("0 $");
+        tvPrice.setText("0 " + VariableBag.CURRENCY);
 
         Intent intent = getIntent();
         roomName = intent.getStringExtra("roomName");
@@ -150,17 +149,11 @@ public class BookMeetingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (tvDate.getText().toString().equals("Select Date") || tvEndTime.getText().toString().isEmpty()) {
                     Toast.makeText(BookMeetingActivity.this, "Select Date First", Toast.LENGTH_SHORT).show();
-                }
-
-                else if (tvStartTime.getText().toString().equals("Select Start Time")) {
-                    Toast.makeText(BookMeetingActivity.this, "Select StartTime First", Toast.LENGTH_SHORT).show();
-                }
-
-                else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()) {
-                    Toast.makeText(BookMeetingActivity.this, "Select EndTime Second", Toast.LENGTH_SHORT).show();
-                }
-
-                else {
+                } else if (tvStartTime.getText().toString().equals("Select Start Time")) {
+                    Toast.makeText(BookMeetingActivity.this, "Select Start Time First", Toast.LENGTH_SHORT).show();
+                } else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()) {
+                    Toast.makeText(BookMeetingActivity.this, "Select End Time Second", Toast.LENGTH_SHORT).show();
+                } else {
                     Toast.makeText(BookMeetingActivity.this, "Booking SuccessFully", Toast.LENGTH_SHORT).show();
 
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -173,7 +166,7 @@ public class BookMeetingActivity extends AppCompatActivity {
                     PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                     Notification notification = new NotificationCompat.Builder(BookMeetingActivity.this, "alarm_channel")
                             .setContentTitle("Congratulations")
-                            .setContentText("meeting room is booked successFully")
+                            .setContentText("Meeting Room is Booked SuccessFully")
                             .setSmallIcon(R.drawable.img_meeting_rooms)
                             .setContentIntent(resultPendingIntent)
                             .build();
@@ -191,7 +184,7 @@ public class BookMeetingActivity extends AppCompatActivity {
             hour++;
         }
         tvBookingTime.setText(hour + " " + "Hour");
-        tvPrice.setText(hour * Integer.parseInt(roomPrice) + " " + "$");
+        tvPrice.setText(hour * Integer.parseInt(roomPrice) + " " + VariableBag.CURRENCY);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

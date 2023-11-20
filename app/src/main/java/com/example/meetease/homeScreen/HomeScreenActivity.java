@@ -5,6 +5,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -12,12 +14,13 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
+
+import com.example.meetease.ContactUsActivity;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
-import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
 import com.example.meetease.homeScreen.createReservation.CreateReservationActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
 import java.util.concurrent.Executor;
@@ -64,6 +67,8 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         ivSetting.setOnClickListener(this);
         logout.setOnClickListener(this);
         howToBookRoom.setOnClickListener(this);
+        layoutContactUs.setOnClickListener(this);
+        helpAndSupport.setOnClickListener(this);
         layoutUserProfile.setOnClickListener(this);
         security.setOnClickListener(this);
         availableRooms.setOnClickListener(this);
@@ -79,6 +84,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         if (view == ivSetting) {
             scrollView.setVisibility(View.VISIBLE);
             tvTrans.setVisibility(View.VISIBLE);
+
+            Animation slideInAnimation = AnimationUtils.loadAnimation(this, R.anim.slide_in);
+            scrollView.startAnimation(slideInAnimation);
+            ivSetting.startAnimation(slideInAnimation);
+            tvTrans.startAnimation(slideInAnimation);
         }
 
         if (view == security) {
@@ -103,6 +113,16 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 
         if (view == layoutUserProfile) {
             Intent intent = new Intent(HomeScreenActivity.this, ProfileActivity.class);
+            startActivity(intent);
+        }
+
+        if(view == layoutContactUs){
+            Intent intent = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
+            startActivity(intent);
+        }
+
+        if(view == helpAndSupport){
+            Intent intent = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
             startActivity(intent);
         }
 

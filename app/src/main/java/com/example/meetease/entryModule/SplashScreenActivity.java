@@ -27,14 +27,14 @@ public class SplashScreenActivity extends AppCompatActivity {
         },2000);
     }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        PreferenceManager preferenceManager = new PreferenceManager(SplashScreenActivity.this);
-        if (preferenceManager.getKeyValueBoolean(VariableBag.SessionManage)){
-            Intent intent = new Intent(SplashScreenActivity.this, HomeScreenActivity.class);
-            startActivity(intent);
-            finish();
-        }
-    }
+//    @Override
+//    protected void onStart() {
+//        super.onStart();
+//        PreferenceManager preferenceManager = new PreferenceManager(SplashScreenActivity.this);
+//        if (preferenceManager.getKeyValueBoolean(VariableBag.SessionManage)){
+//            Intent intent = new Intent(SplashScreenActivity.this, HomeScreenActivity.class);
+//            startActivity(intent);
+//            finish();
+//        }
+//    }
 }

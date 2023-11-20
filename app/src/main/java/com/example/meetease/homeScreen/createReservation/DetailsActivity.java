@@ -2,6 +2,7 @@ package com.example.meetease.homeScreen.createReservation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -14,6 +15,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.example.meetease.R;
+import com.example.meetease.appUtils.VariableBag;
 
 public class DetailsActivity extends AppCompatActivity {
 
@@ -24,6 +26,7 @@ public class DetailsActivity extends AppCompatActivity {
     String checkFavourite;
     String roomName,roomPrice,roomLocation,roomRating,roomImage;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,7 +49,7 @@ public class DetailsActivity extends AppCompatActivity {
 
         txtLocation.setText(roomLocation);
         txtName.setText(roomName);
-        txtPrice.setText(roomPrice+" "+"$"+"/Hour");
+        txtPrice.setText(roomPrice+ VariableBag.CURRENCY +"/Hour");
         ratingBar.setRating(Float.parseFloat(roomRating));
 
         Glide
