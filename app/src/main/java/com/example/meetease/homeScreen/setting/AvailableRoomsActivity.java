@@ -20,6 +20,9 @@ import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingAdapter;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
@@ -53,6 +56,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
     }
 
     void roomDetail() {
+        tools.showLoading();
         restCall.RoomDetails("RoomDetails")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
@@ -78,15 +82,12 @@ public class AvailableRoomsActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                tools.stopLoading();
                                 if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(AvailableRoomsActivity.this);
                                     recyclerViewAllRooms.setLayoutManager(layoutManager);
-
-                                    for (int i = 0; i < roomDetailDataModel.getRoomDetailList().size(); i++) {
-
-                                    }
-
                                     allRoomsAdapter = new AllRoomsAdapter(roomDetailDataModel.getRoomDetailList(), AvailableRoomsActivity.this);
+                                    recyclerViewAllRooms.setAdapter(allRoomsAdapter);
                                 }
                             }
                         });

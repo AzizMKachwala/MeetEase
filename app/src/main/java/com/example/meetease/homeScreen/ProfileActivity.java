@@ -145,48 +145,48 @@ public class ProfileActivity extends AppCompatActivity {
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }
-    void editUser(){
-        PreferenceManager preferenceManager = new PreferenceManager(this);
-        String user_id = preferenceManager.getKeyValueString(VariableBag.user_id,"");
-
-        RequestBody tag = RequestBody.create(MediaType.parse("text/plain"),"UpdateUser");
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), categoryId);
-        RequestBody full_name = RequestBody.create(MediaType.parse("text/plain"), categoryId);
-        RequestBody mobile = RequestBody.create(MediaType.parse("text/plain"), subCategoryId);
-        RequestBody email = RequestBody.create(MediaType.parse("text/plain"), etvProductName.getText().toString());
-        RequestBody password = RequestBody.create(MediaType.parse("text/plain"), etvProductPrice.getText().toString());
-        MultipartBody.Part fileToUploadfile = null;
-        if (fileToUploadfile == null && currentPhotoPath != "") {
-            try {
-                StrictMode.VmPolicy.Builder builder2 = new StrictMode.VmPolicy.Builder();
-                StrictMode.setVmPolicy(builder2.build());
-                File file = new File(currentPhotoPath);
-                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                fileToUploadfile = MultipartBody.Part.createFormData("product_image", file.getName(), requestBody);
-            } catch (Exception e) {
-                Toast.makeText(this, "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                e.printStackTrace();
-            }
-        }
-        restCall.EditUser(tag,user_id,full_name,mobile,email,password,fileToUploadfile)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.newThread())
-                .subscribe(new Subscriber<UserResponse>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-
-                    }
-
-                    @Override
-                    public void onNext(UserResponse userResponse) {
-
-                    }
-                });
-
-    }
+//    void editUser(){
+//        PreferenceManager preferenceManager = new PreferenceManager(this);
+//        String user_id = preferenceManager.getKeyValueString(VariableBag.user_id,"");
+//
+//        RequestBody tag = RequestBody.create(MediaType.parse("text/plain"),"UpdateUser");
+//        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), categoryId);
+//        RequestBody full_name = RequestBody.create(MediaType.parse("text/plain"), categoryId);
+//        RequestBody mobile = RequestBody.create(MediaType.parse("text/plain"), subCategoryId);
+//        RequestBody email = RequestBody.create(MediaType.parse("text/plain"), etvProductName.getText().toString());
+//        RequestBody password = RequestBody.create(MediaType.parse("text/plain"), etvProductPrice.getText().toString());
+//        MultipartBody.Part fileToUploadfile = null;
+//        if (fileToUploadfile == null && currentPhotoPath != "") {
+//            try {
+//                StrictMode.VmPolicy.Builder builder2 = new StrictMode.VmPolicy.Builder();
+//                StrictMode.setVmPolicy(builder2.build());
+//                File file = new File(currentPhotoPath);
+//                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
+//                fileToUploadfile = MultipartBody.Part.createFormData("product_image", file.getName(), requestBody);
+//            } catch (Exception e) {
+//                Toast.makeText(this, "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                e.printStackTrace();
+//            }
+//        }
+//        restCall.EditUser(tag,user_id,full_name,mobile,email,password,fileToUploadfile)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(Schedulers.newThread())
+//                .subscribe(new Subscriber<UserResponse>() {
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                    }
+//
+//                    @Override
+//                    public void onNext(UserResponse userResponse) {
+//
+//                    }
+//                });
+//
+//    }
 }
