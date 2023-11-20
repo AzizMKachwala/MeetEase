@@ -31,11 +31,9 @@ import java.util.Calendar;
 
 public class BookMeetingActivity extends AppCompatActivity {
 
-    TextView tvDate, tvStartTime, tvEndTime, tvRoomName, tvRoomNumber, tvBookingDate, tvBookingTime, tvPrice;
+    TextView tvDate, tvStartTime, tvEndTime;
     ImageView ivDate, ivStartTime, ivEndDate, ivBack;
     Button btnBookNow;
-
-    String roomName, roomPrice, roomLocation;
 
     public int mYear, mMonth, mDay, year, mHour, mMinute, month, day, startHour, startMinute, endHour, endMinute;
 
@@ -52,22 +50,6 @@ public class BookMeetingActivity extends AppCompatActivity {
         btnBookNow = findViewById(R.id.btnBookNow);
         ivBack = findViewById(R.id.ivBack);
         ivDate = findViewById(R.id.ivDate);
-        tvRoomName = findViewById(R.id.tvRoomName);
-        tvRoomNumber = findViewById(R.id.tvRoomNumber);
-        tvBookingDate = findViewById(R.id.tvBookingDate);
-        tvBookingTime = findViewById(R.id.tvBookingTime);
-        tvPrice = findViewById(R.id.tvPrice);
-        tvBookingDate.setText("Not Selected");
-        tvBookingTime.setText("Not Selected");
-        tvPrice.setText("0 " + VariableBag.CURRENCY);
-
-        Intent intent = getIntent();
-        roomName = intent.getStringExtra("roomName");
-        roomPrice = intent.getStringExtra("roomPrice");
-        roomLocation = intent.getStringExtra("roomLocation");
-
-        tvRoomNumber.setText(roomLocation);
-        tvRoomName.setText(roomName);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -90,7 +72,6 @@ public class BookMeetingActivity extends AppCompatActivity {
                                 year = year1;
                                 month = monthOfYear + 1;
                                 day = dayOfMonth;
-                                updateDate();
                                 tvStartTime.setText("Select Start Time");
                                 tvEndTime.setText("Select End Time");
                             }
@@ -105,7 +86,6 @@ public class BookMeetingActivity extends AppCompatActivity {
                 final Calendar c = Calendar.getInstance();
                 mHour = c.get(Calendar.HOUR_OF_DAY);
                 mMinute = c.get(Calendar.MINUTE);
-                int a = c.get(Calendar.AM_PM);
                 TimePickerDialog timePickerDialog = new TimePickerDialog(BookMeetingActivity.this,
                         new TimePickerDialog.OnTimeSetListener() {
 
@@ -115,7 +95,6 @@ public class BookMeetingActivity extends AppCompatActivity {
                                 tvStartTime.setText(hourOfDay + ":" + minute);
                                 startHour = hourOfDay;
                                 startMinute = minute;
-                                updateDate();
                                 tvEndTime.setText("Select End Time");
                             }
                         }, mHour, mMinute, false);
@@ -137,7 +116,6 @@ public class BookMeetingActivity extends AppCompatActivity {
                                 tvEndTime.setText(hourOfDay + ":" + minute);
                                 endHour = hourOfDay;
                                 endMinute = minute;
-                                updateDate();
                             }
                         }, mHour, mMinute, false);
 
@@ -154,37 +132,35 @@ public class BookMeetingActivity extends AppCompatActivity {
                 } else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()) {
                     Toast.makeText(BookMeetingActivity.this, "Select End Time Second", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(BookMeetingActivity.this, "Booking SuccessFully", Toast.LENGTH_SHORT).show();
+//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+//                        createNotificationChannel(BookMeetingActivity.this);
+//                    }
+//                    Intent resultIntent = new Intent(BookMeetingActivity.this, CreateReservationActivity.class);
+//                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(BookMeetingActivity.this);
+//                    stackBuilder.addNextIntentWithParentStack(resultIntent);
+//                    PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+//                    Notification notification = new NotificationCompat.Builder(BookMeetingActivity.this, "alarm_channel")
+//                            .setContentTitle("Congratulations")
+//                            .setContentText("Meeting Room is Booked SuccessFully")
+//                            .setSmallIcon(R.drawable.img_meeting_rooms)
+//                            .setContentIntent(resultPendingIntent)
+//                            .build();
+//                    NotificationManager notificationManager = (NotificationManager) BookMeetingActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+//                    notificationManager.notify(0, notification);
 
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                        createNotificationChannel(BookMeetingActivity.this);
-                    }
-                    Intent resultIntent = new Intent(BookMeetingActivity.this, HomeScreenActivity.class);
-                    resultIntent.putExtra("action", "action");
-                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(BookMeetingActivity.this);
-                    stackBuilder.addNextIntentWithParentStack(resultIntent);
-                    PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-                    Notification notification = new NotificationCompat.Builder(BookMeetingActivity.this, "alarm_channel")
-                            .setContentTitle("Congratulations")
-                            .setContentText("Meeting Room is Booked SuccessFully")
-                            .setSmallIcon(R.drawable.img_meeting_rooms)
-                            .setContentIntent(resultPendingIntent)
-                            .build();
-                    NotificationManager notificationManager = (NotificationManager) BookMeetingActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
-                    notificationManager.notify(0, notification);
+
+                    Intent intent = new Intent(BookMeetingActivity.this,CreateReservationActivity.class);
+                    intent.putExtra("year",String.valueOf(year));
+                    intent.putExtra("month",String.valueOf(month));
+                    intent.putExtra("day",String.valueOf(day));
+                    intent.putExtra("startHour",String.valueOf(startHour));
+                    intent.putExtra("startMinute",String.valueOf(startMinute));
+                    intent.putExtra("endHour",String.valueOf(endHour));
+                    intent.putExtra("endMinute",String.valueOf(endMinute));
+                    startActivity(intent);
                 }
             }
         });
-    }
-
-    void updateDate() {
-        tvBookingDate.setText(day + "-" + (month) + "-" + year);
-        int hour = endHour - startHour;
-        if (endMinute > startMinute) {
-            hour++;
-        }
-        tvBookingTime.setText(hour + " " + "Hour");
-        tvPrice.setText(hour * Integer.parseInt(roomPrice) + " " + VariableBag.CURRENCY);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

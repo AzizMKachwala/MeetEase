@@ -108,7 +108,7 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (confirmPassword.isEmpty()) {
             etvConfirmPassword.setError("enter your confirm Password");
             etvConfirmPassword.requestFocus();
-        } else if (password != confirmPassword) {
+        } else if (!password.equals(confirmPassword)) {
             etvConfirmPassword.setError("confirm password dose not Match");
             etvConfirmPassword.requestFocus();
         } else {

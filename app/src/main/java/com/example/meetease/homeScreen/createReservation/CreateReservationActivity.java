@@ -29,6 +29,7 @@ public class CreateReservationActivity extends AppCompatActivity {
     TextView tvNoData;
     ImageView ivClose;
     List<CreateReservationDataModel> roomList;
+    public int year, month, day, startHour, startMinute, endHour, endMinute;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -46,6 +47,16 @@ public class CreateReservationActivity extends AppCompatActivity {
             ivClose.setVisibility(View.GONE);
             etvSearch.setText("");
         });
+
+        Intent intent = getIntent();
+        year = Integer.parseInt(intent.getExtras().getString("year","0"));
+        month = Integer.parseInt(intent.getExtras().getString("month","0"));
+        day = Integer.parseInt(intent.getExtras().getString("day","0"));
+        startHour = Integer.parseInt(intent.getExtras().getString("startHour","0"));
+        startMinute = Integer.parseInt(intent.getExtras().getString("startMinute","0"));
+        endHour = Integer.parseInt(intent.getExtras().getString("endHour","0"));
+        endMinute = Integer.parseInt(intent.getExtras().getString("endMinute","0"));
+
         etvSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -70,6 +81,7 @@ public class CreateReservationActivity extends AppCompatActivity {
 
             }
         });
+
         createReservationAdapter = new CreateReservationAdapter(roomList,this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
         recyclerViewMeetingRooms.setLayoutManager(layoutManager);
