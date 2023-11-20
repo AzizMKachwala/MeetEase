@@ -35,6 +35,7 @@ public class LoginActivity extends AppCompatActivity {
     String password = "Hide";
     RestCall restCall;
     Tools tools;
+    PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,9 +51,7 @@ public class LoginActivity extends AppCompatActivity {
 
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         tools = new Tools(LoginActivity.this);
-
-        String email = etvEmailOrPhone.getText().toString().trim();
-        String pass = etvPassword.getText().toString().trim();
+        preferenceManager = new PreferenceManager(LoginActivity.this);
 
 //        btnLogin.setOnClickListener(new View.OnClickListener() {
 //            @Override
@@ -62,14 +61,23 @@ public class LoginActivity extends AppCompatActivity {
 //                preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
 //                startActivity(intent);
 //                finish();
-//
 //            }
 //        });
         
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                loginUser();
+                if(etvEmailOrPhone.getText().toString().trim().isEmpty()){
+                    etvEmailOrPhone.setError("Enter Valid Email");
+                    etvEmailOrPhone.requestFocus();
+                }
+                else if (etvPassword.getText().toString().trim().isEmpty()){
+                    etvPassword.setError("Enter Valid Password");
+                    etvPassword.requestFocus();
+                }
+                else {
+                    loginUser();
+                }
             }
         });
 
@@ -135,6 +143,8 @@ public class LoginActivity extends AppCompatActivity {
                                 tools.stopLoading();
                                 Toast.makeText(LoginActivity.this, loginDataModel.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (loginDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
+
+                                    preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
                                     startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class));
                                     finish();
                                 }

@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
-import com.example.meetease.dataModel.AddUserDataModel;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;

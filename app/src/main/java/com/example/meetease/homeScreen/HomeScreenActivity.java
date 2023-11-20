@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
@@ -24,6 +25,7 @@ import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
 import com.example.meetease.homeScreen.createReservation.CreateReservationActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
+
 import java.util.concurrent.Executor;
 
 public class HomeScreenActivity extends AppCompatActivity implements View.OnClickListener {
@@ -117,12 +119,12 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             startActivity(intent);
         }
 
-        if(view == layoutContactUs){
+        if (view == layoutContactUs) {
             Intent intent = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
             startActivity(intent);
         }
 
-        if(view == helpAndSupport){
+        if (view == helpAndSupport) {
             Intent intent = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
             startActivity(intent);
         }
@@ -134,7 +136,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             builder.setCancelable(false);
             builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
-                preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,false);
+                preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
                 Intent intent = new Intent(HomeScreenActivity.this, LoginActivity.class);
                 startActivity(intent);
                 finish();

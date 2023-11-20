@@ -85,7 +85,6 @@ public class DetailsActivity extends AppCompatActivity {
                 intent.putExtra("roomPrice",roomPrice);
                 intent.putExtra("roomLocation",roomLocation);
                 startActivity(intent);
-                finish();
             }
         });
 
