@@ -40,8 +40,10 @@ public class CreateReservationActivity extends AppCompatActivity {
         etvSearch = findViewById(R.id.etvSearch);
         tvNoData = findViewById(R.id.tvNoData);
         ivClose = findViewById(R.id.ivClose);
+
         ivClose.setVisibility(View.GONE);
         tvNoData.setVisibility(View.GONE);
+
         ivClose.setOnClickListener(view -> {
             ivClose.setVisibility(View.GONE);
             etvSearch.setText("");
