@@ -33,7 +33,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         txtForgotPassword = findViewById(R.id.txtForgotPassword);
 
-        preferenceManager = new PreferenceManager(this);
+        preferenceManager = new PreferenceManager(ChangePasswordActivity.this);
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
