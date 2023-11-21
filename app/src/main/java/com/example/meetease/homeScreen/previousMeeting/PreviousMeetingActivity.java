@@ -17,6 +17,7 @@ import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.RoomDetailDataModel;
+import com.example.meetease.dataModel.RoomDetailList;
 import com.example.meetease.entryModule.SignUpActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
@@ -86,7 +87,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
 
     void roomDetail() {
         tools.showLoading();
-        restCall.RoomDetails("RoomDetails")
+        restCall.RoomDetails("getRoom")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<RoomDetailDataModel>() {
@@ -115,9 +116,9 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                                 if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
-                                    List<RoomDetailDataModel.RoomDetailList> newList = new ArrayList<>();
+                                    ArrayList<RoomDetailList> newList = new ArrayList<>();
                                     for (int i=0;i<roomDetailDataModel.getRoomDetailList().size();i++){
-                                        if (roomDetailDataModel.getRoomDetailList().get(i).getUpComingStatus().equals("2")){
+                                        if (roomDetailDataModel.getRoomDetailList().get(i).getUpcoming_status().equals("1")){
                                             newList.add(roomDetailDataModel.getRoomDetailList().get(i));
                                         }
                                     }

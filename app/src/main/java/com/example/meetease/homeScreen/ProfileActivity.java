@@ -47,6 +47,7 @@ public class ProfileActivity extends AppCompatActivity {
     ImageView ivBack, imgEdit;
     CircleImageView imgProfileImage;
     Tools tools;
+    PreferenceManager preferenceManager;
     EditText etvFullName, etvPhoneNo, etvEmail;
     Button btnSave;
     String currentPhotoPath = "";
@@ -54,6 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> cameraLauncher;
     File currentPhotoFile;
     RestCall restCall;
+    String id,userPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +72,12 @@ public class ProfileActivity extends AppCompatActivity {
         etvEmail = findViewById(R.id.etvEmail);
         imgProfileImage = findViewById(R.id.imgProfileImage);
 
+         preferenceManager = new PreferenceManager(this);
+        id = preferenceManager.getKeyValueString(VariableBag.user_id,"");
+        etvFullName.setText(preferenceManager.getKeyValueString(VariableBag.full_name,""));
+        etvEmail.setText(preferenceManager.getKeyValueString(VariableBag.email,""));
+        etvPhoneNo.setText(preferenceManager.getKeyValueString(VariableBag.mobile,""));
+        userPassword = preferenceManager.getKeyValueString(VariableBag.password,"");
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -179,19 +187,12 @@ public class ProfileActivity extends AppCompatActivity {
     }
     void editUser(){
 
-        PreferenceManager preferenceManager = new PreferenceManager(this);
-        String user_id_temp = preferenceManager.getKeyValueString(VariableBag.user_id,"");
-        String full_name_temp = preferenceManager.getKeyValueString(VariableBag.full_name,"");
-        String mobile_temp = preferenceManager.getKeyValueString(VariableBag.mobile,"");
-        String email_temp = preferenceManager.getKeyValueString(VariableBag.email,"");
-        String password_temp = preferenceManager.getKeyValueString(VariableBag.password,"");
-
         RequestBody  tag = RequestBody.create(MediaType.parse("text/plain"),"UpdateUser");
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), user_id_temp);
-        RequestBody full_name = RequestBody.create(MediaType.parse("text/plain"), full_name_temp);
-        RequestBody mobile = RequestBody.create(MediaType.parse("text/plain"), mobile_temp);
-        RequestBody email = RequestBody.create(MediaType.parse("text/plain"), email_temp);
-        RequestBody password = RequestBody.create(MediaType.parse("text/plain"), password_temp);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), id);
+        RequestBody full_name = RequestBody.create(MediaType.parse("text/plain"), etvFullName.getText().toString());
+        RequestBody mobile = RequestBody.create(MediaType.parse("text/plain"), etvPhoneNo.getText().toString());
+        RequestBody email = RequestBody.create(MediaType.parse("text/plain"), etvEmail.getText().toString());
+        RequestBody password = RequestBody.create(MediaType.parse("text/plain"), userPassword);
         MultipartBody.Part fileToUploadfile = null;
         if (fileToUploadfile == null && currentPhotoPath != "") {
             try {
@@ -230,7 +231,6 @@ public class ProfileActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
                                 preferenceManager.setKeyValueString(VariableBag.full_name,etvFullName.getText().toString());
                                 preferenceManager.setKeyValueString(VariableBag.mobile,etvPhoneNo.getText().toString());
                                 preferenceManager.setKeyValueString(VariableBag.email,etvEmail.getText().toString());

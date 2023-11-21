@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetease.R;
 import com.example.meetease.dataModel.RoomDetailDataModel;
+import com.example.meetease.dataModel.RoomDetailList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +21,10 @@ import java.util.List;
 public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeetingAdapter.MeetingViewHolder> {
 
 
-    List<RoomDetailDataModel.RoomDetailList> dataModelList,searchList;
+    List<RoomDetailList> dataModelList,searchList;
     Context context;
 
-    public PreviousMeetingAdapter(List<RoomDetailDataModel.RoomDetailList> dataModelList, Context context) {
+    public PreviousMeetingAdapter(List<RoomDetailList> dataModelList, Context context) {
         this.dataModelList = dataModelList;
         this.searchList = dataModelList;
         this.context = context;
@@ -39,8 +40,8 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
         }
         else {
             int flag = 0;
-            List<RoomDetailDataModel.RoomDetailList> filterList = new ArrayList<>();
-            for (RoomDetailDataModel.RoomDetailList single : dataModelList){
+            List<RoomDetailList> filterList = new ArrayList<>();
+            for (RoomDetailList single : dataModelList){
 //                if (single.getName().toLowerCase().contains(charString.toLowerCase())){
 //                    filterList.add(single);
 //                    flag = 1;

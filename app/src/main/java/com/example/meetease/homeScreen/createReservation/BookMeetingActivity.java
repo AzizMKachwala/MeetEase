@@ -34,7 +34,7 @@ public class BookMeetingActivity extends AppCompatActivity {
     TextView tvDate, tvStartTime, tvEndTime;
     ImageView ivDate, ivStartTime, ivEndDate, ivBack;
     Button btnBookNow;
-
+    private int minHour = 8 , minMinute = 0;
     public int mYear, mMonth, mDay, year, mHour, mMinute, month, day, startHour, startMinute, endHour, endMinute;
 
     @Override
@@ -77,6 +77,7 @@ public class BookMeetingActivity extends AppCompatActivity {
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                 datePickerDialog.show();
             }
         });
@@ -95,6 +96,8 @@ public class BookMeetingActivity extends AppCompatActivity {
                                 tvStartTime.setText(hourOfDay + ":" + minute);
                                 startHour = hourOfDay;
                                 startMinute = minute;
+                                minHour = hourOfDay;
+                                minMinute = minute;
                                 tvEndTime.setText("Select End Time");
                             }
                         }, mHour, mMinute, false);
@@ -104,21 +107,29 @@ public class BookMeetingActivity extends AppCompatActivity {
         tvEndTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Calendar c = Calendar.getInstance();
-                mHour = c.get(Calendar.HOUR_OF_DAY);
-                mMinute = c.get(Calendar.MINUTE);
-                TimePickerDialog timePickerDialog = new TimePickerDialog(BookMeetingActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
+                Calendar currentTime = Calendar.getInstance();
+                int currentHour = currentTime.get(Calendar.HOUR_OF_DAY);
+                int currentMinute = currentTime.get(Calendar.MINUTE);
 
+                // Create a TimePickerDialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(
+                        BookMeetingActivity.this,
+                        new TimePickerDialog.OnTimeSetListener() {
                             @Override
                             public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-                                tvEndTime.setText(hourOfDay + ":" + minute);
-                                endHour = hourOfDay;
-                                endMinute = minute;
+                                // Validate the selected time against the minimum time
+                                if (hourOfDay < minHour || (hourOfDay == minHour && minute < minMinute)) {
+                                    Toast.makeText(BookMeetingActivity.this, "End Time Should Be After " + minHour + ":" + minMinute, Toast.LENGTH_SHORT).show();
+                                } else {
+                                    tvEndTime.setText(hourOfDay + ":" + minute);
+                                }
                             }
-                        }, mHour, mMinute, false);
+                        },
+                        currentHour,
+                        currentMinute,
+                        false);
 
+                // Show the TimePickerDialog
                 timePickerDialog.show();
             }
         });

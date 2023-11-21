@@ -45,6 +45,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home_screen);
 
+        preferenceManager = new PreferenceManager(this);
         layoutUserProfile = findViewById(R.id.layoutUserProfile);
         layoutAddReservation = findViewById(R.id.layoutAddReservation);
         layoutUpcomingMeeting = findViewById(R.id.layoutUpcomingMeeting);
@@ -79,6 +80,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         layoutLogout.setOnClickListener(this);
         tvTrans.setOnClickListener(this);
 
+        tvSettingName.setText(preferenceManager.getKeyValueString(VariableBag.full_name,""));
         biometric();
     }
 
@@ -179,7 +181,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 
     void biometric() {
         executor = ContextCompat.getMainExecutor(this);
-        preferenceManager = new PreferenceManager(this);
         if (preferenceManager.getKeyValueBoolean(VariableBag.SecuritySwitchCheck)) {
             biometricPrompt = new BiometricPrompt(this, executor, new BiometricPrompt.AuthenticationCallback() {
                 @Override

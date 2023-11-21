@@ -10,17 +10,20 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.meetease.R;
 import com.example.meetease.dataModel.RoomDetailDataModel;
+import com.example.meetease.dataModel.RoomDetailList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class AllRoomsAdapter extends RecyclerView.Adapter<AllRoomsAdapter.AllRoomsDataViewHolder> {
 
-    List<RoomDetailDataModel.RoomDetailList> roomDetailLists;
+    ArrayList<RoomDetailList> roomDetailLists;
     Context context;
 
-    public AllRoomsAdapter(List<RoomDetailDataModel.RoomDetailList> roomDetailLists, Context context) {
+    public AllRoomsAdapter(ArrayList<RoomDetailList> roomDetailLists, Context context) {
         this.roomDetailLists = roomDetailLists;
         this.context = context;
     }
@@ -35,7 +38,12 @@ public class AllRoomsAdapter extends RecyclerView.Adapter<AllRoomsAdapter.AllRoo
 
     @Override
     public void onBindViewHolder(@NonNull AllRoomsDataViewHolder holder, int position) {
-
+        holder.txtName.setText(roomDetailLists.get(position).getRoom_name());
+        holder.txtLocation.setText(roomDetailLists.get(position).getLocation());
+        Glide
+                .with(context)
+                .load(roomDetailLists.get(position).getRoom_img())
+                .into(holder.imgRoom);
     }
 
     @Override

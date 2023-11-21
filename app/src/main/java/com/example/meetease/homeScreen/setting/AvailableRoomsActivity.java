@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
@@ -15,8 +16,6 @@ import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
-import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingActivity;
-import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingAdapter;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 
@@ -57,7 +56,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
 
     void roomDetail() {
         tools.showLoading();
-        restCall.RoomDetails("RoomDetails")
+        restCall.RoomDetails("getRoom")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<RoomDetailDataModel>() {
@@ -72,6 +71,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
+                                Log.e("##error", e.getLocalizedMessage());
                                 Toast.makeText(AvailableRoomsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -83,7 +83,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
+                                if (roomDetailDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT) && roomDetailDataModel.getRoomDetailList() != null && !roomDetailDataModel.getRoomDetailList().isEmpty()) {
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(AvailableRoomsActivity.this);
                                     recyclerViewAllRooms.setLayoutManager(layoutManager);
                                     allRoomsAdapter = new AllRoomsAdapter(roomDetailDataModel.getRoomDetailList(), AvailableRoomsActivity.this);
