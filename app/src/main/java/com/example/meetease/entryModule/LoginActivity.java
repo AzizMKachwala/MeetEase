@@ -36,7 +36,6 @@ import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
 
-import rx.Scheduler;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
