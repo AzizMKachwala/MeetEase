@@ -13,9 +13,7 @@
         android:layout_height="@dimen/_35sdp"
         android:layout_margin="@dimen/_15sdp"
         android:paddingStart="@dimen/_5sdp"
-        android:src="@drawable/ic_back"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:src="@drawable/ic_back"/>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/card"

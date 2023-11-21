@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,6 +17,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     EditText etvPhoneNo, etvOTP, etvNewPassword, etvConfirmPassword;
     Button btnSend, btnSave;
+    ImageView ivBack;
     PreferenceManager preferenceManager;
 
     @Override
@@ -29,6 +31,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         etvConfirmPassword = findViewById(R.id.etvConfirmPassword);
         btnSend = findViewById(R.id.btnSend);
         btnSave = findViewById(R.id.btnSave);
+        ivBack = findViewById(R.id.ivBack);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         preferenceManager = new PreferenceManager(ForgotPasswordActivity.this);
 

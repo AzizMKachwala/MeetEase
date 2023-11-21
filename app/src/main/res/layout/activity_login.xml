@@ -92,9 +92,9 @@
         android:id="@+id/layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@id/btnLogin"
         android:layout_marginTop="@dimen/_5sdp"
         android:gravity="center"
-        android:layout_below="@id/btnLogin"
         android:paddingHorizontal="@dimen/_10sdp"
         android:paddingVertical="@dimen/_10sdp">
 
@@ -111,15 +111,41 @@
             android:textColor="@color/brown"
             android:textStyle="bold" />
 
-
     </LinearLayout>
 
-    <ImageView
-        android:id="@+id/imgGoogle"
-        android:layout_width="@dimen/_30sdp"
-        android:layout_height="@dimen/_30sdp"
-        android:src="@drawable/ic_fb_logo"
-        android:layout_below="@id/layout"/>
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cvGoogle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout"
+        android:layout_centerHorizontal="true"
+        android:layout_weight="1"
+        android:elevation="@dimen/_1sdp"
+        app:cardCornerRadius="@dimen/_20sdp">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
+
+            <ImageView
+                android:layout_width="@dimen/_30sdp"
+                android:layout_height="@dimen/_30sdp"
+                android:src="@drawable/google" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:backgroundTint="@color/white"
+                android:gravity="center"
+                android:paddingLeft="@dimen/_5sdp"
+                android:text="GOOGLE"
+                android:textColor="@color/black"
+                android:textSize="@dimen/_15ssp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
 
 </RelativeLayout>
