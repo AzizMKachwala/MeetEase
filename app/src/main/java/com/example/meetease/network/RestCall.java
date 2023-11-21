@@ -23,7 +23,7 @@ public interface RestCall {
             @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("UserController.php")
+    @POST("Controller/UserController.php")
     Single<UserResponse> AddUser(
             @Field("tag") String tag,
             @Field("full_name") String full_name,
@@ -32,12 +32,12 @@ public interface RestCall {
             @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("UserController.php")
+    @POST("Controller/UserController.php")
     Single<RoomDetailDataModel> RoomDetails(
             @Field("tag") String tag);
 
     @Multipart
-    @POST("UserController.php")
+    @POST("Controller/UserController.php.php")
     Single<UserResponse> EditUser(
             @Part("tag") RequestBody tag,
             @Part("user_id") RequestBody user_id,
