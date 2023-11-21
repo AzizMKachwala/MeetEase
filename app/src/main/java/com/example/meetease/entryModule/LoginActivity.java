@@ -46,6 +46,7 @@ public class LoginActivity extends AppCompatActivity {
     Button btnLogin;
     TextView txtResetPassword,txtSignup;
     ImageView imgPasswordCloseEye,imgGoogle;
+    String flag = "1";
     String password = "Hide";
     RestCall restCall;
     private static final int RC_SIGN_IN = 123;
@@ -164,6 +165,10 @@ public class LoginActivity extends AppCompatActivity {
                         if (task.isSuccessful()) {
                             tools.stopLoading();
                             FirebaseUser user = mAuth.getCurrentUser();
+                            flag = "0";
+                            loginUser();
+                            Toast.makeText(LoginActivity.this,""+user.getEmail() , Toast.LENGTH_SHORT).show();
+                            etvEmailOrPhone.setText(user.getEmail());
                             Toast.makeText(LoginActivity.this, "Welcome, " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
                         } else {
                             tools.stopLoading();
@@ -175,7 +180,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginUser() {
         tools.showLoading();
-        restCall.LoginUser("LoginUser",etvEmailOrPhone.getText().toString().trim(),etvPassword.getText().toString().trim())
+        restCall.LoginUser("LoginUser",etvEmailOrPhone.getText().toString().trim(),etvPassword.getText().toString().trim(),"1")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<LoginDataModel>() {
@@ -189,6 +194,8 @@ public class LoginActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                flag="1";
+                                etvEmailOrPhone.setText("");
                                 tools.stopLoading();
                                 Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -212,6 +219,9 @@ public class LoginActivity extends AppCompatActivity {
                                     preferenceManager.setKeyValueString(VariableBag.password,etvPassword.getText().toString());
                                     startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class));
                                     finish();
+                                }
+                                else {
+//                                    singapi
                                 }
 
                             }

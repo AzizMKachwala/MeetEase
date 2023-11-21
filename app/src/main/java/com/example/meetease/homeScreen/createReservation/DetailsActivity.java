@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.meetease.R;
@@ -67,6 +68,7 @@ public class DetailsActivity extends AppCompatActivity {
         imgFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Toast.makeText(DetailsActivity.this, "image click", Toast.LENGTH_SHORT).show();
                 if (checkFavourite.equals("0")){
                     imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
                     checkFavourite = "1";

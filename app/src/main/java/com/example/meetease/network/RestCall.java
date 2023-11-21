@@ -16,14 +16,15 @@ import rx.Single;
 public interface RestCall {
 
     @FormUrlEncoded
-    @POST("UserController.php")
+    @POST("Controller/UserController.php")
     Single<LoginDataModel> LoginUser(
             @Field("tag") String tag,
             @Field("email") String email,
-            @Field("password") String password);
+            @Field("password") String password,
+            @Field("flag") String flag);
 
     @FormUrlEncoded
-    @POST("UserController.php")
+    @POST("Controller/UserController.php")
     Single<UserResponse> AddUser(
             @Field("tag") String tag,
             @Field("full_name") String full_name,
@@ -32,12 +33,12 @@ public interface RestCall {
             @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("UserController.php")
+    @POST("Controller/UserController.php")
     Single<RoomDetailDataModel> RoomDetails(
             @Field("tag") String tag);
 
     @Multipart
-    @POST("UserController.php")
+    @POST("Controller/UserController.php")
     Single<UserResponse> EditUser(
             @Part("tag") RequestBody tag,
             @Part("user_id") RequestBody user_id,
