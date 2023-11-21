@@ -50,6 +50,7 @@ public class CreateReservationActivity extends AppCompatActivity {
             ivClose.setVisibility(View.GONE);
             etvSearch.setText("");
         });
+
         img_filter.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -60,6 +61,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                 filterFragment.setCancelable(false);
             }
         });
+
         Intent intent = getIntent();
         year = Integer.parseInt(intent.getExtras().getString("year","0"));
         month = Integer.parseInt(intent.getExtras().getString("month","0"));
@@ -118,5 +120,6 @@ public class CreateReservationActivity extends AppCompatActivity {
         roomList.add(new CreateReservationDataModel("hotel Sky","surat","500","3","https://ballantyneexecutivesuites.com/wp-content/uploads/2015/10/Depositphotos_13534536_original.jpg"));
         roomList.add(new CreateReservationDataModel("hotel hill","Gandhinagar","1500","4","https://images.pexels.com/photos/2976970/pexels-photo-2976970.jpeg"));
         roomList.add(new CreateReservationDataModel("hotel taj","Baroda","300","2","https://images.pexels.com/photos/2976970/pexels-photo-2976970.jpeg"));
+        roomList.add(new CreateReservationDataModel("hotel fun","Baroda","2500","4","https://images.pexels.com/photos/2976970/pexels-photo-2976970.jpeg"));
     }
 }

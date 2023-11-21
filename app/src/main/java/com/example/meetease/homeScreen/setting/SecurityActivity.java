@@ -1,10 +1,8 @@
 package com.example.meetease.homeScreen.setting;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
-import androidx.biometric.BiometricPrompt;
-import androidx.core.content.ContextCompat;
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,15 +14,13 @@ import android.widget.Toast;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.VariableBag;
-import com.example.meetease.homeScreen.HomeScreenActivity;
-
-import java.util.concurrent.Executor;
 
 public class SecurityActivity extends AppCompatActivity {
 
     PreferenceManager preferenceManager;
     SwitchCompat switchOnOff;
     ImageView ivBack;
+    ConstraintLayout lytChangePassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,10 +30,20 @@ public class SecurityActivity extends AppCompatActivity {
         preferenceManager = new PreferenceManager(this);
         switchOnOff = findViewById(R.id.switchOnOff);
         ivBack = findViewById(R.id.ivBack);
+        lytChangePassword = findViewById(R.id.lytChangePassword);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                finish();
+            }
+        });
+
+        lytChangePassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Toast.makeText(SecurityActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
+                startActivity(new Intent(SecurityActivity.this, ChangePasswordActivity.class));
                 finish();
             }
         });
