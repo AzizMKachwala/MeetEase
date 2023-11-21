@@ -16,7 +16,7 @@ import rx.Single;
 public interface RestCall {
 
     @FormUrlEncoded
-    @POST("UserController.php")
+    @POST("Controller/UserController.php")
     Single<LoginDataModel> LoginUser(
             @Field("tag") String tag,
             @Field("email") String email,
