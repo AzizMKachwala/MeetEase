@@ -200,7 +200,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             etvConfirmPassword.setVisibility(View.VISIBLE);
                             btnSave.setVisibility(View.VISIBLE);
                         } else {
-                                etvOTP.setError("enter valid otp");
+                                etvOTP.setError("Enter Correct OTP");
                                 etvOTP.requestFocus();
                         }
                     }
