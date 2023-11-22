@@ -117,7 +117,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                     if (etvOTP.getText().toString().isEmpty()){
-                        etvOTP.setError("enter otp");
+                        etvOTP.setError("Enter OTP");
                         etvOTP.requestFocus();
                     }
                     else {
