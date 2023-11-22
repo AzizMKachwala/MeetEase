@@ -45,7 +45,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText etvEmailOrPhone,etvPassword;
     Button btnLogin;
     TextView txtResetPassword,txtSignup;
-    ImageView imgPasswordCloseEye,imgGoogle;
+    ImageView imgPasswordCloseEye;
+    View viewGoogle;
     String flag = "1";
     String password = "Hide";
     RestCall restCall;
@@ -64,7 +65,7 @@ public class LoginActivity extends AppCompatActivity {
         etvEmailOrPhone = findViewById(R.id.etvEmailOrPhone);
         etvPassword = findViewById(R.id.etvPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        imgGoogle = findViewById(R.id.imgGoogle);
+        viewGoogle = findViewById(R.id.viewGoogle);
         txtSignup = findViewById(R.id.txtSignup);
         txtResetPassword = findViewById(R.id.txtResetPassword);
         imgPasswordCloseEye= findViewById(R.id.imgPasswordCloseEye);
@@ -76,7 +77,8 @@ public class LoginActivity extends AppCompatActivity {
         tools = new Tools(LoginActivity.this);
         preferenceManager = new PreferenceManager(LoginActivity.this);
 
-        imgGoogle.setOnClickListener(new View.OnClickListener() {
+
+        viewGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signInWithGoogle();
@@ -221,7 +223,6 @@ public class LoginActivity extends AppCompatActivity {
                                     finish();
                                 }
                                 else {
-//                                    singapi
                                 }
 
                             }

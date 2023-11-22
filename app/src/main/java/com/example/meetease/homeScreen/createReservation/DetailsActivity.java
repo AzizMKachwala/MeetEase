@@ -68,14 +68,13 @@ public class DetailsActivity extends AppCompatActivity {
         imgFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(DetailsActivity.this, "image click", Toast.LENGTH_SHORT).show();
-                if (checkFavourite.equals("0")){
+                if (checkFavourite.equals("1")){
                     imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
-                    checkFavourite = "1";
+                    checkFavourite = "0";
                 }
                 else {
                     imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
-                    checkFavourite = "0";
+                    checkFavourite = "1";
                 }
             }
         });
