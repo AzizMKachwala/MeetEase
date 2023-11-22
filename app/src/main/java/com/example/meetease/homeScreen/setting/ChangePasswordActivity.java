@@ -59,6 +59,9 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 } else if (newPass.isEmpty()) {
                     etvNewPassword.setError("Password cannot be Empty");
                     etvNewPassword.requestFocus();
+                } else if (etvNewPassword.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.password, ""))) {
+                    etvNewPassword.setError("New Password Cannot be Same as Old Password");
+                    etvNewPassword.requestFocus();
                 } else if (!Tools.isValidPassword(newPass)) {
                     etvNewPassword.setError("Password Must Consist Of Minimum length of 7 with At-least 1 UpperCase, 1 LowerCase, 1 Number & 1 Special Character");
                     etvNewPassword.requestFocus();
