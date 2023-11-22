@@ -97,6 +97,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
             }
         });
 
+        checkFavourite = "0";
         if (checkFavourite.equals("0")) {
             holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
         } else {
@@ -106,12 +107,12 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
         holder.imgFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkFavourite.equals("0")) {
-                    holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
-                    checkFavourite = "1";
-                } else {
+                if (checkFavourite.equals("1")) {
                     holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
                     checkFavourite = "0";
+                } else {
+                    holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
+                    checkFavourite = "1";
                 }
             }
         });
