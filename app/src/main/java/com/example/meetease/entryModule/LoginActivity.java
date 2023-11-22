@@ -2,6 +2,7 @@ package com.example.meetease.entryModule;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -45,7 +46,8 @@ public class LoginActivity extends AppCompatActivity {
     EditText etvEmailOrPhone,etvPassword;
     Button btnLogin;
     TextView txtResetPassword,txtSignup;
-    ImageView imgPasswordCloseEye,imgGoogle;
+    ImageView imgPasswordCloseEye;
+    CardView cvGoogle;
     String flag = "1";
     String password = "Hide";
     RestCall restCall;
@@ -64,7 +66,7 @@ public class LoginActivity extends AppCompatActivity {
         etvEmailOrPhone = findViewById(R.id.etvEmailOrPhone);
         etvPassword = findViewById(R.id.etvPassword);
         btnLogin = findViewById(R.id.btnLogin);
-        imgGoogle = findViewById(R.id.imgGoogle);
+        cvGoogle = findViewById(R.id.cvGoogle);
         txtSignup = findViewById(R.id.txtSignup);
         txtResetPassword = findViewById(R.id.txtResetPassword);
         imgPasswordCloseEye= findViewById(R.id.imgPasswordCloseEye);
@@ -76,7 +78,7 @@ public class LoginActivity extends AppCompatActivity {
         tools = new Tools(LoginActivity.this);
         preferenceManager = new PreferenceManager(LoginActivity.this);
 
-        imgGoogle.setOnClickListener(new View.OnClickListener() {
+        cvGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 signInWithGoogle();
