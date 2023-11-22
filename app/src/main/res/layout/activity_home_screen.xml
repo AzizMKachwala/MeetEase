@@ -275,7 +275,6 @@
         android:layout_height="match_parent"
         android:weightSum="2">
 
-
         <ScrollView
             android:id="@+id/scrollView"
             android:layout_width="0dp"

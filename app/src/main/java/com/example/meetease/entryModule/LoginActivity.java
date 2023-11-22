@@ -76,7 +76,7 @@ public class LoginActivity extends AppCompatActivity {
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         tools = new Tools(LoginActivity.this);
         preferenceManager = new PreferenceManager(LoginActivity.this);
-
+//        preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
 
         viewGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
