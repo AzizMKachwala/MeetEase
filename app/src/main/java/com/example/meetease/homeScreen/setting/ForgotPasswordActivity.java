@@ -15,6 +15,7 @@ import androidx.cardview.widget.CardView;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
+import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.google.firebase.FirebaseException;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,6 +36,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     CountryCodePicker countryPicker;
     PreferenceManager preferenceManager;
     private FirebaseAuth mAuth;
+    Tools tools;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -60,6 +62,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         });
 
         mAuth = FirebaseAuth.getInstance();
+        tools = new Tools(this);
+        preferenceManager = new PreferenceManager(this);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -67,8 +71,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 finish();
             }
         });
-
-        preferenceManager = new PreferenceManager(ForgotPasswordActivity.this);
 
         btnSend.setText("Send");
         etvOTP.setVisibility(View.GONE);
