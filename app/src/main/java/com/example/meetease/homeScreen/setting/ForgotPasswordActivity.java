@@ -2,6 +2,7 @@ package com.example.meetease.homeScreen.setting;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -17,14 +18,29 @@ import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.homeScreen.HomeScreenActivity;
+import com.example.meetease.homeScreen.ProfileActivity;
+import com.example.meetease.network.RestCall;
+import com.example.meetease.network.RestClient;
+import com.example.meetease.network.UserResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.FirebaseException;
+import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
 import com.hbb20.CountryCodePicker;
 
+import java.io.File;
 import java.util.concurrent.TimeUnit;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
@@ -32,11 +48,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     Button btnSend, btnSave, btnCheckOtp;
     ImageView ivBack;
     TextView tvCode;
-    String verificationId,code;
+    String verificationId;
     CountryCodePicker countryPicker;
     PreferenceManager preferenceManager;
     private FirebaseAuth mAuth;
     Tools tools;
+    RestCall restCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,6 +71,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         tvCode = findViewById(R.id.tvCode);
         countryPicker = findViewById(R.id.countryPicker);
 
+        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
+        tools = new Tools(this);
         countryPicker.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
             @Override
             public void onCountrySelected() {
@@ -62,15 +81,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         });
 
         mAuth = FirebaseAuth.getInstance();
-        tools = new Tools(this);
-        preferenceManager = new PreferenceManager(this);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(ForgotPasswordActivity.this,ChangePasswordActivity.class));
                 finish();
             }
         });
+
+        preferenceManager = new PreferenceManager(ForgotPasswordActivity.this);
 
         btnSend.setText("Send");
         etvOTP.setVisibility(View.GONE);
@@ -87,6 +107,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     Toast.makeText(ForgotPasswordActivity.this, "OTP Sent...", Toast.LENGTH_SHORT).show();
 
                     String phone = "+" + countryPicker.getSelectedCountryCode() + etvPhoneNo.getText().toString();
+                    tools.showLoading();
                     sendVerificationCode(phone);
                 }
             }
@@ -95,17 +116,17 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btnCheckOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                btnCheckOtp.setVisibility(View.GONE);
-                btnSend.setVisibility(View.GONE);
-                etvPhoneNo.setEnabled(false);
-                etvOTP.setEnabled(false);
-                etvNewPassword.setVisibility(View.VISIBLE);
-                etvConfirmPassword.setVisibility(View.VISIBLE);
-                btnSave.setVisibility(View.VISIBLE);
-            }
+                    if (etvOTP.getText().toString().isEmpty()){
+                        etvOTP.setError("enter otp");
+                        etvOTP.requestFocus();
+                    }
+                    else {
+                        verifyCode(etvOTP.getText().toString());
+                    }
+
+                }
         });
 
-//        Toast.makeText(ForgotPasswordActivity.this, "" + preferenceManager.getKeyValueString(VariableBag.password, ""), Toast.LENGTH_SHORT).show();
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -115,16 +136,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     if (etvNewPassword.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.password, ""))) {
                         Toast.makeText(ForgotPasswordActivity.this, "New Password Cannot be Same as Old Password", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(ForgotPasswordActivity.this, "Password Changed", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPasswordActivity.this, "password change successfully", Toast.LENGTH_SHORT).show();
+                        //editPassword();
                     }
                 }
-//                else {
-//                    if(etvNewPassword.getText().toString().isEmpty()){
-//                        Toast.makeText(ForgotPasswordActivity.this, "New Password cannot be Empty", Toast.LENGTH_SHORT).show();
-//                    } else if (etvConfirmPassword.getText().toString().equals(etvNewPassword.getText().toString())) {
-//                        Toast.makeText(ForgotPasswordActivity.this, "Confirm Password doesn't match", Toast.LENGTH_SHORT).show();
-//                    }
-//                }
             }
         });
 
@@ -148,19 +163,85 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             super.onCodeSent(s, forceResendingToken);
             verificationId = s;
             etvOTP.setVisibility(View.VISIBLE);
+            tools.stopLoading();
             btnSend.setText("Resend");
             btnCheckOtp.setVisibility(View.VISIBLE);
         }
 
         @Override
         public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-            code = phoneAuthCredential.getSmsCode();
+            tools.stopLoading();
         }
 
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
+            tools.stopLoading();
             Toast.makeText(ForgotPasswordActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
     };
+
+    private void verifyCode(String code) {
+        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+        signInWithCredential(credential);
+    }
+
+    private void signInWithCredential(PhoneAuthCredential credential) {
+        mAuth.signInWithCredential(credential)
+                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            btnCheckOtp.setVisibility(View.GONE);
+                            btnSend.setVisibility(View.GONE);
+                            etvPhoneNo.setEnabled(false);
+                            etvOTP.setEnabled(false);
+                            etvNewPassword.setVisibility(View.VISIBLE);
+                            etvConfirmPassword.setVisibility(View.VISIBLE);
+                            btnSave.setVisibility(View.VISIBLE);
+                        } else {
+                                etvOTP.setError("enter valid otp");
+                                etvOTP.requestFocus();
+                        }
+                    }
+                });
+    }
+
+
+//    void editPassword() {
+//
+//        restCall.EditUser("tag",preferenceManager.getKeyValueString(VariableBag.user_id,""),etvNewPassword.getText().toString())
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(Schedulers.newThread())
+//                .subscribe(new Subscriber<UserResponse>() {
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(ForgotPasswordActivity.this, "no internet connection", Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                    }
+//
+//                    @Override
+//                    public void onNext(UserResponse userResponse) {
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(ForgotPasswordActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+//                                    finish();
+//                                }
+//                            }
+//                        });
+//                    }
+//                });
+//    }
 }
