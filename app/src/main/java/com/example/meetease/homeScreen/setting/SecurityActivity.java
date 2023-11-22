@@ -42,7 +42,6 @@ public class SecurityActivity extends AppCompatActivity {
         lytChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(SecurityActivity.this, "Clicked", Toast.LENGTH_SHORT).show();
                 startActivity(new Intent(SecurityActivity.this, ChangePasswordActivity.class));
                 finish();
             }

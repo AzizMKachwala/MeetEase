@@ -117,7 +117,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                     if (etvOTP.getText().toString().isEmpty()){
-                        etvOTP.setError("enter otp");
+                        etvOTP.setError("Enter OTP");
                         etvOTP.requestFocus();
                     }
                     else {
@@ -200,7 +200,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             etvConfirmPassword.setVisibility(View.VISIBLE);
                             btnSave.setVisibility(View.VISIBLE);
                         } else {
-                                etvOTP.setError("enter valid otp");
+                                etvOTP.setError("Enter Correct OTP");
                                 etvOTP.requestFocus();
                         }
                     }

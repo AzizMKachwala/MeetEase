@@ -82,6 +82,8 @@
         <activity
             android:name=".homeScreen.setting.ContactUsActivity"
             android:exported="false"
+            android:isScrollContainer="true"
+            android:windowSoftInputMode="stateVisible|adjustPan"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".entryModule.WelcomeActivity"
