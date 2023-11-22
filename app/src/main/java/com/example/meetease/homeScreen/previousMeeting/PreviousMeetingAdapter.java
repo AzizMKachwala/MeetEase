@@ -11,6 +11,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.bumptech.glide.Glide;
 import com.example.meetease.R;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 import com.example.meetease.dataModel.RoomDetailList;
@@ -42,10 +43,10 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
             int flag = 0;
             List<RoomDetailList> filterList = new ArrayList<>();
             for (RoomDetailList single : dataModelList){
-//                if (single.getName().toLowerCase().contains(charString.toLowerCase())){
-//                    filterList.add(single);
-//                    flag = 1;
-//                }
+                if (single.getRoom_name().toLowerCase().contains(charString.toLowerCase())){
+                    filterList.add(single);
+                    flag = 1;
+                }
             }
             if (flag == 1){
                 searchList = filterList;
@@ -70,12 +71,18 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
 
     @Override
     public void onBindViewHolder(@NonNull MeetingViewHolder holder, int position) {
-
+        holder.txtName.setText(searchList.get(position).getRoom_name());
+        holder.txtLocation.setText(searchList.get(position).getLocation());
+        holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getRating()));
+        Glide
+                .with(context)
+                .load(searchList.get(position).getRoom_img())
+                .into(holder.imgRoom);
     }
 
     @Override
     public int getItemCount() {
-        return dataModelList.size();
+        return searchList.size();
     }
 
     class MeetingViewHolder extends RecyclerView.ViewHolder {

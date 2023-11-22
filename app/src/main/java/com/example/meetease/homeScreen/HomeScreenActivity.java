@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingActivity;
 import com.example.meetease.homeScreen.setting.AvailableRoomsActivity;
 import com.example.meetease.homeScreen.setting.ContactUsActivity;
 import com.example.meetease.R;
@@ -79,6 +80,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         layoutAddReservation.setOnClickListener(this);
         layoutLogout.setOnClickListener(this);
         tvTrans.setOnClickListener(this);
+        layoutPreviousMeeting.setOnClickListener(this);
 
         tvSettingName.setText(preferenceManager.getKeyValueString(VariableBag.full_name,""));
         biometric();
@@ -118,9 +120,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             tvTrans.startAnimation(slideInAnimation);
         }
 
+        if (view == layoutPreviousMeeting){
+            changeScreen(PreviousMeetingActivity.class);
+        }
         if (view == security) {
-            Intent intent = new Intent(HomeScreenActivity.this, SecurityActivity.class);
-            startActivity(intent);
+            changeScreen(SecurityActivity.class);
         }
 
         if (view == tvTrans) {
@@ -129,33 +133,27 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == availableRooms ) {
-            Intent intent = new Intent(HomeScreenActivity.this, AvailableRoomsActivity.class);
-            startActivity(intent);
+            changeScreen(AvailableRoomsActivity.class);
         }
 
         if(view == layoutAddReservation){
-            Intent intent = new Intent(HomeScreenActivity.this, BookMeetingActivity.class);
-            startActivity(intent);
+            changeScreen(BookMeetingActivity.class);
         }
 
         if (view == howToBookRoom) {
-            Intent intent = new Intent(HomeScreenActivity.this, GuideActivity.class);
-            startActivity(intent);
+            changeScreen(GuideActivity.class);
         }
 
         if (view == layoutUserProfile) {
-            Intent intent = new Intent(HomeScreenActivity.this, ProfileActivity.class);
-            startActivity(intent);
+            changeScreen(ProfileActivity.class);
         }
 
         if (view == layoutContactUs) {
-            Intent intent = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
-            startActivity(intent);
+            changeScreen(ContactUsActivity.class);
         }
 
         if (view == helpAndSupport) {
-            Intent intent = new Intent(HomeScreenActivity.this, ContactUsActivity.class);
-            startActivity(intent);
+            changeScreen(ContactUsActivity.class);
         }
 
         if (view == layoutLogout || view == logout) {
@@ -166,8 +164,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
                 preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
-                Intent intent = new Intent(HomeScreenActivity.this, LoginActivity.class);
-                startActivity(intent);
+                changeScreen(LoginActivity.class);
                 finish();
             });
             builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
@@ -176,6 +173,10 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
+    }
+    void changeScreen( Class classActivity){
+        Intent intent = new Intent(HomeScreenActivity.this, classActivity);
+        startActivity(intent);
     }
 
 

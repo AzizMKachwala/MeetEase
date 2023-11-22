@@ -33,7 +33,7 @@ public interface RestCall {
             @Field("password") String password);
 
     @FormUrlEncoded
-    @POST("Controller/UserController.php")
+    @POST("Controller/RoomController.php")
     Single<RoomDetailDataModel> RoomDetails(
             @Field("tag") String tag);
 

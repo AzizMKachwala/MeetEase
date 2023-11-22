@@ -28,7 +28,7 @@ import rx.schedulers.Schedulers;
 public class AvailableRoomsActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewAllRooms;
-    Button btnBookNow;
+    View btnBookNow;
     RestCall restCall;
     Tools tools;
     AllRoomsAdapter allRoomsAdapter;

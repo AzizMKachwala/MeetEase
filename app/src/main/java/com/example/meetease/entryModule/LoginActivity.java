@@ -22,6 +22,7 @@ import com.example.meetease.dataModel.LoginDataModel;
 import com.example.meetease.homeScreen.HomeScreenActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
+import com.example.meetease.network.UserResponse;
 import com.google.android.gms.auth.api.signin.GoogleSignIn;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInClient;
@@ -47,7 +48,7 @@ public class LoginActivity extends AppCompatActivity {
     TextView txtResetPassword,txtSignup;
     ImageView imgPasswordCloseEye;
     View viewGoogle;
-    String flag = "1";
+    String flag = "1",name,mobileNumber,email;
     String password = "Hide";
     RestCall restCall;
     private static final int RC_SIGN_IN = 123;
@@ -168,10 +169,11 @@ public class LoginActivity extends AppCompatActivity {
                             tools.stopLoading();
                             FirebaseUser user = mAuth.getCurrentUser();
                             flag = "0";
-                            loginUser();
-                            Toast.makeText(LoginActivity.this,""+user.getEmail() , Toast.LENGTH_SHORT).show();
+                            name = user.getDisplayName();
+                            email = user.getEmail();
+                            mobileNumber = user.getPhoneNumber();
                             etvEmailOrPhone.setText(user.getEmail());
-                            Toast.makeText(LoginActivity.this, "Welcome, " + user.getDisplayName(), Toast.LENGTH_SHORT).show();
+                            loginUser();
                         } else {
                             tools.stopLoading();
                             Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
@@ -182,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginUser() {
         tools.showLoading();
-        restCall.LoginUser("LoginUser",etvEmailOrPhone.getText().toString().trim(),etvPassword.getText().toString().trim(),"1")
+        restCall.LoginUser("LoginUser",etvEmailOrPhone.getText().toString().trim(),etvPassword.getText().toString().trim(),"0")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<LoginDataModel>() {
@@ -223,11 +225,53 @@ public class LoginActivity extends AppCompatActivity {
                                     finish();
                                 }
                                 else {
+                                    tools.showLoading();
+                                    AddUser();
                                 }
 
                             }
                         });
                     }
                 });
+    }
+
+    void AddUser(){
+        restCall.AddUser("AddUser",name,email,"1234567890","GooglePassword2817")
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<UserResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(UserResponse userResponse) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                if(userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
+                                    preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
+                                    startActivity(new Intent(LoginActivity.this,HomeScreenActivity.class));
+                                    finish();
+                                }
+                            }
+                        });
+                    }
+                });
+
     }
 }

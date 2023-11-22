@@ -54,7 +54,6 @@ public class SecurityActivity extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean status) {
                 preferenceManager.setKeyValueBoolean(VariableBag.SecuritySwitchCheck, status);
-
             }
         });
     }

@@ -14,8 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.homeScreen.HomeScreenActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
@@ -167,7 +169,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 tools.stopLoading();
                                 Toast.makeText(SignUpActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if(userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
-                                    startActivity(new Intent(SignUpActivity.this,LoginActivity.class));
+                                    startActivity(new Intent(SignUpActivity.this, HomeScreenActivity.class));
                                     finish();
                                 }
                             }
