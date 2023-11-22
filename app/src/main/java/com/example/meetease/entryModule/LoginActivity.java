@@ -223,7 +223,7 @@ public class LoginActivity extends AppCompatActivity {
                                     finish();
                                 }
                                 else {
-//                                    singapi
+//                                    SignIn API
                                 }
 
                             }
