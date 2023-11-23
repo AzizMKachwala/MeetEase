@@ -3,6 +3,7 @@ package com.example.meetease.homeScreen.previousMeeting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -38,6 +39,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
     ImageView ivClose;
     RestCall restCall;
     Tools tools;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     String tag = "";
 
@@ -57,6 +59,15 @@ public class PreviousMeetingActivity extends AppCompatActivity {
         etvSearch = findViewById(R.id.etvSearch);
         tvNoData = findViewById(R.id.tvNoData);
         ivClose = findViewById(R.id.ivClose);
+        swipeRefreshLayout = findViewById(R.id.swipe);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                roomDetail();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         ivClose.setVisibility(View.GONE);
         tvNoData.setVisibility(View.GONE);

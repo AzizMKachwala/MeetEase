@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -14,11 +15,23 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.Tools;
+import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.dataModel.RoomDetailDataModel;
+import com.example.meetease.dataModel.RoomDetailList;
+import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingActivity;
+import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingAdapter;
+import com.example.meetease.network.RestCall;
+import com.example.meetease.network.RestClient;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
 
 public class CreateReservationActivity extends AppCompatActivity {
 
@@ -26,22 +39,37 @@ public class CreateReservationActivity extends AppCompatActivity {
     CreateReservationAdapter createReservationAdapter;
     EditText etvSearch;
     TextView tvNoData;
-    ImageView ivClose,img_filter;
+    ImageView ivClose, img_filter;
     FilterFragment filterFragment;
-    List<CreateReservationDataModel> roomList;
+    SwipeRefreshLayout swipeRefreshLayout;
+    RestCall restCall;
+    Tools tools;
+    List<RoomDetailList> apiList = new ArrayList<>();
+
     public int year, month, day, startHour, startMinute, endHour, endMinute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_reservation);
 
-        roomList = new ArrayList<>();
-        addData();
         recyclerViewMeetingRooms = findViewById(R.id.recyclerViewMeetingRooms);
         etvSearch = findViewById(R.id.etvSearch);
         tvNoData = findViewById(R.id.tvNoData);
         img_filter = findViewById(R.id.img_filter);
         ivClose = findViewById(R.id.ivClose);
+        swipeRefreshLayout = findViewById(R.id.swipe);
+        tools = new Tools(this);
+        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
+
+        roomDetail();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         ivClose.setVisibility(View.GONE);
         tvNoData.setVisibility(View.GONE);
@@ -57,19 +85,66 @@ public class CreateReservationActivity extends AppCompatActivity {
                 filterFragment = new FilterFragment();
                 FragmentManager fragmentManager = getSupportFragmentManager();
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-                filterFragment.show(fragmentTransaction,"#tag");
+                filterFragment.show(fragmentTransaction, "#tag");
                 filterFragment.setCancelable(false);
+
+                filterFragment.setUpInterface(new FilterFragment.FilterApply() {
+                    @Override
+                    public void filterList(String city, String Price, String Rating) {
+
+                        if (!city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
+//                            notifyData(ratingFilter(priceFilter(cityFilter(apiList, city), Price), Rating));
+                            List<RoomDetailList> list = ratingFilter(priceFilter(cityFilter(apiList, city), Price), Rating);
+                            createReservationAdapter.updateData(list);
+                        }
+
+                        else if (!city.isEmpty() && !Price.isEmpty() && Rating.isEmpty()) {
+//                            notifyData(priceFilter(cityFilter(apiList, city), Price));
+                            List<RoomDetailList> list = priceFilter(cityFilter(apiList, city), Price);
+                            createReservationAdapter.updateData(list);
+                        }
+
+                        else if (!city.isEmpty() && Price.isEmpty() && !Rating.isEmpty()) {
+                            List<RoomDetailList> list = ratingFilter(cityFilter(apiList, city), Rating);
+                            createReservationAdapter.updateData(list);
+                        }
+
+                        else if (city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
+//                            notifyData(ratingFilter(priceFilter(apiList, Price), Rating));
+                            List<RoomDetailList> list = ratingFilter(priceFilter(apiList, Price), Rating);
+                            createReservationAdapter.updateData(list);
+                        }
+
+                        else if (!city.isEmpty() && Price.isEmpty() && Rating.isEmpty()) {
+//                            notifyData(cityFilter(apiList, city));
+                            List<RoomDetailList> list = cityFilter(apiList, city);
+                            createReservationAdapter.updateData(list);
+                        }
+
+                        else if (city.isEmpty() && !Price.isEmpty() && Rating.isEmpty()) {
+//                            notifyData(priceFilter(apiList, Price));
+                            List<RoomDetailList> list = priceFilter(apiList, Price);
+                            createReservationAdapter.updateData(list);
+                        }
+
+                        else if (city.isEmpty() && Price.isEmpty() && !Rating.isEmpty()) {
+//                            notifyData(ratingFilter(apiList, Rating));
+                            List<RoomDetailList> list = ratingFilter(apiList, Rating);
+                            createReservationAdapter.updateData(list);
+                        }
+                    }
+                });
             }
         });
 
         Intent intent = getIntent();
-        year = Integer.parseInt(intent.getExtras().getString("year","0"));
-        month = Integer.parseInt(intent.getExtras().getString("month","0"));
-        day = Integer.parseInt(intent.getExtras().getString("day","0"));
-        startHour = Integer.parseInt(intent.getExtras().getString("startHour","0"));
-        startMinute = Integer.parseInt(intent.getExtras().getString("startMinute","0"));
-        endHour = Integer.parseInt(intent.getExtras().getString("endHour","0"));
-        endMinute = Integer.parseInt(intent.getExtras().getString("endMinute","0"));
+        year = Integer.parseInt(intent.getExtras().getString("year", "0"));
+        month = Integer.parseInt(intent.getExtras().getString("month", "0"));
+        day = Integer.parseInt(intent.getExtras().getString("day", "0"));
+        startHour = Integer.parseInt(intent.getExtras().getString("startHour", "0"));
+        startMinute = Integer.parseInt(intent.getExtras().getString("startMinute", "0"));
+        endHour = Integer.parseInt(intent.getExtras().getString("endHour", "0"));
+        endMinute = Integer.parseInt(intent.getExtras().getString("endMinute", "0"));
 
         etvSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -79,14 +154,13 @@ public class CreateReservationActivity extends AppCompatActivity {
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                if (createReservationAdapter != null){
-                    if (!etvSearch.getText().toString().isEmpty()){
+                if (createReservationAdapter != null) {
+                    if (!etvSearch.getText().toString().isEmpty()) {
                         ivClose.setVisibility(View.VISIBLE);
-                    }
-                    else {
+                    } else {
                         ivClose.setVisibility(View.GONE);
                     }
-                    createReservationAdapter.search(charSequence,tvNoData,recyclerViewMeetingRooms);
+                    createReservationAdapter.search(charSequence, tvNoData, recyclerViewMeetingRooms);
                 }
             }
 
@@ -95,31 +169,99 @@ public class CreateReservationActivity extends AppCompatActivity {
 
             }
         });
-
-        createReservationAdapter = new CreateReservationAdapter(roomList,this);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
-        recyclerViewMeetingRooms.setLayoutManager(layoutManager);
-        recyclerViewMeetingRooms.setAdapter(createReservationAdapter);
-
-        createReservationAdapter.setUpInterFace(new CreateReservationAdapter.CreateReservationAdapterDataClick() {
-            @Override
-            public void bookDataClick(CreateReservationDataModel createReservationDataModel) {
-                Intent intent = new Intent(CreateReservationActivity.this,DetailsActivity.class);
-                intent.putExtra("roomName",createReservationDataModel.roomName);
-                intent.putExtra("roomPrice",createReservationDataModel.roomPrice);
-                intent.putExtra("roomLocation",createReservationDataModel.roomLocation);
-                intent.putExtra("roomRating",createReservationDataModel.roomRating);
-                intent.putExtra("roomImage",createReservationDataModel.roomImage);
-                startActivity(intent);
-            }
-        });
     }
-    void addData(){
-        roomList.add(new CreateReservationDataModel("hotel taj","Ahmedabad","1000","4","https://ballantyneexecutivesuites.com/wp-content/uploads/2015/10/Depositphotos_13534536_original.jpg"));
-        roomList.add(new CreateReservationDataModel("hotel raj","Rajkot","2000","5","https://ballantyneexecutivesuites.com/wp-content/uploads/2015/10/Depositphotos_13534536_original.jpg"));
-        roomList.add(new CreateReservationDataModel("hotel Sky","surat","500","3","https://ballantyneexecutivesuites.com/wp-content/uploads/2015/10/Depositphotos_13534536_original.jpg"));
-        roomList.add(new CreateReservationDataModel("hotel hill","Gandhinagar","1500","4","https://images.pexels.com/photos/2976970/pexels-photo-2976970.jpeg"));
-        roomList.add(new CreateReservationDataModel("hotel taj","Baroda","300","2","https://images.pexels.com/photos/2976970/pexels-photo-2976970.jpeg"));
-        roomList.add(new CreateReservationDataModel("hotel fun","Baroda","2500","4","https://images.pexels.com/photos/2976970/pexels-photo-2976970.jpeg"));
+
+    List<RoomDetailList> cityFilter(List<RoomDetailList> list, String city) {
+        List<RoomDetailList> filteredListCity = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getLocation().equals(city)) {
+                filteredListCity.add(list.get(i));
+            }
+        }
+        return filteredListCity;
+    }
+
+    List<RoomDetailList> priceFilter(List<RoomDetailList> list, String Price) {
+        List<RoomDetailList> filteredListPrice = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (Float.parseFloat(list.get(i).getPrice()) < Float.parseFloat(Price)) {
+                filteredListPrice.add(list.get(i));
+            }
+        }
+        return filteredListPrice;
+    }
+
+    List<RoomDetailList> ratingFilter(List<RoomDetailList> list, String Rating) {
+        List<RoomDetailList> filteredListRating = new ArrayList<>();
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i).getRating().equals(Rating)) {
+                filteredListRating.add(list.get(i));
+            }
+        }
+        return filteredListRating;
+    }
+
+    void roomDetail() {
+        tools.showLoading();
+        restCall.RoomDetails("getRoom")
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<RoomDetailDataModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                Toast.makeText(CreateReservationActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(RoomDetailDataModel roomDetailDataModel) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                apiList = roomDetailDataModel.getRoomDetailList();
+                                if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
+                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
+                                    recyclerViewMeetingRooms.setLayoutManager(layoutManager);
+                                    List<RoomDetailList> newList = new ArrayList<>();
+                                    for (int i = 0; i < roomDetailDataModel.getRoomDetailList().size(); i++) {
+                                        if (roomDetailDataModel.getRoomDetailList().get(i).getUpcoming_status().equals("0")) {
+                                            newList.add(roomDetailDataModel.getRoomDetailList().get(i));
+                                        }
+                                    }
+                                    createReservationAdapter = new CreateReservationAdapter(newList, CreateReservationActivity.this);
+                                    recyclerViewMeetingRooms.setAdapter(createReservationAdapter);
+                                    createReservationAdapter.setUpInterFace(new CreateReservationAdapter.CreateReservationAdapterDataClick() {
+                                        @Override
+                                        public void bookDataClick(RoomDetailList createReservationDataModel) {
+                                            Intent intent = new Intent(CreateReservationActivity.this, DetailsActivity.class);
+                                            intent.putExtra("roomName", createReservationDataModel.getRoom_name());
+                                            intent.putExtra("roomPrice", createReservationDataModel.getPrice());
+                                            intent.putExtra("roomLocation", createReservationDataModel.getLocation());
+                                            intent.putExtra("roomRating", createReservationDataModel.getRating());
+                                            intent.putExtra("roomImage", createReservationDataModel.getRoom_img());
+                                            startActivity(intent);
+                                        }
+                                    });
+                                }
+                            }
+                        });
+                    }
+                });
+    }
+
+    void notifyData(List<RoomDetailList> dataModelList) {
+        Toast.makeText(this, "@@@" + dataModelList.size(), Toast.LENGTH_SHORT).show();
+
     }
 }

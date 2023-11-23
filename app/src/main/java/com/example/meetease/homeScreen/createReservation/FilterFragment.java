@@ -19,8 +19,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.dataModel.RoomDetailList;
 import com.google.android.material.slider.RangeSlider;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class FilterFragment extends DialogFragment {
@@ -29,18 +31,29 @@ public class FilterFragment extends DialogFragment {
     RatingBar ratingBar;
     RangeSlider priceRangeSlider;
     Spinner citySpinner;
-    String selectedCity;
+    String selectedCity = "";
+
+    FilterApply filterApply;
+
+    public interface FilterApply {
+        void filterList(String city, String Price, String Rating);
+    }
+
+    public void setUpInterface(FilterApply filterApply) {
+        this.filterApply = filterApply;
+    }
 
     @Override
     public void onStart() {
         super.onStart();
         Dialog dialog = new Dialog(getContext());
-        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
+        dialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
     }
+
     @SuppressLint("MissingInflatedId")
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_filter, container, false);
 
         btnApply = view.findViewById(R.id.btnApply);
@@ -49,7 +62,7 @@ public class FilterFragment extends DialogFragment {
         priceRangeSlider = view.findViewById(R.id.priceRangeSlider);
         citySpinner = view.findViewById(R.id.citySpinner);
 
-        String[] cityData = {"Select City", "Ahmedabad", "Vadodara", "Mumbai","Pune","Banglore","Bharuch","Ghandhinagar"};
+        String[] cityData = {"Select City", "Ahmedabad", "Rajkot", "Baroda", "Surat", "Mumbai", "Pune", "Banglore", "Bharuch", "Ghandhinagar"};
         ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, cityData);
         cityAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         citySpinner.setAdapter(cityAdapter);
@@ -70,8 +83,11 @@ public class FilterFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
-                if(!selectedCity.isEmpty() && !selectedCity.equals("Select City") && !selectedCity.equals(null)){
-                    Toast.makeText(getContext(), ""+selectedCity, Toast.LENGTH_SHORT).show();
+
+                filterApply.filterList(selectedCity, String.valueOf(priceRangeSlider.getValues().get(0)), String.valueOf(ratingBar.getRating()));
+
+                if (!selectedCity.isEmpty() && !selectedCity.equals("Select City") && !selectedCity.equals(null)) {
+                    Toast.makeText(getContext(), "" + selectedCity, Toast.LENGTH_SHORT).show();
 
                 }
 

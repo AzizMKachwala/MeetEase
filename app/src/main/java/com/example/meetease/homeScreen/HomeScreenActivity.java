@@ -37,7 +37,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             inviteFriend, helpAndSupport, logout, layoutAddReservation, layoutUpcomingMeeting,
             layoutPreviousMeeting, layoutUserProfile, layoutContactUs, layoutRateUs;
     ImageView ivSettingProfile, ivSetting;
-    TextView tvSettingName, tvTrans, txtHelloName;
+    TextView tvSettingName, tvSettingEmail, tvTrans, txtHelloName;
     BiometricPrompt biometricPrompt;
     BiometricPrompt.PromptInfo promptInfo;
     Executor executor;
@@ -69,6 +69,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         ivSetting = findViewById(R.id.ivSetting);
         ivSettingProfile = findViewById(R.id.ivSettingProfile);
         tvSettingName = findViewById(R.id.tvSettingName);
+        tvSettingEmail = findViewById(R.id.tvSettingEmail);
 
         scrollView.setVisibility(View.GONE);
         tvTrans.setVisibility(View.GONE);
@@ -87,10 +88,16 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         layoutPreviousMeeting.setOnClickListener(this);
         favoriteRooms.setOnClickListener(this);
 
-        tvSettingName.setText(preferenceManager.getKeyValueString(VariableBag.full_name, ""));
-        txtHelloName.setText("Hello, " + preferenceManager.getKeyValueString(VariableBag.full_name, ""));
-
         biometric();
+    }
+
+    @SuppressLint("SetTextI18n")
+    @Override
+    protected void onResume() {
+        super.onResume();
+        tvSettingName.setText(preferenceManager.getKeyValueString(VariableBag.full_name, ""));
+        tvSettingEmail.setText(preferenceManager.getKeyValueString(VariableBag.email, ""));
+        txtHelloName.setText("Hello, " + preferenceManager.getKeyValueString(VariableBag.full_name, ""));
     }
 
     @Override

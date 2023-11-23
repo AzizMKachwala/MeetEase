@@ -139,9 +139,9 @@ public class BookMeetingActivity extends AppCompatActivity {
                 if (tvDate.getText().toString().equals("Select Date") || tvEndTime.getText().toString().isEmpty()) {
                     Toast.makeText(BookMeetingActivity.this, "Select Date First", Toast.LENGTH_SHORT).show();
                 } else if (tvStartTime.getText().toString().equals("Select Start Time")) {
-                    Toast.makeText(BookMeetingActivity.this, "Select Start Time First", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookMeetingActivity.this, "Select Start Time", Toast.LENGTH_SHORT).show();
                 } else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()) {
-                    Toast.makeText(BookMeetingActivity.this, "Select End Time Second", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(BookMeetingActivity.this, "Select End Time", Toast.LENGTH_SHORT).show();
                 } else {
 //                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 //                        createNotificationChannel(BookMeetingActivity.this);
@@ -158,7 +158,6 @@ public class BookMeetingActivity extends AppCompatActivity {
 //                            .build();
 //                    NotificationManager notificationManager = (NotificationManager) BookMeetingActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
 //                    notificationManager.notify(0, notification);
-
 
                     Intent intent = new Intent(BookMeetingActivity.this,CreateReservationActivity.class);
                     intent.putExtra("year",String.valueOf(year));

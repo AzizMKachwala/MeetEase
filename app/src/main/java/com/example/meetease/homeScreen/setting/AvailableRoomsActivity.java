@@ -3,6 +3,7 @@ package com.example.meetease.homeScreen.setting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -32,6 +33,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
     RestCall restCall;
     Tools tools;
     AllRoomsAdapter allRoomsAdapter;
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,6 +42,15 @@ public class AvailableRoomsActivity extends AppCompatActivity {
 
         btnBookNow = findViewById(R.id.btnBookNow);
         recyclerViewAllRooms = findViewById(R.id.recyclerViewAllRooms);
+        swipeRefreshLayout = findViewById(R.id.swipe);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                roomDetail();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
