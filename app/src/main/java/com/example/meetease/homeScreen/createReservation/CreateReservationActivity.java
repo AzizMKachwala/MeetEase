@@ -93,13 +93,11 @@ public class CreateReservationActivity extends AppCompatActivity {
                     public void filterList(String city, String Price, String Rating) {
 
                         if (!city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
-//                            notifyData(ratingFilter(priceFilter(cityFilter(apiList, city), Price), Rating));
                             List<RoomDetailList> list = ratingFilter(priceFilter(cityFilter(apiList, city), Price), Rating);
                             createReservationAdapter.updateData(list);
                         }
 
                         else if (!city.isEmpty() && !Price.isEmpty() && Rating.isEmpty()) {
-//                            notifyData(priceFilter(cityFilter(apiList, city), Price));
                             List<RoomDetailList> list = priceFilter(cityFilter(apiList, city), Price);
                             createReservationAdapter.updateData(list);
                         }
@@ -110,25 +108,21 @@ public class CreateReservationActivity extends AppCompatActivity {
                         }
 
                         else if (city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
-//                            notifyData(ratingFilter(priceFilter(apiList, Price), Rating));
                             List<RoomDetailList> list = ratingFilter(priceFilter(apiList, Price), Rating);
                             createReservationAdapter.updateData(list);
                         }
 
                         else if (!city.isEmpty() && Price.isEmpty() && Rating.isEmpty()) {
-//                            notifyData(cityFilter(apiList, city));
                             List<RoomDetailList> list = cityFilter(apiList, city);
                             createReservationAdapter.updateData(list);
                         }
 
                         else if (city.isEmpty() && !Price.isEmpty() && Rating.isEmpty()) {
-//                            notifyData(priceFilter(apiList, Price));
                             List<RoomDetailList> list = priceFilter(apiList, Price);
                             createReservationAdapter.updateData(list);
                         }
 
                         else if (city.isEmpty() && Price.isEmpty() && !Rating.isEmpty()) {
-//                            notifyData(ratingFilter(apiList, Rating));
                             List<RoomDetailList> list = ratingFilter(apiList, Rating);
                             createReservationAdapter.updateData(list);
                         }
@@ -184,7 +178,7 @@ public class CreateReservationActivity extends AppCompatActivity {
     List<RoomDetailList> priceFilter(List<RoomDetailList> list, String Price) {
         List<RoomDetailList> filteredListPrice = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
-            if (Float.parseFloat(list.get(i).getPrice()) < Float.parseFloat(Price)) {
+            if (Integer.parseInt(list.get(i).getPrice()) < Integer.parseInt(Price)) {
                 filteredListPrice.add(list.get(i));
             }
         }
@@ -193,8 +187,10 @@ public class CreateReservationActivity extends AppCompatActivity {
 
     List<RoomDetailList> ratingFilter(List<RoomDetailList> list, String Rating) {
         List<RoomDetailList> filteredListRating = new ArrayList<>();
+        Float f = Float.parseFloat(Rating);
+        int r = (int)(Math.round(f));
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getRating().equals(Rating)) {
+            if (list.get(i).getRating().equals(r)) {
                 filteredListRating.add(list.get(i));
             }
         }
@@ -258,10 +254,5 @@ public class CreateReservationActivity extends AppCompatActivity {
                         });
                     }
                 });
-    }
-
-    void notifyData(List<RoomDetailList> dataModelList) {
-        Toast.makeText(this, "@@@" + dataModelList.size(), Toast.LENGTH_SHORT).show();
-
     }
 }

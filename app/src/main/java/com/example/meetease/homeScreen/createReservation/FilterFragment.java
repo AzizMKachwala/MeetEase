@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.DialogFragment;
 
 import android.view.LayoutInflater;
@@ -32,6 +33,9 @@ public class FilterFragment extends DialogFragment {
     RangeSlider priceRangeSlider;
     Spinner citySpinner;
     String selectedCity = "";
+
+    String rating="";
+    String price = "";
 
     FilterApply filterApply;
 
@@ -83,13 +87,20 @@ public class FilterFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
+                priceRangeSlider.addOnChangeListener(new RangeSlider.OnChangeListener() {
+                    @Override
+                    public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
+                        price = String.valueOf(value);
+                    }
+                });
 
-                filterApply.filterList(selectedCity, String.valueOf(priceRangeSlider.getValues().get(0)), String.valueOf(ratingBar.getRating()));
-
-                if (!selectedCity.isEmpty() && !selectedCity.equals("Select City") && !selectedCity.equals(null)) {
-                    Toast.makeText(getContext(), "" + selectedCity, Toast.LENGTH_SHORT).show();
-
-                }
+                ratingBar.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        rating = String.valueOf(ratingBar.getRating());
+                    }
+                });
+                filterApply.filterList(selectedCity,price,rating);
 
                 dismiss();
             }
