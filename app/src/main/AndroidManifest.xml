@@ -28,7 +28,7 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".homeScreen.setting.RateUsActivity"
+            android:name=".homeScreen.setting.FavoriteRoomActivity"
             android:exported="false" />
         <activity
             android:name=".homeScreen.setting.ForgotPasswordActivity"
@@ -52,6 +52,10 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".homeScreen.createReservation.BookMeetingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".homeScreen.setting.RateUsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity

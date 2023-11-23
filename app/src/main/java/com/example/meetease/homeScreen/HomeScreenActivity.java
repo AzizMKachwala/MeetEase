@@ -85,6 +85,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         layoutRateUs.setOnClickListener(this);
         tvTrans.setOnClickListener(this);
         layoutPreviousMeeting.setOnClickListener(this);
+        favoriteRooms.setOnClickListener(this);
 
         tvSettingName.setText(preferenceManager.getKeyValueString(VariableBag.full_name, ""));
         txtHelloName.setText("Hello, " + preferenceManager.getKeyValueString(VariableBag.full_name, ""));
@@ -125,7 +126,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             ivSetting.startAnimation(slideInAnimation);
             tvTrans.startAnimation(slideInAnimation);
         }
-
+        if(view == favoriteRooms){
+            Intent intent = new Intent(HomeScreenActivity.this,PreviousMeetingActivity.class);
+            intent.putExtra("abc","favoriteRooms");
+            startActivity(intent);
+        }
         if (view == layoutPreviousMeeting) {
             changeScreen(PreviousMeetingActivity.class);
         }

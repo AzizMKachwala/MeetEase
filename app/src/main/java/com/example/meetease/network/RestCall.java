@@ -47,4 +47,11 @@ public interface RestCall {
             @Part("email") RequestBody email,
             @Part("password") RequestBody password,
             @Part MultipartBody.Part profile_photo1);
+    @FormUrlEncoded
+    @POST("Controller/RoomController.php")
+    Single<UserResponse> ResetPassword(
+            @Field("tag") String tag,
+            @Field("user_id") String user_id,
+            @Field("password") String password);
+
 }

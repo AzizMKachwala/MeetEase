@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.meetease.R;
+import com.example.meetease.appUtils.Tools;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 import com.example.meetease.dataModel.RoomDetailList;
 
@@ -20,7 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeetingAdapter.MeetingViewHolder> {
-
 
     List<RoomDetailList> dataModelList,searchList;
     Context context;
@@ -64,9 +64,7 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
     @NonNull
     @Override
     public MeetingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.previous_meeting_item,parent,false);
-        return new MeetingViewHolder(view);
+        return new MeetingViewHolder(Tools.bindXML(R.layout.previous_meeting_item,parent));
     }
 
     @Override

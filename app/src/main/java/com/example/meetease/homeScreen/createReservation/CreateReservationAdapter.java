@@ -16,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.meetease.R;
+import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 
 import java.util.ArrayList;
@@ -74,9 +75,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
     @NonNull
     @Override
     public CreateReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
-        View view = layoutInflater.inflate(R.layout.meeting_rooms_item, parent, false);
-        return new CreateReservationViewHolder(view);
+        return new CreateReservationViewHolder(Tools.bindXML(R.layout.meeting_rooms_item,parent));
     }
 
     @Override

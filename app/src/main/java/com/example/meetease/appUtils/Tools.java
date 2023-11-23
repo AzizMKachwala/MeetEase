@@ -3,6 +3,9 @@ import android.app.Dialog;
 import android.content.Context;
 import android.text.TextUtils;
 import android.util.Patterns;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
@@ -22,6 +25,11 @@ public class Tools {
         dialog = new Dialog(context);
     }
 
+    public static View bindXML(int xml, ViewGroup parent ){
+        LayoutInflater layoutInflater = LayoutInflater.from(parent.getContext());
+        View view = layoutInflater.inflate(xml, parent, false);
+        return view;
+    }
     public static boolean isValidEmail(String str) {
         if (!TextUtils.isEmpty(str)) {
             return Patterns.EMAIL_ADDRESS.matcher(str.toLowerCase()).matches();
@@ -72,4 +80,5 @@ public class Tools {
                 .apply(new RequestOptions().placeholder(R.drawable.ic_launcher_foreground))
                 .into(img);
     }
+
 }

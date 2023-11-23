@@ -70,178 +70,191 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         ivBack = findViewById(R.id.ivBack);
         tvCode = findViewById(R.id.tvCode);
         countryPicker = findViewById(R.id.countryPicker);
-
-        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
-        tools = new Tools(this);
-        countryPicker.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
-            @Override
-            public void onCountrySelected() {
-                tvCode.setText("+ " + countryPicker.getSelectedCountryCode());
-            }
-        });
-
-        mAuth = FirebaseAuth.getInstance();
-
-        ivBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(ForgotPasswordActivity.this,ChangePasswordActivity.class));
-                finish();
-            }
-        });
-
         preferenceManager = new PreferenceManager(ForgotPasswordActivity.this);
-
-        btnSend.setText("Send");
-        etvOTP.setVisibility(View.GONE);
-        etvNewPassword.setVisibility(View.GONE);
-        etvConfirmPassword.setVisibility(View.GONE);
-        btnSave.setVisibility(View.GONE);
-        btnCheckOtp.setVisibility(View.GONE);
-
-        btnSend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (!etvPhoneNo.getText().toString().isEmpty()) {
-                    Toast.makeText(ForgotPasswordActivity.this, "OTP Sent...", Toast.LENGTH_SHORT).show();
-
-                    String phone = "+" + countryPicker.getSelectedCountryCode() + etvPhoneNo.getText().toString();
-                    tools.showLoading();
-                    sendVerificationCode(phone);
-                }
-            }
-        });
-
-        btnCheckOtp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                    if (etvOTP.getText().toString().isEmpty()){
-                        etvOTP.setError("Enter OTP");
-                        etvOTP.requestFocus();
-                    }
-                    else {
-                        verifyCode(etvOTP.getText().toString());
-                    }
-
-                }
-        });
-
+        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
+//        tools = new Tools(this);
+//        countryPicker.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
+//            @Override
+//            public void onCountrySelected() {
+//                tvCode.setText("+ " + countryPicker.getSelectedCountryCode());
+//            }
+//        });
+//
+//        mAuth = FirebaseAuth.getInstance();
+//
+//        ivBack.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivity(new Intent(ForgotPasswordActivity.this,ChangePasswordActivity.class));
+//                finish();
+//            }
+//        });
+//
+//
+//        btnSend.setText("Send");
+//        etvOTP.setVisibility(View.GONE);
+//        etvNewPassword.setVisibility(View.GONE);
+//        etvConfirmPassword.setVisibility(View.GONE);
+//        btnSave.setVisibility(View.GONE);
+//        btnCheckOtp.setVisibility(View.GONE);
+//
+//        btnSend.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                if (etvPhoneNo.getText().toString().isEmpty()) {
+//                    etvPhoneNo.setError("Enter Mobile Number");
+//                    etvPhoneNo.requestFocus();
+//                } else if (!etvPhoneNo.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.mobile,""))) {
+//                    etvPhoneNo.setError("Use Valid Mobile Number !!!");
+//                    etvPhoneNo.requestFocus();
+//                }
+//                else {
+//                    Toast.makeText(ForgotPasswordActivity.this, "OTP Sent...", Toast.LENGTH_SHORT).show();
+//                    String phone = "+" + countryPicker.getSelectedCountryCode() + etvPhoneNo.getText().toString();
+//                    tools.showLoading();
+//                    sendVerificationCode(phone);
+//                }
+//            }
+//        });
+//
+//        btnCheckOtp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                    if (etvOTP.getText().toString().isEmpty()){
+//                        etvOTP.setError("Enter OTP");
+//                        etvOTP.requestFocus();
+//                    }
+//                    else {
+//                        verifyCode(etvOTP.getText().toString());
+//                    }
+//
+//                }
+//        });
+//
+//        btnSave.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                if (!etvNewPassword.getText().toString().isEmpty()
+//                        && etvConfirmPassword.getText().toString().equals(etvNewPassword.getText().toString())) {
+//
+//                    if (etvNewPassword.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.password, ""))) {
+//                        Toast.makeText(ForgotPasswordActivity.this, "New Password Cannot be Same as Old Password", Toast.LENGTH_SHORT).show();
+//                    } else {
+//                        Toast.makeText(ForgotPasswordActivity.this, "password change successfully", Toast.LENGTH_SHORT).show();
+//                        editPassword();
+//                    }
+//                }
+//            }
+//        });
+//
+//    }
+//
+//    private void sendVerificationCode(String phone) {
+//        PhoneAuthOptions options =
+//                PhoneAuthOptions.newBuilder(mAuth)
+//                        .setPhoneNumber(phone)
+//                        .setTimeout(60L, TimeUnit.SECONDS)
+//                        .setActivity(this)
+//                        .setCallbacks(mCallBack)
+//                        .build();
+//        PhoneAuthProvider.verifyPhoneNumber(options);
+//    }
+//
+//    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
+//            mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
+//        @Override
+//        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
+//            super.onCodeSent(s, forceResendingToken);
+//            verificationId = s;
+//            etvOTP.setVisibility(View.VISIBLE);
+//            tools.stopLoading();
+//            btnSend.setText("Resend");
+//            btnCheckOtp.setVisibility(View.VISIBLE);
+//        }
+//
+//        @Override
+//        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
+//            tools.stopLoading();
+//        }
+//
+//        @Override
+//        public void onVerificationFailed(@NonNull FirebaseException e) {
+//            tools.stopLoading();
+//            Toast.makeText(ForgotPasswordActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
+//        }
+//
+//    };
+//
+//    private void verifyCode(String code) {
+//        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
+//        signInWithCredential(credential);
+//    }
+//
+//    private void signInWithCredential(PhoneAuthCredential credential) {
+//        mAuth.signInWithCredential(credential)
+//                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+//                    @Override
+//                    public void onComplete(@NonNull Task<AuthResult> task) {
+//                        if (task.isSuccessful()) {
+//                            btnCheckOtp.setVisibility(View.GONE);
+//                            btnSend.setVisibility(View.GONE);
+//                            etvPhoneNo.setEnabled(false);
+//                            etvOTP.setEnabled(false);
+//                            etvNewPassword.setVisibility(View.VISIBLE);
+//                            etvConfirmPassword.setVisibility(View.VISIBLE);
+//                            btnSave.setVisibility(View.VISIBLE);
+//                        } else {
+//                                etvOTP.setError("Enter Correct OTP");
+//                                etvOTP.requestFocus();
+//                        }
+//                    }
+//                });
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!etvNewPassword.getText().toString().isEmpty()
-                        && etvConfirmPassword.getText().toString().equals(etvNewPassword.getText().toString())) {
-
-                    if (etvNewPassword.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.password, ""))) {
-                        Toast.makeText(ForgotPasswordActivity.this, "New Password Cannot be Same as Old Password", Toast.LENGTH_SHORT).show();
-                    } else {
-                        Toast.makeText(ForgotPasswordActivity.this, "password change successfully", Toast.LENGTH_SHORT).show();
-                        //editPassword();
-                    }
-                }
+                editPassword();
             }
         });
 
     }
 
-    private void sendVerificationCode(String phone) {
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(phone)
-                        .setTimeout(60L, TimeUnit.SECONDS)
-                        .setActivity(this)
-                        .setCallbacks(mCallBack)
-                        .build();
-        PhoneAuthProvider.verifyPhoneNumber(options);
-    }
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
-            mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
-        @Override
-        public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
-            super.onCodeSent(s, forceResendingToken);
-            verificationId = s;
-            etvOTP.setVisibility(View.VISIBLE);
-            tools.stopLoading();
-            btnSend.setText("Resend");
-            btnCheckOtp.setVisibility(View.VISIBLE);
-        }
+    void editPassword() {
 
-        @Override
-        public void onVerificationCompleted(@NonNull PhoneAuthCredential phoneAuthCredential) {
-            tools.stopLoading();
-        }
-
-        @Override
-        public void onVerificationFailed(@NonNull FirebaseException e) {
-            tools.stopLoading();
-            Toast.makeText(ForgotPasswordActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
-        }
-
-    };
-
-    private void verifyCode(String code) {
-        PhoneAuthCredential credential = PhoneAuthProvider.getCredential(verificationId, code);
-        signInWithCredential(credential);
-    }
-
-    private void signInWithCredential(PhoneAuthCredential credential) {
-        mAuth.signInWithCredential(credential)
-                .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+        restCall.ResetPassword("tag",preferenceManager.getKeyValueString(VariableBag.user_id,""),etvNewPassword.getText().toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<UserResponse>() {
                     @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        if (task.isSuccessful()) {
-                            btnCheckOtp.setVisibility(View.GONE);
-                            btnSend.setVisibility(View.GONE);
-                            etvPhoneNo.setEnabled(false);
-                            etvOTP.setEnabled(false);
-                            etvNewPassword.setVisibility(View.VISIBLE);
-                            etvConfirmPassword.setVisibility(View.VISIBLE);
-                            btnSave.setVisibility(View.VISIBLE);
-                        } else {
-                                etvOTP.setError("Enter Correct OTP");
-                                etvOTP.requestFocus();
-                        }
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(ForgotPasswordActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(UserResponse userResponse) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(ForgotPasswordActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                    preferenceManager.setKeyValueString(VariableBag.password,etvNewPassword.getText().toString());
+                                    finish();
+                                }
+                            }
+                        });
                     }
                 });
     }
-
-
-//    void editPassword() {
-//
-//        restCall.EditUser("tag",preferenceManager.getKeyValueString(VariableBag.user_id,""),etvNewPassword.getText().toString())
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(Schedulers.newThread())
-//                .subscribe(new Subscriber<UserResponse>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Toast.makeText(ForgotPasswordActivity.this, "no internet connection", Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
-//
-//                    @Override
-//                    public void onNext(UserResponse userResponse) {
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Toast.makeText(ForgotPasswordActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
-//                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
-//                                    finish();
-//                                }
-//                            }
-//                        });
-//                    }
-//                });
-//    }
 }
