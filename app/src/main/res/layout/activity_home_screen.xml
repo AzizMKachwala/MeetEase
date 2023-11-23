@@ -27,10 +27,11 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
+        android:id="@+id/txtHelloName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
-        android:text="Hello anand ,"
+        android:hint="Hello, Anand"
         android:textColor="@color/white"
         android:textSize="@dimen/_20sdp"
         android:textStyle="italic"
@@ -205,7 +206,7 @@
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/layoutLogout"
+                android:id="@+id/layoutRateUs"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_3sdp"
@@ -218,7 +219,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginVertical="@dimen/_5sdp"
                     android:padding="@dimen/_5sdp"
-                    android:text="Logout"
+                    android:text="Rate Us"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_15sdp" />
 
@@ -227,7 +228,7 @@
                     android:layout_height="@dimen/_25sdp"
                     android:layout_gravity="end"
                     android:layout_margin="@dimen/_5sdp"
-                    android:src="@drawable/img_logout" />
+                    android:src="@drawable/star" />
 
             </LinearLayout>
 
@@ -301,7 +302,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
                     android:gravity="center_horizontal"
-                    android:text="anand patel"
+                    android:hint="Anand Patel"
                     android:textSize="@dimen/_20sdp" />
 
                 <View

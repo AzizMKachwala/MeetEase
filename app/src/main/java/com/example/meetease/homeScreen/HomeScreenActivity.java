@@ -1,5 +1,6 @@
 package com.example.meetease.homeScreen;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -25,6 +26,7 @@ import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
+import com.example.meetease.homeScreen.setting.RateUsActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
 
 import java.util.concurrent.Executor;
@@ -33,14 +35,15 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 
     View scrollView, favoriteRooms, availableRooms, security, howToBookRoom,
             inviteFriend, helpAndSupport, logout, layoutAddReservation, layoutUpcomingMeeting,
-            layoutPreviousMeeting, layoutUserProfile, layoutContactUs, layoutLogout;
+            layoutPreviousMeeting, layoutUserProfile, layoutContactUs, layoutRateUs;
     ImageView ivSettingProfile, ivSetting;
-    TextView tvSettingName, tvTrans;
+    TextView tvSettingName, tvTrans, txtHelloName;
     BiometricPrompt biometricPrompt;
     BiometricPrompt.PromptInfo promptInfo;
     Executor executor;
     PreferenceManager preferenceManager;
 
+    @SuppressLint("SetTextI18n")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -52,11 +55,12 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         layoutUpcomingMeeting = findViewById(R.id.layoutUpcomingMeeting);
         layoutPreviousMeeting = findViewById(R.id.layoutPreviousMeeting);
         layoutContactUs = findViewById(R.id.layoutContactUs);
-        layoutLogout = findViewById(R.id.layoutLogout);
+        layoutRateUs = findViewById(R.id.layoutRateUs);
         favoriteRooms = findViewById(R.id.favoriteRooms);
         availableRooms = findViewById(R.id.availableRooms);
         security = findViewById(R.id.security);
         tvTrans = findViewById(R.id.tvTrans);
+        txtHelloName = findViewById(R.id.txtHelloName);
         scrollView = findViewById(R.id.scrollView);
         howToBookRoom = findViewById(R.id.howToBookRoom);
         inviteFriend = findViewById(R.id.inviteFriend);
@@ -78,21 +82,22 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         security.setOnClickListener(this);
         availableRooms.setOnClickListener(this);
         layoutAddReservation.setOnClickListener(this);
-        layoutLogout.setOnClickListener(this);
+        layoutRateUs.setOnClickListener(this);
         tvTrans.setOnClickListener(this);
         layoutPreviousMeeting.setOnClickListener(this);
 
-        tvSettingName.setText(preferenceManager.getKeyValueString(VariableBag.full_name,""));
+        tvSettingName.setText(preferenceManager.getKeyValueString(VariableBag.full_name, ""));
+        txtHelloName.setText("Hello, " + preferenceManager.getKeyValueString(VariableBag.full_name, ""));
+
         biometric();
     }
 
     @Override
     public void onBackPressed() {
-        if(scrollView.getVisibility() == View.VISIBLE){
+        if (scrollView.getVisibility() == View.VISIBLE) {
             scrollView.setVisibility(View.GONE);
             tvTrans.setVisibility(View.GONE);
-        }
-        else {
+        } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(HomeScreenActivity.this);
             builder.setMessage("Are You Sure You Want To Exit?");
             builder.setTitle("Alert !!");
@@ -108,6 +113,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             alertDialog.show();
         }
     }
+
     @Override
     public void onClick(View view) {
         if (view == ivSetting) {
@@ -120,7 +126,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             tvTrans.startAnimation(slideInAnimation);
         }
 
-        if (view == layoutPreviousMeeting){
+        if (view == layoutPreviousMeeting) {
             changeScreen(PreviousMeetingActivity.class);
         }
         if (view == security) {
@@ -132,11 +138,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             tvTrans.setVisibility(View.GONE);
         }
 
-        if (view == availableRooms ) {
+        if (view == availableRooms) {
             changeScreen(AvailableRoomsActivity.class);
         }
 
-        if(view == layoutAddReservation){
+        if (view == layoutAddReservation) {
             changeScreen(BookMeetingActivity.class);
         }
 
@@ -156,7 +162,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             changeScreen(ContactUsActivity.class);
         }
 
-        if (view == layoutLogout || view == logout) {
+        if (view == layoutRateUs) {
+            changeScreen(RateUsActivity.class);
+        }
+
+        if (view == logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(HomeScreenActivity.this);
             builder.setMessage("Are You Sure You Want To Logout?");
             builder.setTitle("Alert !!");
@@ -174,7 +184,8 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             alertDialog.show();
         }
     }
-    void changeScreen( Class classActivity){
+
+    void changeScreen(Class classActivity) {
         Intent intent = new Intent(HomeScreenActivity.this, classActivity);
         startActivity(intent);
     }
@@ -199,7 +210,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
                 @Override
                 public void onAuthenticationFailed() {
                     super.onAuthenticationFailed();
-                    Toast.makeText(HomeScreenActivity.this, "FAILED !!", Toast.LENGTH_LONG).show();
+                    Toast.makeText(HomeScreenActivity.this, "FAILED !!!", Toast.LENGTH_LONG).show();
                 }
             });
 
