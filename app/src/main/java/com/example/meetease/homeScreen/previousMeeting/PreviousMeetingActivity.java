@@ -133,8 +133,6 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                                             newList.add(roomDetailDataModel.getRoomDetailList().get(i));
                                         }
                                     }
-                                    roomDetailDataModel.getRoomDetailList().clear();
-                                    roomDetailDataModel.setRoomDetailList(newList);
                                     previousMeetingAdapter = new PreviousMeetingAdapter(newList,PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setAdapter(previousMeetingAdapter);
                                 }

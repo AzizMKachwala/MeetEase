@@ -1,6 +1,7 @@
 package com.example.meetease.homeScreen.previousMeeting;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.example.meetease.R;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 import com.example.meetease.dataModel.RoomDetailList;
+import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,6 +80,13 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
                 .with(context)
                 .load(searchList.get(position).getRoom_img())
                 .into(holder.imgRoom);
+
+        holder.btnBookAgain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override

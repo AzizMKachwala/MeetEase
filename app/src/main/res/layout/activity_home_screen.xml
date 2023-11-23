@@ -58,6 +58,11 @@
                 android:layout_marginEnd="@dimen/_3sdp"
                 android:layout_weight="1"
                 android:background="@drawable/top_left_layout_shape"
+
+                android:stateListAnimator="@anim/animation"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -86,6 +91,11 @@
                 android:layout_marginStart="@dimen/_3sdp"
                 android:layout_weight="1"
                 android:background="@drawable/top_right_layout_shape"
+
+                android:stateListAnimator="@anim/animation"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -121,6 +131,11 @@
                 android:layout_marginEnd="@dimen/_3sdp"
                 android:layout_weight="1"
                 android:background="@color/leafBrown"
+
+                android:stateListAnimator="@anim/animation"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -130,6 +145,7 @@
                     android:gravity="start"
                     android:padding="@dimen/_5sdp"
                     android:text="Previous Meetings"
+
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14sdp" />
 
@@ -148,6 +164,11 @@
                 android:layout_marginStart="@dimen/_3sdp"
                 android:layout_weight="1"
                 android:background="@color/leafBrown"
+
+                android:stateListAnimator="@anim/animation"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -185,6 +206,11 @@
                 android:layout_marginEnd="@dimen/_3sdp"
                 android:layout_weight="1.5"
                 android:background="@drawable/bottom_left_layout_shape"
+
+                android:stateListAnimator="@anim/animation"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+
                 android:orientation="vertical">
 
                 <TextView
@@ -212,6 +238,11 @@
                 android:layout_marginStart="@dimen/_3sdp"
                 android:layout_weight="0.5"
                 android:background="@drawable/bottom_right_layout_shape"
+
+                android:stateListAnimator="@anim/animation"
+                android:foreground="?attr/selectableItemBackgroundBorderless"
+                android:clickable="true"
+
                 android:orientation="vertical">
 
                 <TextView

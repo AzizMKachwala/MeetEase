@@ -17,27 +17,33 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.dataModel.RoomDetailList;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReservationAdapter.CreateReservationViewHolder> {
 
-    List<CreateReservationDataModel> dataModelList, searchList;
+    List<RoomDetailList> dataModelList, searchList;
     Context context;
     String checkFavourite = "0";
 
     CreateReservationAdapterDataClick createReservationAdapterDataClick;
 
     public interface CreateReservationAdapterDataClick {
-        void bookDataClick(CreateReservationDataModel createReservationDataModel);
+        void bookDataClick(RoomDetailList createReservationDataModel);
     }
 
+    public void updateData(List<RoomDetailList> dataModelList){
+        this.dataModelList = dataModelList;
+        this.searchList = dataModelList;
+        notifyDataSetChanged();
+    }
     public void setUpInterFace(CreateReservationAdapterDataClick createReservationAdapterDataClick) {
         this.createReservationAdapterDataClick = createReservationAdapterDataClick;
     }
 
-    public CreateReservationAdapter(List<CreateReservationDataModel> dataModelList, Context context) {
+    public CreateReservationAdapter(List<RoomDetailList> dataModelList, Context context) {
         this.dataModelList = dataModelList;
         this.searchList = dataModelList;
         this.context = context;
@@ -52,9 +58,9 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
             textView.setVisibility(View.GONE);
         } else {
             int flag = 0;
-            List<CreateReservationDataModel> filterList = new ArrayList<>();
-            for (CreateReservationDataModel single : dataModelList) {
-                if (single.roomName.toLowerCase().contains(charString.toLowerCase())) {
+            List<RoomDetailList> filterList = new ArrayList<>();
+            for (RoomDetailList single : dataModelList) {
+                if (single.getRoom_name().toLowerCase().contains(charString.toLowerCase())) {
                     filterList.add(single);
                     flag = 1;
                 }
@@ -82,14 +88,14 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
     @Override
     public void onBindViewHolder(@NonNull CreateReservationViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
-        holder.txtName.setText(searchList.get(position).roomName);
-        holder.txtLocation.setText(searchList.get(position).roomLocation);
-        holder.txtPrice.setText(searchList.get(position).roomPrice + VariableBag.CURRENCY);
+        holder.txtName.setText(searchList.get(position).getRoom_name());
+        holder.txtLocation.setText(searchList.get(position).getLocation());
+        holder.txtPrice.setText(searchList.get(position).getPrice() + VariableBag.CURRENCY);
         Glide
                 .with(context)
-                .load(searchList.get(position).roomImage)
+                .load(searchList.get(position).getRoom_img())
                 .into(holder.imgRoom);
-        holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).roomRating));
+        holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getRating()));
         holder.btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

@@ -103,7 +103,8 @@
                     android:gravity="start"
                     android:hint="Message..."
                     android:inputType="textMultiLine"
-                    android:maxLines="10"
+                    android:maxLines="4"
+                    android:maxLength="500"
                     android:minLines="4"
                     android:scrollbars="vertical" />
 
