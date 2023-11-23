@@ -5,6 +5,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -29,6 +30,8 @@ public class CreateReservationActivity extends AppCompatActivity {
     ImageView ivClose,img_filter;
     FilterFragment filterFragment;
     List<CreateReservationDataModel> roomList;
+    SwipeRefreshLayout swipeRefreshLayout;
+
     public int year, month, day, startHour, startMinute, endHour, endMinute;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +45,15 @@ public class CreateReservationActivity extends AppCompatActivity {
         tvNoData = findViewById(R.id.tvNoData);
         img_filter = findViewById(R.id.img_filter);
         ivClose = findViewById(R.id.ivClose);
+        swipeRefreshLayout = findViewById(R.id.swipe);
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                addData();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
 
         ivClose.setVisibility(View.GONE);
         tvNoData.setVisibility(View.GONE);

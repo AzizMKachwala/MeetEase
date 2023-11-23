@@ -15,12 +15,13 @@
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_70sdp"
             android:layout_gravity="center"
-            android:indeterminateTint="#E53935"/>
+            android:indeterminateTint="@color/darkLeafBrown"/>
 
         <ImageView
             android:layout_width="@dimen/_20sdp"
             android:layout_height="@dimen/_20sdp"
-            android:layout_gravity="center"/>
+            android:layout_gravity="center"
+            android:src="@drawable/logo"/>
 
     </FrameLayout>
 
@@ -28,5 +29,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        android:textColor="@color/darkLeafBrown"
+        android:textStyle="bold"
         android:text="LOADING..."/>
+
 </LinearLayout>

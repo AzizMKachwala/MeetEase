@@ -12,12 +12,12 @@
         style="@style/edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_50sdp"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="@dimen/_5sdp"
-        android:layout_marginHorizontal="@dimen/_10sdp"
         android:hint="search"
         android:paddingStart="@dimen/_10sdp"
-        android:layout_marginEnd="@dimen/_50sdp"
         android:paddingEnd="@dimen/_30sdp"
         android:singleLine="true"
         app:layout_constraintTop_toTopOf="parent" />
@@ -31,15 +31,16 @@
         android:src="@drawable/ic_close"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
+
     <ImageView
         android:id="@+id/img_filter"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        android:src="@drawable/img_filter_room"
         android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginEnd="@dimen/_10sdp"/>
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:src="@drawable/img_filter_room"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvNoData"
@@ -47,17 +48,27 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="No Data Found"
-        android:textStyle="bold"
         android:textColor="@color/white"
         android:textSize="@dimen/_20sdp"
+        android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewMeetingRooms"
+    <androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+        android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_50sdp" />
+        android:layout_marginTop="@dimen/_60sdp"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewMeetingRooms"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/_50sdp" />
+
+    </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
