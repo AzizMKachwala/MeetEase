@@ -184,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginUser() {
         tools.showLoading();
-        restCall.LoginUser("LoginUser",etvEmailOrPhone.getText().toString().trim(),etvPassword.getText().toString().trim(),"0")
+        restCall.LoginUser("LoginUser",etvEmailOrPhone.getText().toString().trim(),etvPassword.getText().toString().trim(),flag)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<LoginDataModel>() {
@@ -261,12 +261,9 @@ public class LoginActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tools.stopLoading();
                                 Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if(userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
-                                    preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
-                                    startActivity(new Intent(LoginActivity.this,HomeScreenActivity.class));
-                                    finish();
+                                    loginUser();
                                 }
                             }
                         });

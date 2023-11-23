@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:background="@color/lightLeafBrown"
     android:layout_height="match_parent"
     tools:context=".homeScreen.previousMeeting.PreviousMeetingActivity">
 
@@ -42,6 +43,7 @@
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+
         android:layout_marginTop="@dimen/_50sdp"
         android:id="@+id/recyclerviewPreviousMeeting"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
