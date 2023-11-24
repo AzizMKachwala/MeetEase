@@ -88,6 +88,7 @@ public class FilterFragment extends DialogFragment {
             public void onClick(View view) {
 
                 priceRangeSlider.addOnChangeListener(new RangeSlider.OnChangeListener() {
+                    @SuppressLint("RestrictedApi")
                     @Override
                     public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
                         price = String.valueOf(value);
