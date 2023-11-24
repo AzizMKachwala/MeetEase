@@ -19,23 +19,24 @@ import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.RoomDetailList;
+import com.example.meetease.dataModel.RoomDetailListNoUpcoming;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReservationAdapter.CreateReservationViewHolder> {
 
-    List<RoomDetailList> dataModelList, searchList;
+    List<RoomDetailListNoUpcoming> dataModelList, searchList;
     Context context;
     String checkFavourite = "0";
 
     CreateReservationAdapterDataClick createReservationAdapterDataClick;
 
     public interface CreateReservationAdapterDataClick {
-        void bookDataClick(RoomDetailList createReservationDataModel);
+        void bookDataClick(RoomDetailListNoUpcoming createReservationDataModel);
     }
 
-    public void updateData(List<RoomDetailList> dataModelList){
+    public void updateData(List<RoomDetailListNoUpcoming> dataModelList){
         this.dataModelList = dataModelList;
         this.searchList = dataModelList;
         notifyDataSetChanged();
@@ -44,7 +45,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
         this.createReservationAdapterDataClick = createReservationAdapterDataClick;
     }
 
-    public CreateReservationAdapter(List<RoomDetailList> dataModelList, Context context) {
+    public CreateReservationAdapter(List<RoomDetailListNoUpcoming> dataModelList, Context context) {
         this.dataModelList = dataModelList;
         this.searchList = dataModelList;
         this.context = context;
@@ -59,8 +60,8 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
             textView.setVisibility(View.GONE);
         } else {
             int flag = 0;
-            List<RoomDetailList> filterList = new ArrayList<>();
-            for (RoomDetailList single : dataModelList) {
+            List<RoomDetailListNoUpcoming> filterList = new ArrayList<>();
+            for (RoomDetailListNoUpcoming single : dataModelList) {
                 if (single.getRoom_name().toLowerCase().contains(charString.toLowerCase())) {
                     filterList.add(single);
                     flag = 1;

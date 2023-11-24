@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -15,7 +16,7 @@ public class RateUsActivity extends AppCompatActivity {
     RatingBar ratingBar;
     Button btnSubmit;
     TextView txtRating;
-
+    ImageView ivBack;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,14 @@ public class RateUsActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         btnSubmit = findViewById(R.id.btnSubmit);
         txtRating = findViewById(R.id.txtRating);
+        ivBack = findViewById(R.id.ivBack);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override

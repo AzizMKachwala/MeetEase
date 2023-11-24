@@ -10,6 +10,7 @@ import androidx.core.content.FileProvider;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -44,7 +45,7 @@ import rx.schedulers.Schedulers;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    ImageView ivBack, imgEdit;
+    ImageView ivBack, imgEdit,imgEditMode;
     CircleImageView imgProfileImage;
     Tools tools;
     PreferenceManager preferenceManager;
@@ -72,6 +73,7 @@ public class ProfileActivity extends AppCompatActivity {
         etvPhoneNo = findViewById(R.id.etvPhoneNo);
         etvEmail = findViewById(R.id.etvEmail);
         imgProfileImage = findViewById(R.id.imgProfileImage);
+        imgEditMode = findViewById(R.id.imgEditMode);
 
          preferenceManager = new PreferenceManager(this);
         id = preferenceManager.getKeyValueString(VariableBag.user_id,"");
@@ -79,6 +81,20 @@ public class ProfileActivity extends AppCompatActivity {
         etvEmail.setText(preferenceManager.getKeyValueString(VariableBag.email,""));
         etvPhoneNo.setText(preferenceManager.getKeyValueString(VariableBag.mobile,""));
         userPassword = preferenceManager.getKeyValueString(VariableBag.password,"");
+
+        etvFullName.setEnabled(false);
+        etvPhoneNo.setEnabled(false);
+        etvEmail.setEnabled(false);
+
+        imgEditMode.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                etvFullName.setEnabled(true);
+                etvPhoneNo.setEnabled(true);
+                etvEmail.setEnabled(true);
+            }
+        });
+
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

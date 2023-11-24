@@ -3,6 +3,7 @@ package com.example.meetease.network;
 
 import com.example.meetease.dataModel.LoginDataModel;
 import com.example.meetease.dataModel.RoomDetailDataModel;
+import com.example.meetease.dataModel.RoomDetailListNoUpcomingDataModel;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -66,9 +67,18 @@ public interface RestCall {
             @Field("end_time") String end_time);
 
     @FormUrlEncoded
+    @POST("Controller/BookingController.php")
+    Single<RoomDetailListNoUpcomingDataModel> AvailableRoomDetails(
+            @Field("tag") String tag,
+            @Field("booking_date") String booking_date,
+            @Field("start_time") String start_time,
+            @Field("end_time") String end_time);
+
+    @FormUrlEncoded
     @POST("Controller/FavRoomController.php")
-    Single<UserResponse> Addfavroom(
+    Single<UserResponse> AddFavRoom(
             @Field("tag") String tag,
             @Field("room_detail_id") String room_detail_id,
             @Field("user_id") String user_id);
+
 }

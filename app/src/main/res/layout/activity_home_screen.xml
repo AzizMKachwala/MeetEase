@@ -144,8 +144,7 @@
                     android:layout_margin="@dimen/_6sdp"
                     android:gravity="start"
                     android:padding="@dimen/_5sdp"
-                    android:text="Previous Meetings"
-
+                    android:text="Completed Meetings"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_14sdp" />
 

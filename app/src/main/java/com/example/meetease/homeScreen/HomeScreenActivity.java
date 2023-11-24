@@ -83,6 +83,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         security.setOnClickListener(this);
         availableRooms.setOnClickListener(this);
         layoutAddReservation.setOnClickListener(this);
+        layoutUpcomingMeeting.setOnClickListener(this);
         layoutRateUs.setOnClickListener(this);
         tvTrans.setOnClickListener(this);
         layoutPreviousMeeting.setOnClickListener(this);
@@ -133,9 +134,9 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             ivSetting.startAnimation(slideInAnimation);
             tvTrans.startAnimation(slideInAnimation);
         }
-        if(view == favoriteRooms){
-            Intent intent = new Intent(HomeScreenActivity.this,PreviousMeetingActivity.class);
-            intent.putExtra("abc","favoriteRooms");
+        if (view == favoriteRooms) {
+            Intent intent = new Intent(HomeScreenActivity.this, PreviousMeetingActivity.class);
+            intent.putExtra("abc", "favoriteRooms");
             startActivity(intent);
         }
         if (view == layoutPreviousMeeting) {
@@ -148,6 +149,10 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         if (view == tvTrans) {
             scrollView.setVisibility(View.GONE);
             tvTrans.setVisibility(View.GONE);
+        }
+
+        if (view == layoutUpcomingMeeting) {
+//            changeScreen();
         }
 
         if (view == availableRooms) {
