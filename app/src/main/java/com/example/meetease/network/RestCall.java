@@ -55,4 +55,14 @@ public interface RestCall {
             @Field("user_id") String user_id,
             @Field("password") String password);
 
+    @FormUrlEncoded
+    @POST("Controller/UserController.php")
+    Single<UserResponse> RoomBooking(
+            @Field("tag") String tag,
+            @Field("user_id") String user_id,
+            @Field("room_d_id") String room_d_id,
+            @Field("booking_date") String booking_date,
+            @Field("start_time") String start_time,
+            @Field("end_time") String end_time);
+
 }

@@ -80,16 +80,14 @@ public class FilterFragment extends DialogFragment {
         priceRangeSlider.addOnChangeListener(new RangeSlider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                int temp = Tools.floatToInt(value);
-                price = temp+"";
+                price = Tools.floatToInt(value)+"";
             }
         });
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                int temp = Tools.floatToInt(v);
-                rating = temp+"";
+                rating = Tools.floatToInt(v)+"";
             }
         });
         btnApply.setOnClickListener(new View.OnClickListener() {
