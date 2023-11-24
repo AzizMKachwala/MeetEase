@@ -44,10 +44,8 @@ public class PaymentActivity extends AppCompatActivity {
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                Toast.makeText(PaymentActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
-
                 roomBooking();
+                Toast.makeText(PaymentActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
                 Toast.makeText(PaymentActivity.this, "Booking Done", Toast.LENGTH_SHORT).show();
             }
         });
