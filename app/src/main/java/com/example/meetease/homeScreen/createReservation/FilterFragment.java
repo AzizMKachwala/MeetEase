@@ -17,15 +17,10 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
-import com.example.meetease.dataModel.RoomDetailList;
 import com.google.android.material.slider.RangeSlider;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FilterFragment extends DialogFragment {
 
@@ -34,10 +29,8 @@ public class FilterFragment extends DialogFragment {
     RangeSlider priceRangeSlider;
     Spinner citySpinner;
     String selectedCity = "";
-
     String rating = "";
     String  price = "" ;
-
     FilterApply filterApply;
 
     public interface FilterApply {

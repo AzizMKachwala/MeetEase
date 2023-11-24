@@ -15,6 +15,12 @@ import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.network.RestCall;
+import com.example.meetease.network.RestClient;
+import com.example.meetease.network.UserResponse;
+
+import rx.Subscriber;
+import rx.schedulers.Schedulers;
 
 public class ChangePasswordActivity extends AppCompatActivity {
 
@@ -23,12 +29,14 @@ public class ChangePasswordActivity extends AppCompatActivity {
     TextView txtForgotPassword;
     ImageView ivBack;
     PreferenceManager preferenceManager;
+    RestCall restCall;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_change_password);
 
+        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         etvOldPassword = findViewById(R.id.etvOldPassword);
         etvNewPassword = findViewById(R.id.etvNewPassword);
         etvConfirmPassword = findViewById(R.id.etvConfirmPassword);
@@ -53,7 +61,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 String newPass = etvNewPassword.getText().toString();
                 String confirmPass = etvConfirmPassword.getText().toString();
 
-//                Toast.makeText(ChangePasswordActivity.this, "" + preferenceManager.getKeyValueString(VariableBag.password, ""), Toast.LENGTH_SHORT).show();
                 if (!oldPass.equals(preferenceManager.getKeyValueString(VariableBag.password, ""))) {
                     Toast.makeText(ChangePasswordActivity.this, "Old Password is Wrong", Toast.LENGTH_SHORT).show();
                 } else if (newPass.isEmpty()) {
@@ -69,7 +76,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     etvConfirmPassword.setError("Confirm Password doesn't Match");
                     etvConfirmPassword.requestFocus();
                 } else {
-                    Toast.makeText(ChangePasswordActivity.this, "Conditions Checked", Toast.LENGTH_SHORT).show();
+                    editPassword();
                 }
             }
         });
@@ -81,5 +88,41 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    void editPassword() {
+        restCall.ResetPassword("UpdatePassword",preferenceManager.getKeyValueString(VariableBag.user_id,""),etvNewPassword.getText().toString())
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<UserResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(ChangePasswordActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(UserResponse userResponse) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(ChangePasswordActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                    preferenceManager.setKeyValueString(VariableBag.password,etvNewPassword.getText().toString());
+                                    finish();
+                                }
+                            }
+                        });
+                    }
+                });
     }
 }

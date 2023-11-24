@@ -76,15 +76,9 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
         holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getRating()));
         Glide
                 .with(context)
-                .load(searchList.get(position).getRoom_img())
+                .load("http://192.168.43.107/roommeeting/uplode/image/The_Successful.jpg")
                 .into(holder.imgRoom);
 
-        holder.btnBookAgain.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-            }
-        });
     }
 
     @Override

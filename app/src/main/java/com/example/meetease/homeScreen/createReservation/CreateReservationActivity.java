@@ -22,8 +22,6 @@ import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 import com.example.meetease.dataModel.RoomDetailList;
-import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingActivity;
-import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingAdapter;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 
@@ -127,13 +125,10 @@ public class CreateReservationActivity extends AppCompatActivity {
                             createReservationAdapter.updateData(list);
                         }
                     }
-
                     @Override
                     public void reset() {
                         createReservationAdapter.updateData(apiList);
                     }
-
-
                 });
             }
         });
@@ -146,10 +141,6 @@ public class CreateReservationActivity extends AppCompatActivity {
         startMinute = Integer.parseInt(intent.getExtras().getString("startMinute", "0"));
         endHour = Integer.parseInt(intent.getExtras().getString("endHour", "0"));
         endMinute = Integer.parseInt(intent.getExtras().getString("endMinute", "0"));
-
-        String date = String.valueOf(year + month + day);
-        String startTime = String.valueOf(startHour + startMinute);
-        String endTime = String.valueOf(endHour + endMinute);
 
         etvSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -189,7 +180,7 @@ public class CreateReservationActivity extends AppCompatActivity {
     List<RoomDetailList> priceFilter(List<RoomDetailList> list, String Price) {
         List<RoomDetailList> filteredListPrice = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
-            if (Integer.parseInt(list.get(i).getPrice()) < Integer.parseInt(Price)) {
+            if (Integer.parseInt(list.get(i).getPrice()) <= Integer.parseInt(Price)) {
                 filteredListPrice.add(list.get(i));
             }
         }

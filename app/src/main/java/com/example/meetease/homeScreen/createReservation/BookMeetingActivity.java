@@ -77,7 +77,6 @@ public class BookMeetingActivity extends AppCompatActivity {
                             }
                         }, mYear, mMonth, mDay);
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
-                datePickerDialog.getDatePicker().setMaxDate(System.currentTimeMillis());
                 datePickerDialog.show();
             }
         });
