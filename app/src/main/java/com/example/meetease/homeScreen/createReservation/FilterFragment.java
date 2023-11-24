@@ -17,31 +17,25 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
-import com.example.meetease.dataModel.RoomDetailList;
 import com.google.android.material.slider.RangeSlider;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class FilterFragment extends DialogFragment {
 
-    Button btnApply, btnCancel;
+    Button btnApply, btnReset;
     RatingBar ratingBar;
     RangeSlider priceRangeSlider;
     Spinner citySpinner;
     String selectedCity = "";
-
     String rating = "";
     String  price = "" ;
-
     FilterApply filterApply;
 
     public interface FilterApply {
         void filterList(String city, String Price, String Rating);
+        void reset();
     }
 
     public void setUpInterface(FilterApply filterApply) {
@@ -62,7 +56,7 @@ public class FilterFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_filter, container, false);
 
         btnApply = view.findViewById(R.id.btnApply);
-        btnCancel = view.findViewById(R.id.btnCancel);
+        btnReset = view.findViewById(R.id.btnReset);
         ratingBar = view.findViewById(R.id.ratingBar);
         priceRangeSlider = view.findViewById(R.id.priceRangeSlider);
         citySpinner = view.findViewById(R.id.citySpinner);
@@ -106,9 +100,10 @@ public class FilterFragment extends DialogFragment {
             }
         });
 
-        btnCancel.setOnClickListener(new View.OnClickListener() {
+        btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                filterApply.reset();
                 dismiss();
             }
         });

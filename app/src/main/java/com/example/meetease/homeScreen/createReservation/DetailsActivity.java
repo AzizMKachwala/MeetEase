@@ -88,6 +88,5 @@ public class DetailsActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-
     }
 }
