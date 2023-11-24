@@ -29,7 +29,7 @@ import java.util.List;
 
 public class FilterFragment extends DialogFragment {
 
-    Button btnApply, btnCancel;
+    Button btnApply, btnReset;
     RatingBar ratingBar;
     RangeSlider priceRangeSlider;
     Spinner citySpinner;
@@ -42,6 +42,7 @@ public class FilterFragment extends DialogFragment {
 
     public interface FilterApply {
         void filterList(String city, String Price, String Rating);
+        void reset();
     }
 
     public void setUpInterface(FilterApply filterApply) {
@@ -62,7 +63,7 @@ public class FilterFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_filter, container, false);
 
         btnApply = view.findViewById(R.id.btnApply);
-        btnCancel = view.findViewById(R.id.btnCancel);
+        btnReset = view.findViewById(R.id.btnReset);
         ratingBar = view.findViewById(R.id.ratingBar);
         priceRangeSlider = view.findViewById(R.id.priceRangeSlider);
         citySpinner = view.findViewById(R.id.citySpinner);
@@ -86,16 +87,14 @@ public class FilterFragment extends DialogFragment {
         priceRangeSlider.addOnChangeListener(new RangeSlider.OnChangeListener() {
             @Override
             public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                int temp = Tools.floatToInt(value);
-                price = temp+"";
+                price = Tools.floatToInt(value)+"";
             }
         });
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                int temp = Tools.floatToInt(v);
-                rating = temp+"";
+                rating = Tools.floatToInt(v)+"";
             }
         });
         btnApply.setOnClickListener(new View.OnClickListener() {
@@ -106,9 +105,10 @@ public class FilterFragment extends DialogFragment {
             }
         });
 
-        btnCancel.setOnClickListener(new View.OnClickListener() {
+        btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                filterApply.reset();
                 dismiss();
             }
         });

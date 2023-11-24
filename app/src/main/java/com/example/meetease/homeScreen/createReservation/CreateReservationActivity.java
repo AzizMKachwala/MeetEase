@@ -127,6 +127,13 @@ public class CreateReservationActivity extends AppCompatActivity {
                             createReservationAdapter.updateData(list);
                         }
                     }
+
+                    @Override
+                    public void reset() {
+                        createReservationAdapter.updateData(apiList);
+                    }
+
+
                 });
             }
         });
@@ -139,6 +146,10 @@ public class CreateReservationActivity extends AppCompatActivity {
         startMinute = Integer.parseInt(intent.getExtras().getString("startMinute", "0"));
         endHour = Integer.parseInt(intent.getExtras().getString("endHour", "0"));
         endMinute = Integer.parseInt(intent.getExtras().getString("endMinute", "0"));
+
+        String date = String.valueOf(year + month + day);
+        String startTime = String.valueOf(startHour + startMinute);
+        String endTime = String.valueOf(endHour + endMinute);
 
         etvSearch.addTextChangedListener(new TextWatcher() {
             @Override

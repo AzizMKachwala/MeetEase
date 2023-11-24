@@ -81,7 +81,7 @@ public class DetailsActivity extends AppCompatActivity {
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(DetailsActivity.this,BookMeetingActivity.class);
+                Intent intent = new Intent(DetailsActivity.this,PaymentActivity.class);
                 intent.putExtra("roomName",roomName);
                 intent.putExtra("roomPrice",roomPrice);
                 intent.putExtra("roomLocation",roomLocation);

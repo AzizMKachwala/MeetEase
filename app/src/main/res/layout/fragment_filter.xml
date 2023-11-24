@@ -4,18 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_gravity="center">
+    android:layout_gravity="center"
+    android:elevation="@dimen/_20sdp"
+    tools:context=".homeScreen.createReservation.FilterFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:background="@drawable/fragment_dialog"
+        android:background="@color/lightLeafBrown"
         android:gravity="center"
         android:orientation="vertical"
         android:paddingHorizontal="@dimen/_30sdp"
-        android:paddingVertical="@dimen/_10sdp"
-        tools:context=".homeScreen.createReservation.FilterFragment">
+        android:paddingVertical="@dimen/_20sdp">
 
         <Spinner
             android:id="@+id/citySpinner"
@@ -35,7 +36,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_10sdp"
-            android:background="@color/white"
             android:stepSize="100"
             android:valueFrom="0"
             android:valueTo="5000" />
