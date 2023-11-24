@@ -6,10 +6,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.example.meetease.R;
@@ -31,6 +33,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
     RecyclerView recyclerViewAllRooms;
     View btnBookNow;
     RestCall restCall;
+    ImageView ivBack;
     Tools tools;
     AllRoomsAdapter allRoomsAdapter;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -43,6 +46,14 @@ public class AvailableRoomsActivity extends AppCompatActivity {
         btnBookNow = findViewById(R.id.btnBookNow);
         recyclerViewAllRooms = findViewById(R.id.recyclerViewAllRooms);
         swipeRefreshLayout = findViewById(R.id.swipe);
+        ivBack = findViewById(R.id.ivBack);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
