@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.Tools;
 import com.example.meetease.dataModel.RoomDetailList;
 import com.google.android.material.slider.RangeSlider;
 
@@ -34,8 +35,8 @@ public class FilterFragment extends DialogFragment {
     Spinner citySpinner;
     String selectedCity = "";
 
-    String rating="";
-    String price = "";
+    String rating = "";
+    String  price = "" ;
 
     FilterApply filterApply;
 
@@ -82,26 +83,25 @@ public class FilterFragment extends DialogFragment {
 
             }
         });
+        priceRangeSlider.addOnChangeListener(new RangeSlider.OnChangeListener() {
+            @Override
+            public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
+                int temp = Tools.floatToInt(value);
+                price = temp+"";
+            }
+        });
 
+        ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            @Override
+            public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+                int temp = Tools.floatToInt(v);
+                rating = temp+"";
+            }
+        });
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                priceRangeSlider.addOnChangeListener(new RangeSlider.OnChangeListener() {
-                    @Override
-                    public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                        price = String.valueOf(value);
-                    }
-                });
-
-                ratingBar.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View view) {
-                        rating = String.valueOf(ratingBar.getRating());
-                    }
-                });
                 filterApply.filterList(selectedCity,price,rating);
-
                 dismiss();
             }
         });

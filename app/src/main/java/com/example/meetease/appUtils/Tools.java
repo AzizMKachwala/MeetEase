@@ -81,4 +81,16 @@ public class Tools {
                 .into(img);
     }
 
+    public static int floatToInt(Float value){
+        String str = String.valueOf(value);
+        String newStr = "";
+        for (int i=0;i<str.length();i++){
+            if (str.charAt(i) == '.'){
+                break;
+            }else {
+                newStr = newStr+str.charAt(i);
+            }
+        }
+        return Integer.parseInt(newStr);
+    }
 }

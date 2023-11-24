@@ -187,10 +187,8 @@ public class CreateReservationActivity extends AppCompatActivity {
 
     List<RoomDetailList> ratingFilter(List<RoomDetailList> list, String Rating) {
         List<RoomDetailList> filteredListRating = new ArrayList<>();
-        Float f = Float.parseFloat(Rating);
-        int r = (int)(Math.round(f));
         for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).getRating().equals(r)) {
+            if (list.get(i).getRating().equals(Rating)) {
                 filteredListRating.add(list.get(i));
             }
         }
