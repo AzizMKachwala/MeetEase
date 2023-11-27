@@ -285,7 +285,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                                 if (roomDetailListNoUpcomingDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)
                                         && apiList != null
                                         && apiList.size() >0) {
-                                    tvNoData.setVisibility(View.GONE);
+
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
                                     recyclerViewMeetingRooms.setLayoutManager(layoutManager);
                                     createReservationAdapter = new CreateReservationAdapter(apiList,CreateReservationActivity.this);

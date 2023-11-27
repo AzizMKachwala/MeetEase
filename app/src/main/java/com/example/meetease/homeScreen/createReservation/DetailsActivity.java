@@ -111,6 +111,7 @@ public class DetailsActivity extends AppCompatActivity {
                 intent.putExtra("roomPrice", roomPrice);
                 intent.putExtra("roomLocation", roomLocation);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }

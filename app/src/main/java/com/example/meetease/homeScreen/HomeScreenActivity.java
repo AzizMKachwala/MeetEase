@@ -161,7 +161,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 //            changeScreen();
         }
 
-        if(view == inviteFriend){
+        if (view == inviteFriend) {
 //            generateInvitationLink();
         }
 
@@ -237,6 +237,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     void changeScreen(Class classActivity) {
         Intent intent = new Intent(HomeScreenActivity.this, classActivity);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     void biometric() {

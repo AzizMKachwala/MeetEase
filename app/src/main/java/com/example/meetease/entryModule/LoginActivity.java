@@ -122,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 finish();
             }
         });
@@ -222,6 +223,7 @@ public class LoginActivity extends AppCompatActivity {
                                     preferenceManager.setKeyValueString(VariableBag.email,loginDataModel.getEmail());
                                     preferenceManager.setKeyValueString(VariableBag.password,etvPassword.getText().toString());
                                     startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class));
+                                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                     finish();
                                 }
                                 else {

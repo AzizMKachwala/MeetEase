@@ -22,7 +22,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
@@ -153,9 +152,9 @@ public class ProfileActivity extends AppCompatActivity {
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK) {
                 // Camera capture was successful, handle the result.
-                displayImage(imgProfileImage, currentPhotoPath);
+                Tools.DisplayImage(ProfileActivity.this,imgProfileImage,currentPhotoPath);
             } else {
-                Toast.makeText(ProfileActivity.this, "Not", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "Error Loading Photo. Please Click Again", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -183,9 +182,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(ProfileActivity.this,
-                        "com.example.meetease",
-                        photoFile);
+                Uri photoURI = FileProvider.getUriForFile(ProfileActivity.this, "com.example.meetease", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 cameraLauncher.launch(takePictureIntent);
             }
@@ -199,8 +196,6 @@ public class ProfileActivity extends AppCompatActivity {
 //                .load(currentPhotoPath)
 //                .placeholder(R.drawable.baseline_person_24)
 //                .into(ivProductImage);
-
-        Tools.DisplayImage(ProfileActivity.this,ivProductImage,currentPhotoPath);
     }
 
     private File createImageFile() throws IOException {
@@ -222,10 +217,10 @@ public class ProfileActivity extends AppCompatActivity {
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), etvEmail.getText().toString());
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), userPassword);
         MultipartBody.Part fileToUploadfile = null;
-        if (fileToUploadfile == null && currentPhotoPath != "") {
+        if (fileToUploadfile == null && currentPhotoPath != null) {
             try {
-                StrictMode.VmPolicy.Builder builder2 = new StrictMode.VmPolicy.Builder();
-                StrictMode.setVmPolicy(builder2.build());
+                StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                StrictMode.setVmPolicy(builder.build());
                 File file = new File(currentPhotoPath);
                 RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 fileToUploadfile = MultipartBody.Part.createFormData("product_image", file.getName(), requestBody);

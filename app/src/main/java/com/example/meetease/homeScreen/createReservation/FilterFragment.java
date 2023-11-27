@@ -17,24 +17,29 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RatingBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
 import com.google.android.material.slider.RangeSlider;
 
+import java.util.Locale;
+
 public class FilterFragment extends DialogFragment {
 
     Button btnApply, btnReset;
     RatingBar ratingBar;
+    TextView txtSelectedRange;
     RangeSlider priceRangeSlider;
     Spinner citySpinner;
     String selectedCity = "";
     String rating = "";
-    String  price = "" ;
+    String price = "";
     FilterApply filterApply;
 
     public interface FilterApply {
         void filterList(String city, String Price, String Rating);
+
         void reset();
     }
 
@@ -60,6 +65,7 @@ public class FilterFragment extends DialogFragment {
         ratingBar = view.findViewById(R.id.ratingBar);
         priceRangeSlider = view.findViewById(R.id.priceRangeSlider);
         citySpinner = view.findViewById(R.id.citySpinner);
+        txtSelectedRange = view.findViewById(R.id.txtSelectedRange);
 
         String[] cityData = {"Select City", "Ahmedabad", "Rajkot", "Baroda", "Surat", "Mumbai", "Pune", "Banglore", "Bharuch", "Ghandhinagar"};
         ArrayAdapter<String> cityAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_spinner_item, cityData);
@@ -77,23 +83,26 @@ public class FilterFragment extends DialogFragment {
 
             }
         });
+
         priceRangeSlider.addOnChangeListener(new RangeSlider.OnChangeListener() {
+            @SuppressLint("RestrictedApi")
             @Override
             public void onValueChange(@NonNull RangeSlider slider, float value, boolean fromUser) {
-                price = Tools.floatToInt(value)+"";
+                price = Tools.floatToInt(value) + "";
+                txtSelectedRange.setText("0 - " + price);
             }
         });
 
         ratingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
             @Override
             public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-                rating = Tools.floatToInt(v)+"";
+                rating = Tools.floatToInt(v) + "";
             }
         });
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                filterApply.filterList(selectedCity,price,rating);
+                filterApply.filterList(selectedCity, price, rating);
                 dismiss();
             }
         });
@@ -101,7 +110,7 @@ public class FilterFragment extends DialogFragment {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                filterApply.reset();
+//                filterApply.reset();
                 dismiss();
             }
         });

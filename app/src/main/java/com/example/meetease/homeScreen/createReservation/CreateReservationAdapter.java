@@ -128,7 +128,13 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
     @Override
     public int getItemCount() {
-        return searchList.size();
+
+        if(searchList.size() == 0){
+            return 0;
+        }
+        else {
+            return searchList.size();
+        }
     }
 
     static class CreateReservationViewHolder extends RecyclerView.ViewHolder {

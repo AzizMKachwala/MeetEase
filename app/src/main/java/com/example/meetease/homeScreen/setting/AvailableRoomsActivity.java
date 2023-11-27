@@ -75,6 +75,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AvailableRoomsActivity.this, BookMeetingActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 

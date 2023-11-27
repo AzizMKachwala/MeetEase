@@ -47,6 +47,8 @@ public class PaymentActivity extends AppCompatActivity {
                 roomBooking();
                 Toast.makeText(PaymentActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
                 Toast.makeText(PaymentActivity.this, "Booking Done", Toast.LENGTH_SHORT).show();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
             }
         });
     }
