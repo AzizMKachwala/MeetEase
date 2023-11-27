@@ -47,9 +47,10 @@
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgProfileImage"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
         android:layout_marginTop="@dimen/_50sdp"
+        android:layout_marginStart="@dimen/_15sdp"
         android:src="@drawable/image_profile"
         app:civ_border_color="@color/darkLeafBrown"
         app:civ_border_width="2dp"
@@ -61,19 +62,28 @@
         android:id="@+id/imgEdit"
         android:layout_width="@dimen/_30sdp"
         android:layout_height="@dimen/_30sdp"
-        android:layout_marginStart="@dimen/_105sdp"
+        android:layout_marginStart="@dimen/_97sdp"
         android:layout_marginTop="-50dp"
         android:src="@drawable/round_add_24"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgProfileImage" />
 
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:background="@color/white"
+        app:layout_constraintTop_toBottomOf="@id/imgEdit"/>
+
     <EditText
         android:id="@+id/etvFullName"
         style="@style/edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_20sdp"
         android:hint="FULL NAME"
         android:imeOptions="actionNext"
         android:inputType="textAutoComplete"
@@ -81,7 +91,7 @@
         app:backgroundTint="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgEdit" />
+        app:layout_constraintTop_toBottomOf="@id/view1" />
 
     <EditText
         android:id="@+id/etvPhoneNo"

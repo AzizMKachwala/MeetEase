@@ -78,10 +78,12 @@ public class DetailsActivity extends AppCompatActivity {
         txtPrice.setText(roomPrice + VariableBag.CURRENCY + "/Hour");
         ratingBar.setRating(Float.parseFloat(roomRating));
 
-        Glide
-                .with(this)
-                .load(roomImage)
-                .into(imgRoom);
+//        Glide
+//                .with(this)
+//                .load(roomImage)
+//                .into(imgRoom);
+
+        Tools.DisplayImage(DetailsActivity.this,imgRoom,roomImage);
 
         checkFavourite = "0";
         if (checkFavourite.equals("0")) {

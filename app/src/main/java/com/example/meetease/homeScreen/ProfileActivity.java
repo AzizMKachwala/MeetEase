@@ -194,11 +194,13 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     private void displayImage(ImageView ivProductImage, String currentPhotoPath) {
-        Glide
-                .with(ProfileActivity.this)
-                .load(currentPhotoPath)
-                .placeholder(R.drawable.baseline_person_24)
-                .into(ivProductImage);
+//        Glide
+//                .with(ProfileActivity.this)
+//                .load(currentPhotoPath)
+//                .placeholder(R.drawable.baseline_person_24)
+//                .into(ivProductImage);
+
+        Tools.DisplayImage(ProfileActivity.this,ivProductImage,currentPhotoPath);
     }
 
     private File createImageFile() throws IOException {
@@ -247,7 +249,7 @@ public class ProfileActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ProfileActivity.this, "no internet connection", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -262,6 +264,10 @@ public class ProfileActivity extends AppCompatActivity {
                                 preferenceManager.setKeyValueString(VariableBag.email, etvEmail.getText().toString());
                                 Toast.makeText(ProfileActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
+                                    if (currentPhotoFile != null && currentPhotoPath != null) {
+                                        currentPhotoFile.delete();
+//                                    Toast.makeText(AddProductActivity.this, "Photo Updated and Deleted", Toast.LENGTH_SHORT).show();
+                                    }
                                     finish();
                                 }
                             }

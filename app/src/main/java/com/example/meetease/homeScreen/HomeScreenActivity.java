@@ -91,6 +91,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         layoutUpcomingMeeting.setOnClickListener(this);
         layoutRateUs.setOnClickListener(this);
         tvTrans.setOnClickListener(this);
+        inviteFriend.setOnClickListener(this);
         layoutPreviousMeeting.setOnClickListener(this);
         favoriteRooms.setOnClickListener(this);
 
@@ -160,6 +161,10 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 //            changeScreen();
         }
 
+        if(view == inviteFriend){
+//            generateInvitationLink();
+        }
+
         if (view == availableRooms) {
             changeScreen(AvailableRoomsActivity.class);
         }
@@ -218,11 +223,21 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+//    private void generateInvitationLink() {
+//        String invitationLink = "https://example.com/invite?userId=" + preferenceManager.getKeyValueString(VariableBag.user_id,"");
+//        Intent sendIntent = new Intent();
+//        sendIntent.setAction(Intent.ACTION_SEND);
+//        sendIntent.putExtra(Intent.EXTRA_TEXT, "Join MeetEase using my invitation link: " + invitationLink);
+//        sendIntent.setType("text/plain");
+//
+//        Intent shareIntent = Intent.createChooser(sendIntent, null);
+//        startActivity(shareIntent);
+//    }
+
     void changeScreen(Class classActivity) {
         Intent intent = new Intent(HomeScreenActivity.this, classActivity);
         startActivity(intent);
     }
-
 
     void biometric() {
         executor = ContextCompat.getMainExecutor(this);
