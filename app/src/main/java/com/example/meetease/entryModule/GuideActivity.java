@@ -15,7 +15,7 @@ import com.example.meetease.R;
 public class GuideActivity extends AppCompatActivity {
 
     Button btnNext, btnSkip;
-    ImageView imgSteps;
+    ImageView imgSteps, ivBack;
     TextView txtSteps;
     int pos = 0;
 
@@ -28,9 +28,18 @@ public class GuideActivity extends AppCompatActivity {
         imgSteps = findViewById(R.id.imgSteps);
         txtSteps = findViewById(R.id.txtSteps);
         btnSkip = findViewById(R.id.btnSkip);
+        ivBack = findViewById(R.id.ivBack);
 
         txtSteps.setText("Step 1");
         imgSteps.setImageResource(R.drawable.logo);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
+            }
+        });
 
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -48,8 +57,7 @@ public class GuideActivity extends AppCompatActivity {
                     imgSteps.setImageResource(R.drawable.baseline_photo_camera_24);
                     btnNext.setText("Finish");
                     pos++;
-                }
-                else {
+                } else {
                     finish();
                 }
             }

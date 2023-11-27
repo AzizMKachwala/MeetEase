@@ -81,4 +81,10 @@ public interface RestCall {
             @Field("room_detail_id") String room_detail_id,
             @Field("user_id") String user_id);
 
+@FormUrlEncoded
+    @POST("Controller/UserController.php")
+    Single<UserResponse> deleteUser(
+            @Field("tag") String tag,
+            @Field("user_id") String user_id);
+
 }
