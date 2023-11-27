@@ -28,8 +28,8 @@ import rx.schedulers.Schedulers;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    ImageView imgRoom,imgFavourite;
-    TextView txtName,txtLocation,txtPrice;
+    ImageView imgRoom, imgFavourite;
+    TextView txtName, txtLocation, txtPrice;
     RatingBar ratingBar;
     Button btnBookNow;
     String checkFavourite;
@@ -37,7 +37,7 @@ public class DetailsActivity extends AppCompatActivity {
     Tools tools;
     String roomId;
     PreferenceManager preferenceManager;
-    String roomName,roomPrice,roomLocation,roomRating,roomImage;
+    String roomName, roomPrice, roomLocation, roomRating, roomImage;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -104,9 +104,10 @@ public class DetailsActivity extends AppCompatActivity {
             }
         });
     }
-    void addFavRoom(){
+
+    void addFavRoom() {
         tools.showLoading();
-        restCall.Addfavroom("Addfavroom",roomId,preferenceManager.getKeyValueString(VariableBag.user_id,""))
+        restCall.AddFavRoom("Addfavroom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -132,7 +133,7 @@ public class DetailsActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     tools.stopLoading();
                                     if (checkFavourite.equals("1")) {
                                         imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);

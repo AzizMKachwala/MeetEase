@@ -45,7 +45,7 @@ import rx.schedulers.Schedulers;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    ImageView ivBack, imgEdit,imgEditMode;
+    ImageView ivBack, imgEdit, imgEditMode;
     CircleImageView imgProfileImage;
     Tools tools;
     PreferenceManager preferenceManager;
@@ -56,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> cameraLauncher;
     File currentPhotoFile;
     RestCall restCall;
-    String id,userPassword;
+    String id, userPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,12 +75,12 @@ public class ProfileActivity extends AppCompatActivity {
         imgProfileImage = findViewById(R.id.imgProfileImage);
         imgEditMode = findViewById(R.id.imgEditMode);
 
-         preferenceManager = new PreferenceManager(this);
-        id = preferenceManager.getKeyValueString(VariableBag.user_id,"");
-        etvFullName.setText(preferenceManager.getKeyValueString(VariableBag.full_name,""));
-        etvEmail.setText(preferenceManager.getKeyValueString(VariableBag.email,""));
-        etvPhoneNo.setText(preferenceManager.getKeyValueString(VariableBag.mobile,""));
-        userPassword = preferenceManager.getKeyValueString(VariableBag.password,"");
+        preferenceManager = new PreferenceManager(this);
+        id = preferenceManager.getKeyValueString(VariableBag.user_id, "");
+        etvFullName.setText(preferenceManager.getKeyValueString(VariableBag.full_name, ""));
+        etvEmail.setText(preferenceManager.getKeyValueString(VariableBag.email, ""));
+        etvPhoneNo.setText(preferenceManager.getKeyValueString(VariableBag.mobile, ""));
+        userPassword = preferenceManager.getKeyValueString(VariableBag.password, "");
 
         etvFullName.setEnabled(false);
         etvPhoneNo.setEnabled(false);
@@ -111,8 +111,7 @@ public class ProfileActivity extends AppCompatActivity {
                 } else if (etvFullName.getText().toString().length() < 2) {
                     etvFullName.setError("Enter Valid Name");
                     etvFullName.requestFocus();
-                }
-                else if (etvPhoneNo.getText().toString().isEmpty()) {
+                } else if (etvPhoneNo.getText().toString().isEmpty()) {
                     etvPhoneNo.setError("Enter Mobile Number");
                     etvPhoneNo.requestFocus();
                 } else if (etvPhoneNo.length() != 10) {
@@ -124,7 +123,7 @@ public class ProfileActivity extends AppCompatActivity {
                 } else if (!Tools.isValidEmail(etvEmail.getText().toString())) {
                     etvEmail.setError("Email Address must contain @ and .com in it");
                     etvEmail.requestFocus();
-                }else {
+                } else {
                     editUser();
                 }
             }
@@ -133,7 +132,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    currentPhotoPath="";
+                    currentPhotoPath = "";
                     if (checkCameraPermission()) {
                         openCamera();
                     }
@@ -154,6 +153,7 @@ public class ProfileActivity extends AppCompatActivity {
         });
 
     }
+
     private boolean checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(ProfileActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(ProfileActivity.this, new String[]{android.Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
@@ -185,6 +185,7 @@ public class ProfileActivity extends AppCompatActivity {
         }
 
     }
+
     private void displayImage(ImageView ivProductImage, String currentPhotoPath) {
         Glide
                 .with(ProfileActivity.this)
@@ -202,9 +203,10 @@ public class ProfileActivity extends AppCompatActivity {
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }
-    void editUser(){
 
-        RequestBody  tag = RequestBody.create(MediaType.parse("text/plain"),"UpdateUser");
+    void editUser() {
+
+        RequestBody tag = RequestBody.create(MediaType.parse("text/plain"), "UpdateUser");
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), id);
         RequestBody full_name = RequestBody.create(MediaType.parse("text/plain"), etvFullName.getText().toString());
         RequestBody mobile = RequestBody.create(MediaType.parse("text/plain"), etvPhoneNo.getText().toString());
@@ -223,7 +225,7 @@ public class ProfileActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        restCall.EditUser(tag,user_id,full_name,mobile,email,password,fileToUploadfile)
+        restCall.EditUser(tag, user_id, full_name, mobile, email, password, fileToUploadfile)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -248,11 +250,11 @@ public class ProfileActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                preferenceManager.setKeyValueString(VariableBag.full_name,etvFullName.getText().toString());
-                                preferenceManager.setKeyValueString(VariableBag.mobile,etvPhoneNo.getText().toString());
-                                preferenceManager.setKeyValueString(VariableBag.email,etvEmail.getText().toString());
+                                preferenceManager.setKeyValueString(VariableBag.full_name, etvFullName.getText().toString());
+                                preferenceManager.setKeyValueString(VariableBag.mobile, etvPhoneNo.getText().toString());
+                                preferenceManager.setKeyValueString(VariableBag.email, etvEmail.getText().toString());
                                 Toast.makeText(ProfileActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     finish();
                                 }
                             }

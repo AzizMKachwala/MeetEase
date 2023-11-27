@@ -26,8 +26,12 @@ import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
+import com.example.meetease.homeScreen.setting.FaqActivity;
 import com.example.meetease.homeScreen.setting.RateUsActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 import java.util.concurrent.Executor;
 
@@ -42,6 +46,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     BiometricPrompt.PromptInfo promptInfo;
     Executor executor;
     PreferenceManager preferenceManager;
+    FirebaseAuth auth;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -176,7 +181,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == helpAndSupport) {
-            changeScreen(ContactUsActivity.class);
+            changeScreen(FaqActivity.class);
         }
 
         if (view == layoutRateUs) {
@@ -190,9 +195,20 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             builder.setCancelable(false);
             builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
-                preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
-                changeScreen(LoginActivity.class);
-                finish();
+//                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//                if (currentUser != null) {
+//                    for (UserInfo userInfo : currentUser.getProviderData()) {
+//                        if ("google.com".equals(userInfo.getProviderId())) {
+//                            // User signed in with Google
+//                            auth.signOut();
+//                        } else {
+//                            // Assume other providers as simple email/password
+//                            preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
+//                        }
+//                    }
+//                }
+//                changeScreen(LoginActivity.class);
+//                finish();
             });
             builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
