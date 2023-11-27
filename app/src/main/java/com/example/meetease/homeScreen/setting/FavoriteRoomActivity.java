@@ -79,6 +79,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
             }
         });
     }
+
     void roomDetail() {
         tools.showLoading();
         restCall.RoomDetails("getRoom")
