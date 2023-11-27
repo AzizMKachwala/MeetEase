@@ -3,6 +3,7 @@ package com.example.meetease.homeScreen;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -10,7 +11,6 @@ import androidx.core.content.FileProvider;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -45,7 +45,8 @@ import rx.schedulers.Schedulers;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    ImageView ivBack, imgEdit, imgEditMode;
+    ImageView ivBack, imgEdit;
+    SwitchCompat switchEditMode;
     CircleImageView imgProfileImage;
     Tools tools;
     PreferenceManager preferenceManager;
@@ -73,7 +74,7 @@ public class ProfileActivity extends AppCompatActivity {
         etvPhoneNo = findViewById(R.id.etvPhoneNo);
         etvEmail = findViewById(R.id.etvEmail);
         imgProfileImage = findViewById(R.id.imgProfileImage);
-        imgEditMode = findViewById(R.id.imgEditMode);
+        switchEditMode = findViewById(R.id.switchEditMode);
 
         preferenceManager = new PreferenceManager(this);
         id = preferenceManager.getKeyValueString(VariableBag.user_id, "");
@@ -86,12 +87,18 @@ public class ProfileActivity extends AppCompatActivity {
         etvPhoneNo.setEnabled(false);
         etvEmail.setEnabled(false);
 
-        imgEditMode.setOnClickListener(new View.OnClickListener() {
+        switchEditMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                etvFullName.setEnabled(true);
-                etvPhoneNo.setEnabled(true);
-                etvEmail.setEnabled(true);
+                if (switchEditMode.isChecked()) {
+                    etvFullName.setEnabled(true);
+                    etvPhoneNo.setEnabled(true);
+                    etvEmail.setEnabled(true);
+                } else {
+                    etvFullName.setEnabled(false);
+                    etvPhoneNo.setEnabled(false);
+                    etvEmail.setEnabled(false);
+                }
             }
         });
 

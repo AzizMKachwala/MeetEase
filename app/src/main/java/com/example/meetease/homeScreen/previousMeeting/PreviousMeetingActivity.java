@@ -122,6 +122,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 Toast.makeText(PreviousMeetingActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                tvNoData.setVisibility(View.VISIBLE);
                             }
                         });
                     }
@@ -133,6 +134,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
+                                    tvNoData.setVisibility(View.GONE);
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
                                     ArrayList<RoomDetailList> newList = new ArrayList<>();

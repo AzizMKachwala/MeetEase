@@ -18,14 +18,32 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
-        android:id="@+id/imgEditMode"
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_22sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/switchEditMode"
+        android:src="@drawable/baseline_edit_off_24"/>
+
+    <androidx.appcompat.widget.SwitchCompat
+        android:id="@+id/switchEditMode"
         android:layout_width="@dimen/_35sdp"
         android:layout_height="@dimen/_35sdp"
         android:layout_marginTop="@dimen/_15sdp"
-        android:layout_marginEnd="@dimen/_15sdp"
-        android:src="@drawable/baseline_edit_24"
+        android:layout_marginEnd="@dimen/_40sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <ImageView
+        android:layout_width="@dimen/_20sdp"
+        android:layout_height="@dimen/_20sdp"
+        android:layout_marginTop="@dimen/_22sdp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginStart="@dimen/_5sdp"
+        android:layout_marginEnd="@dimen/_15sdp"
+        app:layout_constraintStart_toEndOf="@id/switchEditMode"
+        android:src="@drawable/baseline_edit_24"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgProfileImage"

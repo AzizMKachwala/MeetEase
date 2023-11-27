@@ -121,6 +121,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btnCheckOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                tools.showLoading();
+
                     if (etvOTP.getText().toString().isEmpty()){
                         etvOTP.setError("Enter OTP");
                         etvOTP.requestFocus();
@@ -151,8 +153,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void sendVerificationCode(String phone) {
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(mAuth)
+        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth)
                         .setPhoneNumber(phone)
                         .setTimeout(60L, TimeUnit.SECONDS)
                         .setActivity(this)
@@ -204,15 +205,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             etvNewPassword.setVisibility(View.VISIBLE);
                             etvConfirmPassword.setVisibility(View.VISIBLE);
                             btnSave.setVisibility(View.VISIBLE);
+                            tools.stopLoading();
                         } else {
                                 etvOTP.setError("Enter Correct OTP");
                                 etvOTP.requestFocus();
                         }
                     }
                 });
-
     }
-
 
     void editPassword() {
 

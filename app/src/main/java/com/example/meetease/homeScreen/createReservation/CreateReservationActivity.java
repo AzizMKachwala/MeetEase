@@ -68,6 +68,7 @@ public class CreateReservationActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                AvailableRoomDetails();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -268,6 +269,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 Toast.makeText(CreateReservationActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                tvNoData.setVisibility(View.VISIBLE);
                             }
                         });
                     }
@@ -283,7 +285,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                                 if (roomDetailListNoUpcomingDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)
                                         && apiList != null
                                         && apiList.size() >0) {
-
+                                    tvNoData.setVisibility(View.GONE);
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
                                     recyclerViewMeetingRooms.setLayoutManager(layoutManager);
                                     createReservationAdapter = new CreateReservationAdapter(apiList,CreateReservationActivity.this);

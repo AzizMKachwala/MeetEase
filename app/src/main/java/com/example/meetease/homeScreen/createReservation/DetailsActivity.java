@@ -28,7 +28,7 @@ import rx.schedulers.Schedulers;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    ImageView imgRoom, imgFavourite;
+    ImageView imgRoom, imgFavourite,ivBack;
     TextView txtName, txtLocation, txtPrice;
     RatingBar ratingBar;
     Button btnBookNow;
@@ -47,11 +47,19 @@ public class DetailsActivity extends AppCompatActivity {
 
         imgRoom = findViewById(R.id.imgRoom);
         imgFavourite = findViewById(R.id.imgFavourite);
+        ivBack = findViewById(R.id.ivBack);
         txtName = findViewById(R.id.txtName);
         txtLocation = findViewById(R.id.txtLocation);
         txtPrice = findViewById(R.id.txtPrice);
         ratingBar = findViewById(R.id.ratingBar);
         btnBookNow = findViewById(R.id.btnBookNow);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         tools = new Tools(this);
         preferenceManager = new PreferenceManager(this);
