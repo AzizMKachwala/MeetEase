@@ -3,6 +3,7 @@ package com.example.meetease.homeScreen;
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SwitchCompat;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
@@ -10,7 +11,6 @@ import androidx.core.content.FileProvider;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,7 +22,6 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
@@ -45,7 +44,8 @@ import rx.schedulers.Schedulers;
 
 public class ProfileActivity extends AppCompatActivity {
 
-    ImageView ivBack, imgEdit,imgEditMode;
+    ImageView ivBack, imgEdit;
+    SwitchCompat switchEditMode;
     CircleImageView imgProfileImage;
     Tools tools;
     PreferenceManager preferenceManager;
@@ -56,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
     ActivityResultLauncher<Intent> cameraLauncher;
     File currentPhotoFile;
     RestCall restCall;
-    String id,userPassword;
+    String id, userPassword;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,25 +73,31 @@ public class ProfileActivity extends AppCompatActivity {
         etvPhoneNo = findViewById(R.id.etvPhoneNo);
         etvEmail = findViewById(R.id.etvEmail);
         imgProfileImage = findViewById(R.id.imgProfileImage);
-        imgEditMode = findViewById(R.id.imgEditMode);
+        switchEditMode = findViewById(R.id.switchEditMode);
 
-         preferenceManager = new PreferenceManager(this);
-        id = preferenceManager.getKeyValueString(VariableBag.user_id,"");
-        etvFullName.setText(preferenceManager.getKeyValueString(VariableBag.full_name,""));
-        etvEmail.setText(preferenceManager.getKeyValueString(VariableBag.email,""));
-        etvPhoneNo.setText(preferenceManager.getKeyValueString(VariableBag.mobile,""));
-        userPassword = preferenceManager.getKeyValueString(VariableBag.password,"");
+        preferenceManager = new PreferenceManager(this);
+        id = preferenceManager.getKeyValueString(VariableBag.user_id, "");
+        etvFullName.setText(preferenceManager.getKeyValueString(VariableBag.full_name, ""));
+        etvEmail.setText(preferenceManager.getKeyValueString(VariableBag.email, ""));
+        etvPhoneNo.setText(preferenceManager.getKeyValueString(VariableBag.mobile, ""));
+        userPassword = preferenceManager.getKeyValueString(VariableBag.password, "");
 
         etvFullName.setEnabled(false);
         etvPhoneNo.setEnabled(false);
         etvEmail.setEnabled(false);
 
-        imgEditMode.setOnClickListener(new View.OnClickListener() {
+        switchEditMode.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                etvFullName.setEnabled(true);
-                etvPhoneNo.setEnabled(true);
-                etvEmail.setEnabled(true);
+                if (switchEditMode.isChecked()) {
+                    etvFullName.setEnabled(true);
+                    etvPhoneNo.setEnabled(true);
+                    etvEmail.setEnabled(true);
+                } else {
+                    etvFullName.setEnabled(false);
+                    etvPhoneNo.setEnabled(false);
+                    etvEmail.setEnabled(false);
+                }
             }
         });
 
@@ -111,8 +117,7 @@ public class ProfileActivity extends AppCompatActivity {
                 } else if (etvFullName.getText().toString().length() < 2) {
                     etvFullName.setError("Enter Valid Name");
                     etvFullName.requestFocus();
-                }
-                else if (etvPhoneNo.getText().toString().isEmpty()) {
+                } else if (etvPhoneNo.getText().toString().isEmpty()) {
                     etvPhoneNo.setError("Enter Mobile Number");
                     etvPhoneNo.requestFocus();
                 } else if (etvPhoneNo.length() != 10) {
@@ -124,7 +129,7 @@ public class ProfileActivity extends AppCompatActivity {
                 } else if (!Tools.isValidEmail(etvEmail.getText().toString())) {
                     etvEmail.setError("Email Address must contain @ and .com in it");
                     etvEmail.requestFocus();
-                }else {
+                } else {
                     editUser();
                 }
             }
@@ -133,7 +138,7 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    currentPhotoPath="";
+                    currentPhotoPath = "";
                     if (checkCameraPermission()) {
                         openCamera();
                     }
@@ -147,13 +152,14 @@ public class ProfileActivity extends AppCompatActivity {
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK) {
                 // Camera capture was successful, handle the result.
-                displayImage(imgProfileImage, currentPhotoPath);
+                Tools.DisplayImage(ProfileActivity.this,imgProfileImage,currentPhotoPath);
             } else {
-                Toast.makeText(ProfileActivity.this, "Not", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ProfileActivity.this, "Error Loading Photo. Please Click Again", Toast.LENGTH_SHORT).show();
             }
         });
 
     }
+
     private boolean checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(ProfileActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(ProfileActivity.this, new String[]{android.Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
@@ -176,21 +182,20 @@ public class ProfileActivity extends AppCompatActivity {
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(ProfileActivity.this,
-                        "com.example.meetease",
-                        photoFile);
+                Uri photoURI = FileProvider.getUriForFile(ProfileActivity.this, "com.example.meetease", photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
                 cameraLauncher.launch(takePictureIntent);
             }
         }
 
     }
+
     private void displayImage(ImageView ivProductImage, String currentPhotoPath) {
-        Glide
-                .with(ProfileActivity.this)
-                .load(currentPhotoPath)
-                .placeholder(R.drawable.baseline_person_24)
-                .into(ivProductImage);
+//        Glide
+//                .with(ProfileActivity.this)
+//                .load(currentPhotoPath)
+//                .placeholder(R.drawable.baseline_person_24)
+//                .into(ivProductImage);
     }
 
     private File createImageFile() throws IOException {
@@ -202,19 +207,20 @@ public class ProfileActivity extends AppCompatActivity {
         currentPhotoPath = image.getAbsolutePath();
         return image;
     }
-    void editUser(){
 
-        RequestBody  tag = RequestBody.create(MediaType.parse("text/plain"),"UpdateUser");
+    void editUser() {
+
+        RequestBody tag = RequestBody.create(MediaType.parse("text/plain"), "UpdateUser");
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), id);
         RequestBody full_name = RequestBody.create(MediaType.parse("text/plain"), etvFullName.getText().toString());
         RequestBody mobile = RequestBody.create(MediaType.parse("text/plain"), etvPhoneNo.getText().toString());
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), etvEmail.getText().toString());
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), userPassword);
         MultipartBody.Part fileToUploadfile = null;
-        if (fileToUploadfile == null && currentPhotoPath != "") {
+        if (fileToUploadfile == null && currentPhotoPath != null) {
             try {
-                StrictMode.VmPolicy.Builder builder2 = new StrictMode.VmPolicy.Builder();
-                StrictMode.setVmPolicy(builder2.build());
+                StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+                StrictMode.setVmPolicy(builder.build());
                 File file = new File(currentPhotoPath);
                 RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 fileToUploadfile = MultipartBody.Part.createFormData("product_image", file.getName(), requestBody);
@@ -223,7 +229,7 @@ public class ProfileActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
-        restCall.EditUser(tag,user_id,full_name,mobile,email,password,fileToUploadfile)
+        restCall.EditUser(tag, user_id, full_name, mobile, email, password, fileToUploadfile)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -238,7 +244,7 @@ public class ProfileActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ProfileActivity.this, "no internet connection", Toast.LENGTH_SHORT).show();
+                                Toast.makeText(ProfileActivity.this, "No Internet", Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
@@ -248,11 +254,15 @@ public class ProfileActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                preferenceManager.setKeyValueString(VariableBag.full_name,etvFullName.getText().toString());
-                                preferenceManager.setKeyValueString(VariableBag.mobile,etvPhoneNo.getText().toString());
-                                preferenceManager.setKeyValueString(VariableBag.email,etvEmail.getText().toString());
+                                preferenceManager.setKeyValueString(VariableBag.full_name, etvFullName.getText().toString());
+                                preferenceManager.setKeyValueString(VariableBag.mobile, etvPhoneNo.getText().toString());
+                                preferenceManager.setKeyValueString(VariableBag.email, etvEmail.getText().toString());
                                 Toast.makeText(ProfileActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
+                                    if (currentPhotoFile != null && currentPhotoPath != null) {
+                                        currentPhotoFile.delete();
+//                                    Toast.makeText(AddProductActivity.this, "Photo Updated and Deleted", Toast.LENGTH_SHORT).show();
+                                    }
                                     finish();
                                 }
                             }

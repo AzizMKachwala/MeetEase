@@ -74,10 +74,12 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
         holder.txtName.setText(searchList.get(position).getRoom_name());
         holder.txtLocation.setText(searchList.get(position).getLocation());
         holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getRating()));
-        Glide
-                .with(context)
-                .load("http://192.168.43.107/roommeeting/uplode/image/The_Successful.jpg")
-                .into(holder.imgRoom);
+//        Glide
+//                .with(context)
+//                .load("http://192.168.43.107/roommeeting/uplode/image/The_Successful.jpg")
+//                .into(holder.imgRoom);
+
+        Tools.DisplayImage(context,holder.imgRoom,searchList.get(position).getRoom_img());
 
     }
 

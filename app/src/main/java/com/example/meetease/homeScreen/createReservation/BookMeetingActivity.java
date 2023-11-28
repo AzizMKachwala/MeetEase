@@ -167,6 +167,7 @@ public class BookMeetingActivity extends AppCompatActivity {
                     intent.putExtra("endHour",String.valueOf(endHour));
                     intent.putExtra("endMinute",String.valueOf(endMinute));
                     startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             }
         });

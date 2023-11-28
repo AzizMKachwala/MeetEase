@@ -122,6 +122,7 @@ public class LoginActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Intent intent = new Intent(LoginActivity.this, SignUpActivity.class);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 finish();
             }
         });
@@ -195,6 +196,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -208,6 +210,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(LoginDataModel loginDataModel) {
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -222,6 +225,7 @@ public class LoginActivity extends AppCompatActivity {
                                     preferenceManager.setKeyValueString(VariableBag.email,loginDataModel.getEmail());
                                     preferenceManager.setKeyValueString(VariableBag.password,etvPassword.getText().toString());
                                     startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class));
+                                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                     finish();
                                 }
                                 else {
@@ -236,6 +240,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void AddUser(){
+        tools.showLoading();
         restCall.AddUser("AddUser",name,email,"1234567890","GooglePassword2817")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
@@ -247,6 +252,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -258,6 +264,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(UserResponse userResponse) {
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

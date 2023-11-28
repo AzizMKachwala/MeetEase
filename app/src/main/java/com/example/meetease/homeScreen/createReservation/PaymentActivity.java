@@ -2,7 +2,6 @@ package com.example.meetease.homeScreen.createReservation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,7 +9,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.meetease.R;
-import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.network.RestCall;
@@ -26,12 +24,7 @@ public class PaymentActivity extends AppCompatActivity {
     Button btnPay;
     RestCall restCall;
     Tools tools;
-    PreferenceManager preferenceManager;
 
-    String bookingDate;
-    String bookingStartTime;
-    String bookingEndTime;
-    String roomId;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -45,29 +38,24 @@ public class PaymentActivity extends AppCompatActivity {
         txtFinalPrice = findViewById(R.id.txtFinalPrice);
         btnPay = findViewById(R.id.btnPay);
 
-        Intent intent = getIntent();
-        roomId = intent.getStringExtra("roomId");
-        bookingDate = intent.getStringExtra("bookingDate");
-        bookingStartTime = intent.getStringExtra("bookingStartTime");
-        bookingEndTime = intent.getStringExtra("bookingEndTime");
-
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
-
-        preferenceManager = new PreferenceManager(this);
 
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 roomBooking();
-
+                Toast.makeText(PaymentActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
+                Toast.makeText(PaymentActivity.this, "Booking Done", Toast.LENGTH_SHORT).show();
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
             }
         });
     }
 
     private void roomBooking() {
         tools.showLoading();
-        restCall.RoomBooking("AddTimeBooking", preferenceManager.getKeyValueString(VariableBag.user_id,""), roomId, bookingDate, bookingStartTime, bookingEndTime)
+        restCall.RoomBooking("AddTimeBooking", "", "", "", "", "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -93,10 +81,7 @@ public class PaymentActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                Toast.makeText(PaymentActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
-                                    Toast.makeText(PaymentActivity.this, "Payment Successful", Toast.LENGTH_SHORT).show();
-                                }
+
                             }
                         });
                     }

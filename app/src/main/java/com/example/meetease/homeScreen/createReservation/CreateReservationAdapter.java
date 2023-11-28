@@ -91,11 +91,13 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
         holder.txtName.setText(searchList.get(position).getRoom_name());
         holder.txtLocation.setText(searchList.get(position).getLocation());
         holder.txtPrice.setText(searchList.get(position).getPrice() + VariableBag.CURRENCY);
-        Glide
-                .with(context)
-                .load(searchList.get(position).getRoom_img())
-                .into(holder.imgRoom);
-        //holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getRating()));
+//        Glide
+//                .with(context)
+//                .load(searchList.get(position).getRoom_img())
+//                .into(holder.imgRoom);
+        Tools.DisplayImage(context,holder.imgRoom,searchList.get(position).getRoom_img());
+
+        holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getRating()));
         holder.btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -126,7 +128,13 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
     @Override
     public int getItemCount() {
-        return searchList.size();
+
+        if(searchList.size() == 0){
+            return 0;
+        }
+        else {
+            return searchList.size();
+        }
     }
 
     static class CreateReservationViewHolder extends RecyclerView.ViewHolder {

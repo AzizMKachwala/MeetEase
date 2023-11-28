@@ -8,6 +8,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.meetease.R;
 
@@ -38,6 +39,19 @@ public class RateUsActivity extends AppCompatActivity {
         btnSubmit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                int userRating = (int) ratingBar.getRating();
+
+                if (userRating == 1) {
+                    Toast.makeText(RateUsActivity.this, "We Are Really Sorry For Your Experience.", Toast.LENGTH_SHORT).show();
+                } else if (userRating == 2) {
+                    Toast.makeText(RateUsActivity.this, "We Would Love To Hear Some Suggestions From You. ", Toast.LENGTH_SHORT).show();
+                } else if (userRating == 3) {
+                    Toast.makeText(RateUsActivity.this, "We Would Try To Make Your Experience Better Next Time.", Toast.LENGTH_SHORT).show();
+                } else if (userRating == 4) {
+                    Toast.makeText(RateUsActivity.this, "Thank you For Rating Us.", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(RateUsActivity.this, "We Are Really Glad To Hear It From You.", Toast.LENGTH_SHORT).show();
+                }
 
             }
         });
@@ -52,7 +66,7 @@ public class RateUsActivity extends AppCompatActivity {
                 } else if (ratingBar.getRating() == 3) {
                     txtRating.setText("Average");
                 } else if (ratingBar.getRating() == 4) {
-                    txtRating.setText("excellent");
+                    txtRating.setText("Excellent");
                 } else {
                     txtRating.setText("I really Liked it");
                 }

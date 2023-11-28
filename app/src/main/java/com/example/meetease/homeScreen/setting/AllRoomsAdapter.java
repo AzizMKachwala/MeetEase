@@ -16,6 +16,7 @@ import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 import com.example.meetease.dataModel.RoomDetailList;
+import com.example.meetease.homeScreen.createReservation.DetailsActivity;
 import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingAdapter;
 
 import java.util.ArrayList;
@@ -41,10 +42,12 @@ public class AllRoomsAdapter extends RecyclerView.Adapter<AllRoomsAdapter.AllRoo
     public void onBindViewHolder(@NonNull AllRoomsDataViewHolder holder, int position) {
         holder.txtName.setText(roomDetailLists.get(position).getRoom_name());
         holder.txtLocation.setText(roomDetailLists.get(position).getLocation());
-        Glide
-                .with(context)
-                .load(roomDetailLists.get(position).getRoom_img())
-                .into(holder.imgRoom);
+//        Glide
+//                .with(context)
+//                .load(roomDetailLists.get(position).getRoom_img())
+//                .into(holder.imgRoom);
+
+        Tools.DisplayImage(context,holder.imgRoom,roomDetailLists.get(position).getRoom_img());
     }
 
     @Override

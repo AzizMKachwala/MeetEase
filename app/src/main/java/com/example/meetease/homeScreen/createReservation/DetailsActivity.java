@@ -28,8 +28,8 @@ import rx.schedulers.Schedulers;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    ImageView imgRoom,imgFavourite;
-    TextView txtName,txtLocation,txtPrice;
+    ImageView imgRoom, imgFavourite,ivBack;
+    TextView txtName, txtLocation, txtPrice;
     RatingBar ratingBar;
     Button btnBookNow;
     String checkFavourite;
@@ -37,10 +37,7 @@ public class DetailsActivity extends AppCompatActivity {
     Tools tools;
     String roomId;
     PreferenceManager preferenceManager;
-    String roomName,roomPrice,roomLocation,roomRating,roomImage;
-     String bookingDate;
-     String bookingStartTime;
-     String bookingEndTime;
+    String roomName, roomPrice, roomLocation, roomRating, roomImage;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -50,11 +47,19 @@ public class DetailsActivity extends AppCompatActivity {
 
         imgRoom = findViewById(R.id.imgRoom);
         imgFavourite = findViewById(R.id.imgFavourite);
+        ivBack = findViewById(R.id.ivBack);
         txtName = findViewById(R.id.txtName);
         txtLocation = findViewById(R.id.txtLocation);
         txtPrice = findViewById(R.id.txtPrice);
         ratingBar = findViewById(R.id.ratingBar);
         btnBookNow = findViewById(R.id.btnBookNow);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         tools = new Tools(this);
         preferenceManager = new PreferenceManager(this);
@@ -67,21 +72,18 @@ public class DetailsActivity extends AppCompatActivity {
         roomRating = intent.getStringExtra("roomRating");
         roomImage = intent.getStringExtra("roomImage");
         roomId = intent.getStringExtra("roomId");
-        bookingDate = intent.getStringExtra("bookingDate");
-        bookingStartTime = intent.getStringExtra("bookingStartTime");
-        bookingEndTime = intent.getStringExtra("bookingEndTime");
-
-
 
         txtLocation.setText(roomLocation);
         txtName.setText(roomName);
         txtPrice.setText(roomPrice + VariableBag.CURRENCY + "/Hour");
-//        ratingBar.setRating(Float.parseFloat(roomRating));
+        ratingBar.setRating(Float.parseFloat(roomRating));
 
-        Glide
-                .with(this)
-                .load(roomImage)
-                .into(imgRoom);
+//        Glide
+//                .with(this)
+//                .load(roomImage)
+//                .into(imgRoom);
+
+        Tools.DisplayImage(DetailsActivity.this,imgRoom,roomImage);
 
         checkFavourite = "0";
         if (checkFavourite.equals("0")) {
@@ -108,16 +110,15 @@ public class DetailsActivity extends AppCompatActivity {
                 intent.putExtra("roomName", roomName);
                 intent.putExtra("roomPrice", roomPrice);
                 intent.putExtra("roomLocation", roomLocation);
-                intent.putExtra("roomId", roomId);
-                intent.putExtra("bookingDate", bookingDate);
-                intent.putExtra("bookingStartTime", bookingStartTime);
-                intent.putExtra("bookingEndTime", bookingEndTime);
                 startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
     }
-    void addFavRoom(){
-        restCall.Addfavroom("Addfavroom",roomId,preferenceManager.getKeyValueString(VariableBag.user_id,""))
+
+    void addFavRoom() {
+        tools.showLoading();
+        restCall.AddFavRoom("Addfavroom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -132,6 +133,7 @@ public class DetailsActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                tools.stopLoading();
                                 Toast.makeText(DetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -142,8 +144,8 @@ public class DetailsActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(DetailsActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
+                                    tools.stopLoading();
                                     if (checkFavourite.equals("1")) {
                                         imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
                                         checkFavourite = "0";

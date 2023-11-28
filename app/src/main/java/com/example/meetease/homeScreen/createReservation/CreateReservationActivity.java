@@ -68,6 +68,7 @@ public class CreateReservationActivity extends AppCompatActivity {
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                AvailableRoomDetails();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -209,6 +210,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 Toast.makeText(CreateReservationActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                tvNoData.setVisibility(View.VISIBLE);
                             }
                         });
                     }

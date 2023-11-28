@@ -85,7 +85,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ForgotPasswordActivity.this,ChangePasswordActivity.class));
+                startActivity(new Intent(ForgotPasswordActivity.this, ChangePasswordActivity.class));
                 finish();
             }
         });
@@ -105,11 +105,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 if (etvPhoneNo.getText().toString().isEmpty()) {
                     etvPhoneNo.setError("Enter Mobile Number");
                     etvPhoneNo.requestFocus();
-                } else if (!etvPhoneNo.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.mobile,""))) {
+                } else if (!etvPhoneNo.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.mobile, ""))) {
                     etvPhoneNo.setError("Use Valid Mobile Number !!!");
                     etvPhoneNo.requestFocus();
-                }
-                else {
+                } else {
                     Toast.makeText(ForgotPasswordActivity.this, "OTP Sent...", Toast.LENGTH_SHORT).show();
                     String phone = "+" + countryPicker.getSelectedCountryCode() + etvPhoneNo.getText().toString();
                     tools.showLoading();
@@ -121,15 +120,16 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btnCheckOtp.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                    if (etvOTP.getText().toString().isEmpty()){
-                        etvOTP.setError("Enter OTP");
-                        etvOTP.requestFocus();
-                    }
-                    else {
-                        verifyCode(etvOTP.getText().toString());
-                    }
+                tools.showLoading();
 
+                if (etvOTP.getText().toString().isEmpty()) {
+                    etvOTP.setError("Enter OTP");
+                    etvOTP.requestFocus();
+                } else {
+                    verifyCode(etvOTP.getText().toString());
                 }
+
+            }
         });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
@@ -151,13 +151,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     private void sendVerificationCode(String phone) {
-        PhoneAuthOptions options =
-                PhoneAuthOptions.newBuilder(mAuth)
-                        .setPhoneNumber(phone)
-                        .setTimeout(60L, TimeUnit.SECONDS)
-                        .setActivity(this)
-                        .setCallbacks(mCallBack)
-                        .build();
+        PhoneAuthOptions options = PhoneAuthOptions.newBuilder(mAuth)
+                .setPhoneNumber(phone)
+                .setTimeout(60L, TimeUnit.SECONDS)
+                .setActivity(this)
+                .setCallbacks(mCallBack)
+                .build();
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
@@ -204,19 +203,18 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             etvNewPassword.setVisibility(View.VISIBLE);
                             etvConfirmPassword.setVisibility(View.VISIBLE);
                             btnSave.setVisibility(View.VISIBLE);
+                            tools.stopLoading();
                         } else {
-                                etvOTP.setError("Enter Correct OTP");
-                                etvOTP.requestFocus();
+                            etvOTP.setError("Enter Correct OTP");
+                            etvOTP.requestFocus();
                         }
                     }
                 });
-
     }
-
 
     void editPassword() {
 
-        restCall.ResetPassword("UpdatePassword",preferenceManager.getKeyValueString(VariableBag.user_id,""),etvNewPassword.getText().toString())
+        restCall.ResetPassword("UpdatePassword", preferenceManager.getKeyValueString(VariableBag.user_id, ""), etvNewPassword.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -242,8 +240,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 Toast.makeText(ForgotPasswordActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
-                                    preferenceManager.setKeyValueString(VariableBag.password,etvNewPassword.getText().toString());
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
+                                    preferenceManager.setKeyValueString(VariableBag.password, etvNewPassword.getText().toString());
+                                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                     finish();
                                 }
                             }

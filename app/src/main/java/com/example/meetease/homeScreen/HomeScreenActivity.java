@@ -26,9 +26,12 @@ import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
-import com.example.meetease.homeScreen.setting.FavoriteRoomActivity;
+import com.example.meetease.homeScreen.setting.FaqActivity;
 import com.example.meetease.homeScreen.setting.RateUsActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.auth.UserInfo;
 
 import java.util.concurrent.Executor;
 
@@ -43,6 +46,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     BiometricPrompt.PromptInfo promptInfo;
     Executor executor;
     PreferenceManager preferenceManager;
+    FirebaseAuth auth;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -87,6 +91,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         layoutUpcomingMeeting.setOnClickListener(this);
         layoutRateUs.setOnClickListener(this);
         tvTrans.setOnClickListener(this);
+        inviteFriend.setOnClickListener(this);
         layoutPreviousMeeting.setOnClickListener(this);
         favoriteRooms.setOnClickListener(this);
 
@@ -136,7 +141,8 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             tvTrans.startAnimation(slideInAnimation);
         }
         if (view == favoriteRooms) {
-            Intent intent = new Intent(HomeScreenActivity.this, FavoriteRoomActivity.class);
+            Intent intent = new Intent(HomeScreenActivity.this, PreviousMeetingActivity.class);
+            intent.putExtra("abc", "favoriteRooms");
             startActivity(intent);
         }
         if (view == layoutPreviousMeeting) {
@@ -152,6 +158,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == layoutUpcomingMeeting) {
+//            changeScreen();
+        }
+
+        if (view == inviteFriend) {
+//            generateInvitationLink();
         }
 
         if (view == availableRooms) {
@@ -175,7 +186,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == helpAndSupport) {
-            changeScreen(ContactUsActivity.class);
+            changeScreen(FaqActivity.class);
         }
 
         if (view == layoutRateUs) {
@@ -189,9 +200,20 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             builder.setCancelable(false);
             builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
-                preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
-                changeScreen(LoginActivity.class);
-                finish();
+//                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+//                if (currentUser != null) {
+//                    for (UserInfo userInfo : currentUser.getProviderData()) {
+//                        if ("google.com".equals(userInfo.getProviderId())) {
+//                            // User signed in with Google
+//                            auth.signOut();
+//                        } else {
+//                            // Assume other providers as simple email/password
+//                            preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
+//                        }
+//                    }
+//                }
+//                changeScreen(LoginActivity.class);
+//                finish();
             });
             builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
@@ -201,11 +223,22 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
+//    private void generateInvitationLink() {
+//        String invitationLink = "https://example.com/invite?userId=" + preferenceManager.getKeyValueString(VariableBag.user_id,"");
+//        Intent sendIntent = new Intent();
+//        sendIntent.setAction(Intent.ACTION_SEND);
+//        sendIntent.putExtra(Intent.EXTRA_TEXT, "Join MeetEase using my invitation link: " + invitationLink);
+//        sendIntent.setType("text/plain");
+//
+//        Intent shareIntent = Intent.createChooser(sendIntent, null);
+//        startActivity(shareIntent);
+//    }
+
     void changeScreen(Class classActivity) {
         Intent intent = new Intent(HomeScreenActivity.this, classActivity);
         startActivity(intent);
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
-
 
     void biometric() {
         executor = ContextCompat.getMainExecutor(this);

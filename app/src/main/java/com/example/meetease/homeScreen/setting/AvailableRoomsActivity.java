@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.meetease.R;
@@ -32,6 +33,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewAllRooms;
     View btnBookNow;
+    TextView tvNoData;
     RestCall restCall;
     ImageView ivBack;
     Tools tools;
@@ -46,6 +48,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
         btnBookNow = findViewById(R.id.btnBookNow);
         recyclerViewAllRooms = findViewById(R.id.recyclerViewAllRooms);
         swipeRefreshLayout = findViewById(R.id.swipe);
+        tvNoData = findViewById(R.id.tvNoData);
         ivBack = findViewById(R.id.ivBack);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -54,6 +57,8 @@ public class AvailableRoomsActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+        tvNoData.setVisibility(View.GONE);
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -70,6 +75,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(AvailableRoomsActivity.this, BookMeetingActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
 
@@ -95,6 +101,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
                                 tools.stopLoading();
                                 Log.e("##error", e.getLocalizedMessage());
                                 Toast.makeText(AvailableRoomsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                tvNoData.setVisibility(View.VISIBLE);
                             }
                         });
                     }
@@ -106,6 +113,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 if (roomDetailDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT) && roomDetailDataModel.getRoomDetailList() != null && !roomDetailDataModel.getRoomDetailList().isEmpty()) {
+                                    tvNoData.setVisibility(View.GONE);
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(AvailableRoomsActivity.this);
                                     recyclerViewAllRooms.setLayoutManager(layoutManager);
                                     allRoomsAdapter = new AllRoomsAdapter(roomDetailDataModel.getRoomDetailList(), AvailableRoomsActivity.this);
