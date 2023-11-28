@@ -40,7 +40,6 @@ public class PreviousMeetingActivity extends AppCompatActivity {
     RestCall restCall;
     Tools tools;
     SwipeRefreshLayout swipeRefreshLayout;
-
     String tag = "";
 
     @Override
@@ -133,17 +132,11 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
+                                if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)&& roomDetailDataModel.getRoomDetailList()!=null&&roomDetailDataModel.getRoomDetailList().size()>0){
                                     tvNoData.setVisibility(View.GONE);
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
-                                    ArrayList<RoomDetailList> newList = new ArrayList<>();
-                                    for (int i=0;i<roomDetailDataModel.getRoomDetailList().size();i++){
-                                        if (roomDetailDataModel.getRoomDetailList().get(i).getUpcoming_status().equals("0")){
-                                            newList.add(roomDetailDataModel.getRoomDetailList().get(i));
-                                        }
-                                    }
-                                    previousMeetingAdapter = new PreviousMeetingAdapter(newList,PreviousMeetingActivity.this);
+                                    previousMeetingAdapter = new PreviousMeetingAdapter(roomDetailDataModel.getRoomDetailList(),PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setAdapter(previousMeetingAdapter);
                                 }
                             }

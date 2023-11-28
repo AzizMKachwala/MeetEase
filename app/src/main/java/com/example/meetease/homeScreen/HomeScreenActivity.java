@@ -27,7 +27,7 @@ import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
 import com.example.meetease.homeScreen.setting.FaqActivity;
-import com.example.meetease.homeScreen.setting.NotificationActivity;
+import com.example.meetease.homeScreen.setting.FavoriteRoomActivity;
 import com.example.meetease.homeScreen.setting.ProfileShowActivity;
 import com.example.meetease.homeScreen.setting.RateUsActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
@@ -42,7 +42,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     View scrollView, favoriteRooms, availableRooms, security, howToBookRoom,
             inviteFriend, helpAndSupport, logout, layoutAddReservation, layoutUpcomingMeeting,
             layoutPreviousMeeting, layoutUserProfile, layoutContactUs, layoutRateUs;
-    ImageView ivSettingProfile, ivSetting,ivNotification;
+    ImageView ivSettingProfile, ivSetting;
     TextView tvSettingName, tvSettingEmail, tvTrans, txtHelloName;
     BiometricPrompt biometricPrompt;
     BiometricPrompt.PromptInfo promptInfo;
@@ -75,7 +75,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         logout = findViewById(R.id.logout);
         ivSetting = findViewById(R.id.ivSetting);
         ivSettingProfile = findViewById(R.id.ivSettingProfile);
-        ivNotification = findViewById(R.id.ivNotification);
         tvSettingName = findViewById(R.id.tvSettingName);
         tvSettingEmail = findViewById(R.id.tvSettingEmail);
 
@@ -85,7 +84,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         auth = FirebaseAuth.getInstance();
 
         ivSetting.setOnClickListener(this);
-        ivNotification.setOnClickListener(this);
         logout.setOnClickListener(this);
         howToBookRoom.setOnClickListener(this);
         layoutContactUs.setOnClickListener(this);
@@ -147,12 +145,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             tvTrans.startAnimation(slideInAnimation);
         }
         if (view == favoriteRooms) {
-            Intent intent = new Intent(HomeScreenActivity.this, PreviousMeetingActivity.class);
-            intent.putExtra("abc", "favoriteRooms");
-            startActivity(intent);
-        }
-        if(view == ivNotification){
-            changeScreen(NotificationActivity.class);
+            changeScreen(FavoriteRoomActivity.class);
         }
         if (view == layoutPreviousMeeting) {
             changeScreen(PreviousMeetingActivity.class);
@@ -209,12 +202,14 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             builder.setCancelable(false);
             builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
-                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (currentUser != null) {
                     for (UserInfo userInfo : currentUser.getProviderData()) {
                         if ("google.com".equals(userInfo.getProviderId())) {
+                            // User signed in with Google
                             auth.signOut();
+                        } else {
                         }
                     }
                 }

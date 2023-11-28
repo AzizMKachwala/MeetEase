@@ -102,6 +102,9 @@ public class FilterFragment extends DialogFragment {
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if(selectedCity.equals("selectedCity")){
+                    selectedCity = "";
+                }
                 filterApply.filterList(selectedCity, price, rating);
                 dismiss();
             }

@@ -32,14 +32,12 @@ public class SignUpActivity extends AppCompatActivity {
     TextView txtLogin;
     ImageView imgPasswordCloseEye;
     Tools tools;
-    String password = "Hide";
+    Boolean password = false;
     RestCall restCall;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_sign_up);
-
-        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
 
         etvName = findViewById(R.id.etvName);
         etvMobileNumber = findViewById(R.id.etvMobileNumber);
@@ -50,17 +48,17 @@ public class SignUpActivity extends AppCompatActivity {
         txtLogin = findViewById(R.id.txtLogin);
         imgPasswordCloseEye = findViewById(R.id.imgPasswordCloseEye);
 
+        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         tools = new Tools(SignUpActivity.this);
 
         imgPasswordCloseEye.setOnClickListener(v -> {
-
-            if (password.equals("Hide")) {
-                password = "Show";
+            if (password.equals(false)) {
+                password = true;
                 etvPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 etvPassword.setSelection(etvPassword.length());
                 imgPasswordCloseEye.setImageResource(R.drawable.ceye);
             } else {
-                password = "Hide";
+                password = false;
                 etvPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 etvPassword.setSelection(etvPassword.length());
                 imgPasswordCloseEye.setImageResource(R.drawable.baseline_eye_24);
@@ -90,51 +88,37 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     Boolean validation(EditText etvName, EditText etvMobileNumber, EditText etvEmail, EditText etvPassword, EditText etvConfirmPassword) {
-        String name = etvName.getText().toString();
-        String mobileNumber = etvMobileNumber.getText().toString();
-        String email = etvEmail.getText().toString();
-        String password = etvPassword.getText().toString();
-        String confirmPassword = etvConfirmPassword.getText().toString();
+        String name = etvName.getText().toString() , mobileNumber = etvMobileNumber.getText().toString() , email = etvEmail.getText().toString() , password = etvPassword.getText().toString(), confirmPassword = etvConfirmPassword.getText().toString();
 
         if (name.isEmpty()) {
-            etvName.setError("Enter Name");
-            etvName.requestFocus();
+            setError("Enter Name",etvName);
             return false;
         } else if (name.length() < 2) {
-            etvName.setError("Enter Valid Name");
-            etvName.requestFocus();
+            setError("Enter Valid Name",etvName);
             return false;
         } else if (mobileNumber.isEmpty()) {
-            etvMobileNumber.setError("Enter Mobile Number");
-            etvMobileNumber.requestFocus();
+            setError("Enter Mobile Number",etvMobileNumber);
             return false;
         } else if (mobileNumber.length() != 10) {
-            etvMobileNumber.setError("Enter Mobile Number with 10 Digits");
-            etvMobileNumber.requestFocus();
+            setError("Enter Mobile Number with 10 Digits",etvMobileNumber);
             return false;
         } else if (email.isEmpty()) {
-            etvEmail.setError("Email Address cannot be Empty");
-            etvEmail.requestFocus();
+            setError("Email Address cannot be Empty",etvEmail);
             return false;
         } else if (!Tools.isValidEmail(email)) {
-            etvEmail.setError("Email Address must contain @ and .com in it");
-            etvEmail.requestFocus();
+            setError("Email Address must contain @ and .com in it",etvEmail);
             return false;
         } else if (password.isEmpty()) {
-            etvPassword.setError("Password cannot be Empty");
-            etvPassword.requestFocus();
+            setError("Password cannot be Empty",etvPassword);
             return false;
         } else if (!Tools.isValidPassword(password)) {
-            etvPassword.setError("Password Must Consist Of Minimum length of 7 with At-least 1 UpperCase, 1 LowerCase, 1 Number & 1 Special Character");
-            etvPassword.requestFocus();
+            setError("Password Must Consist Of Minimum length of 7 with At-least 1 UpperCase, 1 LowerCase, 1 Number & 1 Special Character",etvPassword);
             return false;
         } else if (confirmPassword.isEmpty()) {
-            etvConfirmPassword.setError("Confirm Password cannot be Empty");
-            etvConfirmPassword.requestFocus();
+            setError("Confirm Password cannot be Empty",etvConfirmPassword);
             return false;
         } else if (!password.equals(confirmPassword)) {
-            etvConfirmPassword.setError("Confirm Password does not Match");
-            etvConfirmPassword.requestFocus();
+            setError("Confirm Password does not Match",etvConfirmPassword);
             return false;
         } else {
             return true;
@@ -178,6 +162,9 @@ public class SignUpActivity extends AppCompatActivity {
                         });
                     }
                 });
-
+    }
+    void setError(String error,EditText etv){
+        etv.setError(error);
+        etv.requestFocus();
     }
 }

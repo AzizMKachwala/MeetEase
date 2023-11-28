@@ -20,6 +20,7 @@ import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.LoginDataModel;
 import com.example.meetease.homeScreen.HomeScreenActivity;
+import com.example.meetease.homeScreen.setting.ForgotPasswordActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
@@ -49,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
     ImageView imgPasswordCloseEye;
     View viewGoogle;
     String flag = "1",name,mobileNumber,email;
-    String password = "Hide";
+    Boolean password = false;
     RestCall restCall;
     private static final int RC_SIGN_IN = 123;
     private GoogleSignInClient mGoogleSignInClient;
@@ -73,11 +74,9 @@ public class LoginActivity extends AppCompatActivity {
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
-
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         tools = new Tools(LoginActivity.this);
         preferenceManager = new PreferenceManager(LoginActivity.this);
-//        preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
 
         viewGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,14 +102,13 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         imgPasswordCloseEye.setOnClickListener(v -> {
-
-            if (password.equals("Hide")) {
-                password = "Show";
+            if (password.equals(false)) {
+                password = true;
                 etvPassword.setTransformationMethod(HideReturnsTransformationMethod.getInstance());
                 etvPassword.setSelection(etvPassword.length());
                 imgPasswordCloseEye.setImageResource(R.drawable.ceye);
             } else {
-                password = "Hide";
+                password = false;
                 etvPassword.setTransformationMethod(PasswordTransformationMethod.getInstance());
                 etvPassword.setSelection(etvPassword.length());
                 imgPasswordCloseEye.setImageResource(R.drawable.baseline_eye_24);
@@ -130,7 +128,8 @@ public class LoginActivity extends AppCompatActivity {
         txtResetPassword.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Toast.makeText(LoginActivity.this, "RESET PASSWORD", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(LoginActivity.this, ForgotPasswordActivity.class);
+                startActivity(intent);
             }
         });
     }
@@ -147,7 +146,6 @@ public class LoginActivity extends AppCompatActivity {
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        //callbackManager.onActivityResult(requestCode, resultCode, data);
         super.onActivityResult(requestCode, resultCode, data);
 
         if (requestCode == RC_SIGN_IN) {
@@ -232,7 +230,6 @@ public class LoginActivity extends AppCompatActivity {
                                     tools.showLoading();
                                     AddUser();
                                 }
-
                             }
                         });
                     }
@@ -276,6 +273,5 @@ public class LoginActivity extends AppCompatActivity {
                         });
                     }
                 });
-
     }
 }

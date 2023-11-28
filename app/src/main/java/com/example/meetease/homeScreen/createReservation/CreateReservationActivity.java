@@ -46,9 +46,7 @@ public class CreateReservationActivity extends AppCompatActivity {
     RestCall restCall;
     Tools tools;
     List<RoomDetailListNoUpcoming> apiList = new ArrayList<>();
-
     public int year, month, day, startHour, startMinute, endHour, endMinute;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -94,29 +92,24 @@ public class CreateReservationActivity extends AppCompatActivity {
                     @Override
                     public void filterList(String city, String Price, String Rating) {
                         if (!city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
-                            List<RoomDetailListNoUpcoming> list = ratingFilter(priceFilter(cityFilter(apiList, city), Price), Rating);
-                            createReservationAdapter.updateData(list);
+                            updateData(ratingFilter(priceFilter(cityFilter(apiList, city), Price), Rating));
                         } else if (!city.isEmpty() && !Price.isEmpty() && Rating.isEmpty()) {
-                            List<RoomDetailListNoUpcoming> list = priceFilter(cityFilter(apiList, city), Price);
-                            createReservationAdapter.updateData(list);
+                            updateData(priceFilter(cityFilter(apiList, city), Price));
                         } else if (!city.isEmpty() && Price.isEmpty() && !Rating.isEmpty()) {
-                            List<RoomDetailListNoUpcoming> list = ratingFilter(cityFilter(apiList, city), Rating);
-                            createReservationAdapter.updateData(list);
+                            updateData(ratingFilter(cityFilter(apiList, city), Rating));
                         } else if (city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
-                            List<RoomDetailListNoUpcoming> list = ratingFilter(priceFilter(apiList, Price), Rating);
-                            createReservationAdapter.updateData(list);
+                            updateData(ratingFilter(priceFilter(apiList, Price), Rating));
                         } else if (!city.isEmpty() && Price.isEmpty() && Rating.isEmpty()) {
-                            List<RoomDetailListNoUpcoming> list = cityFilter(apiList, city);
-                            createReservationAdapter.updateData(list);
+                            updateData(cityFilter(apiList, city));
                         } else if (city.isEmpty() && !Price.isEmpty() && Rating.isEmpty()) {
-                            List<RoomDetailListNoUpcoming> list = priceFilter(apiList, Price);
-                            createReservationAdapter.updateData(list);
+                            updateData(priceFilter(apiList, Price));
                         } else if (city.isEmpty() && Price.isEmpty() && !Rating.isEmpty()) {
-                            List<RoomDetailListNoUpcoming> list = ratingFilter(apiList, Rating);
-                            createReservationAdapter.updateData(list);
+                            updateData(ratingFilter(apiList, Rating));
+                        }
+                        else {
+                            updateData(apiList);
                         }
                     }
-
                     @Override
                     public void reset() {
                         createReservationAdapter.updateData(apiList);
@@ -139,7 +132,6 @@ public class CreateReservationActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
-
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (createReservationAdapter != null) {
@@ -151,15 +143,12 @@ public class CreateReservationActivity extends AppCompatActivity {
                     createReservationAdapter.search(charSequence, tvNoData, recyclerViewMeetingRooms);
                 }
             }
-
             @Override
             public void afterTextChanged(Editable editable) {
 
             }
         });
     }
-
-
     List<RoomDetailListNoUpcoming> cityFilter(List<RoomDetailListNoUpcoming> list, String city) {
         List<RoomDetailListNoUpcoming> filteredListCity = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -190,6 +179,9 @@ public class CreateReservationActivity extends AppCompatActivity {
         return filteredListRating;
     }
 
+    void updateData(List<RoomDetailListNoUpcoming> list){
+        createReservationAdapter.updateData(list);
+    }
 
     private void AvailableRoomDetails() {
         tools.showLoading();
@@ -221,7 +213,6 @@ public class CreateReservationActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 apiList = roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming();
-
                                 if (roomDetailListNoUpcomingDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)
                                         && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming() != null
                                         && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().size() >0) {
