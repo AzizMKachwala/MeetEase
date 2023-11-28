@@ -93,7 +93,6 @@ public class CreateReservationActivity extends AppCompatActivity {
                 filterFragment.setUpInterface(new FilterFragment.FilterApply() {
                     @Override
                     public void filterList(String city, String Price, String Rating) {
-
                         if (!city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
                             List<RoomDetailListNoUpcoming> list = ratingFilter(priceFilter(cityFilter(apiList, city), Price), Rating);
                             createReservationAdapter.updateData(list);
@@ -247,6 +246,9 @@ public class CreateReservationActivity extends AppCompatActivity {
                                             startActivity(intent);
                                         }
                                     });
+                                }
+                                else {
+                                    tvNoData.setVisibility(View.VISIBLE);
                                 }
 
                             }

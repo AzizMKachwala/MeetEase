@@ -84,7 +84,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
 
     void roomDetail() {
         tools.showLoading();
-        restCall.RoomDetails("getRoom")
+        restCall.RoomDetails("GetRoomDetails")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<RoomDetailDataModel>() {

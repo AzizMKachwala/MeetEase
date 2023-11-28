@@ -8,7 +8,7 @@ import java.util.List;
 
 public class RoomDetailDataModel {
 
-    @SerializedName("roomList")
+    @SerializedName("RoomList")
     @Expose
     ArrayList<RoomDetailList> roomDetailList;
     @SerializedName("message")

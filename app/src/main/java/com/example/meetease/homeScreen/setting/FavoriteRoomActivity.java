@@ -82,7 +82,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
 
     void roomDetail() {
         tools.showLoading();
-        restCall.RoomDetails("getRoom")
+        restCall.RoomDetails("GetRoomDetails")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<RoomDetailDataModel>() {
@@ -116,9 +116,9 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                                     List<RoomDetailList> newList = new ArrayList<>();
                                     for (int i=0; i<roomDetailDataModel.getRoomDetailList().size();i++){
 
-                                        if (roomDetailDataModel.getRoomDetailList().get(i).getFavorite_room().equals("1")){
-                                            newList.add(roomDetailDataModel.getRoomDetailList().get(i));
-                                        }
+//                                        if (roomDetailDataModel.getRoomDetailList().get(i).getFavorite_room().equals("1")){
+//                                            newList.add(roomDetailDataModel.getRoomDetailList().get(i));
+//                                        }
                                     }
                                     favoriteRoomAdapter = new FavoriteRoomAdapter(newList, FavoriteRoomActivity.this);
                                     recycleFavRoom.setAdapter(favoriteRoomAdapter);
