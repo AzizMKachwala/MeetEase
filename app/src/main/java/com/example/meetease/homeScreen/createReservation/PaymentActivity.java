@@ -1,8 +1,17 @@
 package com.example.meetease.homeScreen.createReservation;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -13,6 +22,8 @@ import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.homeScreen.upComingMeeting.UpComingAdapter;
+import com.example.meetease.homeScreen.upComingMeeting.UpComingMeetingActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
@@ -25,13 +36,11 @@ import rx.schedulers.Schedulers;
 public class PaymentActivity extends AppCompatActivity {
 
     TextView txtName, txtLocation, txtPrice, txtSelectedDate, txtTimeSlot, txtFinalPrice;
+    String roomName, roomPrice, roomLocation, roomRating, roomId,bookingDate,bookingStartTime,bookingEndTime;
     Button btnPay;
     RestCall restCall;
     Tools tools;
     PreferenceManager preferenceManager;
-    String roomName, roomPrice, roomLocation, roomRating, roomId,bookingDate,bookingStartTime,bookingEndTime;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +116,21 @@ public class PaymentActivity extends AppCompatActivity {
                                 tools.stopLoading();
 
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                        createNotificationChannel(PaymentActivity.this);
+                                    }
+                                    Intent resultIntent = new Intent(PaymentActivity.this, UpComingMeetingActivity.class);
+                                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(PaymentActivity.this);
+                                    stackBuilder.addNextIntentWithParentStack(resultIntent);
+                                    PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                                    Notification notification = new NotificationCompat.Builder(PaymentActivity.this, "alarm_channel")
+                                            .setContentTitle("Congratulations")
+                                            .setContentText("Meeting Room is Booked SuccessFully")
+                                            .setSmallIcon(R.drawable.img_meeting_rooms)
+                                            .setContentIntent(resultPendingIntent)
+                                            .build();
+                                    NotificationManager notificationManager = (NotificationManager) PaymentActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+                                    notificationManager.notify(0, notification);
                                     Toast.makeText(PaymentActivity.this, "Booking successfully", Toast.LENGTH_SHORT).show();
                                 }
                                 Toast.makeText(PaymentActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
@@ -114,5 +138,12 @@ public class PaymentActivity extends AppCompatActivity {
                         });
                     }
                 });
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createNotificationChannel(Context context) {
+        NotificationChannel channel = new NotificationChannel("alarm_channel", "Alarm Channel", NotificationManager.IMPORTANCE_HIGH);
+        channel.setDescription("Channel for alarm notifications");
+        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
     }
 }

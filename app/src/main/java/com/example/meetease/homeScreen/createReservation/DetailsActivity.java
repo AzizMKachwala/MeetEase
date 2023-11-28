@@ -19,6 +19,7 @@ import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.entryModule.WelcomeActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
@@ -28,7 +29,7 @@ import rx.schedulers.Schedulers;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    ImageView imgRoom, imgFavourite,ivBack;
+    ImageView imgRoom, imgFavourite, ivBack;
     TextView txtName, txtLocation, txtPrice;
     RatingBar ratingBar;
     Button btnBookNow;
@@ -37,7 +38,7 @@ public class DetailsActivity extends AppCompatActivity {
     Tools tools;
     String roomId;
     PreferenceManager preferenceManager;
-    String roomName, roomPrice, roomLocation, roomRating, roomImage,bookingDate,bookingStartTime,bookingEndTime;
+    String roomName, roomPrice, roomLocation, roomRating, roomImage, bookingDate, bookingStartTime, bookingEndTime;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -81,7 +82,7 @@ public class DetailsActivity extends AppCompatActivity {
         txtPrice.setText(roomPrice + VariableBag.CURRENCY + "/Hour");
         ratingBar.setRating(Float.parseFloat(roomRating));
 
-        Tools.DisplayImage(DetailsActivity.this,imgRoom,roomImage);
+        Tools.DisplayImage(DetailsActivity.this, imgRoom, roomImage);
 
         checkFavourite = "0";
         if (checkFavourite.equals("0")) {
@@ -161,6 +162,7 @@ public class DetailsActivity extends AppCompatActivity {
                     }
                 });
     }
+
     void deleteFavRoom() {
         restCall.DeleteFavRoom("DeleteFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
                 .subscribeOn(Schedulers.io())
@@ -173,7 +175,6 @@ public class DetailsActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {

@@ -34,8 +34,7 @@ public class BookMeetingActivity extends AppCompatActivity {
     TextView tvDate, tvStartTime, tvEndTime;
     ImageView ivDate, ivStartTime, ivEndDate, ivBack;
     Button btnBookNow;
-    private int minHour = 8 , minMinute = 0;
-    public int mYear, mMonth, mDay, year, mHour, mMinute, month, day, startHour, startMinute, endHour, endMinute;
+    private int minHour = 8, minMinute = 0, mYear, mMonth, mDay, year, mHour, mMinute, month, day, startHour, startMinute, endHour, endMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,26 +55,19 @@ public class BookMeetingActivity extends AppCompatActivity {
                 finish();
             }
         });
+        final Calendar c = Calendar.getInstance();
         tvDate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Calendar c = Calendar.getInstance();
-                mYear = c.get(Calendar.YEAR);
-                mMonth = c.get(Calendar.MONTH);
-                mDay = c.get(Calendar.DAY_OF_MONTH);
-                DatePickerDialog datePickerDialog = new DatePickerDialog(BookMeetingActivity.this,
-                        new DatePickerDialog.OnDateSetListener() {
-
+                DatePickerDialog datePickerDialog = new DatePickerDialog(BookMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
                             @Override
                             public void onDateSet(DatePicker view, int year1, int monthOfYear, int dayOfMonth) {
                                 tvDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year1);
                                 year = year1;
                                 month = monthOfYear + 1;
                                 day = dayOfMonth;
-                                tvStartTime.setText("Select Start Time");
-                                tvEndTime.setText("Select End Time");
                             }
-                        }, mYear, mMonth, mDay);
+                        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
                 datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
                 datePickerDialog.show();
             }
@@ -83,54 +75,35 @@ public class BookMeetingActivity extends AppCompatActivity {
         tvStartTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                final Calendar c = Calendar.getInstance();
-                mHour = c.get(Calendar.HOUR_OF_DAY);
-                mMinute = c.get(Calendar.MINUTE);
-                TimePickerDialog timePickerDialog = new TimePickerDialog(BookMeetingActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-
-                                tvStartTime.setText(hourOfDay + ":" + minute);
-                                startHour = hourOfDay;
-                                startMinute = minute;
-                                minHour = hourOfDay;
-                                minMinute = minute;
-                                tvEndTime.setText("Select End Time");
-                            }
-                        }, mHour, mMinute, false);
+                TimePickerDialog timePickerDialog = new TimePickerDialog(BookMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        tvStartTime.setText(hourOfDay + ":" + minute);
+                        startHour = hourOfDay;
+                        startMinute = minute;
+                        minHour = hourOfDay;
+                        minMinute = minute;
+                        tvEndTime.setText("Select End Time");
+                    }
+                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
                 timePickerDialog.show();
             }
         });
         tvEndTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Calendar currentTime = Calendar.getInstance();
-                int currentHour = currentTime.get(Calendar.HOUR_OF_DAY);
-                int currentMinute = currentTime.get(Calendar.MINUTE);
-
-                // Create a TimePickerDialog
-                TimePickerDialog timePickerDialog = new TimePickerDialog(
-                        BookMeetingActivity.this,
-                        new TimePickerDialog.OnTimeSetListener() {
-                            @Override
-                            public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                                // Validate the selected time against the minimum time
-                                if (hourOfDay < minHour || (hourOfDay == minHour && minute < minMinute)) {
-                                    Toast.makeText(BookMeetingActivity.this, "End Time Should Be After " + minHour + ":" + minMinute, Toast.LENGTH_SHORT).show();
-                                } else {
-                                    endHour = hourOfDay;
-                                    endMinute = minute;
-                                    tvEndTime.setText(hourOfDay + ":" + minute);
-                                }
-                            }
-                        },
-                        currentHour,
-                        currentMinute,
-                        false);
-
-                // Show the TimePickerDialog
+                TimePickerDialog timePickerDialog = new TimePickerDialog(BookMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                        if (hourOfDay < minHour || (hourOfDay == minHour && minute < minMinute)) {
+                            Toast.makeText(BookMeetingActivity.this, "End Time Should Be After " + minHour + ":" + minMinute, Toast.LENGTH_SHORT).show();
+                        } else {
+                            endHour = hourOfDay;
+                            endMinute = minute;
+                            tvEndTime.setText(hourOfDay + ":" + minute);
+                        }
+                    }
+                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
                 timePickerDialog.show();
             }
         });
@@ -144,42 +117,18 @@ public class BookMeetingActivity extends AppCompatActivity {
                 } else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()) {
                     Toast.makeText(BookMeetingActivity.this, "Select End Time", Toast.LENGTH_SHORT).show();
                 } else {
-//                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-//                        createNotificationChannel(BookMeetingActivity.this);
-//                    }
-//                    Intent resultIntent = new Intent(BookMeetingActivity.this, CreateReservationActivity.class);
-//                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(BookMeetingActivity.this);
-//                    stackBuilder.addNextIntentWithParentStack(resultIntent);
-//                    PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-//                    Notification notification = new NotificationCompat.Builder(BookMeetingActivity.this, "alarm_channel")
-//                            .setContentTitle("Congratulations")
-//                            .setContentText("Meeting Room is Booked SuccessFully")
-//                            .setSmallIcon(R.drawable.img_meeting_rooms)
-//                            .setContentIntent(resultPendingIntent)
-//                            .build();
-//                    NotificationManager notificationManager = (NotificationManager) BookMeetingActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
-//                    notificationManager.notify(0, notification);
-
-                    Intent intent = new Intent(BookMeetingActivity.this,CreateReservationActivity.class);
-                    intent.putExtra("year",String.valueOf(year));
-                    intent.putExtra("month",String.valueOf(month));
-                    intent.putExtra("day",String.valueOf(day));
-                    intent.putExtra("startHour",String.valueOf(startHour));
-                    intent.putExtra("startMinute",String.valueOf(startMinute));
-                    intent.putExtra("endHour",String.valueOf(endHour));
-                    intent.putExtra("endMinute",String.valueOf(endMinute));
+                    Intent intent = new Intent(BookMeetingActivity.this, CreateReservationActivity.class);
+                    intent.putExtra("year", String.valueOf(year));
+                    intent.putExtra("month", String.valueOf(month));
+                    intent.putExtra("day", String.valueOf(day));
+                    intent.putExtra("startHour", String.valueOf(startHour));
+                    intent.putExtra("startMinute", String.valueOf(startMinute));
+                    intent.putExtra("endHour", String.valueOf(endHour));
+                    intent.putExtra("endMinute", String.valueOf(endMinute));
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             }
         });
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void createNotificationChannel(Context context) {
-        NotificationChannel channel = new NotificationChannel("alarm_channel", "Alarm Channel", NotificationManager.IMPORTANCE_HIGH);
-        channel.setDescription("Channel for alarm notifications");
-        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-        notificationManager.createNotificationChannel(channel);
     }
 }
