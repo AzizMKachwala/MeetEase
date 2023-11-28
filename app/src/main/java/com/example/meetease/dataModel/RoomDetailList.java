@@ -4,7 +4,7 @@ import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class RoomDetailList {
-    @SerializedName("room_d_id")
+    @SerializedName("room_details_id")
     @Expose
     String room_d_id;
     @SerializedName("room_name")
@@ -19,15 +19,12 @@ public class RoomDetailList {
     @SerializedName("room_img")
     @Expose
     String room_img;
-    @SerializedName("rating")
+    @SerializedName("avg_rating")
     @Expose
     String rating;
     @SerializedName("upcoming_status")
     @Expose
     String upcoming_status;
-    @SerializedName("favorite_room")
-    @Expose
-    String favorite_room;
 
     public RoomDetailList(String room_d_id, String room_name, String price, String location, String room_img, String rating, String upcoming_status, String favorite_room) {
         this.room_d_id = room_d_id;
@@ -37,7 +34,6 @@ public class RoomDetailList {
         this.room_img = room_img;
         this.rating = rating;
         this.upcoming_status = upcoming_status;
-        this.favorite_room = favorite_room;
     }
 
     public String getRoom_d_id() {
@@ -94,13 +90,5 @@ public class RoomDetailList {
 
     public void setUpcoming_status(String upcoming_status) {
         this.upcoming_status = upcoming_status;
-    }
-
-    public String getFavorite_room() {
-        return favorite_room;
-    }
-
-    public void setFavorite_room(String favorite_room) {
-        this.favorite_room = favorite_room;
     }
 }

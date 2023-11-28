@@ -93,7 +93,6 @@ public class CreateReservationActivity extends AppCompatActivity {
                 filterFragment.setUpInterface(new FilterFragment.FilterApply() {
                     @Override
                     public void filterList(String city, String Price, String Rating) {
-
                         if (!city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
                             List<RoomDetailListNoUpcoming> list = ratingFilter(priceFilter(cityFilter(apiList, city), Price), Rating);
                             createReservationAdapter.updateData(list);
@@ -191,69 +190,10 @@ public class CreateReservationActivity extends AppCompatActivity {
         return filteredListRating;
     }
 
-//    void roomDetail() {
-//        tools.showLoading();
-//        restCall.RoomDetails("getRoom")
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(Schedulers.newThread())
-//                .subscribe(new Subscriber<RoomDetailDataModel>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                tools.stopLoading();
-//                                Toast.makeText(CreateReservationActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
-//
-//                    @Override
-//                    public void onNext(RoomDetailDataModel roomDetailDataModel) {
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                tools.stopLoading();
-//                                apiList = roomDetailDataModel.getRoomDetailList();
-//                                if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
-//                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
-//                                    recyclerViewMeetingRooms.setLayoutManager(layoutManager);
-//                                    List<RoomDetailList> newList = new ArrayList<>();
-//                                    for (int i = 0; i < roomDetailDataModel.getRoomDetailList().size(); i++) {
-//                                        if (roomDetailDataModel.getRoomDetailList().get(i).getUpcoming_status().equals("0")) {
-//                                            newList.add(roomDetailDataModel.getRoomDetailList().get(i));
-//                                        }
-//                                    }
-//                                    createReservationAdapter = new CreateReservationAdapter(newList, CreateReservationActivity.this);
-//                                    recyclerViewMeetingRooms.setAdapter(createReservationAdapter);
-//                                    createReservationAdapter.setUpInterFace(new CreateReservationAdapter.CreateReservationAdapterDataClick() {
-//                                        @Override
-//                                        public void bookDataClick(RoomDetailList createReservationDataModel) {
-//                                            Intent intent = new Intent(CreateReservationActivity.this, DetailsActivity.class);
-//                                            intent.putExtra("roomName", createReservationDataModel.getRoom_name());
-//                                            intent.putExtra("roomPrice", createReservationDataModel.getPrice());
-//                                            intent.putExtra("roomLocation", createReservationDataModel.getLocation());
-//                                            intent.putExtra("roomRating", createReservationDataModel.getRating());
-//                                            intent.putExtra("roomImage", createReservationDataModel.getRoom_img());
-//                                            startActivity(intent);
-//                                        }
-//                                    });
-//                                }
-//                            }
-//                        });
-//                    }
-//                });
-//    }
 
     private void AvailableRoomDetails() {
         tools.showLoading();
-//        restCall.AvailableRoomDetails("UnbookedRoom", year + "-" + month + "-" + day, startHour + ":"+ startMinute, endHour + ":"+ endMinute)
-        restCall.AvailableRoomDetails("UnbookedRoom", "2023-11-25","15:58","15:59" )
+        restCall.AvailableRoomDetails("UnbookedRoom", year + "-" + month + "-" + day, startHour + ":"+ startMinute, endHour + ":"+ endMinute)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<RoomDetailListNoUpcomingDataModel>() {
@@ -283,14 +223,34 @@ public class CreateReservationActivity extends AppCompatActivity {
                                 apiList = roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming();
 
                                 if (roomDetailListNoUpcomingDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)
-                                        && apiList != null
-                                        && apiList.size() >0) {
+                                        && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming() != null
+                                        && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().size() >0) {
 
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
                                     recyclerViewMeetingRooms.setLayoutManager(layoutManager);
                                     createReservationAdapter = new CreateReservationAdapter(apiList,CreateReservationActivity.this);
                                     recyclerViewMeetingRooms.setAdapter(createReservationAdapter);
+                                    createReservationAdapter.setUpInterFace(new CreateReservationAdapter.CreateReservationAdapterDataClick() {
+                                        @Override
+                                        public void bookDataClick(RoomDetailListNoUpcoming createReservationDataModel) {
+                                            Intent intent = new Intent(CreateReservationActivity.this, DetailsActivity.class);
+                                            intent.putExtra("roomName", createReservationDataModel.getRoom_name());
+                                            intent.putExtra("roomPrice", createReservationDataModel.getPrice());
+                                            intent.putExtra("roomLocation", createReservationDataModel.getLocation());
+                                            intent.putExtra("roomRating", createReservationDataModel.getRating());
+                                            intent.putExtra("roomImage", createReservationDataModel.getRoom_img());
+                                            intent.putExtra("roomId", createReservationDataModel.getRoom_d_id());
+                                            intent.putExtra("bookingDate", day + "-" + month + "-" + year);
+                                            intent.putExtra("bookingStartTime", startHour + ":"+ startMinute);
+                                            intent.putExtra("bookingEndTime", endHour + ":"+ endHour);
+                                            startActivity(intent);
+                                        }
+                                    });
                                 }
+                                else {
+                                    tvNoData.setVisibility(View.VISIBLE);
+                                }
+
                             }
                         });
                     }

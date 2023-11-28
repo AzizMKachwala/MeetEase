@@ -110,7 +110,7 @@ public class FilterFragment extends DialogFragment {
         btnReset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                filterApply.reset();
+                filterApply.reset();
                 dismiss();
             }
         });

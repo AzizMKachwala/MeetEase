@@ -79,6 +79,8 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         scrollView.setVisibility(View.GONE);
         tvTrans.setVisibility(View.GONE);
 
+        auth = FirebaseAuth.getInstance();
+
         ivSetting.setOnClickListener(this);
         logout.setOnClickListener(this);
         howToBookRoom.setOnClickListener(this);
@@ -200,20 +202,20 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             builder.setCancelable(false);
             builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
-//                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
-//                if (currentUser != null) {
-//                    for (UserInfo userInfo : currentUser.getProviderData()) {
-//                        if ("google.com".equals(userInfo.getProviderId())) {
-//                            // User signed in with Google
-//                            auth.signOut();
-//                        } else {
-//                            // Assume other providers as simple email/password
-//                            preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
-//                        }
-//                    }
-//                }
-//                changeScreen(LoginActivity.class);
-//                finish();
+                FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                if (currentUser != null) {
+                    for (UserInfo userInfo : currentUser.getProviderData()) {
+                        if ("google.com".equals(userInfo.getProviderId())) {
+                            // User signed in with Google
+                            auth.signOut();
+                        } else {
+                            // Assume other providers as simple email/password
+                            preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
+                        }
+                    }
+                }
+                changeScreen(LoginActivity.class);
+                finish();
             });
             builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();

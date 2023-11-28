@@ -12,7 +12,7 @@ public class RoomDetailListNoUpcomingDataModel {
     @SerializedName("message")
     @Expose
     String message;
-    @SerializedName("BookingList")
+    @SerializedName("UnBookList")
     @Expose
     List<RoomDetailListNoUpcoming> roomDetailListNoUpcoming;
     @SerializedName("status")

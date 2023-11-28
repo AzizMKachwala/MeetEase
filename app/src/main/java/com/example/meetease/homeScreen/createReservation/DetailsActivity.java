@@ -37,7 +37,7 @@ public class DetailsActivity extends AppCompatActivity {
     Tools tools;
     String roomId;
     PreferenceManager preferenceManager;
-    String roomName, roomPrice, roomLocation, roomRating, roomImage;
+    String roomName, roomPrice, roomLocation, roomRating, roomImage,bookingDate,bookingStartTime,bookingEndTime;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -72,16 +72,14 @@ public class DetailsActivity extends AppCompatActivity {
         roomRating = intent.getStringExtra("roomRating");
         roomImage = intent.getStringExtra("roomImage");
         roomId = intent.getStringExtra("roomId");
+        bookingDate = intent.getStringExtra("bookingDate");
+        bookingStartTime = intent.getStringExtra("bookingStartTime");
+        bookingEndTime = intent.getStringExtra("bookingEndTime");
 
         txtLocation.setText(roomLocation);
         txtName.setText(roomName);
         txtPrice.setText(roomPrice + VariableBag.CURRENCY + "/Hour");
         ratingBar.setRating(Float.parseFloat(roomRating));
-
-//        Glide
-//                .with(this)
-//                .load(roomImage)
-//                .into(imgRoom);
 
         Tools.DisplayImage(DetailsActivity.this,imgRoom,roomImage);
 
@@ -110,6 +108,10 @@ public class DetailsActivity extends AppCompatActivity {
                 intent.putExtra("roomName", roomName);
                 intent.putExtra("roomPrice", roomPrice);
                 intent.putExtra("roomLocation", roomLocation);
+                intent.putExtra("roomId", roomLocation);
+                intent.putExtra("bookingDate", roomLocation);
+                intent.putExtra("bookingStartTime", roomLocation);
+                intent.putExtra("bookingEndTime", roomLocation);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }

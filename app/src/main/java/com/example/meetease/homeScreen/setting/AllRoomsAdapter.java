@@ -42,10 +42,6 @@ public class AllRoomsAdapter extends RecyclerView.Adapter<AllRoomsAdapter.AllRoo
     public void onBindViewHolder(@NonNull AllRoomsDataViewHolder holder, int position) {
         holder.txtName.setText(roomDetailLists.get(position).getRoom_name());
         holder.txtLocation.setText(roomDetailLists.get(position).getLocation());
-//        Glide
-//                .with(context)
-//                .load(roomDetailLists.get(position).getRoom_img())
-//                .into(holder.imgRoom);
 
         Tools.DisplayImage(context,holder.imgRoom,roomDetailLists.get(position).getRoom_img());
     }

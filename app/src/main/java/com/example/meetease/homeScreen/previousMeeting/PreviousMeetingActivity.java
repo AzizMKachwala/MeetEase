@@ -106,7 +106,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
 
     void roomDetail() {
         tools.showLoading();
-        restCall.RoomDetails("getRoom")
+        restCall.RoomDetails("GetRoomDetails")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<RoomDetailDataModel>() {
@@ -140,9 +140,9 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                                     ArrayList<RoomDetailList> newList = new ArrayList<>();
                                     if (tag.equals("favoriteRoom")){
                                         for (int i=0;i<roomDetailDataModel.getRoomDetailList().size();i++){
-                                            if (roomDetailDataModel.getRoomDetailList().get(i).getFavorite_room().equals(0)){
-                                                newList.add(roomDetailDataModel.getRoomDetailList().get(i));
-                                            }
+//                                            if (roomDetailDataModel.getRoomDetailList().get(i).getFavorite_room().equals(0)){
+//                                                newList.add(roomDetailDataModel.getRoomDetailList().get(i));
+//                                            }
                                         }
                                     }else {
 

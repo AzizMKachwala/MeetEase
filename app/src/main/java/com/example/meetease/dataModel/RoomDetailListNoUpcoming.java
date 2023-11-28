@@ -17,20 +17,32 @@ public class RoomDetailListNoUpcoming {
     @SerializedName("location")
     @Expose
     String location;
-    @SerializedName("rating")
+    @SerializedName("avg_rating")
     @Expose
     String rating;
     @SerializedName("price")
     @Expose
     String price;
+    @SerializedName("upcoming_status")
+    @Expose
+    String upcoming_status;
 
-    public RoomDetailListNoUpcoming(String room_d_id, String room_name, String room_img, String price, String location, String rating) {
+    public RoomDetailListNoUpcoming(String room_d_id, String room_name, String room_img, String price, String location, String rating,String upcoming_status) {
         this.room_d_id = room_d_id;
         this.room_name = room_name;
         this.room_img = room_img;
         this.price = price;
         this.location = location;
         this.rating = rating;
+        this.upcoming_status = upcoming_status;
+    }
+
+    public String getUpcoming_status() {
+        return upcoming_status;
+    }
+
+    public void setUpcoming_status(String upcoming_status) {
+        this.upcoming_status = upcoming_status;
     }
 
     public String getRoom_d_id() {
