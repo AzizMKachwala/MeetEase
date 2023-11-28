@@ -10,7 +10,7 @@ public class RoomDetailDataModel {
 
     @SerializedName("RoomList")
     @Expose
-    ArrayList<RoomDetailList> roomDetailList;
+    List<RoomDetailList> roomDetailList;
     @SerializedName("message")
     @Expose
     String message;
@@ -24,7 +24,7 @@ public class RoomDetailDataModel {
         this.status = status;
     }
 
-    public ArrayList<RoomDetailList> getRoomDetailList() {
+    public List<RoomDetailList> getRoomDetailList() {
         return roomDetailList;
     }
 

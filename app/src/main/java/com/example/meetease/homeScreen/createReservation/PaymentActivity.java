@@ -17,18 +17,19 @@ import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
 
+import java.time.LocalTime;
+import java.time.temporal.ChronoUnit;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
 public class PaymentActivity extends AppCompatActivity {
 
     TextView txtName, txtLocation, txtPrice, txtSelectedDate, txtTimeSlot, txtFinalPrice;
-
     Button btnPay;
     RestCall restCall;
     Tools tools;
     PreferenceManager preferenceManager;
-    String roomId,bookingDate,bookingStartTime,bookingEndTime;
+    String roomName, roomPrice, roomLocation, roomRating, roomId,bookingDate,bookingStartTime,bookingEndTime;
 
 
     @Override
@@ -44,12 +45,25 @@ public class PaymentActivity extends AppCompatActivity {
         txtFinalPrice = findViewById(R.id.txtFinalPrice);
         btnPay = findViewById(R.id.btnPay);
 
-        preferenceManager = new PreferenceManager(this);
         Intent intent = getIntent();
+        roomName = intent.getStringExtra("roomName");
+        roomPrice = intent.getStringExtra("roomPrice");
+        roomLocation = intent.getStringExtra("roomLocation");
+        roomRating = intent.getStringExtra("roomRating");
         roomId = intent.getStringExtra("roomId");
         bookingDate = intent.getStringExtra("bookingDate");
         bookingStartTime = intent.getStringExtra("bookingStartTime");
         bookingEndTime = intent.getStringExtra("bookingEndTime");
+
+        txtName.setText(roomName);
+        txtLocation.setText(roomLocation);
+        txtPrice.setText(roomPrice);
+        txtSelectedDate.setText(bookingDate);
+        txtTimeSlot.setText(bookingStartTime+" - "+bookingEndTime);
+        preferenceManager = new PreferenceManager(this);
+
+
+
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
 

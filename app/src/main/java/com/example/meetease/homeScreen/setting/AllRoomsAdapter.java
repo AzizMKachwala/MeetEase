@@ -24,10 +24,10 @@ import java.util.List;
 
 public class AllRoomsAdapter extends RecyclerView.Adapter<AllRoomsAdapter.AllRoomsDataViewHolder> {
 
-    ArrayList<RoomDetailList> roomDetailLists;
+    List<RoomDetailList> roomDetailLists;
     Context context;
 
-    public AllRoomsAdapter(ArrayList<RoomDetailList> roomDetailLists, Context context) {
+    public AllRoomsAdapter(List<RoomDetailList> roomDetailLists, Context context) {
         this.roomDetailLists = roomDetailLists;
         this.context = context;
     }

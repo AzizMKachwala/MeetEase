@@ -138,18 +138,9 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
                                     ArrayList<RoomDetailList> newList = new ArrayList<>();
-                                    if (tag.equals("favoriteRoom")){
-                                        for (int i=0;i<roomDetailDataModel.getRoomDetailList().size();i++){
-//                                            if (roomDetailDataModel.getRoomDetailList().get(i).getFavorite_room().equals(0)){
-//                                                newList.add(roomDetailDataModel.getRoomDetailList().get(i));
-//                                            }
-                                        }
-                                    }else {
-
-                                        for (int i=0;i<roomDetailDataModel.getRoomDetailList().size();i++){
-                                            if (roomDetailDataModel.getRoomDetailList().get(i).getUpcoming_status().equals("0")){
-                                                newList.add(roomDetailDataModel.getRoomDetailList().get(i));
-                                            }
+                                    for (int i=0;i<roomDetailDataModel.getRoomDetailList().size();i++){
+                                        if (roomDetailDataModel.getRoomDetailList().get(i).getUpcoming_status().equals("0")){
+                                            newList.add(roomDetailDataModel.getRoomDetailList().get(i));
                                         }
                                     }
                                     previousMeetingAdapter = new PreviousMeetingAdapter(newList,PreviousMeetingActivity.this);

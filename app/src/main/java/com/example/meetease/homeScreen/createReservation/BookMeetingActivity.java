@@ -120,6 +120,8 @@ public class BookMeetingActivity extends AppCompatActivity {
                                 if (hourOfDay < minHour || (hourOfDay == minHour && minute < minMinute)) {
                                     Toast.makeText(BookMeetingActivity.this, "End Time Should Be After " + minHour + ":" + minMinute, Toast.LENGTH_SHORT).show();
                                 } else {
+                                    endHour = hourOfDay;
+                                    endMinute = minute;
                                     tvEndTime.setText(hourOfDay + ":" + minute);
                                 }
                             }

@@ -9,16 +9,16 @@ public class FavRoomDataModel {
     @SerializedName("message")
     @Expose
     String message;
-    @SerializedName("Bookinglist")
+    @SerializedName("FevRoomList")
     @Expose
-    List<FavRoomListDataModel> favRoomListDataModelList;
+    List<FavRoomListDataModel> favRoomListlList;
     @SerializedName("status")
     @Expose
     String status;
 
-    public FavRoomDataModel(String message, List<FavRoomListDataModel> favRoomListDataModelList, String status) {
+    public FavRoomDataModel(String message, List<FavRoomListDataModel> favRoomListlList, String status) {
         this.message = message;
-        this.favRoomListDataModelList = favRoomListDataModelList;
+        this.favRoomListlList = favRoomListlList;
         this.status = status;
     }
 
@@ -30,12 +30,12 @@ public class FavRoomDataModel {
         this.message = message;
     }
 
-    public List<FavRoomListDataModel> getFavRoomListDataModelList() {
-        return favRoomListDataModelList;
+    public List<FavRoomListDataModel> getFavRoomListlList() {
+        return favRoomListlList;
     }
 
-    public void setFavRoomListDataModelList(List<FavRoomListDataModel> favRoomListDataModelList) {
-        this.favRoomListDataModelList = favRoomListDataModelList;
+    public void setFavRoomListlList(List<FavRoomListDataModel> favRoomListlList) {
+        this.favRoomListlList = favRoomListlList;
     }
 
     public String getStatus() {

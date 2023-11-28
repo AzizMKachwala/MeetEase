@@ -5,9 +5,6 @@ import com.google.gson.annotations.SerializedName;
 
 public class FavRoomListDataModel {
 
-    @SerializedName("status")
-    @Expose
-    String status;
     @SerializedName("user_id")
     @Expose
     String user_id;
@@ -39,8 +36,8 @@ public class FavRoomListDataModel {
     @Expose
     String price;
 
-    public FavRoomListDataModel(String status, String user_id, String full_name, String email, String mobile, String fav_id, String room_details_id, String room_name, String room_img, String location, String price) {
-        this.status = status;
+    public FavRoomListDataModel( String user_id, String full_name, String email, String mobile, String fav_id, String room_details_id, String room_name, String room_img, String location, String price) {
+
         this.user_id = user_id;
         this.full_name = full_name;
         this.email = email;
@@ -53,13 +50,6 @@ public class FavRoomListDataModel {
         this.price = price;
     }
 
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
 
     public String getUser_id() {
         return user_id;

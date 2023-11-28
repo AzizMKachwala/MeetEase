@@ -242,7 +242,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                                             intent.putExtra("roomId", createReservationDataModel.getRoom_d_id());
                                             intent.putExtra("bookingDate", day + "-" + month + "-" + year);
                                             intent.putExtra("bookingStartTime", startHour + ":"+ startMinute);
-                                            intent.putExtra("bookingEndTime", endHour + ":"+ endHour);
+                                            intent.putExtra("bookingEndTime", endHour + ":"+ endMinute);
                                             startActivity(intent);
                                         }
                                     });

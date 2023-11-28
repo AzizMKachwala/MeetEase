@@ -1,6 +1,7 @@
 package com.example.meetease.network;
 
 
+import com.example.meetease.dataModel.FavRoomDataModel;
 import com.example.meetease.dataModel.LoginDataModel;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 import com.example.meetease.dataModel.RoomDetailListNoUpcomingDataModel;
@@ -78,13 +79,31 @@ public interface RestCall {
     @POST("Controller/FavRoomController.php")
     Single<UserResponse> AddFavRoom(
             @Field("tag") String tag,
-            @Field("room_detail_id") String room_detail_id,
+            @Field("room_details_id") String room_detail_id,
             @Field("user_id") String user_id);
 
-@FormUrlEncoded
+    @FormUrlEncoded
+    @POST("Controller/FavRoomController.php")
+    Single<UserResponse> DeleteFavRoom(
+            @Field("tag") String tag,
+            @Field("room_detail_id") String room_detail_id,
+            @Field("user_id") String user_id);
+    @FormUrlEncoded
+    @POST("Controller/FavRoomController.php")
+    Single<FavRoomDataModel> GetFevRoom(
+            @Field("tag") String tag,
+            @Field("user_id") String user_id);
+    @FormUrlEncoded
     @POST("Controller/UserController.php")
     Single<UserResponse> deleteUser(
             @Field("tag") String tag,
             @Field("user_id") String user_id);
+    @FormUrlEncoded
+    @POST("Controller/UserController.php")
+    Single<UserResponse> up(
+            @Field("tag") String tag,
+            @Field("user_id") String user_id);
+
+
 
 }

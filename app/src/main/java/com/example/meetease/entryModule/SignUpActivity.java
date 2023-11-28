@@ -170,7 +170,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 tools.stopLoading();
                                 Toast.makeText(SignUpActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if(userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
-                                    startActivity(new Intent(SignUpActivity.this, HomeScreenActivity.class));
+                                    startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                     finish();
                                 }

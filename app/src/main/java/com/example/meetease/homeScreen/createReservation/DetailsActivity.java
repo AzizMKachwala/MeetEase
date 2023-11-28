@@ -93,10 +93,12 @@ public class DetailsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (checkFavourite.equals("1")) {
+                    deleteFavRoom();
                     imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
                     checkFavourite = "0";
                 } else {
                     addFavRoom();
+                    imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
                     checkFavourite = "1";
                 }
             }
@@ -108,10 +110,10 @@ public class DetailsActivity extends AppCompatActivity {
                 intent.putExtra("roomName", roomName);
                 intent.putExtra("roomPrice", roomPrice);
                 intent.putExtra("roomLocation", roomLocation);
-                intent.putExtra("roomId", roomLocation);
-                intent.putExtra("bookingDate", roomLocation);
-                intent.putExtra("bookingStartTime", roomLocation);
-                intent.putExtra("bookingEndTime", roomLocation);
+                intent.putExtra("roomId", roomId);
+                intent.putExtra("bookingDate", bookingDate);
+                intent.putExtra("bookingStartTime", bookingStartTime);
+                intent.putExtra("bookingEndTime", bookingEndTime);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
@@ -119,8 +121,7 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     void addFavRoom() {
-        tools.showLoading();
-        restCall.AddFavRoom("Addfavroom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
+        restCall.AddFavRoom("AddFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -135,7 +136,6 @@ public class DetailsActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tools.stopLoading();
                                 Toast.makeText(DetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -146,8 +146,49 @@ public class DetailsActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                Toast.makeText(DetailsActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
-                                    tools.stopLoading();
+                                    if (checkFavourite.equals("1")) {
+                                        imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
+                                        checkFavourite = "0";
+                                    } else {
+                                        imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
+                                        checkFavourite = "1";
+                                    }
+                                }
+                            }
+                        });
+                    }
+                });
+    }
+    void deleteFavRoom() {
+        restCall.DeleteFavRoom("DeleteFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<UserResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(DetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(UserResponse userResponse) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(DetailsActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     if (checkFavourite.equals("1")) {
                                         imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
                                         checkFavourite = "0";
