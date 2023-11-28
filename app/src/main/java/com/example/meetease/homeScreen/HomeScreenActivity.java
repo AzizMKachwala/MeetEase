@@ -27,6 +27,7 @@ import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
 import com.example.meetease.homeScreen.setting.FaqActivity;
+import com.example.meetease.homeScreen.setting.NotificationActivity;
 import com.example.meetease.homeScreen.setting.ProfileShowActivity;
 import com.example.meetease.homeScreen.setting.RateUsActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
@@ -41,7 +42,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     View scrollView, favoriteRooms, availableRooms, security, howToBookRoom,
             inviteFriend, helpAndSupport, logout, layoutAddReservation, layoutUpcomingMeeting,
             layoutPreviousMeeting, layoutUserProfile, layoutContactUs, layoutRateUs;
-    ImageView ivSettingProfile, ivSetting;
+    ImageView ivSettingProfile, ivSetting,ivNotification;
     TextView tvSettingName, tvSettingEmail, tvTrans, txtHelloName;
     BiometricPrompt biometricPrompt;
     BiometricPrompt.PromptInfo promptInfo;
@@ -74,6 +75,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         logout = findViewById(R.id.logout);
         ivSetting = findViewById(R.id.ivSetting);
         ivSettingProfile = findViewById(R.id.ivSettingProfile);
+        ivNotification = findViewById(R.id.ivNotification);
         tvSettingName = findViewById(R.id.tvSettingName);
         tvSettingEmail = findViewById(R.id.tvSettingEmail);
 
@@ -83,6 +85,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         auth = FirebaseAuth.getInstance();
 
         ivSetting.setOnClickListener(this);
+        ivNotification.setOnClickListener(this);
         logout.setOnClickListener(this);
         howToBookRoom.setOnClickListener(this);
         layoutContactUs.setOnClickListener(this);
@@ -148,6 +151,9 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             intent.putExtra("abc", "favoriteRooms");
             startActivity(intent);
         }
+        if(view == ivNotification){
+            changeScreen(NotificationActivity.class);
+        }
         if (view == layoutPreviousMeeting) {
             changeScreen(PreviousMeetingActivity.class);
         }
@@ -165,7 +171,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == inviteFriend) {
-//            generateInvitationLink();
+            generateInvitationLink();
         }
 
         if (view == availableRooms) {
@@ -204,14 +210,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+                preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
                 if (currentUser != null) {
                     for (UserInfo userInfo : currentUser.getProviderData()) {
                         if ("google.com".equals(userInfo.getProviderId())) {
-                            // User signed in with Google
                             auth.signOut();
-                        } else {
-                            // Assume other providers as simple email/password
-                            preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
                         }
                     }
                 }
@@ -226,16 +229,16 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-//    private void generateInvitationLink() {
-//        String invitationLink = "https://example.com/invite?userId=" + preferenceManager.getKeyValueString(VariableBag.user_id,"");
-//        Intent sendIntent = new Intent();
-//        sendIntent.setAction(Intent.ACTION_SEND);
-//        sendIntent.putExtra(Intent.EXTRA_TEXT, "Join MeetEase using my invitation link: " + invitationLink);
-//        sendIntent.setType("text/plain");
-//
-//        Intent shareIntent = Intent.createChooser(sendIntent, null);
-//        startActivity(shareIntent);
-//    }
+    private void generateInvitationLink() {
+        String invitationLink = "https://example.com/invite?userId=" + preferenceManager.getKeyValueString(VariableBag.user_id,"");
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Join MeetEase using my invitation link: " + invitationLink);
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+    }
 
     void changeScreen(Class classActivity) {
         Intent intent = new Intent(HomeScreenActivity.this, classActivity);

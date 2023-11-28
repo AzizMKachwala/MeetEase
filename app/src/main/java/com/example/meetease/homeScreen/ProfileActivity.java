@@ -132,7 +132,7 @@ public class ProfileActivity extends AppCompatActivity {
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK) {
                 // Camera capture was successful, handle the result.
-                Tools.DisplayImage(ProfileActivity.this,imgProfileImage,currentPhotoPath);
+                Tools.DisplayImage(ProfileActivity.this, imgProfileImage, currentPhotoPath);
             } else {
                 Toast.makeText(ProfileActivity.this, "Error Loading Photo. Please Click Again", Toast.LENGTH_SHORT).show();
             }
@@ -170,13 +170,6 @@ public class ProfileActivity extends AppCompatActivity {
 
     }
 
-    private void displayImage(ImageView ivProductImage, String currentPhotoPath) {
-        Glide
-                .with(ProfileActivity.this)
-                .load(currentPhotoPath)
-                .placeholder(R.drawable.baseline_person_24)
-                .into(ivProductImage);
-    }
 
     private File createImageFile() throws IOException {
         @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
@@ -189,7 +182,7 @@ public class ProfileActivity extends AppCompatActivity {
     }
 
     void editUser() {
-
+        tools.showLoading();
         RequestBody tag = RequestBody.create(MediaType.parse("text/plain"), "UpdateUser");
         RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), id);
         RequestBody full_name = RequestBody.create(MediaType.parse("text/plain"), etvFullName.getText().toString());
@@ -220,7 +213,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -231,6 +224,7 @@ public class ProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(UserResponse userResponse) {
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
