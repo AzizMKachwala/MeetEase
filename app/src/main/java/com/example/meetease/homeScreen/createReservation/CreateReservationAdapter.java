@@ -95,7 +95,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
                 .with(context)
                 .load(searchList.get(position).getRoom_img())
                 .into(holder.imgRoom);
-        holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getRating()));
+        //holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getRating()));
         holder.btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

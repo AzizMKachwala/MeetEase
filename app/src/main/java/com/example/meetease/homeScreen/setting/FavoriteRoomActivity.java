@@ -15,8 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.dataModel.FavRoomDataModel;
+import com.example.meetease.dataModel.FavRoomListDataModel;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 import com.example.meetease.dataModel.RoomDetailList;
 import com.example.meetease.network.RestCall;
@@ -37,6 +40,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
     RestCall restCall;
     Tools tools;
     FavoriteRoomAdapter favoriteRoomAdapter;
+    PreferenceManager preferenceManager;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +55,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
 
+        preferenceManager = new PreferenceManager(this);
         ivClose.setOnClickListener(view -> {
             ivClose.setVisibility(View.GONE);
             etvSearch.setText("");
@@ -79,12 +84,11 @@ public class FavoriteRoomActivity extends AppCompatActivity {
             }
         });
     }
-    void roomDetail() {
-        tools.showLoading();
-        restCall.RoomDetails("getRoom")
+    void getFavRoom(){
+        restCall.GetFevRoom("GetFevRoom",preferenceManager.getKeyValueString(VariableBag.user_id,""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
-                .subscribe(new Subscriber<RoomDetailDataModel>() {
+                .subscribe(new Subscriber<FavRoomDataModel>() {
                     @Override
                     public void onCompleted() {
 
@@ -92,34 +96,27 @@ public class FavoriteRoomActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tools.stopLoading();
-                                Log.e("##error", e.getLocalizedMessage());
                                 Toast.makeText(FavoriteRoomActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
 
                     @Override
-                    public void onNext(RoomDetailDataModel roomDetailDataModel) {
+                    public void onNext(FavRoomDataModel favRoomDataModel) {
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                if (roomDetailDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT) && roomDetailDataModel.getRoomDetailList() != null && !roomDetailDataModel.getRoomDetailList().isEmpty()) {
+                                if (favRoomDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT) && favRoomDataModel.getFavRoomListDataModelList() != null && !favRoomDataModel.getFavRoomListDataModelList().isEmpty()) {
 
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FavoriteRoomActivity.this);
                                     recycleFavRoom.setLayoutManager(layoutManager);
-                                    List<RoomDetailList> newList = new ArrayList<>();
-                                    for (int i=0; i<roomDetailDataModel.getRoomDetailList().size();i++){
-
-                                        if (roomDetailDataModel.getRoomDetailList().get(i).getFavorite_room().equals("1")){
-                                            newList.add(roomDetailDataModel.getRoomDetailList().get(i));
-                                        }
-                                    }
-                                    favoriteRoomAdapter = new FavoriteRoomAdapter(newList, FavoriteRoomActivity.this);
+                                    favoriteRoomAdapter = new FavoriteRoomAdapter(favRoomDataModel.getFavRoomListDataModelList(), FavoriteRoomActivity.this);
                                     recycleFavRoom.setAdapter(favoriteRoomAdapter);
                                 }
                             }

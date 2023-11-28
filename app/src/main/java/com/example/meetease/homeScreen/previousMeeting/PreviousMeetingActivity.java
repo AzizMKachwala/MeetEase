@@ -41,17 +41,10 @@ public class PreviousMeetingActivity extends AppCompatActivity {
     Tools tools;
     SwipeRefreshLayout swipeRefreshLayout;
 
-    String tag = "";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_previous_meeting);
-
-        Intent intent = getIntent();
-        if (intent.getStringExtra("abc")!=null){
-            tag = intent.getStringExtra("abc");
-        }
 
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
@@ -132,25 +125,16 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
+                                if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
                                     ArrayList<RoomDetailList> newList = new ArrayList<>();
-                                    if (tag.equals("favoriteRoom")){
-                                        for (int i=0;i<roomDetailDataModel.getRoomDetailList().size();i++){
-                                            if (roomDetailDataModel.getRoomDetailList().get(i).getFavorite_room().equals(0)){
-                                                newList.add(roomDetailDataModel.getRoomDetailList().get(i));
-                                            }
-                                        }
-                                    }else {
-
-                                        for (int i=0;i<roomDetailDataModel.getRoomDetailList().size();i++){
-                                            if (roomDetailDataModel.getRoomDetailList().get(i).getUpcoming_status().equals("0")){
-                                                newList.add(roomDetailDataModel.getRoomDetailList().get(i));
-                                            }
+                                    for (int i = 0; i < roomDetailDataModel.getRoomDetailList().size(); i++) {
+                                        if (roomDetailDataModel.getRoomDetailList().get(i).getUpcoming_status().equals("0")) {
+                                            newList.add(roomDetailDataModel.getRoomDetailList().get(i));
                                         }
                                     }
-                                    previousMeetingAdapter = new PreviousMeetingAdapter(newList,PreviousMeetingActivity.this);
+                                    previousMeetingAdapter = new PreviousMeetingAdapter(newList, PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setAdapter(previousMeetingAdapter);
                                 }
                             }

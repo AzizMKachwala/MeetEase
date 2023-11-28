@@ -3,25 +3,22 @@ package com.example.meetease.dataModel;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class RoomDetailListNoUpcomingDataModel {
-
-
+public class FavRoomDataModel {
     @SerializedName("message")
     @Expose
     String message;
     @SerializedName("Bookinglist")
     @Expose
-    List<RoomDetailListNoUpcoming> roomDetailListNoUpcoming;
+    List<FavRoomListDataModel> favRoomListDataModelList;
     @SerializedName("status")
     @Expose
     String status;
 
-    public RoomDetailListNoUpcomingDataModel(String message, List<RoomDetailListNoUpcoming> roomDetailListNoUpcoming, String status) {
+    public FavRoomDataModel(String message, List<FavRoomListDataModel> favRoomListDataModelList, String status) {
         this.message = message;
-        this.roomDetailListNoUpcoming = roomDetailListNoUpcoming;
+        this.favRoomListDataModelList = favRoomListDataModelList;
         this.status = status;
     }
 
@@ -33,12 +30,12 @@ public class RoomDetailListNoUpcomingDataModel {
         this.message = message;
     }
 
-    public List<RoomDetailListNoUpcoming> getRoomDetailListNoUpcoming() {
-        return roomDetailListNoUpcoming;
+    public List<FavRoomListDataModel> getFavRoomListDataModelList() {
+        return favRoomListDataModelList;
     }
 
-    public void setRoomDetailListNoUpcoming(List<RoomDetailListNoUpcoming> roomDetailListNoUpcoming) {
-        this.roomDetailListNoUpcoming = roomDetailListNoUpcoming;
+    public void setFavRoomListDataModelList(List<FavRoomListDataModel> favRoomListDataModelList) {
+        this.favRoomListDataModelList = favRoomListDataModelList;
     }
 
     public String getStatus() {

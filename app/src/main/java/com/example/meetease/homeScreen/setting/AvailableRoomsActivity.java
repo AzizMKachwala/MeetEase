@@ -111,7 +111,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
                                     allRoomsAdapter = new AllRoomsAdapter(roomDetailDataModel.getRoomDetailList(), AvailableRoomsActivity.this);
                                     recyclerViewAllRooms.setAdapter(allRoomsAdapter);
                                 }
-                                }
+                            }
                         });
                     }
                 });

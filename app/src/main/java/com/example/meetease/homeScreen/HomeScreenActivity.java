@@ -26,6 +26,7 @@ import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
+import com.example.meetease.homeScreen.setting.FavoriteRoomActivity;
 import com.example.meetease.homeScreen.setting.RateUsActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
 
@@ -135,8 +136,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             tvTrans.startAnimation(slideInAnimation);
         }
         if (view == favoriteRooms) {
-            Intent intent = new Intent(HomeScreenActivity.this, PreviousMeetingActivity.class);
-            intent.putExtra("abc", "favoriteRooms");
+            Intent intent = new Intent(HomeScreenActivity.this, FavoriteRoomActivity.class);
             startActivity(intent);
         }
         if (view == layoutPreviousMeeting) {
@@ -152,7 +152,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == layoutUpcomingMeeting) {
-//            changeScreen();
         }
 
         if (view == availableRooms) {

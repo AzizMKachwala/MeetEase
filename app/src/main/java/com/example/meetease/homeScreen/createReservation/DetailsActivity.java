@@ -38,6 +38,9 @@ public class DetailsActivity extends AppCompatActivity {
     String roomId;
     PreferenceManager preferenceManager;
     String roomName,roomPrice,roomLocation,roomRating,roomImage;
+     String bookingDate;
+     String bookingStartTime;
+     String bookingEndTime;
 
     @SuppressLint("SetTextI18n")
     @Override
@@ -64,11 +67,16 @@ public class DetailsActivity extends AppCompatActivity {
         roomRating = intent.getStringExtra("roomRating");
         roomImage = intent.getStringExtra("roomImage");
         roomId = intent.getStringExtra("roomId");
+        bookingDate = intent.getStringExtra("bookingDate");
+        bookingStartTime = intent.getStringExtra("bookingStartTime");
+        bookingEndTime = intent.getStringExtra("bookingEndTime");
+
+
 
         txtLocation.setText(roomLocation);
         txtName.setText(roomName);
         txtPrice.setText(roomPrice + VariableBag.CURRENCY + "/Hour");
-        ratingBar.setRating(Float.parseFloat(roomRating));
+//        ratingBar.setRating(Float.parseFloat(roomRating));
 
         Glide
                 .with(this)
@@ -100,12 +108,15 @@ public class DetailsActivity extends AppCompatActivity {
                 intent.putExtra("roomName", roomName);
                 intent.putExtra("roomPrice", roomPrice);
                 intent.putExtra("roomLocation", roomLocation);
+                intent.putExtra("roomId", roomId);
+                intent.putExtra("bookingDate", bookingDate);
+                intent.putExtra("bookingStartTime", bookingStartTime);
+                intent.putExtra("bookingEndTime", bookingEndTime);
                 startActivity(intent);
             }
         });
     }
     void addFavRoom(){
-        tools.showLoading();
         restCall.Addfavroom("Addfavroom",roomId,preferenceManager.getKeyValueString(VariableBag.user_id,""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
@@ -121,7 +132,6 @@ public class DetailsActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tools.stopLoading();
                                 Toast.makeText(DetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
@@ -132,8 +142,8 @@ public class DetailsActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                Toast.makeText(DetailsActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
-                                    tools.stopLoading();
                                     if (checkFavourite.equals("1")) {
                                         imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
                                         checkFavourite = "0";
