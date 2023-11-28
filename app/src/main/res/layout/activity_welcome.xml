@@ -32,7 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/_20sdp"
             android:text="MeetEase"
-            android:textColor="@color/leafBrown"
+            android:textColor="@color/blue"
             android:textSize="@dimen/_40ssp" />
 
         <TextView

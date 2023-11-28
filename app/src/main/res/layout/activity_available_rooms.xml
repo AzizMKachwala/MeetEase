@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightLeafBrown"
+    android:background="@color/lightBlue"
     tools:context=".homeScreen.setting.AvailableRoomsActivity">
 
     <ImageView
@@ -22,7 +22,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
-        android:backgroundTint="@color/leafBrown"
+        android:backgroundTint="@color/blue"
         app:cardCornerRadius="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent">

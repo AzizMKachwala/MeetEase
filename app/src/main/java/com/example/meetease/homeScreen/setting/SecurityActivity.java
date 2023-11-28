@@ -70,7 +70,7 @@ public class SecurityActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SecurityActivity.this);
-                builder.setMessage("Are You Sure You Want To Delete?");
+                builder.setMessage("Are You Sure You Want To Delete your Account? " + preferenceManager.getKeyValueString(VariableBag.full_name, ""));
                 builder.setTitle("Alert !!");
                 builder.setCancelable(false);
                 builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
@@ -124,7 +124,7 @@ public class SecurityActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
-                                    Toast.makeText(SecurityActivity.this, "Deleted", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(SecurityActivity.this, "Account Deleted ", Toast.LENGTH_SHORT).show();
                                     startActivity(new Intent(SecurityActivity.this, SignUpActivity.class));
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                     finish();

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightLeafBrown"
+    android:background="@color/lightBlue"
     tools:context=".homeScreen.setting.ContactUsActivity">
 
     <ImageView
@@ -22,7 +22,7 @@
         android:layout_centerInParent="true"
         android:layout_marginHorizontal="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:backgroundTint="@color/leafBrown"
+        android:backgroundTint="@color/blue"
         android:elevation="@dimen/_5sdp"
         app:cardCornerRadius="@dimen/_20sdp">
 
@@ -118,7 +118,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:text="Send"
-                app:backgroundTint="@color/darkLeafBrown" />
+                app:backgroundTint="@color/darkBlue" />
 
         </LinearLayout>
 
@@ -138,7 +138,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/leafBrown"
+            android:backgroundTint="@color/blue"
             android:elevation="@dimen/_1sdp"
             app:cardCornerRadius="@dimen/_20sdp"
             app:cardUseCompatPadding="true">
@@ -172,7 +172,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:backgroundTint="@color/leafBrown"
+            android:backgroundTint="@color/blue"
             android:elevation="@dimen/_1sdp"
             app:cardCornerRadius="@dimen/_20sdp"
             app:cardUseCompatPadding="true">

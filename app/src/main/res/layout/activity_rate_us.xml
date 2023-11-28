@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightLeafBrown"
+    android:background="@color/lightBlue"
     tools:context=".homeScreen.setting.RateUsActivity">
 
     <ImageView
@@ -33,7 +33,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
         android:text="MEETEASE"
-        android:textColor="@color/darkLeafBrown"
+        android:textColor="@color/darkBlue"
         android:textSize="@dimen/_30sdp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"

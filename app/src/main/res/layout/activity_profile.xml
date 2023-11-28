@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightLeafBrown"
+    android:background="@color/lightBlue"
     tools:context=".homeScreen.ProfileActivity">
 
     <ImageView
@@ -52,7 +52,7 @@
         android:layout_marginTop="@dimen/_50sdp"
         android:layout_marginStart="@dimen/_15sdp"
         android:src="@drawable/image_profile"
-        app:civ_border_color="@color/darkLeafBrown"
+        app:civ_border_color="@color/darkBlue"
         app:civ_border_width="2dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
