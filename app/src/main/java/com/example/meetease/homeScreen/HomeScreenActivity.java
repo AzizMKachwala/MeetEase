@@ -164,7 +164,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == inviteFriend) {
-//            generateInvitationLink();
+            generateInvitationLink();
         }
 
         if (view == availableRooms) {
@@ -224,16 +224,15 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-//    private void generateInvitationLink() {
-//        String invitationLink = "https://example.com/invite?userId=" + preferenceManager.getKeyValueString(VariableBag.user_id,"");
-//        Intent sendIntent = new Intent();
-//        sendIntent.setAction(Intent.ACTION_SEND);
-//        sendIntent.putExtra(Intent.EXTRA_TEXT, "Join MeetEase using my invitation link: " + invitationLink);
-//        sendIntent.setType("text/plain");
-//
-//        Intent shareIntent = Intent.createChooser(sendIntent, null);
-//        startActivity(shareIntent);
-//    }
+    private void generateInvitationLink() {
+        Intent sendIntent = new Intent();
+        sendIntent.setAction(Intent.ACTION_SEND);
+        sendIntent.putExtra(Intent.EXTRA_TEXT, "Join MeetEase using my invitation link: " + "https://example.com/invite?userId=" + preferenceManager.getKeyValueString(VariableBag.user_id,""));
+        sendIntent.setType("text/plain");
+
+        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        startActivity(shareIntent);
+    }
 
     void changeScreen(Class classActivity) {
         Intent intent = new Intent(HomeScreenActivity.this, classActivity);
