@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -71,7 +72,6 @@ public class SecurityActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SecurityActivity.this);
-                builder.setTitle("Verify Password");
 
                 view = getLayoutInflater().inflate(R.layout.dialog_password_verify, null);
                 EditText etvPassword = view.findViewById(R.id.etvPassword);

@@ -28,20 +28,28 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".homeScreen.upComingMeeting.UpComingMeetingActivity"
+            android:name=".homeScreen.setting.NotificationActivity"
             android:exported="false" />
+        <activity
+            android:name=".homeScreen.upComingMeeting.UpComingMeetingActivity"
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".homeScreen.setting.ProfileShowActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".homeScreen.setting.FaqActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".homeScreen.createReservation.PaymentActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".homeScreen.setting.FavoriteRoomActivity"
-            android:exported="false" />
+            android:exported="false"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".homeScreen.setting.ForgotPasswordActivity"
             android:exported="false"

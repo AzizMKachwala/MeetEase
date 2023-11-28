@@ -5,18 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightBlue"
+    android:padding="@dimen/_5sdp"
     tools:context=".homeScreen.setting.ProfileShowActivity">
 
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_margin="@dimen/_15sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <androidx.cardview.widget.CardView
+        android:id="@+id/cvProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
         android:elevation="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         app:cardUseCompatPadding="true"
-        android:layout_marginTop="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        app:layout_constraintTop_toBottomOf="@id/ivBack">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -35,6 +47,7 @@
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_margin="@dimen/_5sdp"
                 android:layout_weight="1.3"
                 android:orientation="vertical">
 
@@ -46,6 +59,7 @@
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
+                    android:marqueeRepeatLimit="marquee_forever"
                     android:hint="Aziz Kachwala"
                     android:singleLine="true"
                     android:textColor="@color/black"
@@ -77,11 +91,12 @@
                         android:id="@+id/txtMobile"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1.7"
                         android:ellipsize="marquee"
                         android:focusable="true"
-                        android:layout_weight="1.7"
                         android:focusableInTouchMode="true"
                         android:hint="9988776655"
+                        android:marqueeRepeatLimit="marquee_forever"
                         android:singleLine="true"
                         android:textColor="@color/black"
                         android:textSize="@dimen/_15ssp"
@@ -94,11 +109,79 @@
                         android:layout_margin="@dimen/_5sdp"
                         android:layout_marginEnd="@dimen/_10sdp"
                         android:layout_weight="0.3"
-                        android:src="@drawable/baseline_edit_24"/>
+                        android:src="@drawable/baseline_edit_24" />
 
                 </LinearLayout>
 
             </LinearLayout>
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/CvUserDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:elevation="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/cvProfile">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="Account Registered Date"
+                android:textSize="@dimen/_25ssp" />
+
+            <TextView
+                android:id="@+id/txtRegisterDate"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="11:20:30 28/11/23"
+                android:textSize="@dimen/_20ssp" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView><androidx.cardview.widget.CardView
+        android:id="@+id/cvAppDetails"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:elevation="@dimen/_10sdp"
+        app:cardCornerRadius="@dimen/_10sdp"
+        app:cardUseCompatPadding="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/CvUserDetails">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="App Version"
+                android:textSize="@dimen/_25ssp" />
+
+            <TextView
+                android:id="@+id/txtVersion"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_10sdp"
+                android:text="v1.1"
+                android:textSize="@dimen/_20ssp" />
 
         </LinearLayout>
 

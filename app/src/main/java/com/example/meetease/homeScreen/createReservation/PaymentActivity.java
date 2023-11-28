@@ -1,18 +1,13 @@
 package com.example.meetease.homeScreen.createReservation;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
 
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -22,25 +17,28 @@ import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
-import com.example.meetease.homeScreen.upComingMeeting.UpComingAdapter;
-import com.example.meetease.homeScreen.upComingMeeting.UpComingMeetingActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
 
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.time.LocalTime;
 import java.time.temporal.ChronoUnit;
+
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
 public class PaymentActivity extends AppCompatActivity {
 
     TextView txtName, txtLocation, txtPrice, txtSelectedDate, txtTimeSlot, txtFinalPrice;
-    String roomName, roomPrice, roomLocation, roomRating, roomId,bookingDate,bookingStartTime,bookingEndTime;
     Button btnPay;
     RestCall restCall;
     Tools tools;
     PreferenceManager preferenceManager;
+    String roomName, roomPrice, roomLocation, roomRating, roomId, bookingDate, bookingStartTime, bookingEndTime;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,11 +66,9 @@ public class PaymentActivity extends AppCompatActivity {
         txtLocation.setText(roomLocation);
         txtPrice.setText(roomPrice);
         txtSelectedDate.setText(bookingDate);
-        txtTimeSlot.setText(bookingStartTime+" - "+bookingEndTime);
+        txtTimeSlot.setText(bookingStartTime + " - " + bookingEndTime);
+
         preferenceManager = new PreferenceManager(this);
-
-
-
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
 
@@ -80,7 +76,6 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 roomBooking();
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 finish();
             }
         });
@@ -88,7 +83,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void roomBooking() {
         tools.showLoading();
-        restCall.RoomBooking("AddTimeBooking", preferenceManager.getKeyValueString(VariableBag.user_id,""), roomId, bookingDate, bookingStartTime, bookingEndTime)
+        restCall.RoomBooking("AddTimeBooking", preferenceManager.getKeyValueString(VariableBag.user_id, ""), roomId, bookingDate, bookingStartTime, bookingEndTime)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -115,23 +110,9 @@ public class PaymentActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
 
-                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
-                                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-                                        createNotificationChannel(PaymentActivity.this);
-                                    }
-                                    Intent resultIntent = new Intent(PaymentActivity.this, UpComingMeetingActivity.class);
-                                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(PaymentActivity.this);
-                                    stackBuilder.addNextIntentWithParentStack(resultIntent);
-                                    PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-                                    Notification notification = new NotificationCompat.Builder(PaymentActivity.this, "alarm_channel")
-                                            .setContentTitle("Congratulations")
-                                            .setContentText("Meeting Room is Booked SuccessFully")
-                                            .setSmallIcon(R.drawable.img_meeting_rooms)
-                                            .setContentIntent(resultPendingIntent)
-                                            .build();
-                                    NotificationManager notificationManager = (NotificationManager) PaymentActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
-                                    notificationManager.notify(0, notification);
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     Toast.makeText(PaymentActivity.this, "Booking successfully", Toast.LENGTH_SHORT).show();
+                                    generatePDF();
                                 }
                                 Toast.makeText(PaymentActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -139,11 +120,47 @@ public class PaymentActivity extends AppCompatActivity {
                     }
                 });
     }
-    @RequiresApi(api = Build.VERSION_CODES.O)
-    private void createNotificationChannel(Context context) {
-        NotificationChannel channel = new NotificationChannel("alarm_channel", "Alarm Channel", NotificationManager.IMPORTANCE_HIGH);
-        channel.setDescription("Channel for alarm notifications");
-        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
-        notificationManager.createNotificationChannel(channel);
+
+    private void generatePDF() {
+
+        PdfDocument document = new PdfDocument();
+
+        // Create a PageInfo
+        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
+
+        // Start a page
+        PdfDocument.Page page = document.startPage(pageInfo);
+
+        // Create a Canvas to draw on the page
+        Canvas canvas = page.getCanvas();
+
+        // Example: Draw some text on the page
+        Paint paint = new Paint();
+        paint.setTextSize(20);
+        canvas.drawText("Booking Details", 80, 50, paint);
+
+        // Example: Draw the booking details
+        canvas.drawText("Room Name: " + roomName, 80, 100, paint);
+        canvas.drawText("Location: " + roomLocation, 80, 150, paint);
+        canvas.drawText("Price: " + roomPrice, 80, 200, paint);
+        canvas.drawText("Date: " + bookingDate, 80, 250, paint);
+        canvas.drawText("Time Slot: " + bookingStartTime + " - " + bookingEndTime, 80, 300, paint);
+
+        // Finish the page
+        document.finishPage(page);
+
+        // Save the document to a file
+        File pdfFile = new File(Environment.getExternalStorageDirectory(), "BookingDetails.pdf");
+        try {
+            document.writeTo(new FileOutputStream(pdfFile));
+            Toast.makeText(this, "PDF generated successfully", Toast.LENGTH_SHORT).show();
+        } catch (IOException e) {
+            e.printStackTrace();
+            Toast.makeText(this, "Failed to generate PDF", Toast.LENGTH_SHORT).show();
+        }
+
+        // Close the document
+        document.close();
     }
+
 }
