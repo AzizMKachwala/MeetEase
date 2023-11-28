@@ -27,6 +27,7 @@ import com.example.meetease.entryModule.GuideActivity;
 import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
 import com.example.meetease.homeScreen.setting.FaqActivity;
+import com.example.meetease.homeScreen.setting.ProfileShowActivity;
 import com.example.meetease.homeScreen.setting.RateUsActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -180,7 +181,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == layoutUserProfile) {
-            changeScreen(ProfileActivity.class);
+            changeScreen(ProfileShowActivity.class);
         }
 
         if (view == layoutContactUs) {

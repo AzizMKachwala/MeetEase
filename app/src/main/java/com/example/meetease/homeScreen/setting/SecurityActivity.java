@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -70,18 +71,35 @@ public class SecurityActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SecurityActivity.this);
-                builder.setMessage("Are You Sure You Want To Delete your Account? " + preferenceManager.getKeyValueString(VariableBag.full_name, ""));
-                builder.setTitle("Alert !!");
-                builder.setCancelable(false);
-                builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
-                    dialog.cancel();
-                    deleteUser(preferenceManager.getKeyValueString(VariableBag.user_id, ""));
+                builder.setTitle("Verify Password");
+
+                view = getLayoutInflater().inflate(R.layout.dialog_password_verify, null);
+                EditText etvPassword = view.findViewById(R.id.etvPassword);
+                builder.setView(view);
+
+                builder.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        if (etvPassword.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.password, ""))) {
+                            dialog.dismiss();
+                            deleteUser(preferenceManager.getKeyValueString(VariableBag.user_id, ""));
+                        } else {
+                            Toast.makeText(SecurityActivity.this, "Incorrect password. Please try again.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
                 });
-                builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
-                    dialog.cancel();
+
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        dialog.dismiss();
+                    }
                 });
+
                 AlertDialog alertDialog = builder.create();
                 alertDialog.show();
+
             }
         });
 
@@ -94,6 +112,7 @@ public class SecurityActivity extends AppCompatActivity {
             }
         });
     }
+
 
     private void deleteUser(String userId) {
         tools.showLoading();

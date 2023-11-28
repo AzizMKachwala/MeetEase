@@ -46,7 +46,6 @@ import rx.schedulers.Schedulers;
 public class ProfileActivity extends AppCompatActivity {
 
     ImageView ivBack, imgEdit;
-    SwitchCompat switchEditMode;
     CircleImageView imgProfileImage;
     Tools tools;
     PreferenceManager preferenceManager;
@@ -74,7 +73,6 @@ public class ProfileActivity extends AppCompatActivity {
         etvPhoneNo = findViewById(R.id.etvPhoneNo);
         etvEmail = findViewById(R.id.etvEmail);
         imgProfileImage = findViewById(R.id.imgProfileImage);
-        switchEditMode = findViewById(R.id.switchEditMode);
 
         preferenceManager = new PreferenceManager(this);
         id = preferenceManager.getKeyValueString(VariableBag.user_id, "");
@@ -82,25 +80,6 @@ public class ProfileActivity extends AppCompatActivity {
         etvEmail.setText(preferenceManager.getKeyValueString(VariableBag.email, ""));
         etvPhoneNo.setText(preferenceManager.getKeyValueString(VariableBag.mobile, ""));
         userPassword = preferenceManager.getKeyValueString(VariableBag.password, "");
-
-        etvFullName.setEnabled(false);
-        etvPhoneNo.setEnabled(false);
-        etvEmail.setEnabled(false);
-
-        switchEditMode.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (switchEditMode.isChecked()) {
-                    etvFullName.setEnabled(true);
-                    etvPhoneNo.setEnabled(true);
-                    etvEmail.setEnabled(true);
-                } else {
-                    etvFullName.setEnabled(false);
-                    etvPhoneNo.setEnabled(false);
-                    etvEmail.setEnabled(false);
-                }
-            }
-        });
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -114,13 +114,13 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                Toast.makeText(FavoriteRoomActivity.this, favRoomDataModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                if (favRoomDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)&&favRoomDataModel.getFavRoomListlList() != null && favRoomDataModel.getFavRoomListlList().size()>0){
-                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FavoriteRoomActivity.this);
-                                    recycleFavRoom.setLayoutManager(layoutManager);
-                                    favoriteRoomAdapter = new FavoriteRoomAdapter(favRoomDataModel.getFavRoomListlList(),FavoriteRoomActivity.this);
-                                    recycleFavRoom.setAdapter(favoriteRoomAdapter);
-                                }
+//                                Toast.makeText(FavoriteRoomActivity.this, favRoomDataModel.getMessage(), Toast.LENGTH_SHORT).show();
+//                                if (favRoomDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)&&favRoomDataModel.getFavRoomListlList() != null && favRoomDataModel.getFavRoomListlList().size()>0){
+//                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FavoriteRoomActivity.this);
+//                                    recycleFavRoom.setLayoutManager(layoutManager);
+//                                    favoriteRoomAdapter = new FavoriteRoomAdapter(favRoomDataModel.getFavRoomListlList(),FavoriteRoomActivity.this);
+//                                    recycleFavRoom.setAdapter(favoriteRoomAdapter);
+//                                }
                             }
                         });
                     }
