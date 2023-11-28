@@ -31,6 +31,9 @@
             android:name=".homeScreen.upComingMeeting.UpComingMeetingActivity"
             android:exported="false" />
         <activity
+            android:name=".homeScreen.setting.ProfileShowActivity"
+            android:exported="false" />
+        <activity
             android:name=".homeScreen.setting.FaqActivity"
             android:exported="false" />
         <activity

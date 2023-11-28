@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,7 +45,9 @@ import rx.schedulers.Schedulers;
 
 public class ForgotPasswordActivity extends AppCompatActivity {
 
-    EditText etvPhoneNo, etvOTP, etvNewPassword, etvConfirmPassword;
+    EditText etvPhoneNo, etvNewPassword, etvConfirmPassword;
+    LinearLayout lytOtp;
+    EditText etvOtp6,etvOtp5,etvOtp4,etvOtp3,etvOtp2,etvOtp1;
     Button btnSend, btnSave, btnCheckOtp;
     ImageView ivBack;
     TextView tvCode;
@@ -61,7 +64,13 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         setContentView(R.layout.activity_forgot_password);
 
         etvPhoneNo = findViewById(R.id.etvPhoneNo);
-        etvOTP = findViewById(R.id.etvOTP);
+        lytOtp = findViewById(R.id.lytOtp);
+        etvOtp6 = findViewById(R.id.etvOtp6);
+        etvOtp5 = findViewById(R.id.etvOtp5);
+        etvOtp4 = findViewById(R.id.etvOtp4);
+        etvOtp3 = findViewById(R.id.etvOtp3);
+        etvOtp2 = findViewById(R.id.etvOtp2);
+        etvOtp1 = findViewById(R.id.etvOtp1);
         etvNewPassword = findViewById(R.id.etvNewPassword);
         etvConfirmPassword = findViewById(R.id.etvConfirmPassword);
         btnSend = findViewById(R.id.btnSend);
@@ -73,6 +82,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         preferenceManager = new PreferenceManager(ForgotPasswordActivity.this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         tools = new Tools(this);
+
         countryPicker.setOnCountryChangeListener(new CountryCodePicker.OnCountryChangeListener() {
             @Override
             public void onCountrySelected() {
@@ -92,7 +102,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
 
         btnSend.setText("Send");
-        etvOTP.setVisibility(View.GONE);
+        lytOtp.setVisibility(View.GONE);
         etvNewPassword.setVisibility(View.GONE);
         etvConfirmPassword.setVisibility(View.GONE);
         btnSave.setVisibility(View.GONE);
@@ -117,20 +127,20 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
-        btnCheckOtp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                tools.showLoading();
-
-                if (etvOTP.getText().toString().isEmpty()) {
-                    etvOTP.setError("Enter OTP");
-                    etvOTP.requestFocus();
-                } else {
-                    verifyCode(etvOTP.getText().toString());
-                }
-
-            }
-        });
+//        btnCheckOtp.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                tools.showLoading();
+//
+//                if (etvOTP.getText().toString().isEmpty()) {
+//                    etvOTP.setError("Enter OTP");
+//                    lytOtp.requestFocus();
+//                } else {
+//                    verifyCode(etvOTP.getText().toString());
+//                }
+//
+//            }
+//        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -166,7 +176,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
             super.onCodeSent(s, forceResendingToken);
             verificationId = s;
-            etvOTP.setVisibility(View.VISIBLE);
+            lytOtp.setVisibility(View.VISIBLE);
             tools.stopLoading();
             btnSend.setText("Resend");
             btnCheckOtp.setVisibility(View.VISIBLE);
@@ -199,14 +209,14 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             btnCheckOtp.setVisibility(View.GONE);
                             btnSend.setVisibility(View.GONE);
                             etvPhoneNo.setEnabled(false);
-                            etvOTP.setEnabled(false);
+                            lytOtp.setEnabled(false);
                             etvNewPassword.setVisibility(View.VISIBLE);
                             etvConfirmPassword.setVisibility(View.VISIBLE);
                             btnSave.setVisibility(View.VISIBLE);
                             tools.stopLoading();
                         } else {
-                            etvOTP.setError("Enter Correct OTP");
-                            etvOTP.requestFocus();
+//                            etvOTP.setError("Enter Correct OTP");
+//                            lytOtp.requestFocus();
                         }
                     }
                 });

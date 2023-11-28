@@ -42,7 +42,7 @@
                     android:layout_marginTop="@dimen/_10sdp"
                     android:gravity="center"
                     android:text="Book Meeting Room"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_20sdp"
                     android:textStyle="bold" />
             </LinearLayout>

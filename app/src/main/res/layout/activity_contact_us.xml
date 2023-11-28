@@ -37,6 +37,7 @@
                 android:layout_marginTop="@dimen/_10sdp"
                 android:gravity="center"
                 android:text="Contact Us"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_20ssp"
                 android:textStyle="bold" />
 
@@ -118,7 +119,8 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_10sdp"
                 android:text="Send"
-                app:backgroundTint="@color/darkBlue" />
+                android:textColor="@color/black"
+                app:backgroundTint="@color/gray" />
 
         </LinearLayout>
 
@@ -160,7 +162,7 @@
                     android:gravity="center"
                     android:paddingLeft="@dimen/_5sdp"
                     android:text="PHONE"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_15ssp" />
 
             </LinearLayout>
@@ -195,7 +197,7 @@
                     android:gravity="center"
                     android:paddingLeft="@dimen/_5sdp"
                     android:text="WHATSAPP"
-                    android:textColor="@color/black"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_15ssp" />
 
             </LinearLayout>

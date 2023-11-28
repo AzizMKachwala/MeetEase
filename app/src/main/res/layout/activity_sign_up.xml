@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_140sdp"
         android:scaleType="fitXY"
-        android:src="@drawable/back_ground_image" />
+        android:src="@drawable/blue_back" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -115,7 +115,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/account_login"
-            android:textColor="@color/brown"
+            android:textColor="@color/lightBlue"
             android:textStyle="bold" />
 
     </LinearLayout>
