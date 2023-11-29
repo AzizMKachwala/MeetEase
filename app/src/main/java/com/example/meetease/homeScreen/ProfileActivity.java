@@ -8,6 +8,7 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.core.content.FileProvider;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -54,7 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
     String currentPhotoPath = "";
     int REQUEST_CAMERA_PERMISSION = 101;
     ActivityResultLauncher<Intent> cameraLauncher;
-    File currentPhotoFile;
+    private File currentPhotoFile;
     RestCall restCall;
     String id, userPassword;
 
@@ -131,8 +132,10 @@ public class ProfileActivity extends AppCompatActivity {
 
         cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
             if (result.getResultCode() == RESULT_OK) {
-                // Camera capture was successful, handle the result.
-                Tools.DisplayImage(ProfileActivity.this, imgProfileImage, currentPhotoPath);
+                if (currentPhotoFile != null && currentPhotoPath != null) {
+                    // Camera capture was successful, handle the result.
+                    Tools.DisplayImage(ProfileActivity.this, imgProfileImage, currentPhotoPath);
+                }
             } else {
                 Toast.makeText(ProfileActivity.this, "Error Loading Photo. Please Click Again", Toast.LENGTH_SHORT).show();
             }
@@ -142,7 +145,7 @@ public class ProfileActivity extends AppCompatActivity {
 
     private boolean checkCameraPermission() {
         if (ContextCompat.checkSelfPermission(ProfileActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ProfileActivity.this, new String[]{android.Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
+            ActivityCompat.requestPermissions(ProfileActivity.this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
             return false;
         }
         return true;
@@ -151,7 +154,7 @@ public class ProfileActivity extends AppCompatActivity {
     private void openCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(ProfileActivity.this.getPackageManager()) != null) {
+        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
             // Create the File where the photo should go
             File photoFile = null;
             try {
@@ -172,7 +175,7 @@ public class ProfileActivity extends AppCompatActivity {
     private File createImageFile() throws IOException {
         @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
         String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = ProfileActivity.this.getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
         currentPhotoFile = image;
         currentPhotoPath = image.getAbsolutePath();
@@ -181,14 +184,17 @@ public class ProfileActivity extends AppCompatActivity {
 
     void editUser() {
         tools.showLoading();
+
         RequestBody tag = RequestBody.create(MediaType.parse("text/plain"), "UpdateUser");
-        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), id);
+        RequestBody user_id = RequestBody.create(MediaType.parse("text/plain"), preferenceManager.getKeyValueString(VariableBag.user_id, ""));
         RequestBody full_name = RequestBody.create(MediaType.parse("text/plain"), etvFullName.getText().toString());
         RequestBody mobile = RequestBody.create(MediaType.parse("text/plain"), etvPhoneNo.getText().toString());
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), etvEmail.getText().toString());
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), userPassword);
+
         MultipartBody.Part fileToUploadfile = null;
-        if (fileToUploadfile == null && currentPhotoPath != null) {
+
+        if (fileToUploadfile == null && currentPhotoPath != "") {
             try {
                 StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
                 StrictMode.setVmPolicy(builder.build());
@@ -228,8 +234,11 @@ public class ProfileActivity extends AppCompatActivity {
                             @Override
                             public void run() {
 
-                                Toast.makeText(ProfileActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
+                                    if (currentPhotoFile != null && currentPhotoPath != null) {
+                                        currentPhotoFile.delete();
+                                    }
+                                    Toast.makeText(ProfileActivity.this, "" + userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                     preferenceManager.setKeyValueString(VariableBag.full_name, etvFullName.getText().toString());
                                     preferenceManager.setKeyValueString(VariableBag.mobile, etvPhoneNo.getText().toString());
                                     preferenceManager.setKeyValueString(VariableBag.email, etvEmail.getText().toString());
