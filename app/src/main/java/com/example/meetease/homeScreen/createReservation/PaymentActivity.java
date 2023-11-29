@@ -37,6 +37,7 @@ public class PaymentActivity extends AppCompatActivity {
     RestCall restCall;
     Tools tools;
     PreferenceManager preferenceManager;
+    int totalTime;
     String roomName, roomPrice, roomLocation, roomRating, roomId, bookingDate, bookingStartTime, bookingEndTime;
 
     @Override
@@ -61,19 +62,14 @@ public class PaymentActivity extends AppCompatActivity {
         bookingDate = intent.getStringExtra("bookingDate");
         bookingStartTime = intent.getStringExtra("bookingStartTime");
         bookingEndTime = intent.getStringExtra("bookingEndTime");
+        totalTime = intent.getIntExtra("totalTime",0);
 
         txtName.setText(roomName);
         txtLocation.setText(roomLocation);
         txtPrice.setText(roomPrice);
         txtSelectedDate.setText(bookingDate);
         txtTimeSlot.setText(bookingStartTime + " - " + bookingEndTime);
-
-        LocalTime startTime = LocalTime.parse(bookingStartTime);
-        LocalTime endTime = LocalTime.parse(bookingEndTime);
-        long hoursBetween = ChronoUnit.HOURS.between(startTime, endTime);
-
-        double finalPrice = Double.parseDouble(roomPrice) * hoursBetween;
-        txtFinalPrice.setText(String.valueOf(finalPrice));
+        txtFinalPrice.setText(""+Integer.parseInt(roomPrice)*totalTime);
 
         preferenceManager = new PreferenceManager(this);
         tools = new Tools(this);
@@ -126,6 +122,4 @@ public class PaymentActivity extends AppCompatActivity {
                     }
                 });
     }
-
-
 }

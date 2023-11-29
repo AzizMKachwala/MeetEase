@@ -234,6 +234,18 @@ public class CreateReservationActivity extends AppCompatActivity {
                                             intent.putExtra("bookingDate", day + "-" + month + "-" + year);
                                             intent.putExtra("bookingStartTime", startHour + ":"+ startMinute);
                                             intent.putExtra("bookingEndTime", endHour + ":"+ endMinute);
+
+                                            int endTime = (endHour*60)+endMinute;
+                                            int startTime = (startHour*60)+startMinute;
+                                            int minute = endTime-startTime;
+                                            int hour = 0;
+                                            if (minute % 60 != 0){
+                                                hour = minute/60;
+                                                hour = hour+1;
+                                            }else {
+                                                hour = minute/60;
+                                            }
+                                            intent.putExtra("totalTime",hour);
                                             startActivity(intent);
                                         }
                                     });
