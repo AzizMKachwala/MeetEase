@@ -47,7 +47,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     EditText etvPhoneNo, etvNewPassword, etvConfirmPassword;
     LinearLayout lytOtp;
-    EditText etvOtp6,etvOtp5,etvOtp4,etvOtp3,etvOtp2,etvOtp1;
+    EditText etvOtp6, etvOtp5, etvOtp4, etvOtp3, etvOtp2, etvOtp1;
     Button btnSend, btnSave, btnCheckOtp;
     ImageView ivBack;
     TextView tvCode;
@@ -119,7 +119,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     etvPhoneNo.setError("Use Valid Mobile Number !!!");
                     etvPhoneNo.requestFocus();
                 } else {
-                    Toast.makeText(ForgotPasswordActivity.this, "OTP Sent...", Toast.LENGTH_SHORT).show();
+                    Tools.showCustomToast(getApplicationContext(), "OTP Sent...", findViewById(R.id.customToastLayout), getLayoutInflater());
                     String phone = "+" + countryPicker.getSelectedCountryCode() + etvPhoneNo.getText().toString();
                     tools.showLoading();
                     sendVerificationCode(phone);
@@ -151,7 +151,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     if (etvNewPassword.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.password, ""))) {
                         Toast.makeText(ForgotPasswordActivity.this, "New Password Cannot be Same as Old Password", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(ForgotPasswordActivity.this, "password change successfully", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(ForgotPasswordActivity.this, "Password Change Successfully", Toast.LENGTH_SHORT).show();
                         editPassword();
                     }
                 }
@@ -190,7 +190,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         @Override
         public void onVerificationFailed(@NonNull FirebaseException e) {
             tools.stopLoading();
-            Toast.makeText(ForgotPasswordActivity.this, e.getMessage(), Toast.LENGTH_LONG).show();
         }
 
     };

@@ -4,17 +4,16 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.Tools;
 
 import java.util.Calendar;
 
@@ -119,11 +118,11 @@ public class BookMeetingActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 if (tvDate.getText().toString().equals("Select Date") || tvEndTime.getText().toString().isEmpty()) {
-                    Toast.makeText(BookMeetingActivity.this, "Select Date First", Toast.LENGTH_SHORT).show();
+                    Tools.showCustomToast(getApplicationContext(), "Select Date First", findViewById(R.id.customToastLayout), getLayoutInflater());
                 } else if (tvStartTime.getText().toString().equals("Select Start Time")) {
-                    Toast.makeText(BookMeetingActivity.this, "Select Start Time", Toast.LENGTH_SHORT).show();
+                    Tools.showCustomToast(getApplicationContext(), "Select Start Time", findViewById(R.id.customToastLayout), getLayoutInflater());
                 } else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()) {
-                    Toast.makeText(BookMeetingActivity.this, "Select End Time", Toast.LENGTH_SHORT).show();
+                    Tools.showCustomToast(getApplicationContext(), "Select End Time", findViewById(R.id.customToastLayout), getLayoutInflater());
                 } else {
                     Intent intent = new Intent(BookMeetingActivity.this, CreateReservationActivity.class);
                     intent.putExtra("year", selectYear);

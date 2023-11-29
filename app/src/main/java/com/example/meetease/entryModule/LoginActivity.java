@@ -44,12 +44,12 @@ import rx.schedulers.Schedulers;
 
 public class LoginActivity extends AppCompatActivity {
 
-    EditText etvEmailOrPhone,etvPassword;
+    EditText etvEmailOrPhone, etvPassword;
     Button btnLogin;
-    TextView txtResetPassword,txtSignup;
+    TextView txtResetPassword, txtSignup;
     ImageView imgPasswordCloseEye;
     View viewGoogle;
-    String flag = "1",name,mobileNumber,email;
+    String flag = "1", name, mobileNumber, email;
     Boolean password = false;
     RestCall restCall;
     private static final int RC_SIGN_IN = 123;
@@ -70,7 +70,7 @@ public class LoginActivity extends AppCompatActivity {
         viewGoogle = findViewById(R.id.viewGoogle);
         txtSignup = findViewById(R.id.txtSignup);
         txtResetPassword = findViewById(R.id.txtResetPassword);
-        imgPasswordCloseEye= findViewById(R.id.imgPasswordCloseEye);
+        imgPasswordCloseEye = findViewById(R.id.imgPasswordCloseEye);
 
         mAuth = FirebaseAuth.getInstance();
         database = FirebaseDatabase.getInstance();
@@ -87,15 +87,13 @@ public class LoginActivity extends AppCompatActivity {
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if(etvEmailOrPhone.getText().toString().trim().isEmpty()){
+                if (etvEmailOrPhone.getText().toString().trim().isEmpty()) {
                     etvEmailOrPhone.setError("Enter Valid Email");
                     etvEmailOrPhone.requestFocus();
-                }
-                else if (etvPassword.getText().toString().trim().isEmpty()){
+                } else if (etvPassword.getText().toString().trim().isEmpty()) {
                     etvPassword.setError("Enter Valid Password");
                     etvPassword.requestFocus();
-                }
-                else {
+                } else {
                     loginUser();
                 }
             }
@@ -133,6 +131,7 @@ public class LoginActivity extends AppCompatActivity {
             }
         });
     }
+
     private void signInWithGoogle() {
         tools.showLoading();
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
@@ -144,6 +143,7 @@ public class LoginActivity extends AppCompatActivity {
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -154,10 +154,11 @@ public class LoginActivity extends AppCompatActivity {
                 firebaseAuthWithGoogle(account);
             } catch (ApiException e) {
                 tools.stopLoading();
-                Toast.makeText(this, "Google Sign-In failed", Toast.LENGTH_SHORT).show();
+                Tools.showCustomToast(this, "Google Sign-In failed", findViewById(R.id.customToastLayout), getLayoutInflater());
             }
         }
     }
+
     private void firebaseAuthWithGoogle(GoogleSignInAccount account) {
         AuthCredential credential = GoogleAuthProvider.getCredential(account.getIdToken(), null);
         mAuth.signInWithCredential(credential)
@@ -175,7 +176,7 @@ public class LoginActivity extends AppCompatActivity {
                             loginUser();
                         } else {
                             tools.stopLoading();
-                            Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                            Tools.showCustomToast(getApplicationContext(), "Authentication failed", findViewById(R.id.customToastLayout), getLayoutInflater());
                         }
                     }
                 });
@@ -183,7 +184,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginUser() {
         tools.showLoading();
-        restCall.LoginUser("LoginUser",etvEmailOrPhone.getText().toString().trim(),etvPassword.getText().toString().trim(),flag)
+        restCall.LoginUser("LoginUser", etvEmailOrPhone.getText().toString().trim(), etvPassword.getText().toString().trim(), flag)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<LoginDataModel>() {
@@ -198,10 +199,10 @@ public class LoginActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                flag="1";
+                                flag = "1";
                                 etvEmailOrPhone.setText("");
                                 tools.stopLoading();
-                                Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
@@ -213,22 +214,19 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                Toast.makeText(LoginActivity.this, loginDataModel.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (loginDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
-
-                                    preferenceManager.setKeyValueBoolean(VariableBag.SessionManage,true);
-                                    preferenceManager.setKeyValueString(VariableBag.user_id,loginDataModel.getUser_id());
-                                    preferenceManager.setKeyValueString(VariableBag.full_name,loginDataModel.getFull_name());
-                                    preferenceManager.setKeyValueString(VariableBag.mobile,loginDataModel.getMobile());
-                                    preferenceManager.setKeyValueString(VariableBag.email,loginDataModel.getEmail());
-                                    preferenceManager.setKeyValueString(VariableBag.password,etvPassword.getText().toString());
+                                    preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, true);
+                                    preferenceManager.setKeyValueString(VariableBag.user_id, loginDataModel.getUser_id());
+                                    preferenceManager.setKeyValueString(VariableBag.full_name, loginDataModel.getFull_name());
+                                    preferenceManager.setKeyValueString(VariableBag.mobile, loginDataModel.getMobile());
+                                    preferenceManager.setKeyValueString(VariableBag.email, loginDataModel.getEmail());
+                                    preferenceManager.setKeyValueString(VariableBag.password, etvPassword.getText().toString());
                                     startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class));
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                     finish();
-                                }
-                                else {
+                                } else {
                                     tools.showLoading();
-                                    //AddUser();
+                                    AddUser();
                                 }
                             }
                         });
@@ -236,42 +234,41 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-//    void AddUser(){
-//        tools.showLoading();
-//        restCall.AddUser("AddUser",name,email,"1234567890","GooglePassword2817")
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(Schedulers.newThread())
-//                .subscribe(new Subscriber<UserResponse>() {
-//                    @Override
-//                    public void onCompleted() {
-//
-//                    }
-//
-//                    @Override
-//                    public void onError(Throwable e) {
-//                        tools.stopLoading();
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                tools.stopLoading();
-//                                Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-//                            }
-//                        });
-//                    }
-//
-//                    @Override
-//                    public void onNext(UserResponse userResponse) {
-//                        tools.stopLoading();
-//                        runOnUiThread(new Runnable() {
-//                            @Override
-//                            public void run() {
-//                                Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
-//                                if(userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
-//                                    loginUser();
-//                                }
-//                            }
-//                        });
-//                    }
-//                });
-//    }
+    void AddUser(){
+        tools.showLoading();
+        restCall.AddUser("AddUser",name,email,"1234567890","GooglePassword2817")
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<UserResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        tools.stopLoading();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(UserResponse userResponse) {
+                        tools.stopLoading();
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
+                                    loginUser();
+                                }
+                            }
+                        });
+                    }
+                });
+    }
 }

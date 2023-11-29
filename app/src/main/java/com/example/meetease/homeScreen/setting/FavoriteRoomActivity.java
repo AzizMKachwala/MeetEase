@@ -118,7 +118,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 tvNoData.setVisibility(View.VISIBLE);
-                                Toast.makeText(FavoriteRoomActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
@@ -129,7 +129,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-//                                Toast.makeText(FavoriteRoomActivity.this, favRoomDataModel.getMessage(), Toast.LENGTH_SHORT).show();
+//                                Tools.showCustomToast(getApplicationContext(), "No email app found", findViewById(R.id.customToastLayout), getLayoutInflater());
 //                                if (favRoomDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)&&favRoomDataModel.getFavRoomListlList() != null && favRoomDataModel.getFavRoomListlList().size()>0){
 //                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FavoriteRoomActivity.this);
 //                                    recycleFavRoom.setLayoutManager(layoutManager);

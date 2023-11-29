@@ -18,6 +18,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.example.meetease.appUtils.Tools;
 import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingActivity;
 import com.example.meetease.homeScreen.setting.AvailableRoomsActivity;
 import com.example.meetease.homeScreen.setting.ContactUsActivity;
@@ -175,7 +176,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == layoutAddReservation) {
-            showCustomToast("Custom Toast Message");
             changeScreen(BookMeetingActivity.class);
         }
 
@@ -225,19 +225,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
-    }
-
-    private void showCustomToast(String message) {
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.custom_toast_layout, findViewById(R.id.customToastLayout));
-
-        TextView text = layout.findViewById(R.id.customToastText);
-        text.setText(message);
-
-        Toast toast = new Toast(getApplicationContext());
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(layout);
-        toast.show();
     }
 
     private void generateInvitationLink() {

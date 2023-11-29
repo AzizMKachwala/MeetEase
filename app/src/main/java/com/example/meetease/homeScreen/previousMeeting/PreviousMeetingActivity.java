@@ -120,7 +120,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                Toast.makeText(PreviousMeetingActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                                 tvNoData.setVisibility(View.VISIBLE);
                             }
                         });
@@ -132,7 +132,6 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                Toast.makeText(PreviousMeetingActivity.this, upComingResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (upComingResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)&& upComingResponse.getUpComingListResponses()!=null&&upComingResponse.getUpComingListResponses().size()>0){
                                     tvNoData.setVisibility(View.GONE);
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);

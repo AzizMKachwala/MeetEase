@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.Tools;
 
 public class ContactUsActivity extends AppCompatActivity {
 
@@ -81,7 +82,7 @@ public class ContactUsActivity extends AppCompatActivity {
                     if (emailIntent.resolveActivity(getPackageManager()) != null) {
                         startActivity(emailIntent);
                     } else {
-                        Toast.makeText(ContactUsActivity.this, "No email app found", Toast.LENGTH_SHORT).show();
+                        Tools.showCustomToast(getApplicationContext(), "No email app found", findViewById(R.id.customToastLayout), getLayoutInflater());
                     }
                 }
             }
@@ -108,7 +109,7 @@ public class ContactUsActivity extends AppCompatActivity {
                 if (sendIntent.resolveActivity(getPackageManager()) != null) {
                     startActivity(sendIntent);
                 } else {
-                    Toast.makeText(ContactUsActivity.this, "WhatsApp is not installed", Toast.LENGTH_SHORT).show();
+                    Tools.showCustomToast(getApplicationContext(), "WhatsApp is not installed", findViewById(R.id.customToastLayout), getLayoutInflater());
                 }
             }
         });

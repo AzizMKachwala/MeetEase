@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:background="@drawable/custom_toast_bg"
     android:orientation="horizontal"
-    android:padding="16dp">
+    android:padding="@dimen/_5sdp">
 
     <ImageView
         android:layout_width="@dimen/_20sdp"
@@ -19,6 +19,6 @@
         android:layout_height="wrap_content"
         android:text="Custom Toast Message"
         android:textColor="#FFFFFF"
-        android:textSize="@dimen/_15ssp" />
+        android:textSize="@dimen/_10ssp" />
 
 </LinearLayout>
