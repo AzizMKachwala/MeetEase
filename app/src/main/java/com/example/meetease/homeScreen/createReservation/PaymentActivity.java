@@ -112,7 +112,6 @@ public class PaymentActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     Toast.makeText(PaymentActivity.this, "Booking successfully", Toast.LENGTH_SHORT).show();
                                 }
