@@ -11,6 +11,7 @@
         android:layout_width="@dimen/_250sdp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
+        app:cardCornerRadius="@dimen/_10sdp"
         android:elevation="@dimen/_1sdp">
 
         <androidx.constraintlayout.widget.ConstraintLayout
