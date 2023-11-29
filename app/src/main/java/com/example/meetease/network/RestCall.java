@@ -5,6 +5,7 @@ import com.example.meetease.dataModel.FavRoomDataModel;
 import com.example.meetease.dataModel.LoginDataModel;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 import com.example.meetease.dataModel.RoomDetailListNoUpcomingDataModel;
+import com.example.meetease.dataModel.UpComingResponse;
 
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -32,6 +33,7 @@ public interface RestCall {
             @Field("full_name") String full_name,
             @Field("email") String email,
             @Field("mobile") String mobile,
+            @Field("profile_photo1") String img,
             @Field("password") String password);
 
     @FormUrlEncoded
@@ -99,11 +101,8 @@ public interface RestCall {
             @Field("tag") String tag,
             @Field("user_id") String user_id);
     @FormUrlEncoded
-    @POST("Controller/UserController.php")
-    Single<UserResponse> up(
+    @POST("Controller/OldNewBooking.php")
+    Single<UpComingResponse> UpcomingBookings(
             @Field("tag") String tag,
             @Field("user_id") String user_id);
-
-
-
 }

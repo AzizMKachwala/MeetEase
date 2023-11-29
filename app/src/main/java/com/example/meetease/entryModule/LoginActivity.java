@@ -228,7 +228,7 @@ public class LoginActivity extends AppCompatActivity {
                                 }
                                 else {
                                     tools.showLoading();
-                                    AddUser();
+                                    //AddUser();
                                 }
                             }
                         });
@@ -236,42 +236,42 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    void AddUser(){
-        tools.showLoading();
-        restCall.AddUser("AddUser",name,email,"1234567890","GooglePassword2817")
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.newThread())
-                .subscribe(new Subscriber<UserResponse>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        tools.stopLoading();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                tools.stopLoading();
-                                Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onNext(UserResponse userResponse) {
-                        tools.stopLoading();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                                if(userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
-                                    loginUser();
-                                }
-                            }
-                        });
-                    }
-                });
-    }
+//    void AddUser(){
+//        tools.showLoading();
+//        restCall.AddUser("AddUser",name,email,"1234567890","GooglePassword2817")
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(Schedulers.newThread())
+//                .subscribe(new Subscriber<UserResponse>() {
+//                    @Override
+//                    public void onCompleted() {
+//
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        tools.stopLoading();
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                tools.stopLoading();
+//                                Toast.makeText(LoginActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+//                            }
+//                        });
+//                    }
+//
+//                    @Override
+//                    public void onNext(UserResponse userResponse) {
+//                        tools.stopLoading();
+//                        runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+//                                if(userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
+//                                    loginUser();
+//                                }
+//                            }
+//                        });
+//                    }
+//                });
+//    }
 }
