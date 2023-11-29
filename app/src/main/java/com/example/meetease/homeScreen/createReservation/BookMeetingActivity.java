@@ -21,12 +21,13 @@ import java.util.Calendar;
 public class BookMeetingActivity extends AppCompatActivity {
 
     TextView tvDate, tvStartTime, tvEndTime;
-    View date,startTime,endTime;
+    View date, startTime, endTime;
     ImageView ivDate, ivStartTime, ivEndDate, ivBack;
     Button btnBookNow;
     DatePickerFragment datePickerFragment;
-    private int minHour = 8, minMinute = 0,startHour, startMinute, endHour, endMinute;
-    String selectYear , selectMonth , selectDay;
+    StartTimePickerFragment startTimePickerFragment;
+    EndTimePickerFragment endTimePickerFragment;
+    String selectYear, selectMonth, selectDay, startMinute, startHour, endHour, endMinute;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,12 +45,14 @@ public class BookMeetingActivity extends AppCompatActivity {
         endTime = findViewById(R.id.endTime);
         ivBack = findViewById(R.id.ivBack);
         ivDate = findViewById(R.id.ivDate);
+
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 finish();
             }
         });
+
         final Calendar c = Calendar.getInstance();
         date.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,41 +74,47 @@ public class BookMeetingActivity extends AppCompatActivity {
                 });
             }
         });
+
         startTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(BookMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                startTimePickerFragment = new StartTimePickerFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                startTimePickerFragment.show(fragmentTransaction, "#tag");
+                startTimePickerFragment.setCancelable(false);
+
+                startTimePickerFragment.setUpInterface(new StartTimePickerFragment.ButtonClick() {
                     @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        tvStartTime.setText(hourOfDay + ":" + minute);
-                        startHour = hourOfDay;
-                        startMinute = minute;
-                        minHour = hourOfDay;
-                        minMinute = minute;
-                        tvEndTime.setText("Select End Time");
+                    public void saveClick(String Time, String hour, String min) {
+                        tvStartTime.setText(Time);
+                        startHour = hour;
+                        startMinute = min;
                     }
-                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
-                timePickerDialog.show();
+                });
             }
         });
+
         endTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TimePickerDialog timePickerDialog = new TimePickerDialog(BookMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
+                endTimePickerFragment = new EndTimePickerFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                endTimePickerFragment.show(fragmentTransaction, "#tag");
+                endTimePickerFragment.setCancelable(false);
+
+                endTimePickerFragment.setUpInterface(new EndTimePickerFragment.ButtonClick() {
                     @Override
-                    public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-                        if (hourOfDay < minHour || (hourOfDay == minHour && minute < minMinute)) {
-                            Toast.makeText(BookMeetingActivity.this, "End Time Should Be After " + minHour + ":" + minMinute, Toast.LENGTH_SHORT).show();
-                        } else {
-                            endHour = hourOfDay;
-                            endMinute = minute;
-                            tvEndTime.setText(hourOfDay + ":" + minute);
-                        }
+                    public void saveClick(String Time, String hour, String min) {
+                        tvEndTime.setText(Time);
+                        endHour = hour;
+                        endMinute = min;
                     }
-                }, c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE), false);
-                timePickerDialog.show();
+                });
             }
         });
+
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -120,14 +129,16 @@ public class BookMeetingActivity extends AppCompatActivity {
                     intent.putExtra("year", selectYear);
                     intent.putExtra("month", selectMonth);
                     intent.putExtra("day", selectDay);
-                    intent.putExtra("startHour", String.valueOf(startHour));
-                    intent.putExtra("startMinute", String.valueOf(startMinute));
-                    intent.putExtra("endHour", String.valueOf(endHour));
-                    intent.putExtra("endMinute", String.valueOf(endMinute));
+                    intent.putExtra("startHour", startHour);
+                    intent.putExtra("startMinute", startMinute);
+                    intent.putExtra("endHour", endHour);
+                    intent.putExtra("endMinute", endMinute);
+
                     startActivity(intent);
                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                 }
             }
         });
+
     }
 }
