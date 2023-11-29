@@ -202,6 +202,7 @@ public class ProfileActivity extends AppCompatActivity {
                 e.printStackTrace();
             }
         }
+
         restCall.EditUser(tag, user_id, full_name, mobile, email, password, fileToUploadfile)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
