@@ -229,8 +229,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         sendIntent.setAction(Intent.ACTION_SEND);
         sendIntent.putExtra(Intent.EXTRA_TEXT, "Join MeetEase using my invitation link: " + "https://example.com/invite?userId=" + preferenceManager.getKeyValueString(VariableBag.user_id,""));
         sendIntent.setType("text/plain");
-
-        Intent shareIntent = Intent.createChooser(sendIntent, null);
+        Intent shareIntent = Intent.createChooser(sendIntent, "Share invite link using");
         startActivity(shareIntent);
     }
 

@@ -1,40 +1,32 @@
 package com.example.meetease.homeScreen.createReservation;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.NotificationCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.app.DatePickerDialog;
-import android.app.Notification;
-import android.app.NotificationChannel;
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.meetease.R;
-import com.example.meetease.appUtils.VariableBag;
-import com.example.meetease.homeScreen.HomeScreenActivity;
 
 import java.util.Calendar;
 
 public class BookMeetingActivity extends AppCompatActivity {
 
     TextView tvDate, tvStartTime, tvEndTime;
+    View date,startTime,endTime;
     ImageView ivDate, ivStartTime, ivEndDate, ivBack;
     Button btnBookNow;
-    private int minHour = 8, minMinute = 0, mYear, mMonth, mDay, year, mHour, mMinute, month, day, startHour, startMinute, endHour, endMinute;
+    DatePickerFragment datePickerFragment;
+    private int minHour = 8, minMinute = 0,startHour, startMinute, endHour, endMinute;
+    String selectYear , selectMonth , selectDay;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,6 +39,9 @@ public class BookMeetingActivity extends AppCompatActivity {
         ivStartTime = findViewById(R.id.ivStartTime);
         ivEndDate = findViewById(R.id.ivEndTime);
         btnBookNow = findViewById(R.id.btnBookNow);
+        date = findViewById(R.id.date);
+        startTime = findViewById(R.id.startTime);
+        endTime = findViewById(R.id.endTime);
         ivBack = findViewById(R.id.ivBack);
         ivDate = findViewById(R.id.ivDate);
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -56,23 +51,27 @@ public class BookMeetingActivity extends AppCompatActivity {
             }
         });
         final Calendar c = Calendar.getInstance();
-        tvDate.setOnClickListener(new View.OnClickListener() {
+        date.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                DatePickerDialog datePickerDialog = new DatePickerDialog(BookMeetingActivity.this, new DatePickerDialog.OnDateSetListener() {
-                            @Override
-                            public void onDateSet(DatePicker view, int year1, int monthOfYear, int dayOfMonth) {
-                                tvDate.setText(dayOfMonth + "-" + (monthOfYear + 1) + "-" + year1);
-                                year = year1;
-                                month = monthOfYear + 1;
-                                day = dayOfMonth;
-                            }
-                        }, c.get(Calendar.YEAR), c.get(Calendar.MONTH), c.get(Calendar.DAY_OF_MONTH));
-                datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis());
-                datePickerDialog.show();
+                datePickerFragment = new DatePickerFragment();
+                FragmentManager fragmentManager = getSupportFragmentManager();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                datePickerFragment.show(fragmentTransaction, "#tag");
+                datePickerFragment.setCancelable(false);
+
+                datePickerFragment.setUpInterface(new DatePickerFragment.ButtonClick() {
+                    @Override
+                    public void saveClick(String date, String day, String month, String year) {
+                        tvDate.setText(date);
+                        selectDay = day;
+                        selectMonth = month;
+                        selectYear = year;
+                    }
+                });
             }
         });
-        tvStartTime.setOnClickListener(new View.OnClickListener() {
+        startTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(BookMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
@@ -89,7 +88,7 @@ public class BookMeetingActivity extends AppCompatActivity {
                 timePickerDialog.show();
             }
         });
-        tvEndTime.setOnClickListener(new View.OnClickListener() {
+        endTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 TimePickerDialog timePickerDialog = new TimePickerDialog(BookMeetingActivity.this, new TimePickerDialog.OnTimeSetListener() {
@@ -118,9 +117,9 @@ public class BookMeetingActivity extends AppCompatActivity {
                     Toast.makeText(BookMeetingActivity.this, "Select End Time", Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(BookMeetingActivity.this, CreateReservationActivity.class);
-                    intent.putExtra("year", String.valueOf(year));
-                    intent.putExtra("month", String.valueOf(month));
-                    intent.putExtra("day", String.valueOf(day));
+                    intent.putExtra("year", selectYear);
+                    intent.putExtra("month", selectMonth);
+                    intent.putExtra("day", selectDay);
                     intent.putExtra("startHour", String.valueOf(startHour));
                     intent.putExtra("startMinute", String.valueOf(startMinute));
                     intent.putExtra("endHour", String.valueOf(endHour));

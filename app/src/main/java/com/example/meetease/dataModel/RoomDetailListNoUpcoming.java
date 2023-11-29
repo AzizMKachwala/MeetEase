@@ -25,7 +25,7 @@ public class RoomDetailListNoUpcoming {
     String price;
     @SerializedName("upcoming_status")
     @Expose
-    String upcoming_status;
+    String upcoming_status = "0";
 
     public RoomDetailListNoUpcoming(String room_d_id, String room_name, String room_img, String price, String location, String rating,String upcoming_status) {
         this.room_d_id = room_d_id;
