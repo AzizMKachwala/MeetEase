@@ -167,9 +167,7 @@ public class ProfileActivity extends AppCompatActivity {
                 cameraLauncher.launch(takePictureIntent);
             }
         }
-
     }
-
 
     private File createImageFile() throws IOException {
         @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
