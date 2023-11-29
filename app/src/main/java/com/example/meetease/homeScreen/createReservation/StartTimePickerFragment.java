@@ -29,11 +29,11 @@ public class StartTimePickerFragment extends DialogFragment {
     SimpleDateFormat sdf;
     String selectMin, selectHour;
 
-    public interface ButtonClick{
-        void saveClick(String Time,String hour,String min);
+    public interface ButtonClick {
+        void saveClick(String Time, String hour, String min);
     }
 
-    public void  setUpInterface(ButtonClick buttonClick){
+    public void setUpInterface(ButtonClick buttonClick) {
         this.buttonClick = buttonClick;
     }
 
@@ -80,7 +80,7 @@ public class StartTimePickerFragment extends DialogFragment {
                 builder.append(timePicker.getHour() + ":");
                 builder.append(timePicker.getMinute());
                 SelectedStartTime = builder.toString();
-                buttonClick.saveClick(SelectedStartTime,selectHour,selectMin);
+                buttonClick.saveClick(SelectedStartTime, String.valueOf(timePicker.getHour()), String.valueOf(timePicker.getMinute()));
                 dismiss();
             }
         });

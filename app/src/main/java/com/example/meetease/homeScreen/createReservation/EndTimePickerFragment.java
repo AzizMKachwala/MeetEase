@@ -80,7 +80,7 @@ public class EndTimePickerFragment extends DialogFragment {
                 builder.append(timePicker.getHour() + ":");
                 builder.append(timePicker.getMinute());
                 SelectedEndTime = builder.toString();
-                buttonClick.saveClick(SelectedEndTime,selectHour,selectMin);
+                buttonClick.saveClick(SelectedEndTime, String.valueOf(timePicker.getHour()), String.valueOf(timePicker.getMinute()));
                 dismiss();
             }
         });

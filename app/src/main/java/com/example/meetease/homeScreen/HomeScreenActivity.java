@@ -103,7 +103,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         biometric();
     }
 
-    @SuppressLint("SetTextI18n")
     @Override
     protected void onResume() {
         super.onResume();

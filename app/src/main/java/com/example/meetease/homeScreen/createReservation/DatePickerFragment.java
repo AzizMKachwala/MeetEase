@@ -94,12 +94,14 @@ public class DatePickerFragment extends DialogFragment {
             @Override
             public void onClick(View view) {
 
+                int date = datePicker.getMonth()+1;
+
                 StringBuilder builder = new StringBuilder();
                 builder.append(datePicker.getDayOfMonth() + "/");
-                builder.append(datePicker.getMonth() + 1 + "/");
+                builder.append(date+ "/");
                 builder.append(datePicker.getYear());
                 SelectedEventDate = builder.toString();
-                buttonClick.saveClick(SelectedEventDate,selectDay,selectMonth,selectYear);
+                buttonClick.saveClick(SelectedEventDate, String.valueOf(datePicker.getDayOfMonth()), String.valueOf(date), String.valueOf(datePicker.getYear()));
                 dismiss();
             }
         });

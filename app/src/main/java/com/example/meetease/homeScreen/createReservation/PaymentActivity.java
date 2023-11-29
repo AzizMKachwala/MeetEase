@@ -68,12 +68,7 @@ public class PaymentActivity extends AppCompatActivity {
         txtSelectedDate.setText(bookingDate);
         txtTimeSlot.setText(bookingStartTime + " - " + bookingEndTime);
 
-        LocalTime startTime = LocalTime.parse(bookingStartTime);
-        LocalTime endTime = LocalTime.parse(bookingEndTime);
-        long hoursBetween = ChronoUnit.HOURS.between(startTime, endTime);
 
-        double finalPrice = Double.parseDouble(roomPrice) * hoursBetween;
-        txtFinalPrice.setText(String.valueOf(finalPrice));
 
         preferenceManager = new PreferenceManager(this);
         tools = new Tools(this);
