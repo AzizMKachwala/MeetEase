@@ -17,6 +17,7 @@ import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 import com.example.meetease.dataModel.RoomDetailList;
+import com.example.meetease.dataModel.UpComingListResponse;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
 
 import java.util.ArrayList;
@@ -24,10 +25,10 @@ import java.util.List;
 
 public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeetingAdapter.MeetingViewHolder> {
 
-    List<RoomDetailList> dataModelList,searchList;
+    List<UpComingListResponse> dataModelList,searchList;
     Context context;
 
-    public PreviousMeetingAdapter(List<RoomDetailList> dataModelList, Context context) {
+    public PreviousMeetingAdapter(List<UpComingListResponse> dataModelList, Context context) {
         this.dataModelList = dataModelList;
         this.searchList = dataModelList;
         this.context = context;
@@ -43,8 +44,8 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
         }
         else {
             int flag = 0;
-            List<RoomDetailList> filterList = new ArrayList<>();
-            for (RoomDetailList single : dataModelList){
+            List<UpComingListResponse> filterList = new ArrayList<>();
+            for (UpComingListResponse single : dataModelList){
                 if (single.getRoom_name().toLowerCase().contains(charString.toLowerCase())){
                     filterList.add(single);
                     flag = 1;
@@ -73,12 +74,7 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
     public void onBindViewHolder(@NonNull MeetingViewHolder holder, int position) {
         holder.txtName.setText(searchList.get(position).getRoom_name());
         holder.txtLocation.setText(searchList.get(position).getLocation());
-        holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getRating()));
-//        Glide
-//                .with(context)
-//                .load("http://192.168.43.107/roommeeting/uplode/image/The_Successful.jpg")
-//                .into(holder.imgRoom);
-
+        holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getAvg_rating()));
         Tools.DisplayImage(context,holder.imgRoom,searchList.get(position).getRoom_img());
 
     }
