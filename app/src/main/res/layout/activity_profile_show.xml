@@ -59,8 +59,8 @@
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:hint="Aziz Kachwala"
                     android:marqueeRepeatLimit="marquee_forever"
+                    android:hint="Aziz Kachwala"
                     android:singleLine="true"
                     android:textColor="@color/black"
                     android:textSize="@dimen/_20ssp"
@@ -81,41 +81,43 @@
                     android:textSize="@dimen/_15ssp"
                     android:textStyle="bold" />
 
-
-                <TextView
-                    android:id="@+id/txtMobile"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:ellipsize="marquee"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
-                    android:hint="9988776655"
-                    android:marqueeRepeatLimit="marquee_forever"
-                    android:singleLine="true"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/_15ssp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
 
+                    <TextView
+                        android:id="@+id/txtMobile"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1.7"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:hint="9988776655"
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:singleLine="true"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/_15ssp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/imgEdit"
+                        android:layout_width="@dimen/_30sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_margin="@dimen/_5sdp"
+                        android:layout_marginEnd="@dimen/_10sdp"
+                        android:layout_weight="0.3"
+                        android:src="@drawable/baseline_edit_24" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-    <ImageView
-        android:id="@+id/imgEdit"
-        style="@style/Widget.AppCompat.Button"
-        android:layout_width="@dimen/_50sdp"
-        android:layout_height="@dimen/_40sdp"
-        android:layout_margin="@dimen/_5sdp"
-        android:layout_marginEnd="@dimen/_10sdp"
-        android:background="@drawable/edittext_shape"
-        android:src="@drawable/baseline_edit_24"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cvProfile" />
 
     <androidx.cardview.widget.CardView
         android:id="@+id/CvUserDetails"
@@ -126,7 +128,7 @@
         app:cardCornerRadius="@dimen/_10sdp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/imgEdit">
+        app:layout_constraintTop_toBottomOf="@id/cvProfile">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -150,9 +152,7 @@
 
         </LinearLayout>
 
-    </androidx.cardview.widget.CardView>
-
-    <androidx.cardview.widget.CardView
+    </androidx.cardview.widget.CardView><androidx.cardview.widget.CardView
         android:id="@+id/cvAppDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

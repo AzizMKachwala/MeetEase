@@ -3,6 +3,7 @@ package com.example.meetease.homeScreen.setting;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.os.Bundle;
 import android.text.Editable;
@@ -37,17 +38,21 @@ public class FavoriteRoomActivity extends AppCompatActivity {
     TextView tvNoData;
     ImageView ivClose;
     RestCall restCall;
+    SwipeRefreshLayout swipeRefreshLayout;
     PreferenceManager preferenceManager;
     Tools tools;
     FavoriteRoomAdapter favoriteRoomAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite_room);
+
         recycleFavRoom = findViewById(R.id.recycleFavRoom);
         etvSearch = findViewById(R.id.etvSearch);
         tvNoData = findViewById(R.id.tvNoData);
         ivClose = findViewById(R.id.ivClose);
+        swipeRefreshLayout = findViewById(R.id.swipe);
         ivClose.setVisibility(View.GONE);
         tvNoData.setVisibility(View.GONE);
 
@@ -56,10 +61,20 @@ public class FavoriteRoomActivity extends AppCompatActivity {
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
 
         roomDetail();
+
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                roomDetail();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        });
+
         ivClose.setOnClickListener(view -> {
             ivClose.setVisibility(View.GONE);
             etvSearch.setText("");
         });
+
         etvSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -87,8 +102,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
 
     void roomDetail() {
         tools.showLoading();
-
-        restCall.GetFevRoom("GetFevRoom",preferenceManager.getKeyValueString(VariableBag.user_id,""))
+        restCall.GetFevRoom("GetFevRoom", preferenceManager.getKeyValueString(VariableBag.user_id, ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<FavRoomDataModel>() {
@@ -103,6 +117,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
+                                tvNoData.setVisibility(View.VISIBLE);
                                 Toast.makeText(FavoriteRoomActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });

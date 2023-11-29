@@ -32,9 +32,11 @@ public class DatePickerFragment extends DialogFragment {
     public interface ButtonClick{
         void saveClick(String date,String day,String month,String year);
     }
+
     public void  setUpInterface(ButtonClick buttonClick){
         this.buttonClick = buttonClick;
     }
+
     @Override
     public void onStart() {
         super.onStart();
@@ -44,6 +46,7 @@ public class DatePickerFragment extends DialogFragment {
             dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         }
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_date_picker_fargment, container, false);
