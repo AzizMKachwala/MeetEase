@@ -68,6 +68,13 @@ public class PaymentActivity extends AppCompatActivity {
         txtSelectedDate.setText(bookingDate);
         txtTimeSlot.setText(bookingStartTime + " - " + bookingEndTime);
 
+        LocalTime startTime = LocalTime.parse(bookingStartTime);
+        LocalTime endTime = LocalTime.parse(bookingEndTime);
+        long hoursBetween = ChronoUnit.HOURS.between(startTime, endTime);
+
+        double finalPrice = Double.parseDouble(roomPrice) * hoursBetween;
+        txtFinalPrice.setText(String.valueOf(finalPrice));
+
         preferenceManager = new PreferenceManager(this);
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
@@ -112,7 +119,6 @@ public class PaymentActivity extends AppCompatActivity {
 
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     Toast.makeText(PaymentActivity.this, "Booking successfully", Toast.LENGTH_SHORT).show();
-                                    generatePDF();
                                 }
                                 Toast.makeText(PaymentActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                             }
@@ -121,46 +127,5 @@ public class PaymentActivity extends AppCompatActivity {
                 });
     }
 
-    private void generatePDF() {
-
-        PdfDocument document = new PdfDocument();
-
-        // Create a PageInfo
-        PdfDocument.PageInfo pageInfo = new PdfDocument.PageInfo.Builder(300, 600, 1).create();
-
-        // Start a page
-        PdfDocument.Page page = document.startPage(pageInfo);
-
-        // Create a Canvas to draw on the page
-        Canvas canvas = page.getCanvas();
-
-        // Example: Draw some text on the page
-        Paint paint = new Paint();
-        paint.setTextSize(20);
-        canvas.drawText("Booking Details", 80, 50, paint);
-
-        // Example: Draw the booking details
-        canvas.drawText("Room Name: " + roomName, 80, 100, paint);
-        canvas.drawText("Location: " + roomLocation, 80, 150, paint);
-        canvas.drawText("Price: " + roomPrice, 80, 200, paint);
-        canvas.drawText("Date: " + bookingDate, 80, 250, paint);
-        canvas.drawText("Time Slot: " + bookingStartTime + " - " + bookingEndTime, 80, 300, paint);
-
-        // Finish the page
-        document.finishPage(page);
-
-        // Save the document to a file
-        File pdfFile = new File(Environment.getExternalStorageDirectory(), "BookingDetails.pdf");
-        try {
-            document.writeTo(new FileOutputStream(pdfFile));
-            Toast.makeText(this, "PDF generated successfully", Toast.LENGTH_SHORT).show();
-        } catch (IOException e) {
-            e.printStackTrace();
-            Toast.makeText(this, "Failed to generate PDF", Toast.LENGTH_SHORT).show();
-        }
-
-        // Close the document
-        document.close();
-    }
 
 }

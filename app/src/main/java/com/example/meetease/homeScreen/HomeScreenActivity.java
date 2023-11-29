@@ -207,7 +207,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
                 if (currentUser != null) {
                     for (UserInfo userInfo : currentUser.getProviderData()) {
                         if ("google.com".equals(userInfo.getProviderId())) {
-                            // User signed in with Google
                             auth.signOut();
                         } else {
                         }
