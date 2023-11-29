@@ -55,6 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingEnd="@dimen/_10sdp"
+                    android:paddingStart="@dimen/_10sdp"
                     android:text="Hotel Taj"
                     android:textSize="@dimen/_20sdp" />
 
@@ -80,6 +81,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingEnd="@dimen/_10sdp"
+                    android:paddingStart="@dimen/_10sdp"
                     android:text="Ahmedabad"
                     android:textSize="@dimen/_20sdp" />
 
@@ -105,6 +107,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingEnd="@dimen/_10sdp"
+                    android:paddingStart="@dimen/_10sdp"
                     android:text="2000"
                     android:textSize="@dimen/_20sdp" />
 
@@ -130,6 +133,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingEnd="@dimen/_10sdp"
+                    android:paddingStart="@dimen/_10sdp"
                     android:text="10-06-24"
                     android:textSize="@dimen/_20sdp" />
 
@@ -155,6 +159,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingEnd="@dimen/_10sdp"
+                    android:paddingStart="@dimen/_10sdp"
                     android:text="11:00 - 13:00"
                     android:textSize="@dimen/_20sdp" />
 
@@ -180,6 +185,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:paddingEnd="@dimen/_10sdp"
+                    android:paddingStart="@dimen/_10sdp"
                     android:text="4000"
                     android:textSize="@dimen/_20sdp" />
 
