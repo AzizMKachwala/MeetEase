@@ -105,4 +105,9 @@ public interface RestCall {
     Single<UpComingResponse> UpcomingBookings(
             @Field("tag") String tag,
             @Field("user_id") String user_id);
+    @FormUrlEncoded
+    @POST("Controller/OldNewBooking.php")
+    Single<UpComingResponse> CloseBooking(
+            @Field("tag") String tag,
+            @Field("user_id") String user_id);
 }

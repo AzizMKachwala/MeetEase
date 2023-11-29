@@ -16,10 +16,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 import com.example.meetease.dataModel.RoomDetailList;
+import com.example.meetease.dataModel.UpComingResponse;
 import com.example.meetease.entryModule.SignUpActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
@@ -41,6 +43,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
     Tools tools;
     SwipeRefreshLayout swipeRefreshLayout;
     String tag = "";
+    PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
         ivClose = findViewById(R.id.ivClose);
         swipeRefreshLayout = findViewById(R.id.swipe);
 
+        preferenceManager = new PreferenceManager(this);
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -100,10 +104,10 @@ public class PreviousMeetingActivity extends AppCompatActivity {
 
     void roomDetail() {
         tools.showLoading();
-        restCall.RoomDetails("GetRoomDetails")
+        restCall.CloseBooking("ClosedBookings",preferenceManager.getKeyValueString(VariableBag.user_id,""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
-                .subscribe(new Subscriber<RoomDetailDataModel>() {
+                .subscribe(new Subscriber<UpComingResponse>() {
                     @Override
                     public void onCompleted() {
 
@@ -111,6 +115,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -122,16 +127,17 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(RoomDetailDataModel roomDetailDataModel) {
+                    public void onNext(UpComingResponse upComingResponse) {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                if (roomDetailDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)&& roomDetailDataModel.getRoomDetailList()!=null&&roomDetailDataModel.getRoomDetailList().size()>0){
+                                Toast.makeText(PreviousMeetingActivity.this, upComingResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                if (upComingResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)&& upComingResponse.getUpComingListResponses()!=null&&upComingResponse.getUpComingListResponses().size()>0){
                                     tvNoData.setVisibility(View.GONE);
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
-                                    previousMeetingAdapter = new PreviousMeetingAdapter(roomDetailDataModel.getRoomDetailList(),PreviousMeetingActivity.this);
+                                    previousMeetingAdapter = new PreviousMeetingAdapter(upComingResponse.getUpComingListResponses(),PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setAdapter(previousMeetingAdapter);
                                 }
                             }

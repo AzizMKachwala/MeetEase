@@ -132,6 +132,9 @@ public class UpComingMeetingActivity extends AppCompatActivity {
                                     recyclerView.setLayoutManager(layoutManager);
                                     recyclerView.setAdapter(upComingAdapter);
                                 }
+                                else {
+                                    tvNoData.setVisibility(View.VISIBLE);
+                                }
                             }
                         });
                     }
