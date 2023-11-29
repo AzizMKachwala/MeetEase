@@ -30,7 +30,7 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
     @NonNull
     @Override
     public UpComingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new UpComingViewHolder(Tools.bindXML(R.layout.meeting_rooms_item,parent));
+        return new UpComingViewHolder(Tools.bindXML(R.layout.upcoming_meeting_item,parent));
     }
 
     @Override
