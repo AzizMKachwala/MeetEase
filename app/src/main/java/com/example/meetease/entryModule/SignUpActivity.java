@@ -126,7 +126,7 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     void AddUser(){
-        restCall.AddUser("AddUser",etvName.getText().toString(),etvEmail.getText().toString(),etvMobileNumber.getText().toString(),etvPassword.getText().toString())
+        restCall.AddUser("AddUser",etvName.getText().toString(),etvEmail.getText().toString(),etvMobileNumber.getText().toString(),"https://w0.peakpx.com/wallpaper/888/865/HD-wallpaper-feeling-good-27-profile-pics-for-girls-for-mobile-phone-feeling-happy.jpg",etvPassword.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {

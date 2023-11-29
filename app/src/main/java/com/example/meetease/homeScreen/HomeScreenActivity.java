@@ -31,6 +31,7 @@ import com.example.meetease.homeScreen.setting.FavoriteRoomActivity;
 import com.example.meetease.homeScreen.setting.ProfileShowActivity;
 import com.example.meetease.homeScreen.setting.RateUsActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
+import com.example.meetease.homeScreen.upComingMeeting.UpComingMeetingActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.UserInfo;
@@ -160,7 +161,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == layoutUpcomingMeeting) {
-//            changeScreen();
+            changeScreen(UpComingMeetingActivity.class);
         }
 
         if (view == inviteFriend) {

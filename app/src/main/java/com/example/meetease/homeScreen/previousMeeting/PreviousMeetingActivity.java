@@ -47,11 +47,6 @@ public class PreviousMeetingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_previous_meeting);
 
-        Intent intent = getIntent();
-        if (intent.getStringExtra("abc")!=null){
-            tag = intent.getStringExtra("abc");
-        }
-
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         recyclerviewPreviousMeeting = findViewById(R.id.recyclerviewPreviousMeeting);
