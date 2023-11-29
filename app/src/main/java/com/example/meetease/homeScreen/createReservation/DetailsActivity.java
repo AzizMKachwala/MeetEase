@@ -38,6 +38,7 @@ public class DetailsActivity extends AppCompatActivity {
     Tools tools;
     String roomId;
     PreferenceManager preferenceManager;
+    int totalTime;
     String roomName, roomPrice, roomLocation, roomRating, roomImage, bookingDate, bookingStartTime, bookingEndTime;
 
     @SuppressLint("SetTextI18n")
@@ -76,6 +77,7 @@ public class DetailsActivity extends AppCompatActivity {
         bookingDate = intent.getStringExtra("bookingDate");
         bookingStartTime = intent.getStringExtra("bookingStartTime");
         bookingEndTime = intent.getStringExtra("bookingEndTime");
+        totalTime = intent.getIntExtra("totalTime",0);
 
         txtLocation.setText(roomLocation);
         txtName.setText(roomName);
@@ -115,6 +117,7 @@ public class DetailsActivity extends AppCompatActivity {
                 intent.putExtra("bookingDate", bookingDate);
                 intent.putExtra("bookingStartTime", bookingStartTime);
                 intent.putExtra("bookingEndTime", bookingEndTime);
+                intent.putExtra("totalTime", totalTime);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
