@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightBlue"
+    android:background="@drawable/blue_back"
     tools:context=".homeScreen.setting.RateUsActivity">
 
     <ImageView
@@ -19,10 +19,10 @@
 
     <ImageView
         android:id="@+id/imgLogo"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
+        android:layout_width="@dimen/_200sdp"
+        android:layout_height="@dimen/_200sdp"
         android:layout_marginTop="@dimen/_60sdp"
-        android:src="@drawable/logo"
+        android:src="@drawable/bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/ivBack"/>
@@ -31,9 +31,8 @@
         android:id="@+id/txtCompanyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_20sdp"
         android:text="MEETEASE"
-        android:textColor="@color/darkBlue"
+        android:textColor="@color/white"
         android:textSize="@dimen/_30sdp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
@@ -59,7 +58,8 @@
         android:layout_height="wrap_content"
         android:textSize="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_10sdp"
-        android:text="I really Liked it"
+        android:text="I Really Liked it"
+        android:textColor="@color/white"
         app:layout_constraintTop_toBottomOf="@id/ratingBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>
@@ -68,6 +68,7 @@
         android:id="@+id/btnSubmit"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/_20sdp"
         app:layout_constraintTop_toBottomOf="@id/txtRating"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

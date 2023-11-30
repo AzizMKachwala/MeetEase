@@ -9,6 +9,7 @@
         app:cardCornerRadius="@dimen/_10sdp"
         android:layout_margin="@dimen/_5sdp"
         android:layout_width="match_parent"
+        android:backgroundTint="@color/blue"
         app:layout_constraintTop_toTopOf="parent"
         android:layout_height="wrap_content">
 
@@ -37,6 +38,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/_30ssp"
+                android:textColor="@color/white"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:text="Hotel Taj"/>
 
@@ -44,6 +46,7 @@
                 android:id="@+id/txtLocation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp"
                 android:paddingStart="@dimen/_5sdp"
                 android:text="Ahmedabad"/>
