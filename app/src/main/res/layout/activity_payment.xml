@@ -4,8 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue_back"
+    android:background="@drawable/background"
     tools:context=".activity.homeScreen.mainScreen.create.PaymentActivity">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_margin="@dimen/_15sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
         android:layout_width="match_parent"

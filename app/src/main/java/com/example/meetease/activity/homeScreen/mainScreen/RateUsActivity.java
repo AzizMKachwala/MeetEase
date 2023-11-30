@@ -41,7 +41,6 @@ public class RateUsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 int userRating = (int) ratingBar.getRating();
-
                 if (userRating == 1) {
                     Tools.showCustomToast(getApplicationContext(), "We Are Really Sorry For Your Experience.", findViewById(R.id.customToastLayout), getLayoutInflater());
                 } else if (userRating == 2) {
@@ -52,9 +51,8 @@ public class RateUsActivity extends AppCompatActivity {
                     Tools.showCustomToast(getApplicationContext(), "Thank you For Rating Us.", findViewById(R.id.customToastLayout), getLayoutInflater());
                 } else {
                     Tools.showCustomToast(getApplicationContext(), "We Are Really Glad To Hear It From You.", findViewById(R.id.customToastLayout), getLayoutInflater());
-
                 }
-
+                finish();
             }
         });
 

@@ -39,13 +39,14 @@ public class CreateReservationActivity extends AppCompatActivity {
     EditText etvSearch;
     TextView tvNoData;
     Boolean flag = false;
-    ImageView ivClose, img_filter;
+    ImageView ivClose, img_filter, ivBack;
     FilterFragment filterFragment;
     SwipeRefreshLayout swipeRefreshLayout;
     RestCall restCall;
     Tools tools;
     List<RoomDetailListNoUpcoming> apiList = new ArrayList<>();
     public int year, month, day, startHour, startMinute, endHour, endMinute;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,12 +57,20 @@ public class CreateReservationActivity extends AppCompatActivity {
         tvNoData = findViewById(R.id.tvNoData);
         img_filter = findViewById(R.id.img_filter);
         ivClose = findViewById(R.id.ivClose);
+        ivBack = findViewById(R.id.ivBack);
         swipeRefreshLayout = findViewById(R.id.swipe);
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
 
         tools.showLoading();
         AvailableRoomDetails();
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -106,11 +115,11 @@ public class CreateReservationActivity extends AppCompatActivity {
                             updateData(priceFilter(apiList, Price));
                         } else if (city.isEmpty() && Price.isEmpty() && !Rating.isEmpty()) {
                             updateData(ratingFilter(apiList, Rating));
-                        }
-                        else {
+                        } else {
                             updateData(apiList);
                         }
                     }
+
                     @Override
                     public void reset() {
                         createReservationAdapter.updateData(apiList);
@@ -133,6 +142,7 @@ public class CreateReservationActivity extends AppCompatActivity {
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
             }
+
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (createReservationAdapter != null) {
@@ -144,12 +154,14 @@ public class CreateReservationActivity extends AppCompatActivity {
                     createReservationAdapter.search(charSequence, tvNoData, recyclerViewMeetingRooms);
                 }
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
 
             }
         });
     }
+
     List<RoomDetailListNoUpcoming> cityFilter(List<RoomDetailListNoUpcoming> list, String city) {
         List<RoomDetailListNoUpcoming> filteredListCity = new ArrayList<>();
         for (int i = 0; i < list.size(); i++) {
@@ -180,10 +192,10 @@ public class CreateReservationActivity extends AppCompatActivity {
         return filteredListRating;
     }
 
-    void updateData(List<RoomDetailListNoUpcoming> list){
-        if (list.size()>0){
+    void updateData(List<RoomDetailListNoUpcoming> list) {
+        if (list.size() > 0) {
             tvNoData.setVisibility(View.GONE);
-        }else {
+        } else {
             tvNoData.setVisibility(View.VISIBLE);
         }
         createReservationAdapter.updateData(list);
@@ -191,7 +203,7 @@ public class CreateReservationActivity extends AppCompatActivity {
 
     private void AvailableRoomDetails() {
 
-        restCall.AvailableRoomDetails("UnbookedRoom", year + "-" + month + "-" + day, startHour + ":"+ startMinute, endHour + ":"+ endMinute)
+        restCall.AvailableRoomDetails("UnbookedRoom", year + "-" + month + "-" + day, startHour + ":" + startMinute, endHour + ":" + endMinute)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<RoomDetailListNoUpcomingDataModel>() {
@@ -220,16 +232,16 @@ public class CreateReservationActivity extends AppCompatActivity {
                                 apiList = roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming();
                                 if (roomDetailListNoUpcomingDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)
                                         && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming() != null
-                                        && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().size() >0) {
-                                    if (flag == false){
+                                        && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().size() > 0) {
+                                    if (flag == false) {
                                         AvailableRoomDetails();
                                         flag = true;
-                                    }else {
+                                    } else {
                                         tools.stopLoading();
                                         tvNoData.setVisibility(View.GONE);
                                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
                                         recyclerViewMeetingRooms.setLayoutManager(layoutManager);
-                                        createReservationAdapter = new CreateReservationAdapter(apiList,CreateReservationActivity.this);
+                                        createReservationAdapter = new CreateReservationAdapter(apiList, CreateReservationActivity.this);
                                         recyclerViewMeetingRooms.setAdapter(createReservationAdapter);
                                         createReservationAdapter.setUpInterFace(new CreateReservationAdapter.CreateReservationAdapterDataClick() {
                                             @Override
@@ -242,27 +254,26 @@ public class CreateReservationActivity extends AppCompatActivity {
                                                 intent.putExtra("roomImage", createReservationDataModel.getRoom_img());
                                                 intent.putExtra("roomId", createReservationDataModel.getRoom_d_id());
                                                 intent.putExtra("bookingDate", day + "-" + month + "-" + year);
-                                                intent.putExtra("bookingStartTime", startHour + ":"+ startMinute);
-                                                intent.putExtra("bookingEndTime", endHour + ":"+ endMinute);
+                                                intent.putExtra("bookingStartTime", startHour + ":" + startMinute);
+                                                intent.putExtra("bookingEndTime", endHour + ":" + endMinute);
 
-                                                int endTime = (endHour*60)+endMinute;
-                                                int startTime = (startHour*60)+startMinute;
-                                                int minute = endTime-startTime;
+                                                int endTime = (endHour * 60) + endMinute;
+                                                int startTime = (startHour * 60) + startMinute;
+                                                int minute = endTime - startTime;
                                                 int hour = 0;
-                                                if (minute % 60 != 0){
-                                                    hour = minute/60;
-                                                    hour = hour+1;
-                                                }else {
-                                                    hour = minute/60;
+                                                if (minute % 60 != 0) {
+                                                    hour = minute / 60;
+                                                    hour = hour + 1;
+                                                } else {
+                                                    hour = minute / 60;
                                                 }
-                                                intent.putExtra("totalTime",hour);
+                                                intent.putExtra("totalTime", hour);
                                                 startActivity(intent);
                                             }
                                         });
                                     }
 
-                                }
-                                else {
+                                } else {
                                     tvNoData.setVisibility(View.VISIBLE);
                                 }
 

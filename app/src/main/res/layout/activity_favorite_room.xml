@@ -3,9 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/blue_back"
+    android:background="@drawable/background"
     android:layout_height="match_parent"
     tools:context=".activity.homeScreen.settings.FavoriteRoomActivity">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_margin="@dimen/_15sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
         android:id="@+id/etvSearch"
@@ -13,6 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginStart="@dimen/_60sdp"
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="@dimen/_5sdp"
         android:hint="search"

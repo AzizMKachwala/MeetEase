@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
     <style name="Base.Theme.MeetEase" parent="Theme.Material3.DayNight.NoActionBar">
-<!--         Customize your light theme here. -->
-         <item name="colorPrimary">@color/blue</item>
+        <!--         Customize your light theme here. -->
+        <item name="colorPrimary">@color/blue</item>
     </style>
 
     <style name="Theme.MeetEase" parent="Base.Theme.MeetEase" />
@@ -32,8 +32,9 @@
         <item name="android:layout_marginEnd">@dimen/_10sdp</item>
     </style>
 
-    <style name="RatingBar" parent="Theme.AppCompat">
-        <item name="colorControlNormal">@color/white</item>
-        <item name="colorControlActivated">@color/darkBlue</item>
+    <style name="RatingBar" parent="Widget.AppCompat.RatingBar.Indicator">
+        <item name="android:progressBackgroundTint">@color/white</item>
+        <item name="android:progressTint">@color/yellow</item>
+        <item name="android:layout_gravity">center_vertical</item>
     </style>
 </resources>
