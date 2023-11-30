@@ -16,6 +16,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.example.meetease.SampleActivity;
 import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingActivity;
 import com.example.meetease.homeScreen.setting.AvailableRoomsActivity;
 import com.example.meetease.homeScreen.setting.ContactUsActivity;
@@ -27,6 +28,7 @@ import com.example.meetease.entryModule.LoginActivity;
 import com.example.meetease.homeScreen.createReservation.BookMeetingActivity;
 import com.example.meetease.homeScreen.setting.FaqActivity;
 import com.example.meetease.homeScreen.setting.FavoriteRoomActivity;
+import com.example.meetease.homeScreen.setting.NotificationActivity;
 import com.example.meetease.homeScreen.setting.ProfileShowActivity;
 import com.example.meetease.homeScreen.setting.RateUsActivity;
 import com.example.meetease.homeScreen.setting.SecurityActivity;
@@ -42,7 +44,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
     View scrollView, favoriteRooms, availableRooms, security, howToBookRoom,
             inviteFriend, helpAndSupport, logout, layoutAddReservation, layoutUpcomingMeeting,
             layoutPreviousMeeting, layoutUserProfile, layoutContactUs, layoutRateUs;
-    ImageView ivSettingProfile, ivSetting;
+    ImageView ivSettingProfile, ivNotification, ivSetting;
     TextView tvSettingName, tvSettingEmail, tvTrans, txtHelloName;
     BiometricPrompt biometricPrompt;
     BiometricPrompt.PromptInfo promptInfo;
@@ -75,6 +77,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         logout = findViewById(R.id.logout);
         ivSetting = findViewById(R.id.ivSetting);
         ivSettingProfile = findViewById(R.id.ivSettingProfile);
+        ivNotification = findViewById(R.id.ivNotification);
         tvSettingName = findViewById(R.id.tvSettingName);
         tvSettingEmail = findViewById(R.id.tvSettingEmail);
 
@@ -90,6 +93,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         helpAndSupport.setOnClickListener(this);
         layoutUserProfile.setOnClickListener(this);
         security.setOnClickListener(this);
+        ivNotification.setOnClickListener(this);
         availableRooms.setOnClickListener(this);
         layoutAddReservation.setOnClickListener(this);
         layoutUpcomingMeeting.setOnClickListener(this);
@@ -144,7 +148,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             tvTrans.startAnimation(slideInAnimation);
         }
         if (view == favoriteRooms) {
-            changeScreen(FavoriteRoomActivity.class);
+            changeScreen(SampleActivity.class);
+        }
+
+        if (view == ivNotification) {
+            changeScreen(NotificationActivity.class);
         }
 
         if (view == layoutPreviousMeeting) {

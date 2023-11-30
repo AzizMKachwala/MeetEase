@@ -103,10 +103,10 @@ public class PaymentActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
+                                    Tools.showCustomToast(getApplicationContext(), userResponse.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                                     startActivity(new Intent(PaymentActivity.this, HomeScreenActivity.class));
                                     finish();
                                 }
-                                Tools.showCustomToast(getApplicationContext(), userResponse.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
