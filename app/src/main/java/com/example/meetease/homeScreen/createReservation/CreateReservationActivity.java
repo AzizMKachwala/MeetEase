@@ -40,6 +40,7 @@ public class CreateReservationActivity extends AppCompatActivity {
     CreateReservationAdapter createReservationAdapter;
     EditText etvSearch;
     TextView tvNoData;
+    Boolean flag = false;
     ImageView ivClose, img_filter;
     FilterFragment filterFragment;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -61,11 +62,13 @@ public class CreateReservationActivity extends AppCompatActivity {
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
 
+        tools.showLoading();
         AvailableRoomDetails();
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+                tools.showLoading();
                 AvailableRoomDetails();
                 swipeRefreshLayout.setRefreshing(false);
             }
@@ -184,7 +187,7 @@ public class CreateReservationActivity extends AppCompatActivity {
     }
 
     private void AvailableRoomDetails() {
-        tools.showLoading();
+
         restCall.AvailableRoomDetails("UnbookedRoom", year + "-" + month + "-" + day, startHour + ":"+ startMinute, endHour + ":"+ endMinute)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
@@ -211,44 +214,51 @@ public class CreateReservationActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tools.stopLoading();
                                 apiList = roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming();
                                 if (roomDetailListNoUpcomingDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)
                                         && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming() != null
                                         && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().size() >0) {
 
-                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
-                                    recyclerViewMeetingRooms.setLayoutManager(layoutManager);
-                                    createReservationAdapter = new CreateReservationAdapter(apiList,CreateReservationActivity.this);
-                                    recyclerViewMeetingRooms.setAdapter(createReservationAdapter);
-                                    createReservationAdapter.setUpInterFace(new CreateReservationAdapter.CreateReservationAdapterDataClick() {
-                                        @Override
-                                        public void bookDataClick(RoomDetailListNoUpcoming createReservationDataModel) {
-                                            Intent intent = new Intent(CreateReservationActivity.this, DetailsActivity.class);
-                                            intent.putExtra("roomName", createReservationDataModel.getRoom_name());
-                                            intent.putExtra("roomPrice", createReservationDataModel.getPrice());
-                                            intent.putExtra("roomLocation", createReservationDataModel.getLocation());
-                                            intent.putExtra("roomRating", createReservationDataModel.getRating());
-                                            intent.putExtra("roomImage", createReservationDataModel.getRoom_img());
-                                            intent.putExtra("roomId", createReservationDataModel.getRoom_d_id());
-                                            intent.putExtra("bookingDate", day + "-" + month + "-" + year);
-                                            intent.putExtra("bookingStartTime", startHour + ":"+ startMinute);
-                                            intent.putExtra("bookingEndTime", endHour + ":"+ endMinute);
 
-                                            int endTime = (endHour*60)+endMinute;
-                                            int startTime = (startHour*60)+startMinute;
-                                            int minute = endTime-startTime;
-                                            int hour = 0;
-                                            if (minute % 60 != 0){
-                                                hour = minute/60;
-                                                hour = hour+1;
-                                            }else {
-                                                hour = minute/60;
+                                    if (flag == false){
+                                        AvailableRoomDetails();
+                                        flag = true;
+                                    }else {
+                                        tools.stopLoading();
+                                        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
+                                        recyclerViewMeetingRooms.setLayoutManager(layoutManager);
+                                        createReservationAdapter = new CreateReservationAdapter(apiList,CreateReservationActivity.this);
+                                        recyclerViewMeetingRooms.setAdapter(createReservationAdapter);
+                                        createReservationAdapter.setUpInterFace(new CreateReservationAdapter.CreateReservationAdapterDataClick() {
+                                            @Override
+                                            public void bookDataClick(RoomDetailListNoUpcoming createReservationDataModel) {
+                                                Intent intent = new Intent(CreateReservationActivity.this, DetailsActivity.class);
+                                                intent.putExtra("roomName", createReservationDataModel.getRoom_name());
+                                                intent.putExtra("roomPrice", createReservationDataModel.getPrice());
+                                                intent.putExtra("roomLocation", createReservationDataModel.getLocation());
+                                                intent.putExtra("roomRating", createReservationDataModel.getRating());
+                                                intent.putExtra("roomImage", createReservationDataModel.getRoom_img());
+                                                intent.putExtra("roomId", createReservationDataModel.getRoom_d_id());
+                                                intent.putExtra("bookingDate", day + "-" + month + "-" + year);
+                                                intent.putExtra("bookingStartTime", startHour + ":"+ startMinute);
+                                                intent.putExtra("bookingEndTime", endHour + ":"+ endMinute);
+
+                                                int endTime = (endHour*60)+endMinute;
+                                                int startTime = (startHour*60)+startMinute;
+                                                int minute = endTime-startTime;
+                                                int hour = 0;
+                                                if (minute % 60 != 0){
+                                                    hour = minute/60;
+                                                    hour = hour+1;
+                                                }else {
+                                                    hour = minute/60;
+                                                }
+                                                intent.putExtra("totalTime",hour);
+                                                startActivity(intent);
                                             }
-                                            intent.putExtra("totalTime",hour);
-                                            startActivity(intent);
-                                        }
-                                    });
+                                        });
+                                    }
+
                                 }
                                 else {
                                     tvNoData.setVisibility(View.VISIBLE);

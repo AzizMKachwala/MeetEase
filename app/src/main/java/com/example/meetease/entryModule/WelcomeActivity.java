@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
+import com.example.meetease.appUtils.VariableBag;
 
 public class WelcomeActivity extends AppCompatActivity {
 

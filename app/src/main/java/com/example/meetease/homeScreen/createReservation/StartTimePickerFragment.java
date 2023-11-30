@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TimePicker;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -48,8 +49,7 @@ public class StartTimePickerFragment extends DialogFragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_time_picker, container, false);
 
@@ -57,19 +57,49 @@ public class StartTimePickerFragment extends DialogFragment {
         btnSave = view.findViewById(R.id.btnSave);
         btnCancel = view.findViewById(R.id.btnCancel);
 
+        PreferenceManager preferenceManager = new PreferenceManager(getContext());
+
+        timePicker.setIs24HourView(true);
+        if (preferenceManager.getKeyValueBoolean("abc")){
+            timePicker.setHour(Calendar.getInstance().getTime().getHours());
+            timePicker.setMinute(Calendar.getInstance().getTime().getMinutes());
+        }
+
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
-                StringBuilder builder = new StringBuilder();
-                builder.append(timePicker.getHour() + ":");
-                builder.append(timePicker.getMinute());
-                SelectedStartTime = builder.toString();
+                if (preferenceManager.getKeyValueBoolean("abc")){
+                    if (hour<Calendar.getInstance().getTime().getHours()){
+                        timePicker.setHour(Calendar.getInstance().getTime().getHours());
+                    }else if (minute<Calendar.getInstance().getTime().getMinutes()){
+                        timePicker.setMinute(Calendar.getInstance().getTime().getMinutes());
+                    }else {
+                        StringBuilder builder = new StringBuilder();
+                        builder.append(timePicker.getHour() + ":");
+                        builder.append(timePicker.getMinute());
+                        SelectedStartTime = builder.toString();
 
-                Calendar selectedTime = Calendar.getInstance();
-                selectedTime.set(Calendar.HOUR_OF_DAY, hour);
-                selectedTime.set(Calendar.MINUTE, minute);
-                sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-                SelectedStartTime = sdf.format(selectedTime.getTime());
+                        Calendar selectedTime = Calendar.getInstance();
+                        selectedTime.set(Calendar.HOUR_OF_DAY, hour);
+                        selectedTime.set(Calendar.MINUTE, minute);
+                        sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                        SelectedStartTime = sdf.format(selectedTime.getTime());
+                    }
+                }
+                else {
+                    StringBuilder builder = new StringBuilder();
+                    builder.append(timePicker.getHour() + ":");
+                    builder.append(timePicker.getMinute());
+                    SelectedStartTime = builder.toString();
+
+                    Calendar selectedTime = Calendar.getInstance();
+                    selectedTime.set(Calendar.HOUR_OF_DAY, hour);
+                    selectedTime.set(Calendar.MINUTE, minute);
+                    sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                    SelectedStartTime = sdf.format(selectedTime.getTime());
+                }
+
+
             }
         });
 

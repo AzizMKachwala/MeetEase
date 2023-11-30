@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.TimePicker;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -53,23 +54,38 @@ public class EndTimePickerFragment extends DialogFragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_end_time_picker, container, false);
 
+        PreferenceManager preferenceManager = new PreferenceManager(getContext());
         timePicker = view.findViewById(R.id.timePicker);
         btnSave = view.findViewById(R.id.btnSave);
         btnCancel = view.findViewById(R.id.btnCancel);
 
+        timePicker.setIs24HourView(true);
+        timePicker.setHour(Integer.parseInt(preferenceManager.getKeyValueString("start hour","0")));
+        timePicker.setMinute(Integer.parseInt(preferenceManager.getKeyValueString("start minute","0"))+1);
+
+
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hour, int minute) {
-                StringBuilder builder = new StringBuilder();
-                builder.append(timePicker.getHour() + ":");
-                builder.append(timePicker.getMinute());
-                SelectedEndTime = builder.toString();
 
-                Calendar selectedTime = Calendar.getInstance();
-                selectedTime.set(Calendar.HOUR_OF_DAY, hour);
-                selectedTime.set(Calendar.MINUTE, minute);
-                sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
-                SelectedEndTime = sdf.format(selectedTime.getTime());
+                if (hour<Integer.parseInt(preferenceManager.getKeyValueString("start hour","0"))){
+                    timePicker.setHour(Integer.parseInt(preferenceManager.getKeyValueString("start hour","0")));
+                }
+                else if (hour==Integer.parseInt(preferenceManager.getKeyValueString("start hour","0"))&&minute<Integer.parseInt(preferenceManager.getKeyValueString("start minute","0"))+1) {
+                    timePicker.setMinute(Integer.parseInt(preferenceManager.getKeyValueString("start minute","0"))+1);
+                }else {
+                    StringBuilder builder = new StringBuilder();
+                    builder.append(timePicker.getHour() + ":");
+                    builder.append(timePicker.getMinute());
+                    SelectedEndTime = builder.toString();
+
+                    Calendar selectedTime = Calendar.getInstance();
+                    selectedTime.set(Calendar.HOUR_OF_DAY, hour);
+                    selectedTime.set(Calendar.MINUTE, minute);
+                    sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                    SelectedEndTime = sdf.format(selectedTime.getTime());
+                }
+
             }
         });
 

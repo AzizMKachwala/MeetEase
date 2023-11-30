@@ -15,6 +15,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
 
 import java.util.Calendar;
 
@@ -27,6 +28,7 @@ public class BookMeetingActivity extends AppCompatActivity {
     DatePickerFragment datePickerFragment;
     StartTimePickerFragment startTimePickerFragment;
     EndTimePickerFragment endTimePickerFragment;
+    PreferenceManager preferenceManager;
     String selectYear, selectMonth, selectDay, startMinute, startHour, endHour, endMinute;
 
     @Override
@@ -46,6 +48,11 @@ public class BookMeetingActivity extends AppCompatActivity {
         ivBack = findViewById(R.id.ivBack);
         ivDate = findViewById(R.id.ivDate);
 
+        tvStartTime.setText("Select Start Time");
+        tvEndTime.setText("Select End Time");
+        tvDate.setText("Select Date");
+        preferenceManager = new PreferenceManager(this);
+        preferenceManager.setKeyValueBoolean("abc",false);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -67,6 +74,14 @@ public class BookMeetingActivity extends AppCompatActivity {
                     @Override
                     public void saveClick(String date, String day, String month, String year) {
                         tvDate.setText(date);
+                        if (date.equals("30/11/2023")){
+                            preferenceManager.setKeyValueBoolean("abc",true);
+                        }
+                        else {
+                            preferenceManager.setKeyValueBoolean("abc",false);
+                        }
+                        tvStartTime.setText("Select Start Time");
+                        tvEndTime.setText("Select End Time");
                         selectDay = day;
                         selectMonth = month;
                         selectYear = year;
@@ -88,6 +103,9 @@ public class BookMeetingActivity extends AppCompatActivity {
                     @Override
                     public void saveClick(String Time, String hour, String min) {
                         tvStartTime.setText(Time);
+                        preferenceManager.setKeyValueString("start hour",hour);
+                        preferenceManager.setKeyValueString("start minute",min);
+                        tvEndTime.setText("Select End Time");
                         startHour = hour;
                         startMinute = min;
                     }
@@ -118,9 +136,9 @@ public class BookMeetingActivity extends AppCompatActivity {
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (tvDate.getText().toString().equals("Select Date") || tvEndTime.getText().toString().isEmpty()) {
+                if (tvDate.getText().toString().equals("Select Date")) {
                     Toast.makeText(BookMeetingActivity.this, "Select Date First", Toast.LENGTH_SHORT).show();
-                } else if (tvStartTime.getText().toString().equals("Select Start Time")) {
+                } else if (tvStartTime.getText().toString().equals("Select Start Time")||tvEndTime.getText().toString().isEmpty()) {
                     Toast.makeText(BookMeetingActivity.this, "Select Start Time", Toast.LENGTH_SHORT).show();
                 } else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()) {
                     Toast.makeText(BookMeetingActivity.this, "Select End Time", Toast.LENGTH_SHORT).show();
