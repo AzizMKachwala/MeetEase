@@ -23,7 +23,7 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_18sdp"
         android:layout_centerInParent="true"
         app:cardCornerRadius="@dimen/_15sdp"
         app:cardUseCompatPadding="true">
@@ -47,7 +47,7 @@
             <ImageView
                 android:id="@+id/imgSteps"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_200sdp"
+                android:layout_height="@dimen/_280sdp"
                 android:scaleType="fitXY"
                 android:src="@drawable/back_ground_image"/>
 
@@ -56,8 +56,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
-                android:textSize="@dimen/_20ssp"
-                android:text="Steps" />
+                android:textSize="@dimen/_18ssp"
+                android:text="anand patel my name is anand patel " />
 
             <Button
                 android:id="@+id/btnNext"

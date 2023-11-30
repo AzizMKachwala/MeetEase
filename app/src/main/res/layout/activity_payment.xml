@@ -4,193 +4,299 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightBlue"
-    android:paddingHorizontal="@dimen/_10sdp"
+    android:background="@drawable/blue_back"
     tools:context=".homeScreen.createReservation.PaymentActivity">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:text="Pay Now"
-        android:textSize="@dimen/_20ssp"
-        android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="2">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_weight="1">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+                <View
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="match_parent"
+                    android:background="@color/blue"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:layout_weight="1">
+                <View
+                    android:layout_width="@dimen/_10sdp"
+                    android:layout_height="match_parent"
+                    android:background="@color/blue"/>
+            </LinearLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+        </LinearLayout>
+
+    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:elevation="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
-        app:cardUseCompatPadding="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        android:elevation="@dimen/_10sdp"
+        android:backgroundTint="#D3D8DC"
+        app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_20sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginVertical="@dimen/_10sdp"
             android:orientation="vertical">
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <TextView
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:text="Name"
-                    android:textSize="@dimen/_20sdp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtName"
+                    android:gravity="center"
+                    android:layout_weight="1">
+                    <ImageView
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:src="@drawable/ic_nutt"/>
+                </LinearLayout>
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingEnd="@dimen/_10sdp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:text="Hotel Taj"
-                    android:textSize="@dimen/_20sdp" />
+                    android:gravity="center"
+                    android:layout_weight="1">
 
+                    <ImageView
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:src="@drawable/ic_nutt"/>
+                </LinearLayout>
             </LinearLayout>
-
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp">
-
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:layout_width="@dimen/_30sdp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:src="@drawable/bill_img"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_10sdp"/>
                 <TextView
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:text="Location"
-                    android:textSize="@dimen/_20sdp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/txtLocation"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingEnd="@dimen/_10sdp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:text="Ahmedabad"
-                    android:textSize="@dimen/_20sdp" />
-
+                    android:text="Bill Summary"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    android:textSize="@dimen/_15sdp"
+                    android:textStyle="bold"/>
             </LinearLayout>
 
-            <LinearLayout
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp">
+                android:elevation="@dimen/_10sdp"
+                app:cardCornerRadius="@dimen/_10sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:backgroundTint="@color/darkBlue"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
 
-                <TextView
-                    android:layout_width="0dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:text="Price"
-                    android:textSize="@dimen/_20sdp"
-                    android:textStyle="bold" />
+                    android:orientation="vertical"
+                    android:padding="@dimen/_5sdp"
+                    android:paddingVertical="@dimen/_10sdp">
 
-                <TextView
-                    android:id="@+id/txtPrice"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingEnd="@dimen/_10sdp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:text="2000"
-                    android:textSize="@dimen/_20sdp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
 
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:text="Room Name"
+                            android:textSize="@dimen/_16sdp"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp">
+                        <TextView
+                            android:id="@+id/txtName"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:text="Hotel Taj"
+                            android:textSize="@dimen/_15sdp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:text="Date"
-                    android:textSize="@dimen/_20sdp"
-                    android:textStyle="bold" />
+                    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/txtSelectedDate"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingEnd="@dimen/_10sdp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:text="10-06-24"
-                    android:textSize="@dimen/_20sdp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp">
 
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/white"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:text="Location"
+                            android:textSize="@dimen/_16sdp"
+                            android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp">
+                        <TextView
+                            android:id="@+id/txtLocation"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:text="Ahmedabad"
+                            android:textSize="@dimen/_15sdp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:text="Time"
-                    android:textSize="@dimen/_20sdp"
-                    android:textStyle="bold" />
+                    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/txtTimeSlot"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingEnd="@dimen/_10sdp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:text="11:00 - 13:00"
-                    android:textSize="@dimen/_20sdp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp">
 
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/white"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:text="Price"
+                            android:textSize="@dimen/_16sdp"
+                            android:textStyle="bold" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp">
+                        <TextView
+                            android:id="@+id/txtPrice"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:text="2000"
+                            android:textSize="@dimen/_15sdp" />
 
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:text="Total Amount"
-                    android:textSize="@dimen/_20sdp"
-                    android:textStyle="bold" />
+                    </LinearLayout>
 
-                <TextView
-                    android:id="@+id/txtFinalPrice"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:paddingEnd="@dimen/_10sdp"
-                    android:paddingStart="@dimen/_10sdp"
-                    android:text="4000"
-                    android:textSize="@dimen/_20sdp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp">
 
-            </LinearLayout>
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:textColor="@color/white"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:text="Date"
+                            android:textSize="@dimen/_16sdp"
+                            android:textStyle="bold" />
 
+                        <TextView
+                            android:id="@+id/txtSelectedDate"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:text="10-06-24"
+                            android:textSize="@dimen/_15sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            android:text="Time"
+                            android:textSize="@dimen/_16sdp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txtTimeSlot"
+                            android:layout_width="0dp"
+                            android:textColor="@color/white"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:text="11:00 - 13:00"
+                            android:textSize="@dimen/_15sdp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:text="Total Amount"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_16sdp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/txtFinalPrice"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:paddingEnd="@dimen/_10sdp"
+                            android:textColor="@color/white"
+                            android:paddingStart="@dimen/_10sdp"
+                            android:text="4000"
+                            android:textSize="@dimen/_15sdp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+            </androidx.cardview.widget.CardView>
             <Button
                 android:id="@+id/btnPay"
                 style="@style/button"
@@ -198,10 +304,10 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_20sdp"
-                android:text="Pay" />
-
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:text=" Pay    --->   4000$" />
         </LinearLayout>
-
     </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -31,7 +31,7 @@ public class GuideActivity extends AppCompatActivity {
         ivBack = findViewById(R.id.ivBack);
 
         txtSteps.setText("Step 1");
-        imgSteps.setImageResource(R.drawable.logo);
+        imgSteps.setImageResource(R.drawable.home_screen_image);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,16 +46,25 @@ public class GuideActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (pos == 0) {
                     txtSteps.setText("Step 2");
-                    imgSteps.setImageResource(R.drawable.ceye);
+                    imgSteps.setImageResource(R.drawable.selector_screen_image);
                     pos++;
                 } else if (pos == 1) {
                     txtSteps.setText("Step 3");
-                    imgSteps.setImageResource(R.drawable.baseline_eye_24);
+                    imgSteps.setImageResource(R.drawable.show_room_screen_image);
                     pos++;
                 } else if (pos == 2) {
                     txtSteps.setText("Step 4");
-                    imgSteps.setImageResource(R.drawable.baseline_photo_camera_24);
+                    imgSteps.setImageResource(R.drawable.filter_screen_image);
+                    pos++;
+                } else if (pos == 3) {
+                    txtSteps.setText("Step 5");
+                    imgSteps.setImageResource(R.drawable.filter_screen_image);
+                    pos++;
+                }else if (pos == 4) {
+                    txtSteps.setText("Step 6");
+                    imgSteps.setImageResource(R.drawable.show_room_detail_screen);
                     btnNext.setText("Finish");
+                    pos++;
                     pos++;
                 } else {
                     finish();

@@ -139,6 +139,9 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                                     previousMeetingAdapter = new PreviousMeetingAdapter(upComingResponse.getUpComingListResponses(),PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setAdapter(previousMeetingAdapter);
                                 }
+                                else {
+                                    tvNoData.setVisibility(View.VISIBLE);
+                                }
                             }
                         });
                     }

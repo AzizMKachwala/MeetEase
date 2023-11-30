@@ -1,8 +1,17 @@
 package com.example.meetease.homeScreen.createReservation;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +23,8 @@ import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.homeScreen.HomeScreenActivity;
+import com.example.meetease.homeScreen.upComingMeeting.UpComingAdapter;
+import com.example.meetease.homeScreen.upComingMeeting.UpComingMeetingActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
@@ -55,6 +66,7 @@ public class PaymentActivity extends AppCompatActivity {
         bookingEndTime = intent.getStringExtra("bookingEndTime");
         totalTime = intent.getIntExtra("totalTime", 0);
 
+
         txtName.setText(roomName);
         txtLocation.setText(roomLocation);
         txtPrice.setText(roomPrice);
@@ -62,6 +74,7 @@ public class PaymentActivity extends AppCompatActivity {
         txtTimeSlot.setText(bookingStartTime + " - " + bookingEndTime);
         txtFinalPrice.setText("" + Integer.parseInt(roomPrice) * totalTime);
 
+        btnPay.setText(" Pay    --->   "+Integer.parseInt(roomPrice) * totalTime+VariableBag.CURRENCY);
         preferenceManager = new PreferenceManager(this);
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
@@ -103,8 +116,21 @@ public class PaymentActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 Tools.showCustomToast(getApplicationContext(), userResponse.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
+                                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                                    createNotificationChannel(PaymentActivity.this);
+                                }
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
-                                    Tools.showCustomToast(getApplicationContext(), userResponse.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
+                                    Intent resultIntent = new Intent(PaymentActivity.this, UpComingMeetingActivity.class);
+                                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(PaymentActivity.this);stackBuilder.addNextIntentWithParentStack(resultIntent);
+                                    PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+                                    Notification notification = new NotificationCompat.Builder(PaymentActivity.this, "alarm_channel")
+                                            .setContentTitle("Congratulation")
+                                            .setContentText("Your Meeting Room Is Booked - "+roomName)
+                                            .setSmallIcon(R.drawable.bg)
+                                            .setContentIntent(resultPendingIntent)
+                                            .build();
+                                    NotificationManager notificationManager = (NotificationManager) PaymentActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
+                                    notificationManager.notify(0, notification);
                                     startActivity(new Intent(PaymentActivity.this, HomeScreenActivity.class));
                                     finish();
                                 }
@@ -112,5 +138,12 @@ public class PaymentActivity extends AppCompatActivity {
                         });
                     }
                 });
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createNotificationChannel(Context context) {
+        NotificationChannel channel = new NotificationChannel("alarm_channel", "Alarm Channel", NotificationManager.IMPORTANCE_HIGH);
+        channel.setDescription("Channel for alarm notifications");
+        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
     }
 }

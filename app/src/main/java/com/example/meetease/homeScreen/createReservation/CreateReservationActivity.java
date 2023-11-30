@@ -219,13 +219,12 @@ public class CreateReservationActivity extends AppCompatActivity {
                                 if (roomDetailListNoUpcomingDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)
                                         && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming() != null
                                         && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().size() >0) {
-
-
                                     if (flag == false){
                                         AvailableRoomDetails();
                                         flag = true;
                                     }else {
                                         tools.stopLoading();
+                                        tvNoData.setVisibility(View.GONE);
                                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
                                         recyclerViewMeetingRooms.setLayoutManager(layoutManager);
                                         createReservationAdapter = new CreateReservationAdapter(apiList,CreateReservationActivity.this);

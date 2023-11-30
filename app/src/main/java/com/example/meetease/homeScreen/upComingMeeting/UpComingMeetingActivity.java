@@ -114,6 +114,7 @@ public class UpComingMeetingActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
+                                tvNoData.setVisibility(View.VISIBLE);
                                 Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
@@ -126,6 +127,7 @@ public class UpComingMeetingActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 if (upComingResponse.getStatus().equals(VariableBag.SUCCESS_RESULT) && upComingResponse.getUpComingListResponses() != null && upComingResponse.getUpComingListResponses().size() > 0) {
+                                    tvNoData.setVisibility(View.GONE);
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(UpComingMeetingActivity.this);
                                     upComingAdapter = new UpComingAdapter(upComingResponse.getUpComingListResponses(), UpComingMeetingActivity.this);
                                     recyclerView.setLayoutManager(layoutManager);
