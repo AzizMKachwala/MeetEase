@@ -104,6 +104,7 @@ public class PaymentActivity extends AppCompatActivity {
                                 tools.stopLoading();
                                 Tools.showCustomToast(getApplicationContext(), userResponse.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
+                                    Tools.showCustomToast(getApplicationContext(), userResponse.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                                     startActivity(new Intent(PaymentActivity.this, HomeScreenActivity.class));
                                     finish();
                                 }
