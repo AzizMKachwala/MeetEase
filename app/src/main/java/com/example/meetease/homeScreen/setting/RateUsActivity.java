@@ -70,7 +70,7 @@ public class RateUsActivity extends AppCompatActivity {
                 } else if (ratingBar.getRating() == 4) {
                     txtRating.setText("Excellent");
                 } else {
-                    txtRating.setText("I really Liked it");
+                    txtRating.setText("I Really Liked it");
                 }
             }
         });

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightBlue"
+    android:background="@drawable/blue_back"
     tools:context=".homeScreen.previousMeeting.PreviousMeetingActivity">
 
     <EditText
@@ -36,8 +36,8 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:text="No Data Found"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_20sdp"
+        android:textColor="@color/black"
+        android:textSize="@dimen/_30sdp"
         android:textStyle="bold"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"

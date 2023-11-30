@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@color/lightBlue"
+    android:background="@drawable/blue_back"
     tools:context=".homeScreen.setting.SecurityActivity">
 
     <ImageView
@@ -45,6 +45,7 @@
             android:layout_marginStart="@dimen/_20sdp"
             android:text="Apply Mobile Lock"
             android:textSize="@dimen/_15sdp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -53,6 +54,7 @@
             android:id="@+id/switchOnOff"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/lightBlue"
             android:layout_marginVertical="@dimen/_10sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -79,6 +81,7 @@
             android:layout_marginStart="@dimen/_20sdp"
             android:text="Change Password"
             android:textSize="@dimen/_15sdp"
+            android:textColor="@color/white"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -88,6 +91,7 @@
             android:layout_height="@dimen/_35sdp"
             android:layout_marginEnd="@dimen/_20sdp"
             android:paddingStart="@dimen/_5sdp"
+            android:background="@color/lightBlue"
             android:src="@drawable/ic_right_arrow"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"
@@ -105,8 +109,8 @@
         android:id="@+id/lytDeleteUser"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_50sdp"
-        android:background="@color/red"
         android:layout_marginHorizontal="@dimen/_10sdp"
+        android:background="@color/red"
         app:layout_constraintTop_toBottomOf="@+id/lytChangePassword">
 
         <TextView
@@ -124,8 +128,8 @@
         <ImageView
             android:layout_width="@dimen/_35sdp"
             android:layout_height="@dimen/_35sdp"
-            android:layout_marginEnd="@dimen/_20sdp"
             android:paddingStart="@dimen/_5sdp"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:src="@drawable/baseline_delete_forever_24"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent"

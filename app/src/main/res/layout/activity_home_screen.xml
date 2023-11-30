@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightBlue"
+    android:background="@drawable/blue_back"
     android:orientation="vertical"
     tools:context=".homeScreen.HomeScreenActivity">
 
@@ -31,11 +31,18 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/_10sdp"
+        android:ellipsize="marquee"
+        android:focusable="true"
+        android:focusableInTouchMode="true"
         android:hint="Hello, Anand"
+        android:gravity="end"
+        android:marqueeRepeatLimit="marquee_forever"
+        android:singleLine="true"
         android:textColor="@color/white"
         android:textSize="@dimen/_20sdp"
         android:textStyle="italic"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@id/ivNotification"
         app:layout_constraintTop_toTopOf="parent" />
 
     <LinearLayout
@@ -297,6 +304,7 @@
         android:layout_marginBottom="@dimen/_35sdp"
         android:gravity="center"
         android:text="MeetEase"
+        android:textColor="@color/white"
         android:textSize="@dimen/_18sdp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent" />

@@ -18,10 +18,10 @@
             android:indeterminateTint="@color/darkBlue"/>
 
         <ImageView
-            android:layout_width="@dimen/_20sdp"
-            android:layout_height="@dimen/_20sdp"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_40sdp"
             android:layout_gravity="center"
-            android:src="@drawable/logo"/>
+            android:src="@drawable/bg"/>
 
     </FrameLayout>
 

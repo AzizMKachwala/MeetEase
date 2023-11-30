@@ -30,7 +30,7 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
     @NonNull
     @Override
     public UpComingViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new UpComingViewHolder(Tools.bindXML(R.layout.upcoming_meeting_item,parent));
+        return new UpComingViewHolder(Tools.bindXML(R.layout.upcoming_meeting_item, parent));
     }
 
     @Override
@@ -40,7 +40,7 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
         holder.txtPrice.setText(upComingListResponses.get(position).getPrice());
         holder.txtLocation.setText(upComingListResponses.get(position).getLocation());
         holder.txtDate.setText(upComingListResponses.get(position).getBooking_date());
-        holder.txtTime.setText(upComingListResponses.get(position).getStart_time()+" - "+upComingListResponses.get(position).getEnd_time());
+        holder.txtTime.setText(upComingListResponses.get(position).getStart_time() + " - " + upComingListResponses.get(position).getEnd_time());
     }
 
     @Override
@@ -51,7 +51,8 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
     class UpComingViewHolder extends RecyclerView.ViewHolder {
         Button btnBookNow;
         ImageView imgRoom, imgFavourite;
-        TextView txtName, txtLocation, txtPrice,txtDate,txtTime;
+        TextView txtName, txtLocation, txtPrice, txtDate, txtTime;
+
         public UpComingViewHolder(@NonNull View itemView) {
             super(itemView);
             btnBookNow = itemView.findViewById(R.id.btnBookNow);
