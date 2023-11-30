@@ -71,7 +71,7 @@ public class StartTimePickerFragment extends DialogFragment {
                 if (preferenceManager.getKeyValueBoolean("abc")){
                     if (hour<Calendar.getInstance().getTime().getHours()){
                         timePicker.setHour(Calendar.getInstance().getTime().getHours());
-                    }else if (minute<Calendar.getInstance().getTime().getMinutes()){
+                    }else if (hour==Calendar.getInstance().getTime().getHours()&&minute<Calendar.getInstance().getTime().getMinutes()){
                         timePicker.setMinute(Calendar.getInstance().getTime().getMinutes());
                     }else {
                         StringBuilder builder = new StringBuilder();
