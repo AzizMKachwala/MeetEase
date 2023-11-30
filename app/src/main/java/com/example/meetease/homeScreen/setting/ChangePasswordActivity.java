@@ -30,6 +30,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     ImageView ivBack;
     PreferenceManager preferenceManager;
     RestCall restCall;
+    Tools tools;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         txtForgotPassword = findViewById(R.id.txtForgotPassword);
         ivBack = findViewById(R.id.ivBack);
+
+        tools = new Tools(this);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,15 +66,15 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 String confirmPass = etvConfirmPassword.getText().toString();
 
                 if (!oldPass.equals(preferenceManager.getKeyValueString(VariableBag.password, ""))) {
-                    Toast.makeText(ChangePasswordActivity.this, "Old Password is Wrong", Toast.LENGTH_SHORT).show();
+                    Tools.showCustomToast(getApplicationContext(), "Old Password is Wrong", findViewById(R.id.customToastLayout), getLayoutInflater());
                 } else if (newPass.isEmpty()) {
-                    setError("Password cannot be Empty",etvNewPassword);
+                    setErrorMessage("Password cannot be Empty", etvNewPassword);
                 } else if (etvNewPassword.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.password, ""))) {
-                    setError("New Password Cannot be Same as Old Password",etvNewPassword);
+                    setErrorMessage("New Password Cannot be Same as Old Password", etvNewPassword);
                 } else if (!Tools.isValidPassword(newPass)) {
-                    setError("Password Must Consist Of Minimum length of 7 with At-least 1 UpperCase, 1 LowerCase, 1 Number & 1 Special Character",etvNewPassword);
+                    setErrorMessage("Password Must Consist Of Minimum length of 7 with At-least 1 UpperCase, 1 LowerCase, 1 Number & 1 Special Character", etvNewPassword);
                 } else if (!confirmPass.equals(newPass)) {
-                    setError("Confirm Password doesn't Match",etvConfirmPassword);
+                    setErrorMessage("Confirm Password doesn't Match", etvConfirmPassword);
                 } else {
                     editPassword();
                 }
@@ -87,8 +90,10 @@ public class ChangePasswordActivity extends AppCompatActivity {
             }
         });
     }
+
     void editPassword() {
-        restCall.ResetPassword("UpdatePassword",preferenceManager.getKeyValueString(VariableBag.user_id,""),etvNewPassword.getText().toString())
+        tools.showLoading();
+        restCall.ResetPassword("UpdatePassword", preferenceManager.getKeyValueString(VariableBag.user_id, ""), etvNewPassword.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -99,23 +104,23 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ChangePasswordActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
 
                     @Override
                     public void onNext(UserResponse userResponse) {
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ChangePasswordActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
-                                    preferenceManager.setKeyValueString(VariableBag.password,etvNewPassword.getText().toString());
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
+                                    preferenceManager.setKeyValueString(VariableBag.password, etvNewPassword.getText().toString());
                                     finish();
                                 }
                             }
@@ -123,7 +128,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
                     }
                 });
     }
-    void setError(String error , EditText etv){
+
+    void setErrorMessage(String error, EditText etv) {
         etv.setError(error);
         etv.requestFocus();
     }

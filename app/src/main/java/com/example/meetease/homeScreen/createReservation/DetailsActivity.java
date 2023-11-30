@@ -5,8 +5,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.method.HideReturnsTransformationMethod;
-import android.text.method.PasswordTransformationMethod;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -14,12 +12,10 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
-import com.example.meetease.entryModule.WelcomeActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
@@ -125,6 +121,7 @@ public class DetailsActivity extends AppCompatActivity {
     }
 
     void addFavRoom() {
+        tools.showLoading();
         restCall.AddFavRoom("AddFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
@@ -136,21 +133,21 @@ public class DetailsActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(DetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
 
                     @Override
                     public void onNext(UserResponse userResponse) {
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(DetailsActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     if (checkFavourite.equals("1")) {
                                         imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
@@ -181,7 +178,7 @@ public class DetailsActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(DetailsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
@@ -191,7 +188,6 @@ public class DetailsActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(DetailsActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     if (checkFavourite.equals("1")) {
                                         imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);

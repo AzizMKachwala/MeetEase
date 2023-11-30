@@ -3,11 +3,7 @@ package com.example.meetease.homeScreen.createReservation;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.pdf.PdfDocument;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,15 +13,10 @@ import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.homeScreen.HomeScreenActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.time.LocalTime;
-import java.time.temporal.ChronoUnit;
 
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
@@ -62,14 +53,14 @@ public class PaymentActivity extends AppCompatActivity {
         bookingDate = intent.getStringExtra("bookingDate");
         bookingStartTime = intent.getStringExtra("bookingStartTime");
         bookingEndTime = intent.getStringExtra("bookingEndTime");
-        totalTime = intent.getIntExtra("totalTime",0);
+        totalTime = intent.getIntExtra("totalTime", 0);
 
         txtName.setText(roomName);
         txtLocation.setText(roomLocation);
         txtPrice.setText(roomPrice);
         txtSelectedDate.setText(bookingDate);
         txtTimeSlot.setText(bookingStartTime + " - " + bookingEndTime);
-        txtFinalPrice.setText(""+Integer.parseInt(roomPrice)*totalTime);
+        txtFinalPrice.setText("" + Integer.parseInt(roomPrice) * totalTime);
 
         preferenceManager = new PreferenceManager(this);
         tools = new Tools(this);
@@ -101,7 +92,7 @@ public class PaymentActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                Toast.makeText(PaymentActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
@@ -113,9 +104,10 @@ public class PaymentActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
-                                    Toast.makeText(PaymentActivity.this, "Booking successfully", Toast.LENGTH_SHORT).show();
+                                    startActivity(new Intent(PaymentActivity.this, HomeScreenActivity.class));
+                                    finish();
                                 }
-                                Toast.makeText(PaymentActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), userResponse.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }

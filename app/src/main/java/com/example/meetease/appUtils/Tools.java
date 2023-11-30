@@ -8,6 +8,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -52,6 +54,7 @@ public class Tools {
         return m.matches();
     }
 
+
     public void showLoading() {
         try {
             if (dialog != null) {
@@ -94,6 +97,20 @@ public class Tools {
             }
         }
         return Integer.parseInt(newStr);
+    }
+
+    public static <T> void showCustomToast(Context context, String message, T view, LayoutInflater layoutInflater) {
+
+        LayoutInflater inflater = layoutInflater;
+        View layout = inflater.inflate(R.layout.custom_toast_layout, (ViewGroup) view);
+
+        TextView text = layout.findViewById(R.id.customToastText);
+        text.setText(message);
+
+        Toast toast = new Toast(context);
+        toast.setDuration(Toast.LENGTH_SHORT);
+        toast.setView(layout);
+        toast.show();
     }
 
 }

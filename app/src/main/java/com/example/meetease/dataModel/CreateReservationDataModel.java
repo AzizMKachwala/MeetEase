@@ -1,4 +1,4 @@
-package com.example.meetease.homeScreen.createReservation;
+package com.example.meetease.dataModel;
 
 public class CreateReservationDataModel {
 

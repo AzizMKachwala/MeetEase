@@ -15,18 +15,14 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
-import com.example.meetease.dataModel.RoomDetailDataModel;
-import com.example.meetease.dataModel.RoomDetailList;
 import com.example.meetease.dataModel.RoomDetailListNoUpcoming;
 import com.example.meetease.dataModel.RoomDetailListNoUpcomingDataModel;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
-import com.example.meetease.network.UserResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -203,7 +199,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                Toast.makeText(CreateReservationActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                                 tvNoData.setVisibility(View.VISIBLE);
                             }
                         });

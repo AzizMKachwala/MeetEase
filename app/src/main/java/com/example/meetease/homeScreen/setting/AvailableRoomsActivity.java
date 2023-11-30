@@ -98,9 +98,7 @@ public class AvailableRoomsActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tools.stopLoading();
-                                Log.e("##error", e.getLocalizedMessage());
-                                Toast.makeText(AvailableRoomsActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                tools.stopLoading();Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                                 tvNoData.setVisibility(View.VISIBLE);
                             }
                         });

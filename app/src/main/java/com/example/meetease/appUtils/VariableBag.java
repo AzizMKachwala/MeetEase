@@ -13,7 +13,7 @@ public class VariableBag {
     public static String mobile = "mobile";
     public static String email = "email";
     public static String password = "password";
-    public static String registeredDate = "registeredDate";
+    public static String appName = "MEETEASE";
     public static String appVersion = "v1.1";
 
 }

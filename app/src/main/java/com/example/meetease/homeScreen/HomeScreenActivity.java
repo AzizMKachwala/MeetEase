@@ -5,13 +5,11 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -175,7 +173,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == layoutAddReservation) {
-            showCustomToast("Custom Toast Message");
             changeScreen(BookMeetingActivity.class);
         }
 
@@ -227,19 +224,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
     }
 
-    private void showCustomToast(String message) {
-        LayoutInflater inflater = getLayoutInflater();
-        View layout = inflater.inflate(R.layout.custom_toast_layout, findViewById(R.id.customToastLayout));
-
-        TextView text = layout.findViewById(R.id.customToastText);
-        text.setText(message);
-
-        Toast toast = new Toast(getApplicationContext());
-        toast.setDuration(Toast.LENGTH_SHORT);
-        toast.setView(layout);
-        toast.show();
-    }
-
     private void generateInvitationLink() {
         Intent sendIntent = new Intent();
         sendIntent.setAction(Intent.ACTION_SEND);
@@ -267,14 +251,12 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
                 @Override
                 public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                     super.onAuthenticationError(errorCode, errString);
-                    Toast.makeText(HomeScreenActivity.this, errString, Toast.LENGTH_LONG).show();
                     finish();
                 }
 
                 @Override
                 public void onAuthenticationFailed() {
                     super.onAuthenticationFailed();
-                    Toast.makeText(HomeScreenActivity.this, "FAILED !!!", Toast.LENGTH_LONG).show();
                 }
             });
 
