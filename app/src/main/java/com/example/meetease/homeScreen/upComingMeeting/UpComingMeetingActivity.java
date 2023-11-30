@@ -19,11 +19,16 @@ import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.RoomDetailDataModel;
+import com.example.meetease.dataModel.UpComingListResponse;
 import com.example.meetease.dataModel.UpComingResponse;
 import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingActivity;
 import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingAdapter;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
@@ -40,7 +45,6 @@ public class UpComingMeetingActivity extends AppCompatActivity {
     SwipeRefreshLayout swipeRefreshLayout;
     UpComingAdapter upComingAdapter;
     PreferenceManager preferenceManager;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,8 +132,12 @@ public class UpComingMeetingActivity extends AppCompatActivity {
                                 tools.stopLoading();
                                 if (upComingResponse.getStatus().equals(VariableBag.SUCCESS_RESULT) && upComingResponse.getUpComingListResponses() != null && upComingResponse.getUpComingListResponses().size() > 0) {
                                     tvNoData.setVisibility(View.GONE);
+
+                                    List<UpComingListResponse> reversedList = new ArrayList<>(upComingResponse.getUpComingListResponses());
+                                    Collections.reverse(reversedList);
+
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(UpComingMeetingActivity.this);
-                                    upComingAdapter = new UpComingAdapter(upComingResponse.getUpComingListResponses(), UpComingMeetingActivity.this);
+                                    upComingAdapter = new UpComingAdapter(reversedList, UpComingMeetingActivity.this);
                                     recyclerView.setLayoutManager(layoutManager);
                                     recyclerView.setAdapter(upComingAdapter);
                                 } else {

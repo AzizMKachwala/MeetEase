@@ -21,12 +21,14 @@ import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.RoomDetailDataModel;
 import com.example.meetease.dataModel.RoomDetailList;
+import com.example.meetease.dataModel.UpComingListResponse;
 import com.example.meetease.dataModel.UpComingResponse;
 import com.example.meetease.entryModule.SignUpActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import rx.Subscriber;
@@ -104,7 +106,7 @@ public class PreviousMeetingActivity extends AppCompatActivity {
 
     void roomDetail() {
         tools.showLoading();
-        restCall.CloseBooking("ClosedBookings",preferenceManager.getKeyValueString(VariableBag.user_id,""))
+        restCall.CloseBooking("ClosedBookings", preferenceManager.getKeyValueString(VariableBag.user_id, ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UpComingResponse>() {
@@ -132,14 +134,17 @@ public class PreviousMeetingActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                if (upComingResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)&& upComingResponse.getUpComingListResponses()!=null&&upComingResponse.getUpComingListResponses().size()>0){
+                                if (upComingResponse.getStatus().equals(VariableBag.SUCCESS_RESULT) && upComingResponse.getUpComingListResponses() != null && upComingResponse.getUpComingListResponses().size() > 0) {
                                     tvNoData.setVisibility(View.GONE);
+
+                                    List<UpComingListResponse> reversedList = new ArrayList<>(upComingResponse.getUpComingListResponses());
+                                    Collections.reverse(reversedList);
+
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setLayoutManager(layoutManager);
-                                    previousMeetingAdapter = new PreviousMeetingAdapter(upComingResponse.getUpComingListResponses(),PreviousMeetingActivity.this);
+                                    previousMeetingAdapter = new PreviousMeetingAdapter(reversedList, PreviousMeetingActivity.this);
                                     recyclerviewPreviousMeeting.setAdapter(previousMeetingAdapter);
-                                }
-                                else {
+                                } else {
                                     tvNoData.setVisibility(View.VISIBLE);
                                 }
                             }
