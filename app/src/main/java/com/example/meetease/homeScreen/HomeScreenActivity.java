@@ -5,20 +5,17 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
-import com.example.meetease.appUtils.Tools;
 import com.example.meetease.homeScreen.previousMeeting.PreviousMeetingActivity;
 import com.example.meetease.homeScreen.setting.AvailableRoomsActivity;
 import com.example.meetease.homeScreen.setting.ContactUsActivity;
@@ -254,14 +251,12 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
                 @Override
                 public void onAuthenticationError(int errorCode, @NonNull CharSequence errString) {
                     super.onAuthenticationError(errorCode, errString);
-                    Toast.makeText(HomeScreenActivity.this, errString, Toast.LENGTH_LONG).show();
                     finish();
                 }
 
                 @Override
                 public void onAuthenticationFailed() {
                     super.onAuthenticationFailed();
-                    Toast.makeText(HomeScreenActivity.this, "FAILED !!!", Toast.LENGTH_LONG).show();
                 }
             });
 

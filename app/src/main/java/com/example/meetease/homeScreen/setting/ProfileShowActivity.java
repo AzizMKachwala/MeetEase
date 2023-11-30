@@ -7,6 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
@@ -14,9 +15,10 @@ import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.homeScreen.ProfileActivity;
 
 public class ProfileShowActivity extends AppCompatActivity {
-    TextView txtName, txtEmail, txtMobile, txtRegisterDate, txtVersion;
-    ImageView imgEdit, ivBack;
+    TextView txtName, txtEmail, txtMobile, txtAppName, txtVersion;
+    ImageView ivBack;
     PreferenceManager preferenceManager;
+    CardView cvProfile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,9 +28,9 @@ public class ProfileShowActivity extends AppCompatActivity {
         txtName = findViewById(R.id.txtName);
         txtEmail = findViewById(R.id.txtEmail);
         txtMobile = findViewById(R.id.txtMobile);
-        txtRegisterDate = findViewById(R.id.txtRegisterDate);
+        txtAppName = findViewById(R.id.txtAppName);
+        cvProfile = findViewById(R.id.cvProfile);
         txtVersion = findViewById(R.id.txtVersion);
-        imgEdit = findViewById(R.id.imgEdit);
         ivBack = findViewById(R.id.ivBack);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
@@ -48,9 +50,9 @@ public class ProfileShowActivity extends AppCompatActivity {
         txtEmail.setText(preferenceManager.getKeyValueString(VariableBag.email, ""));
         txtMobile.setText(preferenceManager.getKeyValueString(VariableBag.mobile, ""));
         txtVersion.setText(VariableBag.appVersion);
-        txtRegisterDate.setText("");
+        txtAppName.setText(VariableBag.appName);
 
-        imgEdit.setOnClickListener(new View.OnClickListener() {
+        cvProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 startActivity(new Intent(ProfileShowActivity.this, ProfileActivity.class));

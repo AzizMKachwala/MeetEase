@@ -85,7 +85,7 @@ public class SecurityActivity extends AppCompatActivity {
                             dialog.dismiss();
                             deleteUser(preferenceManager.getKeyValueString(VariableBag.user_id, ""));
                         } else {
-                            Toast.makeText(SecurityActivity.this, "Incorrect password. Please try again.", Toast.LENGTH_SHORT).show();
+                            Tools.showCustomToast(getApplicationContext(), "Incorrect password. Please try again.", findViewById(R.id.customToastLayout), getLayoutInflater());
                         }
                     }
                 });
@@ -131,7 +131,7 @@ public class SecurityActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(SecurityActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
@@ -143,7 +143,7 @@ public class SecurityActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
-                                    Toast.makeText(SecurityActivity.this, "Account Deleted ", Toast.LENGTH_SHORT).show();
+                                    Tools.showCustomToast(getApplicationContext(), "Account Deleted Successfully", findViewById(R.id.customToastLayout), getLayoutInflater());
                                     startActivity(new Intent(SecurityActivity.this, SignUpActivity.class));
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                     finish();

@@ -137,7 +137,7 @@ public class ProfileActivity extends AppCompatActivity {
                     Tools.DisplayImage(ProfileActivity.this, imgProfileImage, currentPhotoPath);
                 }
             } else {
-                Toast.makeText(ProfileActivity.this, "Error Loading Photo. Please Click Again", Toast.LENGTH_SHORT).show();
+                Tools.showCustomToast(getApplicationContext(), "Error Loading Photo. Please Click Again", findViewById(R.id.customToastLayout), getLayoutInflater());
             }
         });
 
@@ -202,7 +202,7 @@ public class ProfileActivity extends AppCompatActivity {
                 RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
                 fileToUploadfile = MultipartBody.Part.createFormData("product_image", file.getName(), requestBody);
             } catch (Exception e) {
-                Toast.makeText(this, "" + e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                Tools.showCustomToast(getApplicationContext(), "Camera Error", findViewById(R.id.customToastLayout), getLayoutInflater());
                 e.printStackTrace();
             }
         }
@@ -222,7 +222,7 @@ public class ProfileActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ProfileActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
@@ -238,7 +238,6 @@ public class ProfileActivity extends AppCompatActivity {
                                     if (currentPhotoFile != null && currentPhotoPath != null) {
                                         currentPhotoFile.delete();
                                     }
-                                    Toast.makeText(ProfileActivity.this, "" + userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                     preferenceManager.setKeyValueString(VariableBag.full_name, etvFullName.getText().toString());
                                     preferenceManager.setKeyValueString(VariableBag.mobile, etvPhoneNo.getText().toString());
                                     preferenceManager.setKeyValueString(VariableBag.email, etvEmail.getText().toString());

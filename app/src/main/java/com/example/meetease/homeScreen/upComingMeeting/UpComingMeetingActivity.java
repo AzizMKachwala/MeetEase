@@ -99,7 +99,7 @@ public class UpComingMeetingActivity extends AppCompatActivity {
 
     void roomDetail() {
         tools.showLoading();
-        restCall.UpcomingBookings("UpcomingBookings",preferenceManager.getKeyValueString(VariableBag.user_id,""))
+        restCall.UpcomingBookings("UpcomingBookings", preferenceManager.getKeyValueString(VariableBag.user_id, ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UpComingResponse>() {
@@ -114,7 +114,7 @@ public class UpComingMeetingActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                Toast.makeText(UpComingMeetingActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
@@ -125,14 +125,12 @@ public class UpComingMeetingActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                Toast.makeText(UpComingMeetingActivity.this, upComingResponse.getMessage(), Toast.LENGTH_SHORT).show();
-                                if (upComingResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)&&upComingResponse.getUpComingListResponses() != null && upComingResponse.getUpComingListResponses().size()>0){
+                                if (upComingResponse.getStatus().equals(VariableBag.SUCCESS_RESULT) && upComingResponse.getUpComingListResponses() != null && upComingResponse.getUpComingListResponses().size() > 0) {
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(UpComingMeetingActivity.this);
-                                    upComingAdapter = new UpComingAdapter(upComingResponse.getUpComingListResponses(),UpComingMeetingActivity.this);
+                                    upComingAdapter = new UpComingAdapter(upComingResponse.getUpComingListResponses(), UpComingMeetingActivity.this);
                                     recyclerView.setLayoutManager(layoutManager);
                                     recyclerView.setAdapter(upComingAdapter);
-                                }
-                                else {
+                                } else {
                                     tvNoData.setVisibility(View.VISIBLE);
                                 }
                             }

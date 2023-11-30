@@ -79,6 +79,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         ivBack = findViewById(R.id.ivBack);
         tvCode = findViewById(R.id.tvCode);
         countryPicker = findViewById(R.id.countryPicker);
+
         preferenceManager = new PreferenceManager(ForgotPasswordActivity.this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         tools = new Tools(this);
@@ -149,9 +150,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         && etvConfirmPassword.getText().toString().equals(etvNewPassword.getText().toString())) {
 
                     if (etvNewPassword.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.password, ""))) {
-                        Toast.makeText(ForgotPasswordActivity.this, "New Password Cannot be Same as Old Password", Toast.LENGTH_SHORT).show();
+                        Tools.showCustomToast(getApplicationContext(), "New Password Cannot be Same as Old Password", findViewById(R.id.customToastLayout), getLayoutInflater());
                     } else {
-                        Toast.makeText(ForgotPasswordActivity.this, "Password Change Successfully", Toast.LENGTH_SHORT).show();
+                        Tools.showCustomToast(getApplicationContext(), "Password Change Successfully", findViewById(R.id.customToastLayout), getLayoutInflater());
                         editPassword();
                     }
                 }
@@ -222,7 +223,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     void editPassword() {
-
+        tools.showLoading();
         restCall.ResetPassword("UpdatePassword", preferenceManager.getKeyValueString(VariableBag.user_id, ""), etvNewPassword.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
@@ -234,21 +235,21 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ForgotPasswordActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
 
                     @Override
                     public void onNext(UserResponse userResponse) {
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(ForgotPasswordActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     preferenceManager.setKeyValueString(VariableBag.password, etvNewPassword.getText().toString());
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

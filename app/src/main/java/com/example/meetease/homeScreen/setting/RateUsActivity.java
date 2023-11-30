@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.Tools;
 
 public class RateUsActivity extends AppCompatActivity {
 
@@ -42,15 +43,16 @@ public class RateUsActivity extends AppCompatActivity {
                 int userRating = (int) ratingBar.getRating();
 
                 if (userRating == 1) {
-                    Toast.makeText(RateUsActivity.this, "We Are Really Sorry For Your Experience.", Toast.LENGTH_SHORT).show();
+                    Tools.showCustomToast(getApplicationContext(), "We Are Really Sorry For Your Experience.", findViewById(R.id.customToastLayout), getLayoutInflater());
                 } else if (userRating == 2) {
-                    Toast.makeText(RateUsActivity.this, "We Would Love To Hear Some Suggestions From You. ", Toast.LENGTH_SHORT).show();
+                    Tools.showCustomToast(getApplicationContext(), "We Would Love To Hear Some Suggestions From You. ", findViewById(R.id.customToastLayout), getLayoutInflater());
                 } else if (userRating == 3) {
-                    Toast.makeText(RateUsActivity.this, "We Would Try To Make Your Experience Better Next Time.", Toast.LENGTH_SHORT).show();
+                    Tools.showCustomToast(getApplicationContext(), "We Would Try To Make Your Experience Better Next Time.", findViewById(R.id.customToastLayout), getLayoutInflater());
                 } else if (userRating == 4) {
-                    Toast.makeText(RateUsActivity.this, "Thank you For Rating Us.", Toast.LENGTH_SHORT).show();
+                    Tools.showCustomToast(getApplicationContext(), "Thank you For Rating Us.", findViewById(R.id.customToastLayout), getLayoutInflater());
                 } else {
-                    Toast.makeText(RateUsActivity.this, "We Are Really Glad To Hear It From You.", Toast.LENGTH_SHORT).show();
+                    Tools.showCustomToast(getApplicationContext(), "We Are Really Glad To Hear It From You.", findViewById(R.id.customToastLayout), getLayoutInflater());
+
                 }
 
             }
