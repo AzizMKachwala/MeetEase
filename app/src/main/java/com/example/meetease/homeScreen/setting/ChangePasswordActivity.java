@@ -30,6 +30,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     ImageView ivBack;
     PreferenceManager preferenceManager;
     RestCall restCall;
+    Tools tools;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,6 +44,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
         btnSave = findViewById(R.id.btnSave);
         txtForgotPassword = findViewById(R.id.txtForgotPassword);
         ivBack = findViewById(R.id.ivBack);
+
+        tools = new Tools(this);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,6 +92,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
     }
 
     void editPassword() {
+        tools.showLoading();
         restCall.ResetPassword("UpdatePassword", preferenceManager.getKeyValueString(VariableBag.user_id, ""), etvNewPassword.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
@@ -100,7 +104,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
@@ -111,6 +115,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(UserResponse userResponse) {
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
