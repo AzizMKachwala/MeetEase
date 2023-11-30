@@ -71,6 +71,7 @@
                         android:layout_marginEnd="@dimen/_30sdp"
                         android:textSize="@dimen/_20ssp"
                         android:textStyle="bold" />
+
                     <ImageView
                         android:layout_width="@dimen/_25sdp"
                         android:layout_height="@dimen/_25sdp"

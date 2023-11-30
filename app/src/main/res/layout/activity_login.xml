@@ -32,6 +32,8 @@
         android:layout_below="@id/txtHeading"
         android:layout_marginTop="@dimen/_30sdp"
         android:hint="Email Or Phone"
+        android:drawableStart="@drawable/baseline_email_24"
+        android:drawablePadding="@dimen/_10sdp"
         android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
         android:paddingStart="@dimen/_20sdp" />
@@ -48,6 +50,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:drawableStart="@drawable/baseline_password_24"
+            android:drawablePadding="@dimen/_10sdp"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:padding="@dimen/_10sdp" />
