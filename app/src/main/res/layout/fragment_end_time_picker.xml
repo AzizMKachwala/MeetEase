@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:gravity="center"
-    tools:context=".homeScreen.createReservation.EndTimePickerFragment">
+    tools:context=".fragment.EndTimePickerFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="@dimen/_250sdp"

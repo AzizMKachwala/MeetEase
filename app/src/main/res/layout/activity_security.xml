@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/lightBlue"
-    tools:context=".homeScreen.setting.SecurityActivity">
+    tools:context=".activity.homeScreen.settings.security.SecurityActivity">
 
     <ImageView
         android:id="@+id/ivBack"

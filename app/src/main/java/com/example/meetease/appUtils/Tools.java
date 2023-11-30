@@ -1,7 +1,6 @@
 package com.example.meetease.appUtils;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -14,7 +13,6 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.meetease.R;
-import com.example.meetease.homeScreen.HomeScreenActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;

@@ -30,100 +30,100 @@
         android:usesCleartextTraffic="true"
         tools:targetApi="31">
         <activity
-            android:name=".SampleActivity"
+            android:name=".activity.homeScreen.settings.SampleActivity"
             android:exported="false" />
         <activity
-            android:name=".homeScreen.setting.NotificationActivity"
+            android:name=".activity.homeScreen.mainScreen.NotificationActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.upComingMeeting.UpComingMeetingActivity"
+            android:name=".activity.homeScreen.mainScreen.UpComingMeetingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.setting.ProfileShowActivity"
+            android:name=".activity.homeScreen.mainScreen.profile.ProfileShowActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.setting.FaqActivity"
+            android:name=".activity.homeScreen.settings.FaqActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.createReservation.PaymentActivity"
+            android:name=".activity.homeScreen.mainScreen.create.PaymentActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.setting.FavoriteRoomActivity"
+            android:name=".activity.homeScreen.settings.FavoriteRoomActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.setting.ForgotPasswordActivity"
+            android:name=".activity.homeScreen.settings.security.ForgotPasswordActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.setting.ChangePasswordActivity"
+            android:name=".activity.homeScreen.settings.security.ChangePasswordActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.setting.AvailableRoomsActivity"
+            android:name=".activity.homeScreen.settings.AvailableRoomsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.createReservation.DetailsActivity"
+            android:name=".activity.homeScreen.mainScreen.create.DetailsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.setting.SecurityActivity"
+            android:name=".activity.homeScreen.settings.security.SecurityActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.createReservation.BookMeetingActivity"
+            android:name=".activity.homeScreen.mainScreen.create.BookMeetingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.setting.RateUsActivity"
+            android:name=".activity.homeScreen.mainScreen.RateUsActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.createReservation.CreateReservationActivity"
+            android:name=".activity.homeScreen.mainScreen.create.CreateReservationActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.previousMeeting.PreviousMeetingActivity"
+            android:name=".activity.homeScreen.mainScreen.PreviousMeetingActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.HomeScreenActivity"
+            android:name=".activity.homeScreen.HomeScreenActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".entryModule.LoginActivity"
+            android:name=".activity.entryModule.LoginActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".entryModule.SignUpActivity"
+            android:name=".activity.entryModule.SignUpActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.ProfileActivity"
+            android:name=".activity.homeScreen.mainScreen.profile.ProfileActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".entryModule.GuideActivity"
+            android:name=".activity.entryModule.GuideActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".homeScreen.setting.ContactUsActivity"
+            android:name=".activity.homeScreen.mainScreen.ContactUsActivity"
             android:exported="false"
             android:isScrollContainer="true"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustPan" />
         <activity
-            android:name=".entryModule.WelcomeActivity"
+            android:name=".activity.entryModule.WelcomeActivity"
             android:exported="false"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".entryModule.SplashScreenActivity"
+            android:name=".activity.entryModule.SplashScreenActivity"
             android:exported="true"
             android:screenOrientation="portrait">
             <intent-filter>

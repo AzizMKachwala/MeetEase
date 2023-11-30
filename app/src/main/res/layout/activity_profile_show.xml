@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/blue_back"
     android:padding="@dimen/_5sdp"
-    tools:context=".homeScreen.setting.ProfileShowActivity">
+    tools:context=".activity.homeScreen.mainScreen.profile.ProfileShowActivity">
 
     <ImageView
         android:id="@+id/ivBack"

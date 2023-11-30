@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:background="@drawable/blue_back"
     android:layout_height="match_parent"
-    tools:context=".homeScreen.setting.FavoriteRoomActivity">
+    tools:context=".activity.homeScreen.settings.FavoriteRoomActivity">
 
     <EditText
         android:id="@+id/etvSearch"

@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".homeScreen.createReservation.StartTimePickerFragment">
+    tools:context=".fragment.StartTimePickerFragment">
 
     <androidx.cardview.widget.CardView
         android:layout_width="@dimen/_250sdp"

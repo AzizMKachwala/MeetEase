@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:layout_gravity="center"
     android:elevation="@dimen/_20sdp"
-    tools:context=".homeScreen.createReservation.FilterFragment">
+    tools:context=".fragment.FilterFragment">
 
     <LinearLayout
         android:layout_width="match_parent"
