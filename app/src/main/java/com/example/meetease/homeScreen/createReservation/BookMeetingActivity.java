@@ -6,6 +6,8 @@ import androidx.fragment.app.FragmentTransaction;
 
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -29,6 +31,7 @@ public class BookMeetingActivity extends AppCompatActivity {
     StartTimePickerFragment startTimePickerFragment;
     EndTimePickerFragment endTimePickerFragment;
     PreferenceManager preferenceManager;
+    View cv;
     String selectYear, selectMonth, selectDay, startMinute, startHour, endHour, endMinute;
 
     @Override
@@ -47,7 +50,9 @@ public class BookMeetingActivity extends AppCompatActivity {
         endTime = findViewById(R.id.endTime);
         ivBack = findViewById(R.id.ivBack);
         ivDate = findViewById(R.id.ivDate);
+        cv = findViewById(R.id.cv);
 
+        cv.setBackground(new ColorDrawable(Color.TRANSPARENT));
         tvStartTime.setText("Select Start Time");
         tvEndTime.setText("Select End Time");
         tvDate.setText("Select Date");

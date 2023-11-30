@@ -207,7 +207,7 @@ public class ProfileActivity extends AppCompatActivity {
             }
         }
 
-        restCall.EditUser(tag, user_id, full_name, mobile, email, password, fileToUploadfile)
+        restCall.EditUser(tag, user_id, full_name, mobile, email, password)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/lightBlue"
+    android:background="@drawable/blue_back"
     tools:context=".homeScreen.createReservation.BookMeetingActivity">
 
     <ImageView
@@ -18,15 +18,16 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.cardview.widget.CardView
+
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_10sdp"
-        android:backgroundTint="@color/blue"
         app:cardCornerRadius="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <LinearLayout
+            android:id="@+id/cv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">

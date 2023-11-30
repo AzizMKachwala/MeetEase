@@ -48,8 +48,7 @@ public interface RestCall {
             @Part("full_name") RequestBody full_name,
             @Part("mobile") RequestBody mobile,
             @Part("email") RequestBody email,
-            @Part("password") RequestBody password,
-            @Part MultipartBody.Part profile_photo1);
+            @Part("password") RequestBody password);
 
     @FormUrlEncoded
     @POST("Controller/UserController.php")

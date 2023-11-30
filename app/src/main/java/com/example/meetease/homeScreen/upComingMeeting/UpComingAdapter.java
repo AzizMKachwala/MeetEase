@@ -40,6 +40,8 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
         holder.txtPrice.setText(upComingListResponses.get(position).getPrice());
         holder.txtLocation.setText(upComingListResponses.get(position).getLocation());
         holder.ratingBar.setRating(Float.parseFloat(upComingListResponses.get(position).getAvg_rating()));
+        holder.txtDate.setText(upComingListResponses.get(position).getBooking_date());
+        holder.txtTime.setText(upComingListResponses.get(position).getStart_time()+" - "+upComingListResponses.get(position).getEnd_time());
     }
 
     @Override
@@ -50,7 +52,7 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
     class UpComingViewHolder extends RecyclerView.ViewHolder {
         Button btnBookNow;
         ImageView imgRoom, imgFavourite;
-        TextView txtName, txtLocation, txtPrice;
+        TextView txtName, txtLocation, txtPrice,txtDate,txtTime;
         RatingBar ratingBar;
         public UpComingViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -61,6 +63,8 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
             txtLocation = itemView.findViewById(R.id.txtLocation);
             txtPrice = itemView.findViewById(R.id.txtPrice);
             ratingBar = itemView.findViewById(R.id.ratingBar);
+            txtDate = itemView.findViewById(R.id.txtDate);
+            txtTime = itemView.findViewById(R.id.txtTime);
         }
     }
 }

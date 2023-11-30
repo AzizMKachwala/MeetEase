@@ -3,6 +3,8 @@ package com.example.meetease.homeScreen.setting;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -101,6 +103,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
+        etvOtp1.addTextChangedListener(new GenericTextWatcher(null,etvOtp1, etvOtp2));
+        etvOtp2.addTextChangedListener(new GenericTextWatcher(etvOtp1,etvOtp2, etvOtp3));
+        etvOtp3.addTextChangedListener(new GenericTextWatcher(etvOtp2,etvOtp3, etvOtp4));
+        etvOtp4.addTextChangedListener(new GenericTextWatcher(etvOtp3,etvOtp4, etvOtp5));
+        etvOtp5.addTextChangedListener(new GenericTextWatcher(etvOtp4,etvOtp5, etvOtp6));
+        etvOtp6.addTextChangedListener(new GenericTextWatcher(etvOtp5,etvOtp6, null));
 
         btnSend.setText("Send");
         lytOtp.setVisibility(View.GONE);
@@ -128,20 +136,19 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
-//        btnCheckOtp.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                tools.showLoading();
-//
-//                if (etvOTP.getText().toString().isEmpty()) {
-//                    etvOTP.setError("Enter OTP");
-//                    lytOtp.requestFocus();
-//                } else {
-//                    verifyCode(etvOTP.getText().toString());
-//                }
-//
-//            }
-//        });
+        btnCheckOtp.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                tools.showLoading();
+
+                if (etvOtp1.getText().toString().isEmpty()||etvOtp2.getText().toString().isEmpty()||etvOtp3.getText().toString().isEmpty()||etvOtp4.getText().toString().isEmpty()||etvOtp5.getText().toString().isEmpty()||etvOtp6.getText().toString().isEmpty()) {
+                    Tools.showCustomToast(ForgotPasswordActivity.this,"Enter Otp",findViewById(R.id.customToastLayout),getLayoutInflater());
+                } else {
+                    verifyCode(etvOtp1.getText().toString()+etvOtp2.getText().toString()+etvOtp3.getText().toString()+etvOtp4.getText().toString()+etvOtp5.getText().toString()+etvOtp6.getText().toString());
+                }
+
+            }
+        });
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -209,14 +216,19 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             btnCheckOtp.setVisibility(View.GONE);
                             btnSend.setVisibility(View.GONE);
                             etvPhoneNo.setEnabled(false);
-                            lytOtp.setEnabled(false);
+                            etvOtp1.setEnabled(false);
+                            etvOtp2.setEnabled(false);
+                            etvOtp3.setEnabled(false);
+                            etvOtp4.setEnabled(false);
+                            etvOtp5.setEnabled(false);
+                            etvOtp6.setEnabled(false);
                             etvNewPassword.setVisibility(View.VISIBLE);
                             etvConfirmPassword.setVisibility(View.VISIBLE);
                             btnSave.setVisibility(View.VISIBLE);
                             tools.stopLoading();
                         } else {
-//                            etvOTP.setError("Enter Correct OTP");
-//                            lytOtp.requestFocus();
+                            tools.stopLoading();
+                            Tools.showCustomToast(ForgotPasswordActivity.this,"Enter Correct OTP",findViewById(R.id.customToastLayout),getLayoutInflater());
                         }
                     }
                 });
@@ -259,5 +271,34 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                         });
                     }
                 });
+    }
+
+    public class GenericTextWatcher implements TextWatcher {
+        private EditText currentEditText;
+        private EditText nextEditText;
+        private EditText beforeEdittext;
+
+        public GenericTextWatcher(EditText beforeEdittext,EditText currentEditText, EditText nextEditText) {
+            this.currentEditText = currentEditText;
+            this.nextEditText = nextEditText;
+            this.beforeEdittext = beforeEdittext;
+        }
+
+        @Override
+        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+        }
+
+        @Override
+        public void afterTextChanged(Editable editable) {
+            if (editable.length() == 1) {
+                if (nextEditText != null) {
+                    nextEditText.requestFocus();
+                }
+            }
+        }
     }
 }

@@ -70,7 +70,6 @@ public class PaymentActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 roomBooking();
-                finish();
             }
         });
     }
@@ -103,11 +102,11 @@ public class PaymentActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
+                                Tools.showCustomToast(getApplicationContext(), userResponse.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     startActivity(new Intent(PaymentActivity.this, HomeScreenActivity.class));
                                     finish();
                                 }
-                                Tools.showCustomToast(getApplicationContext(), userResponse.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }

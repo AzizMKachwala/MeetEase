@@ -76,7 +76,8 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
         holder.txtLocation.setText(searchList.get(position).getLocation());
         holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getAvg_rating()));
         Tools.DisplayImage(context,holder.imgRoom,searchList.get(position).getRoom_img());
-
+        holder.txtDate.setText(searchList.get(position).getBooking_date());
+        holder.txtTime.setText(searchList.get(position).getStart_time()+" - "+searchList.get(position).getEnd_time());
     }
 
     @Override

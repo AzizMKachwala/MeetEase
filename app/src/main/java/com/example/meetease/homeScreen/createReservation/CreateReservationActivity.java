@@ -179,6 +179,11 @@ public class CreateReservationActivity extends AppCompatActivity {
     }
 
     void updateData(List<RoomDetailListNoUpcoming> list){
+        if (list.size()>0){
+            tvNoData.setVisibility(View.GONE);
+        }else {
+            tvNoData.setVisibility(View.VISIBLE);
+        }
         createReservationAdapter.updateData(list);
     }
 
