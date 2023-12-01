@@ -216,6 +216,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
                 preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
+
                 FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
                 if (currentUser != null) {
                     for (UserInfo userInfo : currentUser.getProviderData()) {

@@ -36,6 +36,7 @@
             android:orientation="horizontal">
 
             <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageProfile"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/_100sdp"
                 android:layout_margin="@dimen/_5sdp"
@@ -133,6 +134,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_8sdp"
             android:orientation="vertical">
 
             <TextView
@@ -140,7 +142,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:text="App Name"
-                android:textSize="@dimen/_25ssp" />
+                android:textSize="@dimen/_22ssp" />
 
             <TextView
                 android:id="@+id/txtAppName"
@@ -148,7 +150,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:hint="MeetEase"
-                android:textSize="@dimen/_20ssp" />
+                android:textSize="@dimen/_18ssp" />
 
         </LinearLayout>
 
@@ -168,6 +170,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:paddingVertical="@dimen/_8sdp"
             android:orientation="vertical">
 
             <TextView
@@ -175,7 +178,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:text="App Version"
-                android:textSize="@dimen/_25ssp" />
+                android:textSize="@dimen/_22ssp" />
 
             <TextView
                 android:id="@+id/txtVersion"
@@ -183,7 +186,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
                 android:text="v1.1"
-                android:textSize="@dimen/_20ssp" />
+                android:textSize="@dimen/_18ssp" />
 
         </LinearLayout>
 

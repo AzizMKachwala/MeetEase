@@ -11,12 +11,16 @@ import androidx.cardview.widget.CardView;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
+import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ProfileShowActivity extends AppCompatActivity {
     TextView txtName, txtEmail, txtMobile, txtAppName, txtVersion;
     ImageView ivBack;
     PreferenceManager preferenceManager;
+    CircleImageView imageProfile;
     CardView cvProfile;
 
     @Override
@@ -29,8 +33,10 @@ public class ProfileShowActivity extends AppCompatActivity {
         txtMobile = findViewById(R.id.txtMobile);
         txtAppName = findViewById(R.id.txtAppName);
         cvProfile = findViewById(R.id.cvProfile);
+        imageProfile = findViewById(R.id.imageProfile);
         txtVersion = findViewById(R.id.txtVersion);
         ivBack = findViewById(R.id.ivBack);
+
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,6 +47,7 @@ public class ProfileShowActivity extends AppCompatActivity {
 
         preferenceManager = new PreferenceManager(ProfileShowActivity.this);
 
+        Tools.DisplayImage(this,imageProfile,preferenceManager.getKeyValueString(VariableBag.image,""));
         txtName.setSelected(true);
         txtEmail.setSelected(true);
         txtMobile.setSelected(true);

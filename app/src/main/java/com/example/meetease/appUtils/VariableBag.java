@@ -11,6 +11,7 @@ public class VariableBag {
     public static String user_id = "user_id";
     public static String full_name = "full_name";
     public static String mobile = "mobile";
+    public static String image = "image";
     public static String email = "email";
     public static String password = "password";
     public static String appName = "MEETEASE";

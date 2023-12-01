@@ -32,4 +32,5 @@ public class PreferenceManager {
     public Boolean getKeyValueBoolean(String key){
         return sharedPreferences.getBoolean(key,false);
     }
+
 }

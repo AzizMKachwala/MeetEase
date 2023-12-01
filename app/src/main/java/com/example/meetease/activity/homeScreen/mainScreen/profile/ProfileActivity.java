@@ -2,6 +2,7 @@ package com.example.meetease.activity.homeScreen.mainScreen.profile;
 
 import androidx.activity.result.ActivityResultLauncher;
 import androidx.activity.result.contract.ActivityResultContracts;
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
@@ -9,9 +10,13 @@ import androidx.core.content.FileProvider;
 
 import android.Manifest;
 import android.annotation.SuppressLint;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.StrictMode;
@@ -20,15 +25,20 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.example.meetease.BaseClass;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.dataModel.EditUserResponse;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -41,20 +51,23 @@ import okhttp3.RequestBody;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
-public class ProfileActivity extends AppCompatActivity {
+public class ProfileActivity extends BaseClass {
 
     ImageView ivBack, imgEdit;
     CircleImageView imgProfileImage;
     Tools tools;
+    MultipartBody.Part imagePart = null;
+    Context context = ProfileActivity.this;
     PreferenceManager preferenceManager;
     EditText etvFullName, etvPhoneNo, etvEmail;
     Button btnSave;
     String currentPhotoPath = "";
-    int REQUEST_CAMERA_PERMISSION = 101;
-    ActivityResultLauncher<Intent> cameraLauncher;
-    private File currentPhotoFile;
+    private static final int REQUEST_IMAGE_CAPTURE = 1;
+    private static final int REQUEST_IMAGE_GALLERY = 2;
+    private static final int CAMERA_PERMISSION_REQUEST = 101;
+    Bitmap imageBitmap;
     RestCall restCall;
-    String id, userPassword;
+    String id, userPassword,profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +86,8 @@ public class ProfileActivity extends AppCompatActivity {
         imgProfileImage = findViewById(R.id.imgProfileImage);
 
         preferenceManager = new PreferenceManager(this);
+
+        Tools.DisplayImage(this,imgProfileImage,preferenceManager.getKeyValueString(VariableBag.image,""));
         id = preferenceManager.getKeyValueString(VariableBag.user_id, "");
         etvFullName.setText(preferenceManager.getKeyValueString(VariableBag.full_name, ""));
         etvEmail.setText(preferenceManager.getKeyValueString(VariableBag.email, ""));
@@ -116,68 +131,19 @@ public class ProfileActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 try {
-                    currentPhotoPath = "";
-                    if (checkCameraPermission()) {
-                        openCamera();
+                    if (checkAndRequestPermission(context)) {
+                        openImageDialog(context);
                     }
                 } catch (Exception e) {
                     e.printStackTrace();
-
                 }
             }
         });
-
-        cameraLauncher = registerForActivityResult(new ActivityResultContracts.StartActivityForResult(), result -> {
-            if (result.getResultCode() == RESULT_OK) {
-                if (currentPhotoFile != null && currentPhotoPath != null) {
-                    // Camera capture was successful, handle the result.
-                    Tools.DisplayImage(ProfileActivity.this, imgProfileImage, currentPhotoPath);
-                }
-            } else {
-                Tools.showCustomToast(getApplicationContext(), "Error Loading Photo. Please Click Again", findViewById(R.id.customToastLayout), getLayoutInflater());
-            }
-        });
-
     }
 
-    private boolean checkCameraPermission() {
-        if (ContextCompat.checkSelfPermission(ProfileActivity.this, android.Manifest.permission.CAMERA) != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(ProfileActivity.this, new String[]{Manifest.permission.CAMERA}, REQUEST_CAMERA_PERMISSION);
-            return false;
-        }
-        return true;
-    }
 
-    private void openCamera() {
-        Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Ensure that there's a camera activity to handle the intent
-        if (takePictureIntent.resolveActivity(getPackageManager()) != null) {
-            // Create the File where the photo should go
-            File photoFile = null;
-            try {
-                photoFile = createImageFile();
-            } catch (IOException ex) {
-                // Error occurred while creating the File
-                ex.printStackTrace();
-            }
-            // Continue only if the File was successfully created
-            if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(ProfileActivity.this, "com.example.meetease", photoFile);
-                takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
-                cameraLauncher.launch(takePictureIntent);
-            }
-        }
-    }
 
-    private File createImageFile() throws IOException {
-        @SuppressLint("SimpleDateFormat") String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss").format(new Date());
-        String imageFileName = "JPEG_" + timeStamp + "_";
-        File storageDir = getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
-        currentPhotoFile = image;
-        currentPhotoPath = image.getAbsolutePath();
-        return image;
-    }
+
 
     void editUser() {
         tools.showLoading();
@@ -189,25 +155,22 @@ public class ProfileActivity extends AppCompatActivity {
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), etvEmail.getText().toString());
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), userPassword);
 
-        MultipartBody.Part fileToUploadfile = null;
+        RequestBody imageRequestBody ;
 
-        if (fileToUploadfile == null && currentPhotoPath != "") {
-            try {
-                StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
-                StrictMode.setVmPolicy(builder.build());
-                File file = new File(currentPhotoPath);
-                RequestBody requestBody = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-                fileToUploadfile = MultipartBody.Part.createFormData("product_image", file.getName(), requestBody);
-            } catch (Exception e) {
-                Tools.showCustomToast(getApplicationContext(), "Camera Error", findViewById(R.id.customToastLayout), getLayoutInflater());
-                e.printStackTrace();
-            }
+
+        if (imageBitmap != null) {
+            ByteArrayOutputStream stream = new ByteArrayOutputStream();
+            imageBitmap.compress(Bitmap.CompressFormat.JPEG, 100, stream);
+            byte[] byteArray = stream.toByteArray();
+
+            imageRequestBody = RequestBody.create(MediaType.parse("image/*"), byteArray);
+            imagePart = MultipartBody.Part.createFormData("profile_photo1", "image.jpg", imageRequestBody);
         }
 
-        restCall.EditUser(tag, user_id, full_name, mobile, email, password)
+        restCall.EditUser(tag, user_id, full_name, mobile, email, password,imagePart)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
-                .subscribe(new Subscriber<UserResponse>() {
+                .subscribe(new Subscriber<EditUserResponse>() {
                     @Override
                     public void onCompleted() {
 
@@ -225,16 +188,16 @@ public class ProfileActivity extends AppCompatActivity {
                     }
 
                     @Override
-                    public void onNext(UserResponse userResponse) {
+                    public void onNext(EditUserResponse userResponse) {
                         tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
 
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
-                                    if (currentPhotoFile != null && currentPhotoPath != null) {
-                                        currentPhotoFile.delete();
-                                    }
+
+                                    Tools.DisplayImage(ProfileActivity.this,imgProfileImage,preferenceManager.getKeyValueString(VariableBag.image,""));
+                                    preferenceManager.setKeyValueString(VariableBag.image,userResponse.getProfile_photo());
                                     preferenceManager.setKeyValueString(VariableBag.full_name, etvFullName.getText().toString());
                                     preferenceManager.setKeyValueString(VariableBag.mobile, etvPhoneNo.getText().toString());
                                     preferenceManager.setKeyValueString(VariableBag.email, etvEmail.getText().toString());
@@ -246,4 +209,88 @@ public class ProfileActivity extends AppCompatActivity {
                 });
 
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == REQUEST_IMAGE_GALLERY && resultCode == Activity.RESULT_OK && data != null) {
+            Uri selectedImage = data.getData();
+            assert selectedImage != null;
+            profileImage = selectedImage.toString();
+            Tools.DisplayImage(context,imgProfileImage,profileImage);
+
+            // Convert the selected image URI to a Bitmap
+            try {
+                imageBitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), selectedImage);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+        } else if (requestCode == REQUEST_IMAGE_CAPTURE && resultCode == Activity.RESULT_OK && data != null) {
+            Bundle extras = data.getExtras();
+            if (extras != null) {
+                imageBitmap = (Bitmap) extras.get("data");
+
+                /*// Use Glide to load and display the Bitmap
+                Glide.with(this).load(imageBitmap).into(b.ivProfileImage);*/
+
+                // Convert the Bitmap to a URI
+                assert imageBitmap != null;
+                Uri imageUri = bitmapToUri(context, imageBitmap);
+                profileImage = imageUri.toString();
+                Glide.with(context).load(profileImage).into(imgProfileImage);
+            }
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == CAMERA_PERMISSION_REQUEST) {
+            if (grantResults.length > 0) {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                    // For Android 13 and above, check both camera and media images permissions
+                    boolean cameraPermissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean mediaImagesPermissionGranted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+                    if (cameraPermissionGranted && mediaImagesPermissionGranted) {
+                        // Both permissions granted, you can proceed
+                        openImageDialog(context); // Or any other action you need
+                    } else {
+                        // Handle the case where one or both permissions were denied
+                        if (!cameraPermissionGranted) {
+                            // Permission denied for camera
+                            Toast.makeText(context, "Please grant permission to access the camera.", Toast.LENGTH_SHORT).show();
+                        }
+                        if (!mediaImagesPermissionGranted) {
+                            // Permission denied for media images
+                            Toast.makeText(context, "Please grant permission to access media images.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                } else {
+                    // For Android versions less than or equal to Android 12, check media images and external storage permissions
+                    boolean cameraPermissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
+                    boolean externalStoragePermissionGranted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
+
+                    if (cameraPermissionGranted && externalStoragePermissionGranted) {
+                        // Both permissions granted, you can proceed
+                        openImageDialog(context); // Or any other action you need
+                    } else {
+                        // Handle the case where one or both permissions were denied
+                        if (!cameraPermissionGranted) {
+                            // Permission denied for media images
+                            Toast.makeText(context, "Please grant permission to access media images.", Toast.LENGTH_SHORT).show();
+                        }
+                        if (!externalStoragePermissionGranted) {
+                            // Permission denied for external storage
+                            Toast.makeText(context, "Please grant permission to access external storage.", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                }
+            }
+        } else {
+            super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        }
+    }
+
 }

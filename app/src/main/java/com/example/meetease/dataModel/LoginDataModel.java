@@ -22,17 +22,29 @@ public class LoginDataModel {
     @SerializedName("message")
     @Expose
     String message;
+    @SerializedName("profile_photo1")
+    @Expose
+    String profile_photo;
     @SerializedName("status")
     @Expose
     String status;
 
-    public LoginDataModel(String user_id, String full_name, String email, String mobile, String message, String status) {
+    public LoginDataModel(String user_id, String full_name, String email, String mobile, String message, String status,String profile_photo) {
         this.user_id = user_id;
         this.full_name = full_name;
         this.email = email;
         this.mobile = mobile;
         this.message = message;
         this.status = status;
+        this.profile_photo = profile_photo;
+    }
+
+    public String getProfile_photo() {
+        return profile_photo;
+    }
+
+    public void setProfile_photo(String profile_photo) {
+        this.profile_photo = profile_photo;
     }
 
     public String getUser_id() {
