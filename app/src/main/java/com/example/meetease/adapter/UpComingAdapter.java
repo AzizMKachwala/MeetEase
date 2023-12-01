@@ -8,22 +8,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.dataModel.UpComingListResponse;
+import com.example.meetease.fragment.FilterFragment;
+import com.example.meetease.fragment.ReceiptFragment;
 
 import java.util.List;
 
-public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComingViewHolder> {
+public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComingViewHolder>  {
 
     List<UpComingListResponse> upComingListResponses;
     Context context;
+    ReceiptFragment receiptFragment;
+    FragmentManager fragmentManager;
 
-    public UpComingAdapter(List<UpComingListResponse> upComingListResponses, Context context) {
+    public UpComingAdapter(List<UpComingListResponse> upComingListResponses, Context context,FragmentManager fragmentManager) {
         this.upComingListResponses = upComingListResponses;
         this.context = context;
+        this.fragmentManager = fragmentManager;
     }
 
     @NonNull
@@ -41,7 +48,10 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
         holder.btnViewInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                receiptFragment = new ReceiptFragment();
+                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+                receiptFragment.show(fragmentTransaction, "#tag");
+                receiptFragment.setCancelable(false);
             }
         });
     }

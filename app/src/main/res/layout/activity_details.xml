@@ -75,7 +75,6 @@
                 style="@style/Widget.AppCompat.RatingBar.Small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:background="@color/lightBlue"
                 android:numStars="5"
                 android:rating="4"
                 android:stepSize="1"
@@ -93,7 +92,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:background="@color/lightBlue"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:orientation="horizontal">
 
                 <ImageView

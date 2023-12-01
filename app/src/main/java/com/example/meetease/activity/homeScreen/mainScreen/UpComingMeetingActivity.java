@@ -144,7 +144,7 @@ public class UpComingMeetingActivity extends AppCompatActivity {
                                     Collections.reverse(reversedList);
 
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(UpComingMeetingActivity.this);
-                                    upComingAdapter = new UpComingAdapter(reversedList, UpComingMeetingActivity.this);
+                                    upComingAdapter = new UpComingAdapter(reversedList, UpComingMeetingActivity.this, getSupportFragmentManager());
                                     recyclerView.setLayoutManager(layoutManager);
                                     recyclerView.setAdapter(upComingAdapter);
                                 } else {
