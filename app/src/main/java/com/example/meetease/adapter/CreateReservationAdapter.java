@@ -31,14 +31,16 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
     public interface CreateReservationAdapterDataClick {
         void bookDataClick(RoomDetailListNoUpcoming createReservationDataModel);
-        void imgFavClick(RoomDetailListNoUpcoming dataModel,String checkFavourite);
+
+        void imgFavClick(RoomDetailListNoUpcoming dataModel, String checkFavourite);
     }
 
-    public void updateData(List<RoomDetailListNoUpcoming> dataModelList){
+    public void updateData(List<RoomDetailListNoUpcoming> dataModelList) {
         this.dataModelList = dataModelList;
         this.searchList = dataModelList;
         notifyDataSetChanged();
     }
+
     public void setUpInterFace(CreateReservationAdapterDataClick createReservationAdapterDataClick) {
         this.createReservationAdapterDataClick = createReservationAdapterDataClick;
     }
@@ -80,7 +82,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
     @NonNull
     @Override
     public CreateReservationViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new CreateReservationViewHolder(Tools.bindXML(R.layout.meeting_rooms_item,parent));
+        return new CreateReservationViewHolder(Tools.bindXML(R.layout.meeting_rooms_item, parent));
     }
 
     @Override
@@ -89,7 +91,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
         holder.txtName.setText(searchList.get(position).getRoom_name());
         holder.txtLocation.setText(searchList.get(position).getLocation());
         holder.txtPrice.setText(searchList.get(position).getPrice() + VariableBag.CURRENCY);
-        Tools.DisplayImage(context,holder.imgRoom,searchList.get(position).getRoom_img());
+        Tools.DisplayImage(context, holder.imgRoom, searchList.get(position).getRoom_img());
 
         holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getRating()));
         holder.btnBookNow.setOnClickListener(new View.OnClickListener() {
@@ -101,7 +103,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
         checkFavourite = searchList.get(position).getUpcoming_status();
         if (checkFavourite.equals("0")) {
-            holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
+            holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_white_border_24);
         } else {
             holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
         }
@@ -110,13 +112,13 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
             @Override
             public void onClick(View view) {
                 if (checkFavourite.equals("0")) {
-                    holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
+                    holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_white_border_24);
                     checkFavourite = "1";
                 } else {
                     holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
                     checkFavourite = "0";
                 }
-                createReservationAdapterDataClick.imgFavClick(searchList.get(position),checkFavourite);
+                createReservationAdapterDataClick.imgFavClick(searchList.get(position), checkFavourite);
             }
         });
     }
@@ -124,10 +126,9 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
     @Override
     public int getItemCount() {
 
-        if(searchList.size() == 0){
+        if (searchList.size() == 0) {
             return 0;
-        }
-        else {
+        } else {
             return searchList.size();
         }
     }
@@ -148,6 +149,8 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
             txtLocation = itemView.findViewById(R.id.txtLocation);
             txtPrice = itemView.findViewById(R.id.txtPrice);
             ratingBar = itemView.findViewById(R.id.ratingBar);
+
+            txtName.setSelected(true);
         }
     }
 }

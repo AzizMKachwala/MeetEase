@@ -23,10 +23,12 @@ import android.widget.Toast;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
+import com.example.meetease.appUtils.VariableBag;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.time.LocalDateTime;
 
 public class ReceiptFragment extends DialogFragment {
 
@@ -45,60 +47,65 @@ public class ReceiptFragment extends DialogFragment {
         txtTimeSlot = view.findViewById(R.id.txtTimeSlot);
         txtFinalPrice = view.findViewById(R.id.txtFinalPrice);
 
+        String price = getArguments().getString("roomPrice");
+
         txtName.setText(getArguments().getString("roomName"));
         txtLocation.setText(getArguments().getString("roomLocation"));
-        txtPrice.setText(getArguments().getString("roomPrice"));
+        txtPrice.setText(price);
         txtSelectedDate.setText(getArguments().getString("selectedDate"));
-
-//12:00:20
+        txtTimeSlot.setText(getArguments().getString("startTime") + " - " + getArguments().getString("endTime"));
 
         String startTime = getArguments().getString("startTime");
         String endTime = getArguments().getString("endTime");
 
-        txtTimeSlot.setText(getArguments().getString("startTime") + " - " + getArguments().getString("endTime"));
-
-        String startHour = "", startMin = "" , endHour = "", endMin = "";
+        String startHour = "", startMin = "", endHour = "", endMin = "";
         boolean checkMin = false;
 
-        for (int i = 0; i < startTime.length() ; i++){
-            if(!checkMin){
-                if(startTime.charAt(i) == ':'){
+        for (int i = 0; i < startTime.length(); i++) {
+            if (!checkMin) {
+                if (startTime.charAt(i) == ':') {
                     checkMin = true;
-                }
-               else {
+                } else {
                     startHour += startTime.charAt(i);
                 }
-            }else {
-                if(startTime.charAt(i) == ':'){
+            } else {
+                if (startTime.charAt(i) == ':') {
                     break;
-                }
-                else{
+                } else {
                     startMin += startTime.charAt(i);
                 }
             }
         }
 
-        for (int i = 0; i < endTime.length() ; i++){
-            if(!checkMin){
-                if(endTime.charAt(i) == ':'){
+        checkMin = false;
+
+        for (int i = 0; i < endTime.length(); i++) {
+            if (!checkMin) {
+                if (endTime.charAt(i) == ':') {
                     checkMin = true;
-                }
-                else {
+                } else {
                     endHour += endTime.charAt(i);
                 }
-            }else {
-                if(endTime.charAt(i) == ':'){
+            } else {
+                if (endTime.charAt(i) == ':') {
                     break;
                 }
-                else{
-                    endMin += endTime.charAt(i);
-                }
+                endMin += endTime.charAt(i);
             }
         }
 
-        Toast.makeText(getContext(),startHour + startMin + endHour + endMin, Toast.LENGTH_SHORT ).show();
+        int endTimeTemp = (Integer.parseInt(endHour) * 60) + Integer.parseInt(endMin);
+        int startTimeTemp = (Integer.parseInt(startHour) * 60) + Integer.parseInt(startMin);
+        int minuteTemp = endTimeTemp - startTimeTemp;
+        int hourTemp = 0;
+        if (minuteTemp % 60 != 0) {
+            hourTemp = minuteTemp / 60;
+            hourTemp = hourTemp + 1;
+        } else {
+            hourTemp = minuteTemp / 60;
+        }
 
-        txtFinalPrice.setText("");
+        txtFinalPrice.setText(hourTemp * Integer.parseInt(price) + VariableBag.CURRENCY);
 
         imgPdf = view.findViewById(R.id.imgPdf);
         imgCancel = view.findViewById(R.id.imgCancel);
