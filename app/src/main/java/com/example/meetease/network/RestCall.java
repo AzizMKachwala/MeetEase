@@ -86,7 +86,7 @@ public interface RestCall {
     @POST("Controller/FavRoomController.php")
     Single<UserResponse> DeleteFavRoom(
             @Field("tag") String tag,
-            @Field("room_detail_id") String room_detail_id,
+            @Field("room_details_id") String room_detail_id,
             @Field("user_id") String user_id);
     @FormUrlEncoded
     @POST("Controller/FavRoomController.php")

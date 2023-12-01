@@ -28,8 +28,10 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
     CreateReservationAdapterDataClick createReservationAdapterDataClick;
 
+
     public interface CreateReservationAdapterDataClick {
         void bookDataClick(RoomDetailListNoUpcoming createReservationDataModel);
+        void imgFavClick(RoomDetailListNoUpcoming dataModel,String checkFavourite);
     }
 
     public void updateData(List<RoomDetailListNoUpcoming> dataModelList){
@@ -87,10 +89,6 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
         holder.txtName.setText(searchList.get(position).getRoom_name());
         holder.txtLocation.setText(searchList.get(position).getLocation());
         holder.txtPrice.setText(searchList.get(position).getPrice() + VariableBag.CURRENCY);
-//        Glide
-//                .with(context)
-//                .load(searchList.get(position).getRoom_img())
-//                .into(holder.imgRoom);
         Tools.DisplayImage(context,holder.imgRoom,searchList.get(position).getRoom_img());
 
         holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getRating()));
@@ -101,7 +99,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
             }
         });
 
-        checkFavourite = "0";
+        checkFavourite = searchList.get(position).getUpcoming_status();
         if (checkFavourite.equals("0")) {
             holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
         } else {
@@ -111,13 +109,14 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
         holder.imgFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkFavourite.equals("1")) {
+                if (checkFavourite.equals("0")) {
                     holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
-                    checkFavourite = "0";
+                    checkFavourite = "1";
                 } else {
                     holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
-                    checkFavourite = "1";
+                    checkFavourite = "0";
                 }
+                createReservationAdapterDataClick.imgFavClick(searchList.get(position),checkFavourite);
             }
         });
     }

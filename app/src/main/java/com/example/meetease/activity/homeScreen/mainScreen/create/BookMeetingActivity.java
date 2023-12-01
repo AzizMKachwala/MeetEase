@@ -75,7 +75,7 @@ public class BookMeetingActivity extends AppCompatActivity {
                     @Override
                     public void saveClick(String date, String day, String month, String year) {
                         tvDate.setText(date);
-                        if (date.equals("30/11/2023")){
+                        if (date.equals(01/12/2023)){
                             preferenceManager.setKeyValueBoolean("abc",true);
                         }
                         else {

@@ -15,16 +15,22 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.dataModel.FavRoomDataModel;
+import com.example.meetease.dataModel.FavRoomListDataModel;
+import com.example.meetease.dataModel.RoomDetailList;
 import com.example.meetease.dataModel.RoomDetailListNoUpcoming;
 import com.example.meetease.dataModel.RoomDetailListNoUpcomingDataModel;
 import com.example.meetease.adapter.CreateReservationAdapter;
 import com.example.meetease.fragment.FilterFragment;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
+import com.example.meetease.network.UserResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,7 +44,9 @@ public class CreateReservationActivity extends AppCompatActivity {
     CreateReservationAdapter createReservationAdapter;
     EditText etvSearch;
     TextView tvNoData;
+    List<FavRoomListDataModel> favApiList= new ArrayList<>();
     Boolean flag = false;
+    PreferenceManager preferenceManager;
     ImageView ivClose, img_filter, ivBack;
     FilterFragment filterFragment;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -52,6 +60,7 @@ public class CreateReservationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_reservation);
 
+        preferenceManager = new PreferenceManager(this);
         recyclerViewMeetingRooms = findViewById(R.id.recyclerViewMeetingRooms);
         etvSearch = findViewById(R.id.etvSearch);
         tvNoData = findViewById(R.id.tvNoData);
@@ -62,8 +71,7 @@ public class CreateReservationActivity extends AppCompatActivity {
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
 
-        tools.showLoading();
-        AvailableRoomDetails();
+        roomDetail();
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,7 +84,7 @@ public class CreateReservationActivity extends AppCompatActivity {
             @Override
             public void onRefresh() {
                 tools.showLoading();
-                AvailableRoomDetails();
+                roomDetail();
                 swipeRefreshLayout.setRefreshing(false);
             }
         });
@@ -241,6 +249,17 @@ public class CreateReservationActivity extends AppCompatActivity {
                                         tvNoData.setVisibility(View.GONE);
                                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
                                         recyclerViewMeetingRooms.setLayoutManager(layoutManager);
+
+                                        for (int p=0;p<roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().size();p++){
+                                            apiList.get(p).setUpcoming_status("0");
+                                            for (int k=0;k<favApiList.size();k++){
+                                                if (favApiList.get(k).getUser_id().equals(preferenceManager.getKeyValueString(VariableBag.user_id,""))){
+                                                    if (roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().get(p).getRoom_d_id().equals(favApiList.get(k).getRoom_details_id())){
+                                                        apiList.get(p).setUpcoming_status("1");
+                                                    }
+                                                }
+                                            }
+                                        }
                                         createReservationAdapter = new CreateReservationAdapter(apiList, CreateReservationActivity.this);
                                         recyclerViewMeetingRooms.setAdapter(createReservationAdapter);
                                         createReservationAdapter.setUpInterFace(new CreateReservationAdapter.CreateReservationAdapterDataClick() {
@@ -270,6 +289,16 @@ public class CreateReservationActivity extends AppCompatActivity {
                                                 intent.putExtra("totalTime", hour);
                                                 startActivity(intent);
                                             }
+
+                                            @Override
+                                            public void imgFavClick(RoomDetailListNoUpcoming dataModel ,String checkFavourite) {
+                                                if (checkFavourite.equals("0")){
+                                                    addFavRoom(dataModel.getRoom_d_id());
+                                                }
+                                                else {
+                                                    deleteFavRoom(dataModel.getRoom_d_id());
+                                                }
+                                            }
                                         });
                                     }
 
@@ -282,4 +311,118 @@ public class CreateReservationActivity extends AppCompatActivity {
                     }
                 });
     }
+    void roomDetail() {
+        tools.showLoading();
+        restCall.GetFevRoom("GetFavRoom", preferenceManager.getKeyValueString(VariableBag.user_id, ""))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<FavRoomDataModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                tvNoData.setVisibility(View.VISIBLE);
+                                Tools.showCustomToast(getApplicationContext(), e.getLocalizedMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(FavRoomDataModel favRoomDataModel) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if(favRoomDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                    AvailableRoomDetails();
+                                    tvNoData.setVisibility(View.GONE);
+                                    if (favRoomDataModel.getFavRoomListlList()!=null){
+                                        favApiList = favRoomDataModel.getFavRoomListlList();
+                                    }
+                                }
+                                {
+                                    tools.stopLoading();
+                                    tvNoData.setVisibility(View.VISIBLE);
+                                }
+
+                            }
+                        });
+                    }
+                });
+    }
+    void addFavRoom(String roomId) {
+        restCall.AddFavRoom("AddFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<UserResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(UserResponse userResponse) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
+                                    Tools.showCustomToast(CreateReservationActivity.this,userResponse.getMessage(),findViewById(R.id.customToastLayout),getLayoutInflater());
+                                }
+                            }
+                        });
+                    }
+                });
+    }
+
+    void deleteFavRoom(String roomId) {
+        Toast.makeText(this, roomId, Toast.LENGTH_SHORT).show();
+        restCall.DeleteFavRoom("DeleteFavRoom", roomId, "2")
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<UserResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(UserResponse userResponse) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                    Tools.showCustomToast(CreateReservationActivity.this,userResponse.getMessage(),findViewById(R.id.customToastLayout),getLayoutInflater());
+                                }
+                            }
+                        });
+                    }
+                });
+    }
+
 }

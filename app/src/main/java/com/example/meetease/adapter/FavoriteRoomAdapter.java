@@ -71,10 +71,6 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
         holder.txtName.setText(searchList.get(position).getRoom_name());
         holder.txtLocation.setText(searchList.get(position).getLocation());
         holder.txtPrice.setText(searchList.get(position).getPrice() + VariableBag.CURRENCY);
-//        Glide
-//                .with(context)
-//                .load(searchList.get(position).getRoom_img())
-//                .into(holder.imgRoom);
         Tools.DisplayImage(context,holder.imgRoom,searchList.get(position).getRoom_img());
         holder.btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,7 +79,7 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
             }
         });
 
-        checkFavourite = "0";
+        checkFavourite = "1";
         if (checkFavourite.equals("0")) {
             holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
         } else {
@@ -100,6 +96,7 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
                     holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
                     checkFavourite = "1";
                 }
+//                createReservationAdapterDataClick.imgFavClick(searchList.get(position),checkFavourite);
             }
         });
     }

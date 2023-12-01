@@ -23,7 +23,7 @@ import rx.schedulers.Schedulers;
 
 public class DetailsActivity extends AppCompatActivity {
 
-    ImageView imgRoom, imgFavourite, ivBack;
+    ImageView imgRoom, ivBack;
     TextView txtName, txtLocation, txtPrice;
     RatingBar ratingBar;
     Button btnBookNow;
@@ -42,7 +42,6 @@ public class DetailsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_details);
 
         imgRoom = findViewById(R.id.imgRoom);
-        imgFavourite = findViewById(R.id.imgFavourite);
         ivBack = findViewById(R.id.ivBack);
         txtName = findViewById(R.id.txtName);
         txtLocation = findViewById(R.id.txtLocation);
@@ -80,26 +79,6 @@ public class DetailsActivity extends AppCompatActivity {
 
         Tools.DisplayImage(DetailsActivity.this, imgRoom, roomImage);
 
-        checkFavourite = "0";
-        if (checkFavourite.equals("0")) {
-            imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
-        } else {
-            imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
-        }
-        imgFavourite.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (checkFavourite.equals("1")) {
-                    deleteFavRoom();
-                    imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
-                    checkFavourite = "0";
-                } else {
-                    addFavRoom();
-                    imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
-                    checkFavourite = "1";
-                }
-            }
-        });
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -116,88 +95,5 @@ public class DetailsActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
-    }
-
-    void addFavRoom() {
-        tools.showLoading();
-        restCall.AddFavRoom("AddFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.newThread())
-                .subscribe(new Subscriber<UserResponse>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        tools.stopLoading();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onNext(UserResponse userResponse) {
-                        tools.stopLoading();
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
-                                    if (checkFavourite.equals("1")) {
-                                        imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
-                                        checkFavourite = "0";
-                                    } else {
-                                        imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
-                                        checkFavourite = "1";
-                                    }
-                                }
-                            }
-                        });
-                    }
-                });
-    }
-
-    void deleteFavRoom() {
-        restCall.DeleteFavRoom("DeleteFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.newThread())
-                .subscribe(new Subscriber<UserResponse>() {
-                    @Override
-                    public void onCompleted() {
-
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
-                            }
-                        });
-                    }
-
-                    @Override
-                    public void onNext(UserResponse userResponse) {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
-                                    if (checkFavourite.equals("1")) {
-                                        imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
-                                        checkFavourite = "0";
-                                    } else {
-                                        imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
-                                        checkFavourite = "1";
-                                    }
-                                }
-                            }
-                        });
-                    }
-                });
     }
 }

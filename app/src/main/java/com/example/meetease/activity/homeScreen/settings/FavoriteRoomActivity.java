@@ -1,6 +1,7 @@
 package com.example.meetease.activity.homeScreen.settings;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -103,7 +104,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
 
     void roomDetail() {
         tools.showLoading();
-        restCall.GetFevRoom("GetFevRoom", preferenceManager.getKeyValueString(VariableBag.user_id, ""))
+        restCall.GetFevRoom("GetFavRoom", preferenceManager.getKeyValueString(VariableBag.user_id, ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<FavRoomDataModel>() {
@@ -119,7 +120,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 tvNoData.setVisibility(View.VISIBLE);
-                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
+                                Tools.showCustomToast(getApplicationContext(), e.getLocalizedMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
@@ -130,13 +131,13 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-//                                Tools.showCustomToast(getApplicationContext(), "No email app found", findViewById(R.id.customToastLayout), getLayoutInflater());
-//                                if (favRoomDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)&&favRoomDataModel.getFavRoomListlList() != null && favRoomDataModel.getFavRoomListlList().size()>0){
-//                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FavoriteRoomActivity.this);
-//                                    recycleFavRoom.setLayoutManager(layoutManager);
-//                                    favoriteRoomAdapter = new FavoriteRoomAdapter(favRoomDataModel.getFavRoomListlList(),FavoriteRoomActivity.this);
-//                                    recycleFavRoom.setAdapter(favoriteRoomAdapter);
-//                                }
+                                Tools.showCustomToast(getApplicationContext(), "No email app found", findViewById(R.id.customToastLayout), getLayoutInflater());
+                                if (favRoomDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)&&favRoomDataModel.getFavRoomListlList() != null && favRoomDataModel.getFavRoomListlList().size()>0){
+                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FavoriteRoomActivity.this);
+                                    recycleFavRoom.setLayoutManager(layoutManager);
+                                    favoriteRoomAdapter = new FavoriteRoomAdapter(favRoomDataModel.getFavRoomListlList(),FavoriteRoomActivity.this);
+                                    recycleFavRoom.setAdapter(favoriteRoomAdapter);
+                                }
                             }
                         });
                     }
