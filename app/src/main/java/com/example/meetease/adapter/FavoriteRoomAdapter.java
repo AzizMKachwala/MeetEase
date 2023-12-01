@@ -15,6 +15,7 @@ import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.FavRoomListDataModel;
+import com.example.meetease.dataModel.RoomDetailListNoUpcoming;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +25,20 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
     String checkFavourite = "0";
     List<FavRoomListDataModel> roomDetailLists,searchList;
     Context context;
+    FavoriteAdapterDataClick favoriteAdapterDataClick;
 
+    public interface FavoriteAdapterDataClick {
+        void imgFavClick(FavRoomListDataModel dataModel);
+    }
+
+    public void updateData(List<FavRoomListDataModel> dataModelList){
+        this.roomDetailLists = dataModelList;
+        this.searchList = dataModelList;
+        notifyDataSetChanged();
+    }
+    public void setUpInterFace(FavoriteAdapterDataClick favoriteAdapterDataClick) {
+        this.favoriteAdapterDataClick = favoriteAdapterDataClick;
+    }
     public void search(CharSequence charSequence, TextView textView, RecyclerView recyclerView) {
 
         String charString = charSequence.toString().trim();
@@ -89,14 +103,14 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
         holder.imgFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkFavourite.equals("1")) {
+                if (checkFavourite.equals("0")) {
                     holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
-                    checkFavourite = "0";
+                    checkFavourite = "1";
                 } else {
                     holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
-                    checkFavourite = "1";
+                    checkFavourite = "0";
                 }
-//                createReservationAdapterDataClick.imgFavClick(searchList.get(position),checkFavourite);
+                favoriteAdapterDataClick.imgFavClick(searchList.get(position));
             }
         });
     }

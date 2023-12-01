@@ -12,15 +12,19 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.activity.homeScreen.mainScreen.create.CreateReservationActivity;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.FavRoomDataModel;
 import com.example.meetease.adapter.FavoriteRoomAdapter;
+import com.example.meetease.dataModel.FavRoomListDataModel;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
+import com.example.meetease.network.UserResponse;
 
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
@@ -131,12 +135,54 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                Tools.showCustomToast(getApplicationContext(), "No email app found", findViewById(R.id.customToastLayout), getLayoutInflater());
                                 if (favRoomDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)&&favRoomDataModel.getFavRoomListlList() != null && favRoomDataModel.getFavRoomListlList().size()>0){
                                     RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FavoriteRoomActivity.this);
                                     recycleFavRoom.setLayoutManager(layoutManager);
                                     favoriteRoomAdapter = new FavoriteRoomAdapter(favRoomDataModel.getFavRoomListlList(),FavoriteRoomActivity.this);
                                     recycleFavRoom.setAdapter(favoriteRoomAdapter);
+                                    tvNoData.setVisibility(View.GONE);
+                                    favoriteRoomAdapter.setUpInterFace(new FavoriteRoomAdapter.FavoriteAdapterDataClick() {
+                                        @Override
+                                        public void imgFavClick(FavRoomListDataModel dataModel) {
+                                            deleteFavRoom(dataModel.getRoom_details_id());
+                                        }
+                                    });
+                                }
+                                else {
+                                    tvNoData.setVisibility(View.VISIBLE);
+                                }
+                            }
+                        });
+                    }
+                });
+    }
+    void deleteFavRoom(String roomId) {
+        restCall.DeleteFavRoom("DeleteFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id,""))
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<UserResponse>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(UserResponse userResponse) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                    roomDetail();
                                 }
                             }
                         });

@@ -109,28 +109,33 @@ public class CreateReservationActivity extends AppCompatActivity {
                 filterFragment.setUpInterface(new FilterFragment.FilterApply() {
                     @Override
                     public void filterList(String city, String Price, String Rating) {
-                        if (!city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
-                            updateData(ratingFilter(priceFilter(cityFilter(apiList, city), Price), Rating));
-                        } else if (!city.isEmpty() && !Price.isEmpty() && Rating.isEmpty()) {
-                            updateData(priceFilter(cityFilter(apiList, city), Price));
-                        } else if (!city.isEmpty() && Price.isEmpty() && !Rating.isEmpty()) {
-                            updateData(ratingFilter(cityFilter(apiList, city), Rating));
-                        } else if (city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
-                            updateData(ratingFilter(priceFilter(apiList, Price), Rating));
-                        } else if (!city.isEmpty() && Price.isEmpty() && Rating.isEmpty()) {
-                            updateData(cityFilter(apiList, city));
-                        } else if (city.isEmpty() && !Price.isEmpty() && Rating.isEmpty()) {
-                            updateData(priceFilter(apiList, Price));
-                        } else if (city.isEmpty() && Price.isEmpty() && !Rating.isEmpty()) {
-                            updateData(ratingFilter(apiList, Rating));
-                        } else {
-                            updateData(apiList);
+
+                        if (apiList!=null&&apiList.size()>0){
+                            if (!city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
+                                updateData(ratingFilter(priceFilter(cityFilter(apiList, city), Price), Rating));
+                            } else if (!city.isEmpty() && !Price.isEmpty() && Rating.isEmpty()) {
+                                updateData(priceFilter(cityFilter(apiList, city), Price));
+                            } else if (!city.isEmpty() && Price.isEmpty() && !Rating.isEmpty()) {
+                                updateData(ratingFilter(cityFilter(apiList, city), Rating));
+                            } else if (city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
+                                updateData(ratingFilter(priceFilter(apiList, Price), Rating));
+                            } else if (!city.isEmpty() && Price.isEmpty() && Rating.isEmpty()) {
+                                updateData(cityFilter(apiList, city));
+                            } else if (city.isEmpty() && !Price.isEmpty() && Rating.isEmpty()) {
+                                updateData(priceFilter(apiList, Price));
+                            } else if (city.isEmpty() && Price.isEmpty() && !Rating.isEmpty()) {
+                                updateData(ratingFilter(apiList, Rating));
+                            } else {
+                                updateData(apiList);
+                            }
                         }
                     }
 
                     @Override
                     public void reset() {
-                        createReservationAdapter.updateData(apiList);
+                        if (apiList!=null&&apiList.size()>0){
+                            createReservationAdapter.updateData(apiList);
+                        }
                     }
                 });
             }
@@ -329,7 +334,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 tvNoData.setVisibility(View.VISIBLE);
-                                Tools.showCustomToast(getApplicationContext(), e.getLocalizedMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
@@ -346,9 +351,8 @@ public class CreateReservationActivity extends AppCompatActivity {
                                         favApiList = favRoomDataModel.getFavRoomListlList();
                                     }
                                 }
-                                {
-                                    tools.stopLoading();
-                                    tvNoData.setVisibility(View.VISIBLE);
+                                else{
+                                    AvailableRoomDetails();
                                 }
 
                             }
@@ -391,8 +395,7 @@ public class CreateReservationActivity extends AppCompatActivity {
     }
 
     void deleteFavRoom(String roomId) {
-        Toast.makeText(this, roomId, Toast.LENGTH_SHORT).show();
-        restCall.DeleteFavRoom("DeleteFavRoom", roomId, "2")
+        restCall.DeleteFavRoom("DeleteFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id,""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {

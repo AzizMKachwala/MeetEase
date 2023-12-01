@@ -1,6 +1,7 @@
 package com.example.meetease.network;
 
 
+import com.example.meetease.dataModel.EditUserResponse;
 import com.example.meetease.dataModel.FavRoomDataModel;
 import com.example.meetease.dataModel.LoginDataModel;
 import com.example.meetease.dataModel.RoomDetailDataModel;
@@ -42,13 +43,14 @@ public interface RestCall {
 
     @Multipart
     @POST("Controller/UserController.php")
-    Single<UserResponse> EditUser(
+    Single<EditUserResponse> EditUser(
             @Part("tag") RequestBody tag,
             @Part("user_id") RequestBody user_id,
             @Part("full_name") RequestBody full_name,
             @Part("mobile") RequestBody mobile,
             @Part("email") RequestBody email,
-            @Part("password") RequestBody password);
+            @Part("password") RequestBody password,
+            @Part MultipartBody.Part profile_photo1);
 
     @FormUrlEncoded
     @POST("Controller/UserController.php")

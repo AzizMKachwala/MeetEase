@@ -217,6 +217,7 @@ public class LoginActivity extends AppCompatActivity {
                                     preferenceManager.setKeyValueString(VariableBag.user_id, loginDataModel.getUser_id());
                                     preferenceManager.setKeyValueString(VariableBag.full_name, loginDataModel.getFull_name());
                                     preferenceManager.setKeyValueString(VariableBag.mobile, loginDataModel.getMobile());
+                                    preferenceManager.setKeyValueString(VariableBag.image, loginDataModel.getProfile_photo());
                                     preferenceManager.setKeyValueString(VariableBag.email, loginDataModel.getEmail());
                                     preferenceManager.setKeyValueString(VariableBag.password, etvPassword.getText().toString());
                                     startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class));
