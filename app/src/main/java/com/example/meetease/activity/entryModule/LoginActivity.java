@@ -235,7 +235,7 @@ public class LoginActivity extends AppCompatActivity {
 
     void AddUser(){
         tools.showLoading();
-        restCall.AddUser("AddUser",name,email,"1234567890","GooglePassword2817")
+        restCall.AddUser("AddUser",name,email,"No Number Find","Password is Not a Set")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
