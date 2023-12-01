@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
-
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
@@ -18,7 +17,7 @@ import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
-
+import java.util.Arrays;
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 

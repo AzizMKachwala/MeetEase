@@ -38,8 +38,12 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
         holder.txtName.setText(upComingListResponses.get(position).getRoom_name());
         holder.txtPrice.setText(upComingListResponses.get(position).getPrice());
         holder.txtLocation.setText(upComingListResponses.get(position).getLocation());
-        holder.txtDate.setText(upComingListResponses.get(position).getBooking_date());
-        holder.txtTime.setText(upComingListResponses.get(position).getStart_time() + " - " + upComingListResponses.get(position).getEnd_time());
+        holder.btnViewInfo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override
@@ -48,20 +52,18 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
     }
 
     class UpComingViewHolder extends RecyclerView.ViewHolder {
-        Button btnBookNow;
+        Button btnViewInfo;
         ImageView imgRoom, imgFavourite;
-        TextView txtName, txtLocation, txtPrice, txtDate, txtTime;
+        TextView txtName, txtLocation, txtPrice;
 
         public UpComingViewHolder(@NonNull View itemView) {
             super(itemView);
-            btnBookNow = itemView.findViewById(R.id.btnBookNow);
+            btnViewInfo = itemView.findViewById(R.id.btnViewInfo);
             imgRoom = itemView.findViewById(R.id.imgRooms);
             imgFavourite = itemView.findViewById(R.id.imgFavourite);
             txtName = itemView.findViewById(R.id.txtName);
             txtLocation = itemView.findViewById(R.id.txtLocation);
             txtPrice = itemView.findViewById(R.id.txtPrice);
-            txtDate = itemView.findViewById(R.id.txtDate);
-            txtTime = itemView.findViewById(R.id.txtTime);
         }
     }
 }
