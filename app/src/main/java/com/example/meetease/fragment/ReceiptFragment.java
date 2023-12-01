@@ -1,6 +1,7 @@
 package com.example.meetease.fragment;
 
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -30,7 +31,7 @@ import java.io.IOException;
 public class ReceiptFragment extends DialogFragment {
 
     TextView txtName, txtLocation, txtPrice, txtSelectedDate, txtTimeSlot, txtFinalPrice;
-    ImageView imgPdf, imgSs;
+    ImageView imgPdf, imgCancel;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -44,38 +45,19 @@ public class ReceiptFragment extends DialogFragment {
         txtTimeSlot = view.findViewById(R.id.txtTimeSlot);
         txtFinalPrice = view.findViewById(R.id.txtFinalPrice);
 
-        imgSs = view.findViewById(R.id.imgSs);
-        imgPdf = view.findViewById(R.id.imgPdf);
+        txtName.setText(getArguments().getString("roomName"));
+        txtLocation.setText(getArguments().getString("roomLocation"));
+        txtPrice.setText(getArguments().getString("roomPrice"));
+        txtSelectedDate.setText(getArguments().getString("selectedDate"));
+        txtTimeSlot.setText(getArguments().getString("startTime") + " - " + getArguments().getString("endTime"));
 
-        imgSs.setOnClickListener(new View.OnClickListener() {
+        imgPdf = view.findViewById(R.id.imgPdf);
+        imgCancel = view.findViewById(R.id.imgCancel);
+
+        imgCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
-                imgSs.setVisibility(View.GONE);
-
-                // Take a screenshot of the current screen
-                View rootView = view.getRootView();
-                rootView.setDrawingCacheEnabled(true);
-                Bitmap screenshot = Bitmap.createBitmap(rootView.getDrawingCache());
-                rootView.setDrawingCacheEnabled(false);
-
-                File directory = getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
-                String fileName = "screenshot_" + System.currentTimeMillis() + ".png";
-                File filePath = new File(directory, fileName);
-
-                try {
-                    FileOutputStream outputStream = new FileOutputStream(filePath);
-                    screenshot.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-                    outputStream.flush();
-                    outputStream.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-
-                Tools.showCustomToast(getContext(), "Screenshot saved: " + filePath, view.findViewById(R.id.customToastLayout), getLayoutInflater());
                 dismiss();
-                imgSs.setVisibility(View.VISIBLE);
-                imgPdf.setVisibility(View.VISIBLE);
             }
         });
 
@@ -90,13 +72,36 @@ public class ReceiptFragment extends DialogFragment {
 
                 Canvas canvas = page.getCanvas();
 
-                canvas.drawText("Booking Receipt", 40, 50, new Paint());
-                canvas.drawText("Name: " + txtName.getText().toString(), 40, 70, new Paint());
-                canvas.drawText("Location: " + txtLocation.getText().toString(), 40, 90, new Paint());
-                canvas.drawText("Price: " + txtPrice.getText().toString(), 40, 110, new Paint());
-                canvas.drawText("Date: " + txtSelectedDate.getText().toString(), 40, 130, new Paint());
-                canvas.drawText("Time: " + txtTimeSlot.getText().toString(), 40, 150, new Paint());
-                canvas.drawText("Payable Amount: " + txtFinalPrice.getText().toString(), 40, 170, new Paint());
+                Paint appNamePaint = new Paint();
+                appNamePaint.setTextSize(20);
+                appNamePaint.setColor(Color.BLACK);
+                canvas.drawText("MeetEase", 20, 50, appNamePaint);
+
+                Paint titlePaint = new Paint();
+                titlePaint.setTextSize(16);
+                titlePaint.setColor(Color.BLACK);
+
+                Paint textPaint = new Paint();
+                textPaint.setTextSize(12);
+                textPaint.setColor(Color.BLACK);
+
+                int startY = 100;
+
+                canvas.drawText("Booking Receipt", 20, startY, titlePaint);
+                startY += 20;
+
+                drawText(canvas, "Name:", txtName.getText().toString(), 20, startY, textPaint);
+                drawText(canvas, "Location:", txtLocation.getText().toString(), 20, startY += 20, textPaint);
+                drawText(canvas, "Price:", txtPrice.getText().toString(), 20, startY += 20, textPaint);
+                drawText(canvas, "Date:", txtSelectedDate.getText().toString(), 20, startY += 20, textPaint);
+                drawText(canvas, "Time:", txtTimeSlot.getText().toString(), 20, startY += 20, textPaint);
+
+                // Draw a line
+                startY += 10;
+                canvas.drawLine(20, startY, 280, startY, textPaint);
+
+                // Draw final price
+                drawText(canvas, "Payable Amount:", txtFinalPrice.getText().toString(), 20, startY += 20, textPaint);
 
                 pdfDocument.finishPage(page);
 
@@ -121,5 +126,10 @@ public class ReceiptFragment extends DialogFragment {
         });
 
         return view;
+    }
+
+    private void drawText(Canvas canvas, String label, String value, float x, float y, Paint paint) {
+        canvas.drawText(label, x, y, paint);
+        canvas.drawText(value, x + 150, y, paint); // Adjust the X position for the value
     }
 }
