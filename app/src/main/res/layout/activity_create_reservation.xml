@@ -28,6 +28,8 @@
         android:drawableStart="@drawable/ic_search"
         android:drawablePadding="@dimen/_5sdp"
         android:hint="search"
+        android:imeOptions="actionDone"
+        android:inputType="textAutoComplete"
         android:paddingStart="@dimen/_10sdp"
         android:paddingEnd="@dimen/_30sdp"
         android:singleLine="true"

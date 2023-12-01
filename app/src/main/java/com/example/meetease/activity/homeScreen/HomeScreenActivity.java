@@ -21,7 +21,7 @@ import com.example.meetease.activity.homeScreen.mainScreen.NotificationActivity;
 import com.example.meetease.activity.homeScreen.mainScreen.PreviousMeetingActivity;
 import com.example.meetease.activity.homeScreen.mainScreen.profile.ProfileShowActivity;
 import com.example.meetease.activity.homeScreen.mainScreen.RateUsActivity;
-import com.example.meetease.activity.homeScreen.settings.SampleActivity;
+import com.example.meetease.activity.homeScreen.settings.FavoriteRoomActivity;
 import com.example.meetease.activity.homeScreen.settings.security.SecurityActivity;
 import com.example.meetease.activity.homeScreen.mainScreen.UpComingMeetingActivity;
 import com.example.meetease.activity.homeScreen.mainScreen.create.BookMeetingActivity;
@@ -79,6 +79,8 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         ivNotification = findViewById(R.id.ivNotification);
         tvSettingName = findViewById(R.id.tvSettingName);
         tvSettingEmail = findViewById(R.id.tvSettingEmail);
+
+        tvSettingEmail.setSelected(true);
 
         scrollView.setVisibility(View.GONE);
         tvTrans.setVisibility(View.GONE);
@@ -148,8 +150,9 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             ivSetting.startAnimation(slideInAnimation);
             tvTrans.startAnimation(slideInAnimation);
         }
+
         if (view == favoriteRooms) {
-            changeScreen(SampleActivity.class);
+            changeScreen(FavoriteRoomActivity.class);
         }
 
         if (view == ivNotification) {
