@@ -100,7 +100,7 @@ public class PaymentActivity extends AppCompatActivity {
         txtTimeSlot.setText(bookingStartTime + " - " + bookingEndTime);
         txtFinalPrice.setText("" + Integer.parseInt(roomPrice) * totalTime);
 
-        btnPay.setText(" Pay    --->   "+Integer.parseInt(roomPrice) * totalTime+VariableBag.CURRENCY);
+        btnPay.setText(" Pay    --->    "+Integer.parseInt(roomPrice) * totalTime+VariableBag.CURRENCY);
         preferenceManager = new PreferenceManager(this);
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);

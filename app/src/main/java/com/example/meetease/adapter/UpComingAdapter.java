@@ -1,6 +1,7 @@
 package com.example.meetease.adapter;
 
 import android.content.Context;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -52,6 +53,16 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
                 FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
                 receiptFragment.show(fragmentTransaction, "#tag");
                 receiptFragment.setCancelable(false);
+
+                Bundle bundle = new Bundle();
+                bundle.putString("roomName",upComingListResponses.get(position).getRoom_name());
+                bundle.putString("roomLocation",upComingListResponses.get(position).getLocation());
+                bundle.putString("roomPrice",upComingListResponses.get(position).getPrice());
+                bundle.putString("selectedDate",upComingListResponses.get(position).getBooking_date());
+                bundle.putString("startTime",upComingListResponses.get(position).getStart_time());
+                bundle.putString("endTime",upComingListResponses.get(position).getEnd_time());
+
+                receiptFragment.setArguments(bundle);
             }
         });
     }

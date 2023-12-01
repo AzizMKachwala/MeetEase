@@ -77,7 +77,6 @@
                     android:layout_gravity="center"
                     android:layout_marginStart="@dimen/_70sdp"
                     android:src="@drawable/round_add_24"
-                    android:visibility="gone"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent" />
