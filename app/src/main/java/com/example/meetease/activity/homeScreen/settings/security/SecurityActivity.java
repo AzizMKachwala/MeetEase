@@ -113,7 +113,7 @@ public class SecurityActivity extends AppCompatActivity {
 
     private void deleteUser(String userId) {
         tools.showLoading();
-        restCall.deleteUser("deleteuser1", userId)
+        restCall.deleteUser("deleteuserU", userId)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {

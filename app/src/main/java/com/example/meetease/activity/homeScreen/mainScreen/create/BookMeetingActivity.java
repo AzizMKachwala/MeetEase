@@ -18,6 +18,7 @@ import com.example.meetease.fragment.DatePickerFragment;
 import com.example.meetease.fragment.EndTimePickerFragment;
 import com.example.meetease.fragment.StartTimePickerFragment;
 
+import java.time.LocalDateTime;
 import java.util.Calendar;
 
 public class BookMeetingActivity extends AppCompatActivity {
@@ -53,7 +54,7 @@ public class BookMeetingActivity extends AppCompatActivity {
         tvEndTime.setText("Select End Time");
         tvDate.setText("Select Date");
         preferenceManager = new PreferenceManager(this);
-        preferenceManager.setKeyValueBoolean("abc",false);
+        preferenceManager.setKeyValueBoolean("abc", false);
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,12 +76,28 @@ public class BookMeetingActivity extends AppCompatActivity {
                     @Override
                     public void saveClick(String date, String day, String month, String year) {
                         tvDate.setText(date);
-                        if (date.equals(01/12/2023)){
-                            preferenceManager.setKeyValueBoolean("abc",true);
+
+                        LocalDateTime currentTime = LocalDateTime.now();
+                        String timeCurrent = String.valueOf(currentTime);
+                        String currentDay = "";
+                        String currentMonth = "";
+                        String currentYear = "";
+
+                        currentDay = "" + timeCurrent.charAt(8) + timeCurrent.charAt(9);
+                        currentMonth = "" + timeCurrent.charAt(5) + timeCurrent.charAt(6);
+                        currentYear = "" + timeCurrent.charAt(0) + timeCurrent.charAt(1) + timeCurrent.charAt(2) + timeCurrent.charAt(3);
+                        if (timeCurrent.charAt(8) == '0'){
+                            currentDay = ""+ timeCurrent.charAt(9);
                         }
-                        else {
-                            preferenceManager.setKeyValueBoolean("abc",false);
+                        if (timeCurrent.charAt(5) == '0'){
+                            currentDay = ""+ timeCurrent.charAt(6);
                         }
+                        if (date.equals(currentDay + "/" + currentMonth + "/" + currentYear)) {
+                            preferenceManager.setKeyValueBoolean("abc", true);
+                        } else {
+                            preferenceManager.setKeyValueBoolean("abc", false);
+                        }
+
                         tvStartTime.setText("Select Start Time");
                         tvEndTime.setText("Select End Time");
                         selectDay = day;
@@ -104,8 +121,8 @@ public class BookMeetingActivity extends AppCompatActivity {
                     @Override
                     public void saveClick(String Time, String hour, String min) {
                         tvStartTime.setText(Time);
-                        preferenceManager.setKeyValueString("start hour",hour);
-                        preferenceManager.setKeyValueString("start minute",min);
+                        preferenceManager.setKeyValueString("start hour", hour);
+                        preferenceManager.setKeyValueString("start minute", min);
                         tvEndTime.setText("Select End Time");
                         startHour = hour;
                         startMinute = min;
@@ -139,7 +156,7 @@ public class BookMeetingActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (tvDate.getText().toString().equals("Select Date")) {
                     Toast.makeText(BookMeetingActivity.this, "Select Date First", Toast.LENGTH_SHORT).show();
-                } else if (tvStartTime.getText().toString().equals("Select Start Time")||tvEndTime.getText().toString().isEmpty()) {
+                } else if (tvStartTime.getText().toString().equals("Select Start Time") || tvEndTime.getText().toString().isEmpty()) {
                     Toast.makeText(BookMeetingActivity.this, "Select Start Time", Toast.LENGTH_SHORT).show();
                 } else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()) {
                     Toast.makeText(BookMeetingActivity.this, "Select End Time", Toast.LENGTH_SHORT).show();
