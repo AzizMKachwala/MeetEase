@@ -1,8 +1,14 @@
 package com.example.meetease.activity.homeScreen.mainScreen.create;
 
+import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
+import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
+
+import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
+import androidx.core.content.ContextCompat;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -11,11 +17,20 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Typeface;
+import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.meetease.R;
 import com.example.meetease.activity.homeScreen.HomeScreenActivity;
@@ -26,6 +41,10 @@ import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
 
 import rx.Subscriber;
 import rx.schedulers.Schedulers;

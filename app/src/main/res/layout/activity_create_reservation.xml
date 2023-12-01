@@ -7,6 +7,15 @@
     android:background="@drawable/blue_back"
     tools:context=".activity.homeScreen.mainScreen.create.CreateReservationActivity">
 
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_margin="@dimen/_15sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
     <EditText
         android:id="@+id/etvSearch"
         style="@style/edittext"
@@ -20,7 +29,7 @@
         android:paddingStart="@dimen/_10sdp"
         android:paddingEnd="@dimen/_30sdp"
         android:singleLine="true"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ivBack" />
 
     <ImageView
         android:id="@+id/ivClose"
@@ -30,7 +39,7 @@
         android:layout_marginEnd="@dimen/_60sdp"
         android:src="@drawable/ic_close"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ivBack" />
 
     <ImageView
         android:id="@+id/img_filter"
@@ -40,7 +49,7 @@
         android:layout_marginEnd="@dimen/_10sdp"
         android:src="@drawable/img_filter_room"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/ivBack" />
 
 
     <TextView
@@ -61,14 +70,13 @@
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_60sdp"
+        android:layout_marginTop="@dimen/_100sdp"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMeetingRooms"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_50sdp" />
+            android:layout_height="match_parent" />
 
     </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>
 
