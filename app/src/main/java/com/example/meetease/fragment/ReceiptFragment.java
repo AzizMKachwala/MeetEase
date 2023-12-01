@@ -49,7 +49,56 @@ public class ReceiptFragment extends DialogFragment {
         txtLocation.setText(getArguments().getString("roomLocation"));
         txtPrice.setText(getArguments().getString("roomPrice"));
         txtSelectedDate.setText(getArguments().getString("selectedDate"));
+
+//12:00:20
+
+        String startTime = getArguments().getString("startTime");
+        String endTime = getArguments().getString("endTime");
+
         txtTimeSlot.setText(getArguments().getString("startTime") + " - " + getArguments().getString("endTime"));
+
+        String startHour = "", startMin = "" , endHour = "", endMin = "";
+        boolean checkMin = false;
+
+        for (int i = 0; i < startTime.length() ; i++){
+            if(!checkMin){
+                if(startTime.charAt(i) == ':'){
+                    checkMin = true;
+                }
+               else {
+                    startHour += startTime.charAt(i);
+                }
+            }else {
+                if(startTime.charAt(i) == ':'){
+                    break;
+                }
+                else{
+                    startMin += startTime.charAt(i);
+                }
+            }
+        }
+
+        for (int i = 0; i < endTime.length() ; i++){
+            if(!checkMin){
+                if(endTime.charAt(i) == ':'){
+                    checkMin = true;
+                }
+                else {
+                    endHour += endTime.charAt(i);
+                }
+            }else {
+                if(endTime.charAt(i) == ':'){
+                    break;
+                }
+                else{
+                    endMin += endTime.charAt(i);
+                }
+            }
+        }
+
+        Toast.makeText(getContext(),startHour + startMin + endHour + endMin, Toast.LENGTH_SHORT ).show();
+
+        txtFinalPrice.setText("");
 
         imgPdf = view.findViewById(R.id.imgPdf);
         imgCancel = view.findViewById(R.id.imgCancel);
@@ -96,11 +145,9 @@ public class ReceiptFragment extends DialogFragment {
                 drawText(canvas, "Date:", txtSelectedDate.getText().toString(), 20, startY += 20, textPaint);
                 drawText(canvas, "Time:", txtTimeSlot.getText().toString(), 20, startY += 20, textPaint);
 
-                // Draw a line
                 startY += 10;
                 canvas.drawLine(20, startY, 280, startY, textPaint);
 
-                // Draw final price
                 drawText(canvas, "Payable Amount:", txtFinalPrice.getText().toString(), 20, startY += 20, textPaint);
 
                 pdfDocument.finishPage(page);
