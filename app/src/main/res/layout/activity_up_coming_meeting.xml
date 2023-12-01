@@ -25,7 +25,7 @@
         android:drawableStart="@drawable/ic_search"
         android:layout_marginStart="@dimen/_60sdp"
         android:drawablePadding="@dimen/_5sdp"
-        android:hint="search"
+        android:hint="Search For Room Names"
         android:imeOptions="actionDone"
         android:inputType="textAutoComplete"
         android:paddingStart="@dimen/_10sdp"
