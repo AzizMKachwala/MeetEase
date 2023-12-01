@@ -37,7 +37,7 @@ public class UpComingMeetingActivity extends AppCompatActivity {
     PreviousMeetingAdapter previousMeetingAdapter;
     EditText etvSearch;
     TextView tvNoData;
-    ImageView ivClose;
+    ImageView ivClose, ivBack;
     RestCall restCall;
     Tools tools;
     SwipeRefreshLayout swipeRefreshLayout;
@@ -54,8 +54,17 @@ public class UpComingMeetingActivity extends AppCompatActivity {
         etvSearch = findViewById(R.id.etvSearch);
         tvNoData = findViewById(R.id.tvNoData);
         ivClose = findViewById(R.id.ivClose);
+        ivBack = findViewById(R.id.ivBack);
         swipeRefreshLayout = findViewById(R.id.swipe);
         preferenceManager = new PreferenceManager(this);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
+
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

@@ -25,30 +25,31 @@
         android:src="@drawable/bg"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivBack"/>
+        app:layout_constraintTop_toBottomOf="@id/ivBack" />
 
     <TextView
         android:id="@+id/txtCompanyName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="-30dp"
         android:text="MEETEASE"
         android:textColor="@color/white"
         android:textSize="@dimen/_30sdp"
         android:textStyle="bold"
-        android:layout_marginTop="-30dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/imgLogo" />
 
     <RatingBar
         android:id="@+id/ratingBar"
+        style="@style/RatingBar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_20sdp"
+        android:isIndicator="false"
         android:numStars="5"
         android:rating="5"
         android:stepSize="1"
-        style="@style/RatingBar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtCompanyName" />
@@ -57,24 +58,24 @@
         android:id="@+id/txtRating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/_20sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="I Really Liked it"
         android:textColor="@color/white"
-        app:layout_constraintTop_toBottomOf="@id/ratingBar"
+        android:textSize="@dimen/_20sdp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"/>
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ratingBar" />
 
     <Button
         android:id="@+id/btnSubmit"
+        style="@style/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/_20sdp"
-        app:layout_constraintTop_toBottomOf="@id/txtRating"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_marginTop="@dimen/_10sdp"
-        app:layout_constraintStart_toStartOf="parent"
         android:text="Submit"
-        style="@style/button"/>
+        android:textSize="@dimen/_20sdp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtRating" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

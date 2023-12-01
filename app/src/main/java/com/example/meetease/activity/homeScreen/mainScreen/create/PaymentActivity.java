@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -53,6 +54,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     TextView txtName, txtLocation, txtPrice, txtSelectedDate, txtTimeSlot, txtFinalPrice;
     Button btnPay;
+    ImageView ivBack;
     RestCall restCall;
     Tools tools;
     PreferenceManager preferenceManager;
@@ -71,6 +73,7 @@ public class PaymentActivity extends AppCompatActivity {
         txtTimeSlot = findViewById(R.id.txtTimeSlot);
         txtFinalPrice = findViewById(R.id.txtFinalPrice);
         btnPay = findViewById(R.id.btnPay);
+        ivBack = findViewById(R.id.ivBack);
 
         Intent intent = getIntent();
         roomName = intent.getStringExtra("roomName");
@@ -83,6 +86,12 @@ public class PaymentActivity extends AppCompatActivity {
         bookingEndTime = intent.getStringExtra("bookingEndTime");
         totalTime = intent.getIntExtra("totalTime", 0);
 
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         txtName.setText(roomName);
         txtLocation.setText(roomLocation);

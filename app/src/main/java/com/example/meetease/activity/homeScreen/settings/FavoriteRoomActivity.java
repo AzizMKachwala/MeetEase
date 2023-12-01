@@ -29,7 +29,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
     RecyclerView recycleFavRoom;
     EditText etvSearch;
     TextView tvNoData;
-    ImageView ivClose;
+    ImageView ivClose, ivBack;
     RestCall restCall;
     SwipeRefreshLayout swipeRefreshLayout;
     PreferenceManager preferenceManager;
@@ -45,6 +45,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
         etvSearch = findViewById(R.id.etvSearch);
         tvNoData = findViewById(R.id.tvNoData);
         ivClose = findViewById(R.id.ivClose);
+        ivBack = findViewById(R.id.ivBack);
         swipeRefreshLayout = findViewById(R.id.swipe);
         ivClose.setVisibility(View.GONE);
         tvNoData.setVisibility(View.GONE);
@@ -54,6 +55,13 @@ public class FavoriteRoomActivity extends AppCompatActivity {
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
 
         roomDetail();
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

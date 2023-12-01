@@ -11,7 +11,7 @@
         android:layout_width="match_parent"
         android:layout_height="@dimen/_140sdp"
         android:scaleType="fitXY"
-        android:src="@drawable/blue_back" />
+        android:src="@drawable/background" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -27,6 +27,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Full Name"
+        android:drawableStart="@drawable/baseline_person_24"
+        android:drawablePadding="@dimen/_10sdp"
         android:imeOptions="actionNext"
         android:inputType="textAutoComplete" />
 
@@ -36,6 +38,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Phone Number"
+        android:drawableStart="@drawable/baseline_call_24"
+        android:drawablePadding="@dimen/_10sdp"
         android:imeOptions="actionNext"
         android:inputType="phone"
         android:maxLength="10" />
@@ -46,6 +50,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="abc@gmail.com"
+        android:drawableStart="@drawable/baseline_email_24"
+        android:drawablePadding="@dimen/_10sdp"
         android:imeOptions="actionNext"
         android:inputType="textEmailAddress" />
 
@@ -61,6 +67,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            android:drawableStart="@drawable/baseline_password_24"
+            android:drawablePadding="@dimen/_10sdp"
             android:imeOptions="actionNext"
             android:inputType="textPassword"
             android:padding="@dimen/_10sdp" />
@@ -82,6 +90,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Confirm Password"
+        android:drawableStart="@drawable/baseline_password_24"
+        android:drawablePadding="@dimen/_10sdp"
         android:imeOptions="actionDone"
         android:inputType="textAutoComplete" />
 

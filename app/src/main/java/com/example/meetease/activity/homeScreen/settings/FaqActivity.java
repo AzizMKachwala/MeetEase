@@ -15,10 +15,10 @@ import com.example.meetease.activity.homeScreen.mainScreen.ContactUsActivity;
 
 public class FaqActivity extends AppCompatActivity {
 
-    TextView txtQ1, txtQ2, txtQ3, txtQ4, txtQ5;
-    TextView txtA1, txtA2, txtA3, txtA4, txtA5;
-    LinearLayout lytQ1, lytQ2, lytQ3, lytQ4, lytQ5;
-    ImageView imgUpDown1, imgUpDown2, imgUpDown3, imgUpDown4, imgUpDown5;
+    TextView txtQ1, txtQ2, txtQ3, txtQ4;
+    TextView txtA1, txtA2, txtA3, txtA4;
+    LinearLayout lytQ1, lytQ2, lytQ3, lytQ4;
+    ImageView imgUpDown1, imgUpDown2, imgUpDown3, imgUpDown4, ivBack;
     Button btnContactUs;
 
     @Override
@@ -46,7 +46,16 @@ public class FaqActivity extends AppCompatActivity {
         imgUpDown3 = findViewById(R.id.imgUpDown3);
         imgUpDown4 = findViewById(R.id.imgUpDown4);
 
+        ivBack = findViewById(R.id.ivBack);
+
         btnContactUs = findViewById(R.id.btnContactUs);
+
+        ivBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         btnContactUs.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -4,14 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/blue_back"
+    android:background="@drawable/background"
     tools:context=".activity.homeScreen.mainScreen.UpComingMeetingActivity">
+
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_margin="@dimen/_15sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
     <EditText
         android:id="@+id/etvSearch"
         style="@style/edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawableStart="@drawable/ic_search"
+        android:layout_marginStart="@dimen/_60sdp"
         android:drawablePadding="@dimen/_5sdp"
         android:hint="search"
         android:paddingStart="@dimen/_10sdp"
