@@ -202,7 +202,6 @@ public class ProfileActivity extends BaseClass {
                         });
                     }
                 });
-
     }
 
     @Override
@@ -227,14 +226,12 @@ public class ProfileActivity extends BaseClass {
             if (extras != null) {
                 imageBitmap = (Bitmap) extras.get("data");
 
-                /*// Use Glide to load and display the Bitmap
-                Glide.with(this).load(imageBitmap).into(b.ivProfileImage);*/
 
                 // Convert the Bitmap to a URI
                 assert imageBitmap != null;
                 Uri imageUri = bitmapToUri(context, imageBitmap);
                 profileImage = imageUri.toString();
-                Glide.with(context).load(profileImage).into(imgProfileImage);
+                Tools.DisplayImage(this,imgProfileImage,profileImage);
             }
         }
     }
@@ -244,40 +241,30 @@ public class ProfileActivity extends BaseClass {
         if (requestCode == CAMERA_PERMISSION_REQUEST) {
             if (grantResults.length > 0) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    // For Android 13 and above, check both camera and media images permissions
                     boolean cameraPermissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean mediaImagesPermissionGranted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
                     if (cameraPermissionGranted && mediaImagesPermissionGranted) {
-                        // Both permissions granted, you can proceed
-                        openImageDialog(context); // Or any other action you need
+                        openImageDialog(context);
                     } else {
-                        // Handle the case where one or both permissions were denied
                         if (!cameraPermissionGranted) {
-                            // Permission denied for camera
                             Toast.makeText(context, "Please grant permission to access the camera.", Toast.LENGTH_SHORT).show();
                         }
                         if (!mediaImagesPermissionGranted) {
-                            // Permission denied for media images
                             Toast.makeText(context, "Please grant permission to access media images.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 } else {
-                    // For Android versions less than or equal to Android 12, check media images and external storage permissions
                     boolean cameraPermissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean externalStoragePermissionGranted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
                     if (cameraPermissionGranted && externalStoragePermissionGranted) {
-                        // Both permissions granted, you can proceed
-                        openImageDialog(context); // Or any other action you need
+                        openImageDialog(context);
                     } else {
-                        // Handle the case where one or both permissions were denied
                         if (!cameraPermissionGranted) {
-                            // Permission denied for media images
                             Toast.makeText(context, "Please grant permission to access media images.", Toast.LENGTH_SHORT).show();
                         }
                         if (!externalStoragePermissionGranted) {
-                            // Permission denied for external storage
                             Toast.makeText(context, "Please grant permission to access external storage.", Toast.LENGTH_SHORT).show();
                         }
                     }
