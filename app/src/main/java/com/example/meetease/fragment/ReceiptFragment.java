@@ -1,22 +1,25 @@
 package com.example.meetease.fragment;
 
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.pdf.PdfDocument;
+import android.os.Build;
 import android.os.Bundle;
 
+import androidx.core.app.NotificationCompat;
 import androidx.fragment.app.DialogFragment;
-import androidx.fragment.app.Fragment;
 
 import android.os.Environment;
+import android.os.Handler;
+import android.os.Looper;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -28,12 +31,14 @@ import com.example.meetease.appUtils.VariableBag;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.time.LocalDateTime;
 
 public class ReceiptFragment extends DialogFragment {
 
     TextView txtName, txtLocation, txtPrice, txtSelectedDate, txtTimeSlot, txtFinalPrice;
     ImageView imgPdf, imgCancel;
+    private static final int NOTIFICATION_ID = 1;
+    private static final String CHANNEL_ID = "pdf_download_channel";
+    private NotificationManager notificationManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -117,6 +122,14 @@ public class ReceiptFragment extends DialogFragment {
             }
         });
 
+        notificationManager = (NotificationManager) getContext().getSystemService(Context.NOTIFICATION_SERVICE);
+
+        // Create a notification channel (required for Android 8.0 and above)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, "PDF Download", NotificationManager.IMPORTANCE_DEFAULT);
+            notificationManager.createNotificationChannel(channel);
+        }
+
         imgPdf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -174,8 +187,37 @@ public class ReceiptFragment extends DialogFragment {
 
                 pdfDocument.close();
 
-                Tools.showCustomToast(getContext(), "PDF Saved", view.findViewById(R.id.customToastLayout), getLayoutInflater());
+                Tools.showCustomToast(getContext(), "PDF saved: " + filePath, view.findViewById(R.id.customToastLayout), getLayoutInflater());
                 dismiss();
+
+                NotificationCompat.Builder builder = new NotificationCompat.Builder(getContext(), CHANNEL_ID)
+                        .setContentTitle("Generating PDF")
+                        .setContentText("Download in progress")
+                        .setSmallIcon(R.drawable.logo)
+                        .setPriority(NotificationCompat.PRIORITY_LOW);
+
+                notificationManager.notify(NOTIFICATION_ID, builder.build());
+
+                Handler handler = new Handler(Looper.getMainLooper()) {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        super.handleMessage(msg);
+                        int progress = 0;
+                        if (progress < 100) {
+                            progress += 10;
+                            builder.setProgress(100, progress, false);
+                            notificationManager.notify(NOTIFICATION_ID, builder.build());
+                            sendEmptyMessageDelayed(0, 1000); // Simulating a delay
+                        } else {
+                            builder.setContentText("Download complete")
+                                    .setProgress(0, 0, false);
+                            notificationManager.notify(NOTIFICATION_ID, builder.build());
+                            dismiss();
+
+                        }
+                    }
+                };
+                handler.sendEmptyMessageDelayed(0, 1000);
             }
         });
 
