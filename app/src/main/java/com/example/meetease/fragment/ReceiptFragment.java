@@ -174,7 +174,7 @@ public class ReceiptFragment extends DialogFragment {
 
                 pdfDocument.close();
 
-                Tools.showCustomToast(getContext(), "PDF saved: " + filePath, view.findViewById(R.id.customToastLayout), getLayoutInflater());
+                Tools.showCustomToast(getContext(), "PDF Saved", view.findViewById(R.id.customToastLayout), getLayoutInflater());
                 dismiss();
             }
         });

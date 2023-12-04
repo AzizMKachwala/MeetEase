@@ -82,6 +82,7 @@ public class LoginActivity extends AppCompatActivity {
                 signInWithGoogle();
             }
         });
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -233,9 +234,9 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    void AddUser(){
+    void AddUser() {
         tools.showLoading();
-        restCall.AddUser("AddUser",name,email,"No Number Find","Password is Not a Set")
+        restCall.AddUser("AddUser", name, email, "No Number Found", "Password is Not a Set")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -262,7 +263,7 @@ public class LoginActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
+                                if (userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
                                     loginUser();
                                 }
                             }

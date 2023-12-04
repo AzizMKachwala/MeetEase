@@ -67,7 +67,7 @@ public class ProfileActivity extends BaseClass {
     private static final int CAMERA_PERMISSION_REQUEST = 101;
     Bitmap imageBitmap;
     RestCall restCall;
-    String id, userPassword,profileImage;
+    String id, userPassword, profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,7 @@ public class ProfileActivity extends BaseClass {
 
         preferenceManager = new PreferenceManager(this);
 
-        Tools.DisplayImage(this,imgProfileImage,preferenceManager.getKeyValueString(VariableBag.image,""));
+        Tools.DisplayImage(this, imgProfileImage, preferenceManager.getKeyValueString(VariableBag.image, ""));
         id = preferenceManager.getKeyValueString(VariableBag.user_id, "");
         etvFullName.setText(preferenceManager.getKeyValueString(VariableBag.full_name, ""));
         etvEmail.setText(preferenceManager.getKeyValueString(VariableBag.email, ""));
@@ -141,10 +141,6 @@ public class ProfileActivity extends BaseClass {
         });
     }
 
-
-
-
-
     void editUser() {
         tools.showLoading();
 
@@ -155,8 +151,7 @@ public class ProfileActivity extends BaseClass {
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), etvEmail.getText().toString());
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), userPassword);
 
-        RequestBody imageRequestBody ;
-
+        RequestBody imageRequestBody;
 
         if (imageBitmap != null) {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -167,7 +162,7 @@ public class ProfileActivity extends BaseClass {
             imagePart = MultipartBody.Part.createFormData("profile_photo1", "image.jpg", imageRequestBody);
         }
 
-        restCall.EditUser(tag, user_id, full_name, mobile, email, password,imagePart)
+        restCall.EditUser(tag, user_id, full_name, mobile, email, password, imagePart)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<EditUserResponse>() {
@@ -196,8 +191,8 @@ public class ProfileActivity extends BaseClass {
 
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
 
-                                    Tools.DisplayImage(ProfileActivity.this,imgProfileImage,preferenceManager.getKeyValueString(VariableBag.image,""));
-                                    preferenceManager.setKeyValueString(VariableBag.image,userResponse.getProfile_photo());
+                                    Tools.DisplayImage(ProfileActivity.this, imgProfileImage, preferenceManager.getKeyValueString(VariableBag.image, ""));
+                                    preferenceManager.setKeyValueString(VariableBag.image, userResponse.getProfile_photo());
                                     preferenceManager.setKeyValueString(VariableBag.full_name, etvFullName.getText().toString());
                                     preferenceManager.setKeyValueString(VariableBag.mobile, etvPhoneNo.getText().toString());
                                     preferenceManager.setKeyValueString(VariableBag.email, etvEmail.getText().toString());
@@ -218,7 +213,7 @@ public class ProfileActivity extends BaseClass {
             Uri selectedImage = data.getData();
             assert selectedImage != null;
             profileImage = selectedImage.toString();
-            Tools.DisplayImage(context,imgProfileImage,profileImage);
+            Tools.DisplayImage(context, imgProfileImage, profileImage);
 
             // Convert the selected image URI to a Bitmap
             try {

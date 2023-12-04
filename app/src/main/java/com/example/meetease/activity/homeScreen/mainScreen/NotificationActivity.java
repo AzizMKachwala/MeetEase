@@ -1,6 +1,7 @@
 package com.example.meetease.activity.homeScreen.mainScreen;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
@@ -43,8 +44,8 @@ public class NotificationActivity extends AppCompatActivity {
             }
         });
 
-//        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(NotificationActivity.this);
-//        recyclerViewNotification.setLayoutManager(layoutManager);
+        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(NotificationActivity.this);
+        recyclerViewNotification.setLayoutManager(layoutManager);
 //        notificationAdapter = new CreateReservationAdapter(apiList,NotificationActivity.this);
 //        recyclerViewNotification.setAdapter(notificationAdapter);
 

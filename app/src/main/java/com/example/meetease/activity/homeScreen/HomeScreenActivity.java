@@ -29,6 +29,7 @@ import com.example.meetease.activity.homeScreen.mainScreen.ContactUsActivity;
 import com.example.meetease.activity.homeScreen.settings.AvailableRoomsActivity;
 import com.example.meetease.activity.homeScreen.settings.FaqActivity;
 import com.example.meetease.appUtils.PreferenceManager;
+import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.activity.entryModule.GuideActivity;
 import com.example.meetease.activity.entryModule.LoginActivity;
@@ -79,6 +80,8 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         ivNotification = findViewById(R.id.ivNotification);
         tvSettingName = findViewById(R.id.tvSettingName);
         tvSettingEmail = findViewById(R.id.tvSettingEmail);
+
+        Tools.DisplayImage(this,ivSettingProfile,preferenceManager.getKeyValueString(VariableBag.image,""));
 
         tvSettingEmail.setSelected(true);
 
@@ -177,7 +180,12 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == inviteFriend) {
-            generateInvitationLink();
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Join MeetEase using my invitation link: " + "https://example.com/invite?userId=" + preferenceManager.getKeyValueString(VariableBag.user_id, ""));
+            sendIntent.setType("text/plain");
+            Intent shareIntent = Intent.createChooser(sendIntent, "Share invite link using");
+            startActivity(shareIntent);
         }
 
         if (view == availableRooms) {
@@ -235,15 +243,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
-    }
-
-    private void generateInvitationLink() {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "Join MeetEase using my invitation link: " + "https://example.com/invite?userId=" + preferenceManager.getKeyValueString(VariableBag.user_id, ""));
-        sendIntent.setType("text/plain");
-        Intent shareIntent = Intent.createChooser(sendIntent, "Share invite link using");
-        startActivity(shareIntent);
     }
 
     void changeScreen(Class classActivity) {

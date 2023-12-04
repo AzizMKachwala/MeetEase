@@ -44,7 +44,7 @@ public class CreateReservationActivity extends AppCompatActivity {
     CreateReservationAdapter createReservationAdapter;
     EditText etvSearch;
     TextView tvNoData;
-    List<FavRoomListDataModel> favApiList= new ArrayList<>();
+    List<FavRoomListDataModel> favApiList = new ArrayList<>();
     Boolean flag = false;
     PreferenceManager preferenceManager;
     ImageView ivClose, img_filter, ivBack;
@@ -110,7 +110,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                     @Override
                     public void filterList(String city, String Price, String Rating) {
 
-                        if (apiList!=null&&apiList.size()>0){
+                        if (apiList != null && apiList.size() > 0) {
                             if (!city.isEmpty() && !Price.isEmpty() && !Rating.isEmpty()) {
                                 updateData(ratingFilter(priceFilter(cityFilter(apiList, city), Price), Rating));
                             } else if (!city.isEmpty() && !Price.isEmpty() && Rating.isEmpty()) {
@@ -133,7 +133,7 @@ public class CreateReservationActivity extends AppCompatActivity {
 
                     @Override
                     public void reset() {
-                        if (apiList!=null&&apiList.size()>0){
+                        if (apiList != null && apiList.size() > 0) {
                             createReservationAdapter.updateData(apiList);
                         }
                     }
@@ -255,11 +255,11 @@ public class CreateReservationActivity extends AppCompatActivity {
                                         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(CreateReservationActivity.this);
                                         recyclerViewMeetingRooms.setLayoutManager(layoutManager);
 
-                                        for (int p=0;p<roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().size();p++){
+                                        for (int p = 0; p < roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().size(); p++) {
                                             apiList.get(p).setUpcoming_status("0");
-                                            for (int k=0;k<favApiList.size();k++){
-                                                if (favApiList.get(k).getUser_id().equals(preferenceManager.getKeyValueString(VariableBag.user_id,""))){
-                                                    if (roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().get(p).getRoom_d_id().equals(favApiList.get(k).getRoom_details_id())){
+                                            for (int k = 0; k < favApiList.size(); k++) {
+                                                if (favApiList.get(k).getUser_id().equals(preferenceManager.getKeyValueString(VariableBag.user_id, ""))) {
+                                                    if (roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().get(p).getRoom_d_id().equals(favApiList.get(k).getRoom_details_id())) {
                                                         apiList.get(p).setUpcoming_status("1");
                                                     }
                                                 }
@@ -296,11 +296,10 @@ public class CreateReservationActivity extends AppCompatActivity {
                                             }
 
                                             @Override
-                                            public void imgFavClick(RoomDetailListNoUpcoming dataModel ,String checkFavourite) {
-                                                if (checkFavourite.equals("0")){
+                                            public void imgFavClick(RoomDetailListNoUpcoming dataModel, String checkFavourite) {
+                                                if (checkFavourite.equals("0")) {
                                                     addFavRoom(dataModel.getRoom_d_id());
-                                                }
-                                                else {
+                                                } else {
                                                     deleteFavRoom(dataModel.getRoom_d_id());
                                                 }
                                             }
@@ -316,6 +315,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                     }
                 });
     }
+
     void roomDetail() {
         tools.showLoading();
         restCall.GetFevRoom("GetFavRoom", preferenceManager.getKeyValueString(VariableBag.user_id, ""))
@@ -344,14 +344,13 @@ public class CreateReservationActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(favRoomDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                if (favRoomDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     AvailableRoomDetails();
                                     tvNoData.setVisibility(View.GONE);
-                                    if (favRoomDataModel.getFavRoomListlList()!=null){
+                                    if (favRoomDataModel.getFavRoomListlList() != null) {
                                         favApiList = favRoomDataModel.getFavRoomListlList();
                                     }
-                                }
-                                else{
+                                } else {
                                     AvailableRoomDetails();
                                 }
 
@@ -360,6 +359,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                     }
                 });
     }
+
     void addFavRoom(String roomId) {
         restCall.AddFavRoom("AddFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
                 .subscribeOn(Schedulers.io())
@@ -386,7 +386,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
-                                    Tools.showCustomToast(CreateReservationActivity.this,userResponse.getMessage(),findViewById(R.id.customToastLayout),getLayoutInflater());
+                                    Tools.showCustomToast(CreateReservationActivity.this, "Added Room To Favourites", findViewById(R.id.customToastLayout), getLayoutInflater());
                                 }
                             }
                         });
@@ -395,7 +395,7 @@ public class CreateReservationActivity extends AppCompatActivity {
     }
 
     void deleteFavRoom(String roomId) {
-        restCall.DeleteFavRoom("DeleteFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id,""))
+        restCall.DeleteFavRoom("DeleteFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -419,8 +419,8 @@ public class CreateReservationActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
-                                    Tools.showCustomToast(CreateReservationActivity.this,userResponse.getMessage(),findViewById(R.id.customToastLayout),getLayoutInflater());
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
+                                    Tools.showCustomToast(CreateReservationActivity.this, "Deleted Room From Favourites", findViewById(R.id.customToastLayout), getLayoutInflater());
                                 }
                             }
                         });

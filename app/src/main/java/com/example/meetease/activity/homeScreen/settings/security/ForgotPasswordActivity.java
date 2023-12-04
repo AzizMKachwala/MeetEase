@@ -94,12 +94,12 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         });
 
-        etvOtp1.addTextChangedListener(new GenericTextWatcher(null,etvOtp1, etvOtp2));
-        etvOtp2.addTextChangedListener(new GenericTextWatcher(etvOtp1,etvOtp2, etvOtp3));
-        etvOtp3.addTextChangedListener(new GenericTextWatcher(etvOtp2,etvOtp3, etvOtp4));
-        etvOtp4.addTextChangedListener(new GenericTextWatcher(etvOtp3,etvOtp4, etvOtp5));
-        etvOtp5.addTextChangedListener(new GenericTextWatcher(etvOtp4,etvOtp5, etvOtp6));
-        etvOtp6.addTextChangedListener(new GenericTextWatcher(etvOtp5,etvOtp6, null));
+        etvOtp1.addTextChangedListener(new GenericTextWatcher(null, etvOtp1, etvOtp2));
+        etvOtp2.addTextChangedListener(new GenericTextWatcher(etvOtp1, etvOtp2, etvOtp3));
+        etvOtp3.addTextChangedListener(new GenericTextWatcher(etvOtp2, etvOtp3, etvOtp4));
+        etvOtp4.addTextChangedListener(new GenericTextWatcher(etvOtp3, etvOtp4, etvOtp5));
+        etvOtp5.addTextChangedListener(new GenericTextWatcher(etvOtp4, etvOtp5, etvOtp6));
+        etvOtp6.addTextChangedListener(new GenericTextWatcher(etvOtp5, etvOtp6, null));
 
         btnSend.setText("Send");
         lytOtp.setVisibility(View.GONE);
@@ -132,10 +132,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             public void onClick(View view) {
                 tools.showLoading();
 
-                if (etvOtp1.getText().toString().isEmpty()||etvOtp2.getText().toString().isEmpty()||etvOtp3.getText().toString().isEmpty()||etvOtp4.getText().toString().isEmpty()||etvOtp5.getText().toString().isEmpty()||etvOtp6.getText().toString().isEmpty()) {
-                    Tools.showCustomToast(ForgotPasswordActivity.this,"Enter Otp",findViewById(R.id.customToastLayout),getLayoutInflater());
+                if (etvOtp1.getText().toString().isEmpty() || etvOtp2.getText().toString().isEmpty() || etvOtp3.getText().toString().isEmpty() || etvOtp4.getText().toString().isEmpty() || etvOtp5.getText().toString().isEmpty() || etvOtp6.getText().toString().isEmpty()) {
+                    Tools.showCustomToast(ForgotPasswordActivity.this, "Enter Otp", findViewById(R.id.customToastLayout), getLayoutInflater());
                 } else {
-                    verifyCode(etvOtp1.getText().toString()+etvOtp2.getText().toString()+etvOtp3.getText().toString()+etvOtp4.getText().toString()+etvOtp5.getText().toString()+etvOtp6.getText().toString());
+                    verifyCode(etvOtp1.getText().toString() + etvOtp2.getText().toString() + etvOtp3.getText().toString() + etvOtp4.getText().toString() + etvOtp5.getText().toString() + etvOtp6.getText().toString());
                 }
 
             }
@@ -219,7 +219,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                             tools.stopLoading();
                         } else {
                             tools.stopLoading();
-                            Tools.showCustomToast(ForgotPasswordActivity.this,"Enter Correct OTP",findViewById(R.id.customToastLayout),getLayoutInflater());
+                            Tools.showCustomToast(ForgotPasswordActivity.this, "Enter Correct OTP", findViewById(R.id.customToastLayout), getLayoutInflater());
                         }
                     }
                 });
@@ -269,7 +269,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         private EditText nextEditText;
         private EditText beforeEdittext;
 
-        public GenericTextWatcher(EditText beforeEdittext,EditText currentEditText, EditText nextEditText) {
+        public GenericTextWatcher(EditText beforeEdittext, EditText currentEditText, EditText nextEditText) {
             this.currentEditText = currentEditText;
             this.nextEditText = nextEditText;
             this.beforeEdittext = beforeEdittext;
