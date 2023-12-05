@@ -48,6 +48,7 @@ public class UpComingMeetingActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_up_coming_meeting);
+
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         recyclerView = findViewById(R.id.recyclerviewUpComingMeeting);
