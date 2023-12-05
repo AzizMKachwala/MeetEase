@@ -25,7 +25,6 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
     List<RoomDetailListNoUpcoming> dataModelList, searchList;
     Context context;
     String checkFavourite = "0";
-
     CreateReservationAdapterDataClick createReservationAdapterDataClick;
 
 

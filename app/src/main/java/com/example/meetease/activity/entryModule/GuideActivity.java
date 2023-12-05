@@ -44,31 +44,31 @@ public class GuideActivity extends AppCompatActivity {
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                if (pos == 0) {
-//                    txtSteps.setText("Step 2:\nSelect Your Desired Date & Time For the Meeting Room.");
+                if (pos == 0) {
+                    txtSteps.setText("Step 2:\nSelect Your Desired Date & Time For the Meeting Room.");
 //                    imgSteps.setImageResource(R.drawable.selector_screen_image);
-//                    pos++;
-//                } else if (pos == 1) {
-//                    txtSteps.setText("Step 3:\nSelect the Meeting Room of your choice from the List.");
+                    pos++;
+                } else if (pos == 1) {
+                    txtSteps.setText("Step 3:\nSelect the Meeting Room of your choice from the List.");
 //                    imgSteps.setImageResource(R.drawable.show_room_screen_image);
-//                    pos++;
-//                } else if (pos == 2) {
-//                    txtSteps.setText("Step 4:\nIf you have some Specific requirements,\nChoose the requirements in the filter.");
+                    pos++;
+                } else if (pos == 2) {
+                    txtSteps.setText("Step 4:\nIf you have some Specific requirements,\nChoose the requirements in the filter.");
 //                    imgSteps.setImageResource(R.drawable.filter_screen_image);
-//                    pos++;
-//                } else if (pos == 3) {
-//                    txtSteps.setText("Step 5:\nSelect the Meeting Room to see the Details.");
+                    pos++;
+                } else if (pos == 3) {
+                    txtSteps.setText("Step 5:\nSelect the Meeting Room to see the Details.");
 //                    imgSteps.setImageResource(R.drawable.show_room_detail_screen);
-//                    pos++;
-//                }else if (pos == 4) {
-//                    txtSteps.setText("Step 6:\nComplete the Payment Process and wait for the Successful Message.");
+                    pos++;
+                } else if (pos == 4) {
+                    txtSteps.setText("Step 6:\nComplete the Payment Process and wait for the Successful Message.");
 //                    imgSteps.setImageResource(R.drawable.show_room_detail_screen);
-//                    btnNext.setText("Finish");
-//                    pos++;
-//                    pos++;
-//                } else {
-//                    finish();
-//                }
+                    btnNext.setText("Finish");
+                    pos++;
+                    pos++;
+                } else {
+                    finish();
+                }
             }
         });
 
