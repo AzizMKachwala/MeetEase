@@ -107,12 +107,12 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
         holder.imgFavourite.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (checkFavourite.equals("0")) {
+                if (checkFavourite.equals("1")) {
                     holder.imgFavourite.setImageResource(R.drawable.baseline_favorite_border_24);
-                    checkFavourite = "1";
+                    checkFavourite = "0";
                 } else {
                     holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
-                    checkFavourite = "0";
+                    checkFavourite = "1";
                 }
                 favoriteAdapterDataClick.imgFavClick(searchList.get(position));
             }

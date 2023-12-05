@@ -1,5 +1,7 @@
 package com.example.meetease.activity.entryModule;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -7,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -37,6 +40,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
@@ -45,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText etvEmailOrPhone, etvPassword;
     Button btnLogin;
+    String token = "";
     TextView txtResetPassword, txtSignup;
     ImageView imgPasswordCloseEye;
     View viewGoogle;
@@ -236,8 +241,18 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void AddUser(){
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+                        token = task.getResult();
+                    }
+                });
         tools.showLoading();
-        restCall.AddUser("AddUser",name,email,"No Number Found","Password is Not a -123-123-")
+        restCall.AddUser("AddUser",name,email,"No Number Found",token,"Password is Not a -123-123-")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {

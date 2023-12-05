@@ -150,7 +150,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                     if (etvNewPassword.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.password, ""))) {
                         Tools.showCustomToast(getApplicationContext(), "New Password Cannot be Same as Old Password", findViewById(R.id.customToastLayout), getLayoutInflater());
                     } else {
-                        Tools.showCustomToast(getApplicationContext(), "Password Change Successfully", findViewById(R.id.customToastLayout), getLayoutInflater());
                         editPassword();
                     }
                 }

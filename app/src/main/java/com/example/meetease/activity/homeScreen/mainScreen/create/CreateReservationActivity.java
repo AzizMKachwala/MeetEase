@@ -297,7 +297,7 @@ public class CreateReservationActivity extends AppCompatActivity {
 
                                             @Override
                                             public void imgFavClick(RoomDetailListNoUpcoming dataModel, String checkFavourite) {
-                                                if (checkFavourite.equals("0")) {
+                                                if (checkFavourite.equals("1")) {
                                                     addFavRoom(dataModel.getRoom_d_id());
                                                 } else {
                                                     deleteFavRoom(dataModel.getRoom_d_id());

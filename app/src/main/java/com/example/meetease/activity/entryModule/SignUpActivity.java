@@ -1,23 +1,32 @@
 package com.example.meetease.activity.entryModule;
 
+import static androidx.constraintlayout.helper.widget.MotionEffect.TAG;
+
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.activity.homeScreen.mainScreen.NotificationActivity;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
@@ -27,6 +36,7 @@ public class SignUpActivity extends AppCompatActivity {
     EditText etvName, etvMobileNumber, etvEmail, etvPassword, etvConfirmPassword;
     Button btnSignUp;
     TextView txtLogin;
+    String token = "";
     ImageView imgPasswordCloseEye;
     Tools tools;
     Boolean password = false;
@@ -124,7 +134,17 @@ public class SignUpActivity extends AppCompatActivity {
     }
 
     void AddUser() {
-        restCall.AddUser("AddUser", etvName.getText().toString(), etvEmail.getText().toString(), etvMobileNumber.getText().toString(), etvPassword.getText().toString())
+        FirebaseMessaging.getInstance().getToken()
+                .addOnCompleteListener(new OnCompleteListener<String>() {
+                    @Override
+                    public void onComplete(@NonNull Task<String> task) {
+                        if (!task.isSuccessful()) {
+                            return;
+                        }
+                        token = task.getResult();
+                    }
+                });
+        restCall.AddUser("AddUser", etvName.getText().toString(), etvEmail.getText().toString(), etvMobileNumber.getText().toString(),token, etvPassword.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {

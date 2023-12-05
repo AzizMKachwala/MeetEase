@@ -1,15 +1,7 @@
 package com.example.meetease.activity.homeScreen.mainScreen.profile;
 
-import androidx.activity.result.ActivityResultLauncher;
-import androidx.activity.result.contract.ActivityResultContracts;
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -18,16 +10,12 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.StrictMode;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
-
-import com.bumptech.glide.Glide;
 import com.example.meetease.BaseClass;
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
@@ -36,14 +24,7 @@ import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.EditUserResponse;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
-import com.example.meetease.network.UserResponse;
-
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-
 import de.hdodenhof.circleimageview.CircleImageView;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -61,7 +42,6 @@ public class ProfileActivity extends BaseClass {
     PreferenceManager preferenceManager;
     EditText etvFullName, etvPhoneNo, etvEmail;
     Button btnSave;
-    String currentPhotoPath = "";
     private static final int REQUEST_IMAGE_CAPTURE = 1;
     private static final int REQUEST_IMAGE_GALLERY = 2;
     private static final int CAMERA_PERMISSION_REQUEST = 101;
@@ -85,7 +65,7 @@ public class ProfileActivity extends BaseClass {
         etvEmail = findViewById(R.id.etvEmail);
         imgProfileImage = findViewById(R.id.imgProfileImage);
 
-        preferenceManager = new PreferenceManager(this);
+        preferenceManager = new PreferenceManager(context);
 
         Tools.DisplayImage(this, imgProfileImage, preferenceManager.getKeyValueString(VariableBag.image, ""));
         id = preferenceManager.getKeyValueString(VariableBag.user_id, "");
@@ -169,29 +149,36 @@ public class ProfileActivity extends BaseClass {
                     @Override
                     public void onCompleted() {
 
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                            }
+                        });
                     }
 
                     @Override
                     public void onError(Throwable e) {
-                        tools.stopLoading();
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
+                                tools.stopLoading();
+                                Tools.showCustomToast(context, "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
 
                     @Override
                     public void onNext(EditUserResponse userResponse) {
-                        tools.stopLoading();
+
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
+                                tools.stopLoading();
 
+                                Tools.showCustomToast(context,userResponse.getMessage(),findViewById(R.id.customToastLayout),getLayoutInflater());
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
-
-                                    Tools.DisplayImage(ProfileActivity.this, imgProfileImage, preferenceManager.getKeyValueString(VariableBag.image, ""));
+                                    Tools.showCustomToast(ProfileActivity.this,userResponse.getMessage(),findViewById(R.id.customToastLayout),getLayoutInflater());
                                     preferenceManager.setKeyValueString(VariableBag.image, userResponse.getProfile_photo());
                                     preferenceManager.setKeyValueString(VariableBag.full_name, etvFullName.getText().toString());
                                     preferenceManager.setKeyValueString(VariableBag.mobile, etvPhoneNo.getText().toString());
@@ -225,8 +212,6 @@ public class ProfileActivity extends BaseClass {
             Bundle extras = data.getExtras();
             if (extras != null) {
                 imageBitmap = (Bitmap) extras.get("data");
-
-
                 // Convert the Bitmap to a URI
                 assert imageBitmap != null;
                 Uri imageUri = bitmapToUri(context, imageBitmap);
@@ -257,7 +242,6 @@ public class ProfileActivity extends BaseClass {
                 } else {
                     boolean cameraPermissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean externalStoragePermissionGranted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
-
                     if (cameraPermissionGranted && externalStoragePermissionGranted) {
                         openImageDialog(context);
                     } else {
@@ -274,5 +258,4 @@ public class ProfileActivity extends BaseClass {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults);
         }
     }
-
 }

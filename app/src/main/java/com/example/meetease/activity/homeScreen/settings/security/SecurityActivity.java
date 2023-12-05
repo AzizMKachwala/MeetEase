@@ -70,9 +70,10 @@ public class SecurityActivity extends AppCompatActivity {
             public void onClick(View view) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(SecurityActivity.this);
 
-                view = getLayoutInflater().inflate(R.layout.dialog_password_verify, null);
-                EditText etvPassword = view.findViewById(R.id.etvPassword);
-                builder.setView(view);
+                View view1 = getLayoutInflater().inflate(R.layout.dialog_password_verify, null);
+                EditText etvPassword = view1.findViewById(R.id.etvPassword);
+                builder.setView(view1);
+                
 
                 builder.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
                     @Override

@@ -34,6 +34,7 @@ public interface RestCall {
             @Field("full_name") String full_name,
             @Field("email") String email,
             @Field("mobile") String mobile,
+            @Field("fcm_token") String fcm_token,
             @Field("password") String password);
 
     @FormUrlEncoded
