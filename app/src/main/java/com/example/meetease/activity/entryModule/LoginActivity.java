@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.PreferenceManager;
@@ -182,7 +183,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private void loginUser() {
         tools.showLoading();
-        restCall.LoginUser("LoginUser", etvEmailOrPhone.getText().toString().trim(), etvPassword.getText().toString().trim(), flag)
+        restCall.LoginUser("LoginUser", etvEmailOrPhone.getText().toString(), etvPassword.getText().toString().trim(), flag)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<LoginDataModel>() {
@@ -212,6 +213,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
+                                Toast.makeText(LoginActivity.this, loginDataModel.getMessage(), Toast.LENGTH_SHORT).show();
                                 if (loginDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
                                     preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, true);
                                     preferenceManager.setKeyValueString(VariableBag.user_id, loginDataModel.getUser_id());
@@ -235,7 +237,7 @@ public class LoginActivity extends AppCompatActivity {
 
     void AddUser(){
         tools.showLoading();
-        restCall.AddUser("AddUser",name,email,"No Number Find","Password is Not a Set")
+        restCall.AddUser("AddUser",name,email,"No Number Found","Password is Not a -123-123-")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
