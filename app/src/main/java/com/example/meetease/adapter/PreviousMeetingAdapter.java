@@ -79,8 +79,7 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
         holder.btnBookAgain.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(context, BookMeetingActivity.class);
-                context.startActivity(intent);
+                context.startActivity(new Intent(context, BookMeetingActivity.class));
             }
         });
     }

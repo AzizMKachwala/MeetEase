@@ -37,7 +37,6 @@ public class ProfileShowActivity extends AppCompatActivity {
         txtVersion = findViewById(R.id.txtVersion);
         ivBack = findViewById(R.id.ivBack);
 
-
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -48,6 +47,7 @@ public class ProfileShowActivity extends AppCompatActivity {
         preferenceManager = new PreferenceManager(ProfileShowActivity.this);
 
         Tools.DisplayImage(this,imageProfile,preferenceManager.getKeyValueString(VariableBag.image,""));
+
         txtName.setSelected(true);
         txtEmail.setSelected(true);
         txtMobile.setSelected(true);

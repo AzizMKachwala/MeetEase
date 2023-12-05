@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -29,6 +30,7 @@ import com.example.meetease.activity.homeScreen.mainScreen.ContactUsActivity;
 import com.example.meetease.activity.homeScreen.settings.AvailableRoomsActivity;
 import com.example.meetease.activity.homeScreen.settings.FaqActivity;
 import com.example.meetease.appUtils.PreferenceManager;
+import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.activity.entryModule.GuideActivity;
 import com.example.meetease.activity.entryModule.LoginActivity;
@@ -80,6 +82,8 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         tvSettingName = findViewById(R.id.tvSettingName);
         tvSettingEmail = findViewById(R.id.tvSettingEmail);
 
+        Tools.DisplayImage(this, ivSettingProfile, preferenceManager.getKeyValueString(VariableBag.image, ""));
+
         tvSettingEmail.setSelected(true);
 
         scrollView.setVisibility(View.GONE);
@@ -124,8 +128,12 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             tvTrans.setVisibility(View.GONE);
         } else {
             AlertDialog.Builder builder = new AlertDialog.Builder(HomeScreenActivity.this);
-            builder.setMessage("Are You Sure You Want To Exit?");
-            builder.setTitle("Alert !!");
+
+            View view = getLayoutInflater().inflate(R.layout.dialog_alert, null);
+            TextView txtBody = view.findViewById(R.id.txtBody);
+            txtBody.setText("Are You Sure You Want To Exit?");
+            builder.setView(view);
+
             builder.setCancelable(false);
             builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
@@ -177,7 +185,12 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         }
 
         if (view == inviteFriend) {
-            generateInvitationLink();
+            Intent sendIntent = new Intent();
+            sendIntent.setAction(Intent.ACTION_SEND);
+            sendIntent.putExtra(Intent.EXTRA_TEXT, "Join MeetEase using my invitation link: " + "https://example.com/invite?userId=" + preferenceManager.getKeyValueString(VariableBag.user_id, ""));
+            sendIntent.setType("text/plain");
+            Intent shareIntent = Intent.createChooser(sendIntent, "Share invite link using");
+            startActivity(shareIntent);
         }
 
         if (view == availableRooms) {
@@ -210,8 +223,12 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 
         if (view == logout) {
             AlertDialog.Builder builder = new AlertDialog.Builder(HomeScreenActivity.this);
-            builder.setMessage("Are You Sure You Want To Logout?");
-            builder.setTitle("Alert !!");
+
+            View view1 = getLayoutInflater().inflate(R.layout.dialog_alert, null);
+            TextView txtBody = view1.findViewById(R.id.txtBody);
+            txtBody.setText("Are You Sure You Want To Logout?");
+            builder.setView(view1);
+
             builder.setCancelable(false);
             builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
                 dialog.cancel();
@@ -235,15 +252,6 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             AlertDialog alertDialog = builder.create();
             alertDialog.show();
         }
-    }
-
-    private void generateInvitationLink() {
-        Intent sendIntent = new Intent();
-        sendIntent.setAction(Intent.ACTION_SEND);
-        sendIntent.putExtra(Intent.EXTRA_TEXT, "Join MeetEase using my invitation link: " + "https://example.com/invite?userId=" + preferenceManager.getKeyValueString(VariableBag.user_id, ""));
-        sendIntent.setType("text/plain");
-        Intent shareIntent = Intent.createChooser(sendIntent, "Share invite link using");
-        startActivity(shareIntent);
     }
 
     void changeScreen(Class classActivity) {

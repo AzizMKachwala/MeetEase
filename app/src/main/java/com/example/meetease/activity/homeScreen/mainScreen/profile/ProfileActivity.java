@@ -67,7 +67,7 @@ public class ProfileActivity extends BaseClass {
     private static final int CAMERA_PERMISSION_REQUEST = 101;
     Bitmap imageBitmap;
     RestCall restCall;
-    String id, userPassword,profileImage;
+    String id, userPassword, profileImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,7 +87,7 @@ public class ProfileActivity extends BaseClass {
 
         preferenceManager = new PreferenceManager(this);
 
-        Tools.DisplayImage(this,imgProfileImage,preferenceManager.getKeyValueString(VariableBag.image,""));
+        Tools.DisplayImage(this, imgProfileImage, preferenceManager.getKeyValueString(VariableBag.image, ""));
         id = preferenceManager.getKeyValueString(VariableBag.user_id, "");
         etvFullName.setText(preferenceManager.getKeyValueString(VariableBag.full_name, ""));
         etvEmail.setText(preferenceManager.getKeyValueString(VariableBag.email, ""));
@@ -141,10 +141,6 @@ public class ProfileActivity extends BaseClass {
         });
     }
 
-
-
-
-
     void editUser() {
         tools.showLoading();
 
@@ -155,8 +151,7 @@ public class ProfileActivity extends BaseClass {
         RequestBody email = RequestBody.create(MediaType.parse("text/plain"), etvEmail.getText().toString());
         RequestBody password = RequestBody.create(MediaType.parse("text/plain"), userPassword);
 
-        RequestBody imageRequestBody ;
-
+        RequestBody imageRequestBody;
 
         if (imageBitmap != null) {
             ByteArrayOutputStream stream = new ByteArrayOutputStream();
@@ -167,7 +162,7 @@ public class ProfileActivity extends BaseClass {
             imagePart = MultipartBody.Part.createFormData("profile_photo1", "image.jpg", imageRequestBody);
         }
 
-        restCall.EditUser(tag, user_id, full_name, mobile, email, password,imagePart)
+        restCall.EditUser(tag, user_id, full_name, mobile, email, password, imagePart)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<EditUserResponse>() {
@@ -196,8 +191,8 @@ public class ProfileActivity extends BaseClass {
 
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
 
-                                    Tools.DisplayImage(ProfileActivity.this,imgProfileImage,preferenceManager.getKeyValueString(VariableBag.image,""));
-                                    preferenceManager.setKeyValueString(VariableBag.image,userResponse.getProfile_photo());
+                                    Tools.DisplayImage(ProfileActivity.this, imgProfileImage, preferenceManager.getKeyValueString(VariableBag.image, ""));
+                                    preferenceManager.setKeyValueString(VariableBag.image, userResponse.getProfile_photo());
                                     preferenceManager.setKeyValueString(VariableBag.full_name, etvFullName.getText().toString());
                                     preferenceManager.setKeyValueString(VariableBag.mobile, etvPhoneNo.getText().toString());
                                     preferenceManager.setKeyValueString(VariableBag.email, etvEmail.getText().toString());
@@ -207,7 +202,6 @@ public class ProfileActivity extends BaseClass {
                         });
                     }
                 });
-
     }
 
     @Override
@@ -218,7 +212,7 @@ public class ProfileActivity extends BaseClass {
             Uri selectedImage = data.getData();
             assert selectedImage != null;
             profileImage = selectedImage.toString();
-            Tools.DisplayImage(context,imgProfileImage,profileImage);
+            Tools.DisplayImage(context, imgProfileImage, profileImage);
 
             // Convert the selected image URI to a Bitmap
             try {
@@ -232,14 +226,12 @@ public class ProfileActivity extends BaseClass {
             if (extras != null) {
                 imageBitmap = (Bitmap) extras.get("data");
 
-                /*// Use Glide to load and display the Bitmap
-                Glide.with(this).load(imageBitmap).into(b.ivProfileImage);*/
 
                 // Convert the Bitmap to a URI
                 assert imageBitmap != null;
                 Uri imageUri = bitmapToUri(context, imageBitmap);
                 profileImage = imageUri.toString();
-                Glide.with(context).load(profileImage).into(imgProfileImage);
+                Tools.DisplayImage(this,imgProfileImage,profileImage);
             }
         }
     }
@@ -249,40 +241,30 @@ public class ProfileActivity extends BaseClass {
         if (requestCode == CAMERA_PERMISSION_REQUEST) {
             if (grantResults.length > 0) {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                    // For Android 13 and above, check both camera and media images permissions
                     boolean cameraPermissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean mediaImagesPermissionGranted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
                     if (cameraPermissionGranted && mediaImagesPermissionGranted) {
-                        // Both permissions granted, you can proceed
-                        openImageDialog(context); // Or any other action you need
+                        openImageDialog(context);
                     } else {
-                        // Handle the case where one or both permissions were denied
                         if (!cameraPermissionGranted) {
-                            // Permission denied for camera
                             Toast.makeText(context, "Please grant permission to access the camera.", Toast.LENGTH_SHORT).show();
                         }
                         if (!mediaImagesPermissionGranted) {
-                            // Permission denied for media images
                             Toast.makeText(context, "Please grant permission to access media images.", Toast.LENGTH_SHORT).show();
                         }
                     }
                 } else {
-                    // For Android versions less than or equal to Android 12, check media images and external storage permissions
                     boolean cameraPermissionGranted = grantResults[0] == PackageManager.PERMISSION_GRANTED;
                     boolean externalStoragePermissionGranted = grantResults[1] == PackageManager.PERMISSION_GRANTED;
 
                     if (cameraPermissionGranted && externalStoragePermissionGranted) {
-                        // Both permissions granted, you can proceed
-                        openImageDialog(context); // Or any other action you need
+                        openImageDialog(context);
                     } else {
-                        // Handle the case where one or both permissions were denied
                         if (!cameraPermissionGranted) {
-                            // Permission denied for media images
                             Toast.makeText(context, "Please grant permission to access media images.", Toast.LENGTH_SHORT).show();
                         }
                         if (!externalStoragePermissionGranted) {
-                            // Permission denied for external storage
                             Toast.makeText(context, "Please grant permission to access external storage.", Toast.LENGTH_SHORT).show();
                         }
                     }

@@ -156,6 +156,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                     }
                 });
     }
+
     void deleteFavRoom(String roomId) {
         restCall.DeleteFavRoom("DeleteFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id,""))
                 .subscribeOn(Schedulers.io())

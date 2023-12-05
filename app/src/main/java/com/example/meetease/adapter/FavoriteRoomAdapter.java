@@ -1,6 +1,7 @@
 package com.example.meetease.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -12,6 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetease.R;
+import com.example.meetease.activity.homeScreen.mainScreen.create.BookMeetingActivity;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.FavRoomListDataModel;
@@ -23,7 +25,7 @@ import java.util.List;
 public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapter.FavoriteViewHolder> {
 
     String checkFavourite = "0";
-    List<FavRoomListDataModel> roomDetailLists,searchList;
+    List<FavRoomListDataModel> roomDetailLists, searchList;
     Context context;
     FavoriteAdapterDataClick favoriteAdapterDataClick;
 
@@ -31,14 +33,16 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
         void imgFavClick(FavRoomListDataModel dataModel);
     }
 
-    public void updateData(List<FavRoomListDataModel> dataModelList){
+    public void updateData(List<FavRoomListDataModel> dataModelList) {
         this.roomDetailLists = dataModelList;
         this.searchList = dataModelList;
         notifyDataSetChanged();
     }
+
     public void setUpInterFace(FavoriteAdapterDataClick favoriteAdapterDataClick) {
         this.favoriteAdapterDataClick = favoriteAdapterDataClick;
     }
+
     public void search(CharSequence charSequence, TextView textView, RecyclerView recyclerView) {
 
         String charString = charSequence.toString().trim();
@@ -76,7 +80,7 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
     @NonNull
     @Override
     public FavoriteViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new FavoriteViewHolder(Tools.bindXML(R.layout.meeting_rooms_item,parent));
+        return new FavoriteViewHolder(Tools.bindXML(R.layout.meeting_rooms_item, parent));
     }
 
     @Override
@@ -85,11 +89,11 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
         holder.txtName.setText(searchList.get(position).getRoom_name());
         holder.txtLocation.setText(searchList.get(position).getLocation());
         holder.txtPrice.setText(searchList.get(position).getPrice() + VariableBag.CURRENCY);
-        Tools.DisplayImage(context,holder.imgRoom,searchList.get(position).getRoom_img());
+        Tools.DisplayImage(context, holder.imgRoom, searchList.get(position).getRoom_img());
         holder.btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                context.startActivity(new Intent(view.getContext(), BookMeetingActivity.class));
             }
         });
 
@@ -125,6 +129,7 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
         ImageView imgRoom, imgFavourite;
         TextView txtName, txtLocation, txtPrice;
         RatingBar ratingBar;
+
         public FavoriteViewHolder(@NonNull View itemView) {
             super(itemView);
             btnBookNow = itemView.findViewById(R.id.btnBookNow);
