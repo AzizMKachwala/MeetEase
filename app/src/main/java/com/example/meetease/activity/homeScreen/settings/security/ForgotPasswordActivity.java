@@ -15,9 +15,12 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.meetease.R;
+import com.example.meetease.activity.entryModule.LoginActivity;
+import com.example.meetease.activity.homeScreen.HomeScreenActivity;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.dataModel.LoginDataModel;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
@@ -29,6 +32,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.PhoneAuthCredential;
 import com.google.firebase.auth.PhoneAuthOptions;
 import com.google.firebase.auth.PhoneAuthProvider;
+import com.google.firebase.messaging.FirebaseMessaging;
 import com.hbb20.CountryCodePicker;
 
 import java.util.concurrent.TimeUnit;
@@ -44,7 +48,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     Button btnSend, btnSave, btnCheckOtp;
     ImageView ivBack;
     TextView tvCode;
-    String verificationId;
+    String verificationId,userId="";
     CountryCodePicker countryPicker;
     PreferenceManager preferenceManager;
     private FirebaseAuth mAuth;
@@ -89,7 +93,6 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(ForgotPasswordActivity.this, ChangePasswordActivity.class));
                 finish();
             }
         });
@@ -115,14 +118,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                 if (etvPhoneNo.getText().toString().isEmpty()) {
                     etvPhoneNo.setError("Enter Mobile Number");
                     etvPhoneNo.requestFocus();
-                } else if (!etvPhoneNo.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.mobile, ""))) {
-                    etvPhoneNo.setError("Use Valid Mobile Number !!!");
-                    etvPhoneNo.requestFocus();
                 } else {
-                    Tools.showCustomToast(getApplicationContext(), "OTP Sent...", findViewById(R.id.customToastLayout), getLayoutInflater());
-                    String phone = "+" + countryPicker.getSelectedCountryCode() + etvPhoneNo.getText().toString();
-                    tools.showLoading();
-                    sendVerificationCode(phone);
+                    loginUser(etvPhoneNo.getText().toString());
+
                 }
             }
         });
@@ -144,18 +142,28 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!etvNewPassword.getText().toString().isEmpty()
-                        && etvConfirmPassword.getText().toString().equals(etvNewPassword.getText().toString())) {
 
-                    if (etvNewPassword.getText().toString().equals(preferenceManager.getKeyValueString(VariableBag.password, ""))) {
-                        Tools.showCustomToast(getApplicationContext(), "New Password Cannot be Same as Old Password", findViewById(R.id.customToastLayout), getLayoutInflater());
-                    } else {
-                        editPassword();
-                    }
+                if (etvNewPassword.getText().toString().isEmpty()){
+                    etvNewPassword.setError("Enter Password");
+                    etvNewPassword.requestFocus();
+                }
+                else if (etvConfirmPassword.getText().toString().isEmpty()){
+                    etvConfirmPassword.setError("Enter Confirm Password");
+                    etvConfirmPassword.requestFocus();
+                }
+                else if (!Tools.isValidPassword(etvNewPassword.getText().toString())){
+                    etvNewPassword.setError("Password Must Consist Of Minimum length of 7 with At-least 1 UpperCase, 1 LowerCase, 1 Number & 1 Special Character");
+                    etvNewPassword.requestFocus();
+                }
+                else if (!etvNewPassword.getText().toString().equals(etvConfirmPassword.getText().toString())){
+                    etvConfirmPassword.setError("Confirm Password Doesn't Match");
+                    etvConfirmPassword.requestFocus();
+                }
+                else {
+                    editPassword();
                 }
             }
         });
-
     }
 
     private void sendVerificationCode(String phone) {
@@ -226,7 +234,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
 
     void editPassword() {
         tools.showLoading();
-        restCall.ResetPassword("UpdatePassword", preferenceManager.getKeyValueString(VariableBag.user_id, ""), etvNewPassword.getText().toString())
+        restCall.ResetPassword("UpdatePassword", userId, etvNewPassword.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -291,4 +299,49 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         }
     }
+    private void loginUser(String mobileNumber) {
+        tools.showLoading();
+        restCall.LoginUser("LoginUser", mobileNumber,"","0")
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<LoginDataModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(LoginDataModel loginDataModel) {
+
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                if (loginDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
+                                    userId = loginDataModel.getUser_id();
+                                    Tools.showCustomToast(getApplicationContext(), "OTP Sent...", findViewById(R.id.customToastLayout), getLayoutInflater());
+                                    String phone = "+" + countryPicker.getSelectedCountryCode() + mobileNumber;
+                                    tools.showLoading();
+                                    sendVerificationCode(phone);
+                                }else {
+                                    Tools.showCustomToast(ForgotPasswordActivity.this,"mobile number is not exist",findViewById(R.id.customToastLayout),getLayoutInflater());
+                                }
+
+                            }
+                        });
+                    }
+                });
+    }
+
 }
