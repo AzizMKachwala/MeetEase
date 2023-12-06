@@ -119,6 +119,7 @@ public class FilterFragment extends DialogFragment {
                 rating = Tools.floatToInt(v) + "";
             }
         });
+
         btnApply.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
