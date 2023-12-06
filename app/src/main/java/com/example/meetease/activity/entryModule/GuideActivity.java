@@ -14,7 +14,7 @@ import com.example.meetease.R;
 
 public class GuideActivity extends AppCompatActivity {
 
-    Button btnNext, btnSkip;
+    Button btnNext, btnSkip,btnPrevious;
     ImageView imgSteps, ivBack;
     TextView txtSteps;
     int pos = 0;
@@ -29,10 +29,9 @@ public class GuideActivity extends AppCompatActivity {
         txtSteps = findViewById(R.id.txtSteps);
         btnSkip = findViewById(R.id.btnSkip);
         ivBack = findViewById(R.id.ivBack);
-
-        txtSteps.setText("Step 1:\nClick 'Create a New Reservation'.");
-        imgSteps.setImageResource(R.drawable.home_screen_image);
-
+        btnPrevious = findViewById(R.id.btnPrevious);
+        btnPrevious.setVisibility(View.GONE);
+        updateImage();
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -41,38 +40,21 @@ public class GuideActivity extends AppCompatActivity {
             }
         });
 
+        btnPrevious.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if(pos>0){
+                    pos--;
+                    updateImage();
+                }
+            }
+        });
+
         btnNext.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (pos == 0) {
-                    txtSteps.setText("Step 2:\nSelect Your Desired Date & Time For the Meeting Room.");
-                    imgSteps.setImageResource(R.drawable.selector_screen_image);
-                    pos++;
-                } else if (pos == 1) {
-                    txtSteps.setText("Step 3:\nSelect the Meeting Room of your choice from the List.");
-                    imgSteps.setImageResource(R.drawable.show_room_screen_image);
-                    pos++;
-                } else if (pos == 2) {
-                    txtSteps.setText("Step 4:\nIf you have some Specific requirements,\nChoose the requirements in the filter.");
-                    imgSteps.setImageResource(R.drawable.filter_screen_image);
-                    pos++;
-                } else if (pos == 3) {
-                    txtSteps.setText("Step 5:\nSelect the Meeting Room to see the Details.");
-                    imgSteps.setImageResource(R.drawable.show_room_detail_screen);
-                    pos++;
-                } else if (pos == 4) {
-                    txtSteps.setText("Step 6:\nComplete the Payment Process and wait for the Successful Message.");
-                    imgSteps.setImageResource(R.drawable.final_booking);
-                    btnNext.setText("Finish");
-                    pos++;
-                } else if (pos == 5) {
-                    txtSteps.setText("Step 7:\nYou can now check the booking status in the Upcoming Meetings.");
-                    imgSteps.setImageResource(R.drawable.booking_done);
-                    btnNext.setText("Finish");
-                    pos++;
-                } else {
-                    finish();
-                }
+                pos++;
+                updateImage();
             }
         });
 
@@ -83,5 +65,35 @@ public class GuideActivity extends AppCompatActivity {
                 finish();
             }
         });
+    }
+    void updateImage(){
+        if (pos == 0) {
+            txtSteps.setText("Step 1:\nClick 'Create a New Reservation'.");
+            imgSteps.setImageResource(R.drawable.home_screen_image);
+            btnPrevious.setVisibility(View.GONE);
+        }if (pos == 1) {
+            txtSteps.setText("Step 2:\nSelect Your Desired Date & Time For the Meeting Room.");
+            imgSteps.setImageResource(R.drawable.selector_screen_image);
+            btnPrevious.setVisibility(View.VISIBLE);
+        } else if (pos == 2) {
+            txtSteps.setText("Step 3:\nSelect the Meeting Room of your choice from the List.");
+            imgSteps.setImageResource(R.drawable.show_room_screen_image);
+        } else if (pos == 3) {
+            txtSteps.setText("Step 4:\nIf you have some Specific requirements,\nChoose the requirements in the filter.");
+            imgSteps.setImageResource(R.drawable.filter_screen_image);
+        } else if (pos == 4) {
+            txtSteps.setText("Step 5:\nSelect the Meeting Room to see the Details.");
+            imgSteps.setImageResource(R.drawable.show_room_detail_screen);
+        } else if (pos == 5) {
+            txtSteps.setText("Step 6:\nComplete the Payment Process and wait for the Successful Message.");
+            imgSteps.setImageResource(R.drawable.final_booking);
+            btnNext.setText("Next");
+        } else if (pos == 6) {
+            txtSteps.setText("Step 7:\nYou can now check the booking status in the Upcoming Meetings.");
+            imgSteps.setImageResource(R.drawable.booking_done);
+            btnNext.setText("Finish");
+        } else if (pos == 7){
+            finish();
+        }
     }
 }

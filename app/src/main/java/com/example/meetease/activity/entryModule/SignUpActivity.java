@@ -144,7 +144,7 @@ public class SignUpActivity extends AppCompatActivity {
                         token = task.getResult();
                     }
                 });
-        restCall.AddUser("AddUser", etvName.getText().toString(), etvEmail.getText().toString(), etvMobileNumber.getText().toString(),token, etvPassword.getText().toString())
+        restCall.AddUser("AddUser", etvName.getText().toString(), etvEmail.getText().toString(), etvMobileNumber.getText().toString(),"token", etvPassword.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -170,6 +170,8 @@ public class SignUpActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
+                                Tools.showCustomToast(getApplicationContext(), userResponse.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
+
                                 if (userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
                                     startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

@@ -34,21 +34,30 @@
             android:padding="@dimen/_10sdp"
             android:orientation="vertical">
 
-            <Button
-                android:id="@+id/btnSkip"
-                style="@style/Widget.AppCompat.Button.Borderless"
-                android:textColor="@color/black"
-                android:layout_marginBottom="@dimen/_10sdp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="Skip"/>
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <Button
+                    android:id="@+id/btnSkip"
+                    style="@style/Widget.AppCompat.Button.Borderless"
+                    android:textColor="@color/black"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:text="Skip"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
             <ImageView
                 android:id="@+id/imgSteps"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_280sdp"
                 android:scaleType="fitXY"
+                android:layout_marginTop="@dimen/_5sdp"
                 android:src="@drawable/back_ground_image"/>
 
             <TextView
@@ -59,13 +68,35 @@
                 android:textSize="@dimen/_18ssp"
                 android:text="anand patel my name is anand patel " />
 
-            <Button
-                android:id="@+id/btnNext"
-                style="@style/button"
-                android:layout_width="wrap_content"
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="Next"/>
+                android:layout_marginTop="@dimen/_10sdp">
+                <Button
+                    android:id="@+id/btnPrevious"
+                    style="@style/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="end"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_5sdp"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="Previous"/>
+                <Button
+                    android:id="@+id/btnNext"
+                    style="@style/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    android:layout_marginTop="@dimen/_5sdp"
+                    android:layout_marginEnd="@dimen/_5sdp"
+                    android:paddingStart="@dimen/_20sdp"
+                    android:paddingEnd="@dimen/_20sdp"
+                    android:text="Next"/>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
 
         </LinearLayout>
 

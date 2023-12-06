@@ -17,6 +17,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.biometric.BiometricPrompt;
 import androidx.core.content.ContextCompat;
 
+import com.bumptech.glide.Glide;
 import com.example.meetease.R;
 import com.example.meetease.activity.homeScreen.mainScreen.NotificationActivity;
 import com.example.meetease.activity.homeScreen.mainScreen.PreviousMeetingActivity;
@@ -88,9 +89,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 
         scrollView.setVisibility(View.GONE);
         tvTrans.setVisibility(View.GONE);
-
         txtHelloName.setSelected(true);
-
         auth = FirebaseAuth.getInstance();
 
         ivSetting.setOnClickListener(this);

@@ -111,4 +111,10 @@ public interface RestCall {
     Single<UpComingResponse> CloseBooking(
             @Field("tag") String tag,
             @Field("user_id") String user_id);
+    @FormUrlEncoded
+    @POST("Controller/UserController.php")
+    Single<UserResponse> UpdateToken(
+            @Field("tag") String tag,
+            @Field("fcm_token") String token,
+            @Field("user_id") String user_id);
 }

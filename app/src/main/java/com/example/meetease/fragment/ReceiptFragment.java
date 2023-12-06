@@ -39,6 +39,7 @@ public class ReceiptFragment extends DialogFragment {
     private static final int NOTIFICATION_ID = 1;
     private static final String CHANNEL_ID = "pdf_download_channel";
     private NotificationManager notificationManager;
+    int progress = 0;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -197,27 +198,25 @@ public class ReceiptFragment extends DialogFragment {
                         .setPriority(NotificationCompat.PRIORITY_LOW);
 
                 notificationManager.notify(NOTIFICATION_ID, builder.build());
-
+                progress = 0;
                 Handler handler = new Handler(Looper.getMainLooper()) {
                     @Override
                     public void handleMessage(Message msg) {
                         super.handleMessage(msg);
-                        int progress = 0;
+                        progress += 10;
                         if (progress < 100) {
-                            progress += 10;
                             builder.setProgress(100, progress, false);
                             notificationManager.notify(NOTIFICATION_ID, builder.build());
-                            sendEmptyMessageDelayed(0, 1000); // Simulating a delay
+                            sendEmptyMessageDelayed(0, 500); // Simulating a delay
                         } else {
                             builder.setContentText("Download complete")
                                     .setProgress(0, 0, false);
                             notificationManager.notify(NOTIFICATION_ID, builder.build());
                             dismiss();
-
                         }
                     }
                 };
-                handler.sendEmptyMessageDelayed(0, 1000);
+                handler.sendEmptyMessageDelayed(0, 500);
             }
         });
 
