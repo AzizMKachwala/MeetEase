@@ -73,9 +73,10 @@
 
                 <ImageView
                     android:id="@+id/ivDate"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
                     android:src="@drawable/img_calendar"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -104,9 +105,10 @@
 
                 <ImageView
                     android:id="@+id/ivStartTime"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
                     android:src="@drawable/img_time"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -135,9 +137,10 @@
 
                 <ImageView
                     android:id="@+id/ivEndTime"
-                    android:layout_width="@dimen/_40sdp"
-                    android:layout_height="@dimen/_40sdp"
+                    android:layout_width="@dimen/_35sdp"
+                    android:layout_height="@dimen/_35sdp"
                     android:src="@drawable/img_time"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
@@ -146,15 +149,16 @@
 
             <Button
                 android:id="@+id/btnBookNow"
+                style="@style/button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="@dimen/_30sdp"
                 android:background="@drawable/button_shape"
                 android:text="Search Rooms"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_15sdp"
-                app:backgroundTint="@color/darkBlue" />
+                android:textColor="@color/black"
+                app:backgroundTint="@color/lightBlue"
+                android:textSize="@dimen/_15sdp"/>
 
             <View
                 android:layout_width="match_parent"
