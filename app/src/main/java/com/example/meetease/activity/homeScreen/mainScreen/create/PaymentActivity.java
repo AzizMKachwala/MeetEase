@@ -9,6 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.content.ContextCompat;
+import androidx.fragment.app.FragmentManager;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.app.Notification;
 import android.app.NotificationChannel;
@@ -39,6 +41,7 @@ import com.example.meetease.activity.homeScreen.mainScreen.UpComingMeetingActivi
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.fragment.StartTimePickerFragment;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
@@ -100,7 +103,7 @@ public class PaymentActivity extends AppCompatActivity {
         txtTimeSlot.setText(bookingStartTime + " - " + bookingEndTime);
         txtFinalPrice.setText("" + Integer.parseInt(roomPrice) * totalTime);
 
-        btnPay.setText(" Pay    --->    "+Integer.parseInt(roomPrice) * totalTime+VariableBag.CURRENCY);
+        btnPay.setText(" Pay    --->    " + Integer.parseInt(roomPrice) * totalTime + VariableBag.CURRENCY);
         preferenceManager = new PreferenceManager(this);
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
@@ -147,17 +150,18 @@ public class PaymentActivity extends AppCompatActivity {
                                 }
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     Intent resultIntent = new Intent(PaymentActivity.this, UpComingMeetingActivity.class);
-                                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(PaymentActivity.this);stackBuilder.addNextIntentWithParentStack(resultIntent);
+                                    TaskStackBuilder stackBuilder = TaskStackBuilder.create(PaymentActivity.this);
+                                    stackBuilder.addNextIntentWithParentStack(resultIntent);
                                     PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
                                     Notification notification = new NotificationCompat.Builder(PaymentActivity.this, "alarm_channel")
                                             .setContentTitle("Congratulation")
-                                            .setContentText("Your Meeting Room Is Booked - "+roomName)
+                                            .setContentText("Your Meeting Room Is Booked - " + roomName)
                                             .setSmallIcon(R.drawable.bg)
                                             .setContentIntent(resultPendingIntent)
                                             .build();
                                     NotificationManager notificationManager = (NotificationManager) PaymentActivity.this.getSystemService(Context.NOTIFICATION_SERVICE);
                                     notificationManager.notify(0, notification);
-                                    startActivity(new Intent(PaymentActivity.this, HomeScreenActivity.class));
+                                    startActivity(new Intent(PaymentActivity.this, PaymentSuccessActivity.class));
                                     finish();
                                 }
                             }
