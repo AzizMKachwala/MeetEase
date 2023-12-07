@@ -51,8 +51,9 @@
                     style="@style/edittext"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
                     android:layout_marginEnd="@dimen/_5sdp"
+                    android:layout_marginStart="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:hint="First Name"
                     android:imeOptions="actionNext"
@@ -64,7 +65,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="@dimen/_5sdp"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginEnd="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:hint="Last Name"
                     android:imeOptions="actionNext"
@@ -78,6 +80,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Email Address"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:imeOptions="actionNext"
                 android:inputType="textEmailAddress" />
 
@@ -87,6 +91,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="Phone Number"
+                android:layout_marginHorizontal="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:imeOptions="actionNext"
                 android:inputType="number"
                 android:maxLength="10" />
@@ -103,9 +109,11 @@
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:hint="Message..."
+                    android:layout_marginHorizontal="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_10sdp"
                     android:inputType="textMultiLine"
-                    android:maxLines="4"
                     android:maxLength="500"
+                    android:maxLines="4"
                     android:minLines="4"
                     android:scrollbars="vertical" />
 
@@ -117,12 +125,12 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/_10sdp"
                 android:paddingStart="@dimen/_30sdp"
                 android:paddingEnd="@dimen/_30sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
                 android:text="Send"
-                android:textSize="@dimen/_20ssp"
                 android:textColor="@color/white"
+                android:textSize="@dimen/_20ssp"
                 app:backgroundTint="@color/darkBlue" />
 
         </LinearLayout>

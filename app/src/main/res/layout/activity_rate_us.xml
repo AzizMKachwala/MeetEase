@@ -73,7 +73,9 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/_10sdp"
         android:text="Submit"
+        android:textColor="@color/white"
         android:textSize="@dimen/_20sdp"
+        app:backgroundTint="@color/darkBlue"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/txtRating" />

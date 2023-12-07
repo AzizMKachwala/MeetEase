@@ -7,55 +7,43 @@
     android:background="@color/lightBlueTransparent"
     tools:context=".activity.homeScreen.mainScreen.UpComingMeetingActivity">
 
-    <LinearLayout
+    <ImageView
+        android:id="@+id/ivBack"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_margin="@dimen/_15sdp"
+        android:paddingStart="@dimen/_5sdp"
+        android:src="@drawable/ic_back"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:id="@+id/etvSearch"
+        style="@style/edittext"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="parent">
-        <ImageView
-            android:id="@+id/ivBack"
-            android:layout_width="@dimen/_35sdp"
-            android:layout_height="@dimen/_35sdp"
-            android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginStart="@dimen/_15sdp"
-            android:layout_marginBottom="@dimen/_15sdp"
-            android:paddingStart="@dimen/_5sdp"
-            android:src="@drawable/ic_back"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <EditText
-                android:id="@+id/etvSearch"
-                style="@style/edittext"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:drawableStart="@drawable/ic_search"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:drawablePadding="@dimen/_10sdp"
-                android:hint="Search Room Names"
-                android:imeOptions="actionDone"
-                android:layout_marginEnd="@dimen/_10sdp"
-                android:inputType="textAutoComplete"
-                android:paddingStart="@dimen/_10sdp"
-                android:paddingEnd="@dimen/_30sdp"
-                android:singleLine="true"/>
+        android:layout_marginStart="@dimen/_60sdp"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:drawableStart="@drawable/ic_search"
+        android:drawablePadding="@dimen/_5sdp"
+        android:hint="Search Room Names"
+        android:imeOptions="actionDone"
+        android:inputType="textAutoComplete"
+        android:paddingStart="@dimen/_10sdp"
+        android:paddingEnd="@dimen/_30sdp"
+        android:singleLine="true"
+        app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/ivClose"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="@dimen/_20sdp"
-                android:src="@drawable/ic_close"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-    </LinearLayout>
-
+    <ImageView
+        android:id="@+id/ivClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:layout_marginEnd="@dimen/_20sdp"
+        android:src="@drawable/ic_close"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvNoData"
