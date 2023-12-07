@@ -10,5 +10,6 @@
     <color name="orange">#FF5722</color>
     <color name="darkBlue">#122F7C</color>
     <color name="blue">#2E4583</color>
-    <color name="lightBlue">#5B90CAF9</color>
+    <color name="lightBlue">#90CAF9</color>
+    <color name="lightBlueTransparent">#5B90CAF9</color>
 </resources>

@@ -99,7 +99,7 @@
                 android:padding="0dp"
                 android:text="View Info"
                 android:textColor="@color/black"
-                app:backgroundTint="@color/lightBlue" />
+                app:backgroundTint="@color/lightBlueTransparent" />
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>

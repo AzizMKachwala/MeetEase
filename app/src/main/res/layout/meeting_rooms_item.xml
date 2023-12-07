@@ -126,7 +126,7 @@
                     android:layout_weight="1"
                     android:text="BOOK NOW"
                     android:textSize="@dimen/_10sdp"
-                    app:backgroundTint="@color/lightBlue" />
+                    app:backgroundTint="@color/lightBlueTransparent" />
 
             </LinearLayout>
 

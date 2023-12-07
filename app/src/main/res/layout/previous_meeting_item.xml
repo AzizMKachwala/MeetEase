@@ -121,7 +121,7 @@
                 <Button
                     android:id="@+id/btnBookAgain"
                     style="@style/button"
-                    app:backgroundTint="@color/lightBlue"
+                    app:backgroundTint="@color/lightBlueTransparent"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginBottom="@dimen/_10sdp"

@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 import com.example.meetease.R;
 import com.example.meetease.activity.homeScreen.mainScreen.ContactUsActivity;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 public class FaqActivity extends AppCompatActivity {
 
