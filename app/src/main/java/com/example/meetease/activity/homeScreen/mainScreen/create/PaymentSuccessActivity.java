@@ -7,14 +7,18 @@ import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.example.meetease.R;
 import com.example.meetease.activity.homeScreen.mainScreen.UpComingMeetingActivity;
+import com.example.meetease.appUtils.Tools;
 
 public class PaymentSuccessActivity extends AppCompatActivity {
 
     TextView txtTimer;
+    ImageView ivPaymentGif;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,6 +26,7 @@ public class PaymentSuccessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment_success);
 
         txtTimer = findViewById(R.id.txtTimer);
+
 
         new CountDownTimer(5000, 1000) {
 

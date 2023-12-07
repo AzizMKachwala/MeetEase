@@ -8,33 +8,46 @@
 
 
 
-    <TextView
-        android:id="@+id/txtPaymentMessage"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="Payment Successful"
-        android:textSize="@dimen/_30ssp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent">
+        <ImageView
+            android:id="@+id/ivPaymentGif"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_100sdp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+        <TextView
+            android:id="@+id/txtPaymentMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="Payment Successful"
+            android:textSize="@dimen/_30ssp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ivPaymentGif" />
 
-    <TextView
-        android:id="@+id/txtPaymentShow"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        app:layout_constraintTop_toBottomOf="@id/txtPaymentMessage"
-        android:text="You will be Redirected to Booking Status in"
-        android:layout_marginTop="@dimen/_10sdp"/>
+        <TextView
+            android:id="@+id/txtPaymentShow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            app:layout_constraintTop_toBottomOf="@id/txtPaymentMessage"
+            android:text="You will be Redirected to Booking Status in"
+            android:layout_marginTop="@dimen/_10sdp"/>
 
-    <TextView
-        android:id="@+id/txtTimer"
-        android:text="5 Seconds"
-        app:layout_constraintTop_toBottomOf="@id/txtPaymentShow"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        <TextView
+            android:id="@+id/txtTimer"
+            android:text="5 Seconds"
+            app:layout_constraintTop_toBottomOf="@id/txtPaymentShow"
+            android:gravity="center"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

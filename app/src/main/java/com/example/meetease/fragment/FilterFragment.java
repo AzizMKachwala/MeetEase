@@ -157,7 +157,6 @@ public class FilterFragment extends DialogFragment {
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                Toast.makeText(tools, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
                             }
                         });
                     }
