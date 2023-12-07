@@ -27,6 +27,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Full Name"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:drawableStart="@drawable/baseline_person_24"
         android:drawablePadding="@dimen/_10sdp"
         android:imeOptions="actionNext"
@@ -38,6 +39,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Phone Number"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:drawableStart="@drawable/baseline_call_24"
         android:drawablePadding="@dimen/_10sdp"
         android:imeOptions="actionNext"
@@ -50,15 +53,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="abc@gmail.com"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:drawableStart="@drawable/baseline_email_24"
         android:drawablePadding="@dimen/_10sdp"
         android:imeOptions="actionNext"
         android:inputType="textEmailAddress" />
 
-    <RelativeLayout
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:id="@+id/lytPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
         android:layout_below="@id/etvEmailOrPhone">
 
         <EditText
@@ -67,6 +73,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
+            app:layout_constraintTop_toTopOf="parent"
+            android:layout_marginHorizontal="@dimen/_10sdp"
             android:drawableStart="@drawable/baseline_password_24"
             android:drawablePadding="@dimen/_10sdp"
             android:imeOptions="actionNext"
@@ -76,13 +84,15 @@
         <ImageView
             android:id="@+id/imgPasswordCloseEye"
             android:layout_width="@dimen/_30sdp"
-            android:layout_height="@dimen/_40sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_alignParentEnd="true"
-            android:layout_marginTop="@dimen/_10sdp"
-            android:layout_marginEnd="@dimen/_40sdp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_marginEnd="@dimen/_20sdp"
             android:src="@drawable/baseline_eye_24" />
 
-    </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
     <EditText
         android:id="@+id/etvConfirmPassword"
@@ -90,6 +100,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Confirm Password"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_10sdp"
         android:drawableStart="@drawable/baseline_password_24"
         android:drawablePadding="@dimen/_10sdp"
         android:imeOptions="actionDone"
@@ -125,7 +137,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/account_login"
-            android:textColor="@color/lightBlueTransparent"
+            android:textColor="@color/lightBlue"
             android:textStyle="bold" />
 
     </LinearLayout>

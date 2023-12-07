@@ -10,17 +10,13 @@
     <style name="button">
         <item name="android:background">@drawable/button_shape</item>
         <item name="backgroundTint">@color/lightBlue</item>
-        <item name="android:paddingStart">@dimen/_10sdp</item>
-        <item name="android:paddingEnd">@dimen/_10sdp</item>
-        <item name="android:paddingBottom">@dimen/_10sdp</item>
-        <item name="android:paddingTop">@dimen/_10sdp</item>
+        <item name="android:padding">@dimen/_10sdp</item>
         <item name="android:textSize">@dimen/_15sdp</item>
         <item name="android:textColor">@color/black</item>
     </style>
 
     <style name="edittext">
-        <item name="android:background">@drawable/edittext_shape</item>
-        <item name="backgroundTint">@color/gray</item>
+        <item name="android:background">@drawable/edittext_shape</item>c
         <item name="android:paddingStart">@dimen/_20sdp</item>
         <item name="android:paddingEnd">@dimen/_10sdp</item>
         <item name="android:paddingBottom">@dimen/_10sdp</item>
@@ -28,7 +24,7 @@
     </style>
 
     <style name="RatingBar" parent="Widget.AppCompat.RatingBar.Indicator">
-        <item name="android:progressBackgroundTint">@color/white</item>
+        <item name="android:progressBackgroundTint">@color/black</item>
         <item name="android:progressTint">@color/yellow</item>
         <item name="android:layout_gravity">center_vertical</item>
     </style>
