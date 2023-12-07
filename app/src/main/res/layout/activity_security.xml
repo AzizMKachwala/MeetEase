@@ -45,7 +45,7 @@
             android:layout_marginStart="@dimen/_20sdp"
             android:text="Apply Mobile Lock"
             android:textSize="@dimen/_15sdp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -81,7 +81,7 @@
             android:layout_marginStart="@dimen/_20sdp"
             android:text="Change Password"
             android:textSize="@dimen/_15sdp"
-            android:textColor="@color/white"
+            android:textColor="@color/black"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
