@@ -152,9 +152,9 @@
                 android:layout_marginTop="@dimen/_30sdp"
                 android:background="@drawable/button_shape"
                 android:text="Search Rooms"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_15sdp"
-                app:backgroundTint="@color/gray" />
+                app:backgroundTint="@color/darkBlue" />
 
             <View
                 android:layout_width="match_parent"
