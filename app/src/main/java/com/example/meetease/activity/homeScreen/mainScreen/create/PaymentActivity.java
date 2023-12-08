@@ -153,7 +153,7 @@ public class PaymentActivity extends AppCompatActivity {
                                     TaskStackBuilder stackBuilder = TaskStackBuilder.create(PaymentActivity.this);
                                     stackBuilder.addNextIntentWithParentStack(resultIntent);
                                     PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
-                                    Notification notification = new NotificationCompat.Builder(PaymentActivity.this, "alarm_channel")
+                                    Notification notification = new NotificationCompat.Builder(PaymentActivity.this, "meeting_notification")
                                             .setContentTitle("Congratulation")
                                             .setContentText("Your Meeting Room Is Booked - " + roomName)
                                             .setSmallIcon(R.drawable.bg)

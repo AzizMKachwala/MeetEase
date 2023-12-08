@@ -1,7 +1,9 @@
 package com.example.meetease.appUtils;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.text.TextUtils;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -11,23 +13,28 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import com.example.meetease.R;
+import com.example.meetease.activity.entryModule.LoginActivity;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.util.zip.Inflater;
 
 
 public class Tools extends AppCompatActivity {
     Context context;
     private final Dialog dialog;
+    LayoutInflater layoutInflater;
 
     public Tools(Context context) {
         this.context = context;
         dialog = new Dialog(context);
+        layoutInflater = getLayoutInflater();
     }
 
     public static View bindXML(int xml, ViewGroup parent ){
@@ -94,24 +101,20 @@ public class Tools extends AppCompatActivity {
             if (str.charAt(i) == '.'){
                 break;
             }else {
-                newStr = newStr+str.charAt(i);
+                newStr = newStr + str.charAt(i);
             }
         }
         return Integer.parseInt(newStr);
     }
 
-    public static <T> void showCustomToast(Context context, String message, T view, LayoutInflater layoutInflater) {
-
+    public static  <T> void showCustomToast(Context context, String message, T view, LayoutInflater layoutInflater) {
         LayoutInflater inflater = layoutInflater;
         View layout = inflater.inflate(R.layout.custom_toast_layout, (ViewGroup) view);
-
         TextView text = layout.findViewById(R.id.customToastText);
         text.setText(message);
-
         Toast toast = new Toast(context);
         toast.setDuration(Toast.LENGTH_SHORT);
         toast.setView(layout);
         toast.show();
     }
-
 }

@@ -39,6 +39,7 @@
             android:focusableInTouchMode="true"
             android:gravity="end"
             android:hint="Hello, Anand"
+            android:layout_marginEnd="@dimen/_10sdp"
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
             android:textColor="@color/black"

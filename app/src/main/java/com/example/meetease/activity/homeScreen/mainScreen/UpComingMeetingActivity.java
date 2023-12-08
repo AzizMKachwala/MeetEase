@@ -130,7 +130,7 @@ public class UpComingMeetingActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 tvNoData.setVisibility(View.VISIBLE);
-                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
+                                tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }

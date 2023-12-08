@@ -116,5 +116,6 @@ public interface RestCall {
     Single<UserResponse> UpdateToken(
             @Field("tag") String tag,
             @Field("fcm_token") String token,
+            @Field("platform") String platform,
             @Field("user_id") String user_id);
 }

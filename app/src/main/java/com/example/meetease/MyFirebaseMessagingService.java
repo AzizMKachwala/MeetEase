@@ -1,14 +1,26 @@
 package com.example.meetease;
 
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.os.Build;
 import android.util.Log;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.example.meetease.activity.homeScreen.mainScreen.UpComingMeetingActivity;
+import com.example.meetease.activity.homeScreen.mainScreen.create.PaymentActivity;
+import com.example.meetease.activity.homeScreen.mainScreen.create.PaymentSuccessActivity;
 import com.google.firebase.analytics.FirebaseAnalytics;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
@@ -37,17 +49,29 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     }
 
     private void showNotification(String title, String body, String body1) {
-        NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "123")
-                .setSmallIcon(R.drawable.ic_search)
-                .setContentTitle(title+"123")
-                .setContentText(body + " " + body1+"hello")
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-
-        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
-            return;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            createNotificationChannel(MyFirebaseMessagingService.this);
         }
-        notificationManager.notify(1, builder.build());
+        Intent resultIntent = new Intent(MyFirebaseMessagingService.this, UpComingMeetingActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(MyFirebaseMessagingService.this);
+        stackBuilder.addNextIntentWithParentStack(resultIntent);
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
+        Notification notification = new NotificationCompat.Builder(MyFirebaseMessagingService.this, "meeting_notification")
+                .setContentTitle(title)
+                .setContentText(body)
+                .setSmallIcon(R.drawable.bg)
+                .setContentIntent(resultPendingIntent)
+                .build();
+        NotificationManager notificationManager = (NotificationManager) MyFirebaseMessagingService.this.getSystemService(Context.NOTIFICATION_SERVICE);
+        notificationManager.notify(0, notification);
+
+    }
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    private void createNotificationChannel(Context context) {
+        NotificationChannel channel = new NotificationChannel("meeting_notification", "meeting_notification", NotificationManager.IMPORTANCE_HIGH);
+        channel.setDescription("Channel for meeting notifications");
+        NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
+        notificationManager.createNotificationChannel(channel);
     }
 }
 

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -232,7 +233,7 @@ public class LoginActivity extends AppCompatActivity {
                                     preferenceManager.setKeyValueString(VariableBag.image, loginDataModel.getProfile_photo());
                                     preferenceManager.setKeyValueString(VariableBag.email, loginDataModel.getEmail());
                                     preferenceManager.setKeyValueString(VariableBag.password, etvPassword.getText().toString());
-                                    restCall.UpdateToken("UpdateFCMToken",myToken,loginDataModel.getUser_id())
+                                    restCall.UpdateToken("UpdateFCMToken",myToken,"0",loginDataModel.getUser_id())
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(Schedulers.newThread())
                                             .subscribe(new Subscriber<UserResponse>() {
@@ -276,6 +277,8 @@ public class LoginActivity extends AppCompatActivity {
                                 else {
                                     if(flag.equals("0")){
                                         AddUser();
+                                    }else {
+                                        Tools.showCustomToast(LoginActivity.this,loginDataModel.getMessage(),findViewById(R.id.customToastLayout),getLayoutInflater());
                                     }
                                 }
 
@@ -296,7 +299,7 @@ public class LoginActivity extends AppCompatActivity {
                         token = task.getResult();
                     }
                 });
-        restCall.AddUser("AddUser",name,email,"No Number Found",token,"Password is Not a -123-123-")
+        restCall.AddUser("AddUser",name,email,"No Number Found",token,"")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -326,6 +329,7 @@ public class LoginActivity extends AppCompatActivity {
                                     loginUser();
                                 }
                                 else {
+                                    Tools.showCustomToast(LoginActivity.this,"Something Went Wrong",findViewById(R.id.customToastLayout),getLayoutInflater());
                                     tools.stopLoading();
                                     flag ="1";
                                 }
