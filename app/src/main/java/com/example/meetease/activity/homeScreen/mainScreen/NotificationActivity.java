@@ -42,8 +42,10 @@ public class NotificationActivity extends AppCompatActivity {
         ivBack = findViewById(R.id.ivBack);
         tvNoData = findViewById(R.id.tvNoData);
         swipe = findViewById(R.id.swipe);
-        askNotificationPermission();
         recyclerViewNotification = findViewById(R.id.recyclerViewNotification);
+
+        askNotificationPermission();
+
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

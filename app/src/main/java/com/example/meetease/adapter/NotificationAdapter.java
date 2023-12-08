@@ -2,6 +2,7 @@ package com.example.meetease.adapter;
 
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -14,7 +15,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
     @NonNull
     @Override
     public NotificationDataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new NotificationDataViewHolder(Tools.bindXML(R.layout.notification_item,parent)) ;
+        return new NotificationDataViewHolder(Tools.bindXML(R.layout.notification_item, parent));
     }
 
     @Override
@@ -27,10 +28,17 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
         return 0;
     }
 
-    public static class NotificationDataViewHolder extends RecyclerView.ViewHolder{
+    public static class NotificationDataViewHolder extends RecyclerView.ViewHolder {
+
+        TextView txtNotificationName, txtNotificationDescription, txtCurrentTime;
 
         public NotificationDataViewHolder(@NonNull View itemView) {
             super(itemView);
+
+            txtNotificationName = itemView.findViewById(R.id.txtNotificationName);
+            txtNotificationDescription = itemView.findViewById(R.id.txtNotificationDescription);
+            txtCurrentTime = itemView.findViewById(R.id.txtCurrentTime);
+
         }
     }
 }
