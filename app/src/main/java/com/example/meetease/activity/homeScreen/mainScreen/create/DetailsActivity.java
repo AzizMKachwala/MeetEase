@@ -1,6 +1,8 @@
 package com.example.meetease.activity.homeScreen.mainScreen.create;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -13,14 +15,20 @@ import android.widget.TextView;
 
 import com.example.meetease.R;
 import com.example.meetease.activity.homeScreen.HomeScreenActivity;
+import com.example.meetease.activity.homeScreen.settings.AvailableRoomsActivity;
+import com.example.meetease.adapter.AllRoomsAdapter;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
+import com.example.meetease.dataModel.RoomDetailDataModel;
+import com.example.meetease.dataModel.RoomDetailList;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
@@ -31,7 +39,6 @@ public class DetailsActivity extends AppCompatActivity {
     TextView txtName, txtLocation, txtPrice;
     RatingBar ratingBar;
     Button btnBookNow;
-//    String checkFavourite;
     RestCall restCall;
     Tools tools;
     String roomId;
@@ -53,6 +60,8 @@ public class DetailsActivity extends AppCompatActivity {
         ratingBar = findViewById(R.id.ratingBar);
         btnBookNow = findViewById(R.id.btnBookNow);
 
+        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
+
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -63,26 +72,30 @@ public class DetailsActivity extends AppCompatActivity {
 
         tools = new Tools(this);
         preferenceManager = new PreferenceManager(this);
-        restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
 
         Intent intent = getIntent();
-        roomName = intent.getStringExtra("roomName");
-        roomPrice = intent.getStringExtra("roomPrice");
-        roomLocation = intent.getStringExtra("roomLocation");
-        roomRating = intent.getStringExtra("roomRating");
-        roomImage = intent.getStringExtra("roomImage");
-        roomId = intent.getStringExtra("roomId");
-        bookingDate = intent.getStringExtra("bookingDate");
-        bookingStartTime = intent.getStringExtra("bookingStartTime");
-        bookingEndTime = intent.getStringExtra("bookingEndTime");
-        totalTime = intent.getIntExtra("totalTime", 0);
+        if (intent.getExtras().getString(VariableBag.roomId) !=null){
+            roomDetail(intent.getExtras().getString(VariableBag.roomId));
+        }else {
+            roomName = intent.getStringExtra("roomName");
+            roomPrice = intent.getStringExtra("roomPrice");
+            roomLocation = intent.getStringExtra("roomLocation");
+            roomRating = intent.getStringExtra("roomRating");
+            roomImage = intent.getStringExtra("roomImage");
+            roomId = intent.getStringExtra("roomId");
+            bookingDate = intent.getStringExtra("bookingDate");
+            bookingStartTime = intent.getStringExtra("bookingStartTime");
+            bookingEndTime = intent.getStringExtra("bookingEndTime");
+            totalTime = intent.getIntExtra("totalTime", 0);
+            txtLocation.setText(roomLocation);
+            txtName.setText(roomName);
+            txtPrice.setText(roomPrice + VariableBag.CURRENCY + "/Hour");
+            ratingBar.setRating(Float.parseFloat(roomRating));
+            Tools.DisplayImage(DetailsActivity.this, imgRoom, roomImage);
 
-        txtLocation.setText(roomLocation);
-        txtName.setText(roomName);
-        txtPrice.setText(roomPrice + VariableBag.CURRENCY + "/Hour");
-        ratingBar.setRating(Float.parseFloat(roomRating));
+        }
 
-        Tools.DisplayImage(DetailsActivity.this, imgRoom, roomImage);
+
 
         btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -107,5 +120,64 @@ public class DetailsActivity extends AppCompatActivity {
         super.onBackPressed();
         startActivity(new Intent(DetailsActivity.this, HomeScreenActivity.class));
         finish();
+    }
+
+    void roomDetail(String roomId) {
+        tools.showLoading();
+        restCall.RoomDetails("GetRoomDetails")
+                .subscribeOn(Schedulers.io())
+                .observeOn(Schedulers.newThread())
+                .subscribe(new Subscriber<RoomDetailDataModel>() {
+                    @Override
+                    public void onCompleted() {
+
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onNext(RoomDetailDataModel roomDetailDataModel) {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                tools.stopLoading();
+                                if (roomDetailDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT) && roomDetailDataModel.getRoomDetailList() != null && !roomDetailDataModel.getRoomDetailList().isEmpty()) {
+                                    RoomDetailList selectRoom = null;
+                                    for (int i=0;i<roomDetailDataModel.getRoomDetailList().size();i++){
+                                        if (roomDetailDataModel.getRoomDetailList().get(i).getRoom_d_id().equals(roomId)){
+                                            selectRoom = roomDetailDataModel.getRoomDetailList().get(i);
+                                        }
+                                    }
+                                    if (selectRoom != null){
+                                        txtLocation.setText(selectRoom.getLocation());
+                                        txtName.setText(selectRoom.getRoom_name());
+                                        txtPrice.setText(selectRoom.getPrice() + VariableBag.CURRENCY + "/Hour");
+                                        ratingBar.setRating(Float.parseFloat(selectRoom.getRating()));
+                                        Tools.DisplayImage(DetailsActivity.this, imgRoom, selectRoom.getRoom_img());
+
+                                        roomName = selectRoom.getRoom_name();
+                                        roomPrice = intent.getStringExtra("roomPrice");
+                                        roomLocation = intent.getStringExtra("roomLocation");
+                                        roomRating = intent.getStringExtra("roomRating");
+                                        roomImage = intent.getStringExtra("roomImage");
+                                        bookingDate = intent.getStringExtra("bookingDate");
+                                        bookingStartTime = intent.getStringExtra("bookingStartTime");
+                                        bookingEndTime = intent.getStringExtra("bookingEndTime");
+                                        totalTime = intent.getIntExtra("totalTime", 0);
+                                    }
+
+                                }
+                            }
+                        });
+                    }
+                });
     }
 }
