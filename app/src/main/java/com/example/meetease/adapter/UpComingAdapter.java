@@ -21,14 +21,14 @@ import com.example.meetease.fragment.ReceiptFragment;
 
 import java.util.List;
 
-public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComingViewHolder>  {
+public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComingViewHolder> {
 
     List<UpComingListResponse> upComingListResponses;
     Context context;
     ReceiptFragment receiptFragment;
     FragmentManager fragmentManager;
 
-    public UpComingAdapter(List<UpComingListResponse> upComingListResponses, Context context,FragmentManager fragmentManager) {
+    public UpComingAdapter(List<UpComingListResponse> upComingListResponses, Context context, FragmentManager fragmentManager) {
         this.upComingListResponses = upComingListResponses;
         this.context = context;
         this.fragmentManager = fragmentManager;
@@ -55,12 +55,12 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
                 receiptFragment.setCancelable(false);
 
                 Bundle bundle = new Bundle();
-                bundle.putString("roomName",upComingListResponses.get(position).getRoom_name());
-                bundle.putString("roomLocation",upComingListResponses.get(position).getLocation());
-                bundle.putString("roomPrice",upComingListResponses.get(position).getPrice());
-                bundle.putString("selectedDate",upComingListResponses.get(position).getBooking_date());
-                bundle.putString("startTime",upComingListResponses.get(position).getStart_time());
-                bundle.putString("endTime",upComingListResponses.get(position).getEnd_time());
+                bundle.putString("roomName", upComingListResponses.get(position).getRoom_name());
+                bundle.putString("roomLocation", upComingListResponses.get(position).getLocation());
+                bundle.putString("roomPrice", upComingListResponses.get(position).getPrice());
+                bundle.putString("selectedDate", upComingListResponses.get(position).getBooking_date());
+                bundle.putString("startTime", upComingListResponses.get(position).getStart_time());
+                bundle.putString("endTime", upComingListResponses.get(position).getEnd_time());
 
                 receiptFragment.setArguments(bundle);
             }
@@ -85,6 +85,8 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
             txtName = itemView.findViewById(R.id.txtName);
             txtLocation = itemView.findViewById(R.id.txtLocation);
             txtPrice = itemView.findViewById(R.id.txtPrice);
+
+            txtName.setSelected(true);
         }
     }
 }

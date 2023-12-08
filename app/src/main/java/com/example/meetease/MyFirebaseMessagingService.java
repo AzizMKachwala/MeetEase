@@ -23,8 +23,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
         if (remoteMessage.getData().size() > 0) {
 
-
-            if ( true) {
+            if (true) {
 
             } else {
                 String title = remoteMessage.getData().get("title");
@@ -39,14 +38,15 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     private void showNotification(String title, String body, String body1) {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, "123")
                 .setSmallIcon(R.drawable.ic_search)
-                .setContentTitle(title+"123")
-                .setContentText(body + " " + body1+"hello")
+                .setContentTitle(title + "123")
+                .setContentText(body + " " + body1 + "hello")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
         if (ActivityCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) != PackageManager.PERMISSION_GRANTED) {
             return;
         }
+
         notificationManager.notify(1, builder.build());
     }
 }

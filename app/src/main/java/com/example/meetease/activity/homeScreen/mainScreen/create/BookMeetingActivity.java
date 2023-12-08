@@ -86,11 +86,11 @@ public class BookMeetingActivity extends AppCompatActivity {
                         currentDay = "" + timeCurrent.charAt(8) + timeCurrent.charAt(9);
                         currentMonth = "" + timeCurrent.charAt(5) + timeCurrent.charAt(6);
                         currentYear = "" + timeCurrent.charAt(0) + timeCurrent.charAt(1) + timeCurrent.charAt(2) + timeCurrent.charAt(3);
-                        if (timeCurrent.charAt(8) == '0'){
-                            currentDay = ""+ timeCurrent.charAt(9);
+                        if (timeCurrent.charAt(8) == '0') {
+                            currentDay = "" + timeCurrent.charAt(9);
                         }
-                        if (timeCurrent.charAt(5) == '0'){
-                            currentDay = ""+ timeCurrent.charAt(6);
+                        if (timeCurrent.charAt(5) == '0') {
+                            currentDay = "" + timeCurrent.charAt(6);
                         }
                         if (date.equals(currentDay + "/" + currentMonth + "/" + currentYear)) {
                             preferenceManager.setKeyValueBoolean("abc", true);

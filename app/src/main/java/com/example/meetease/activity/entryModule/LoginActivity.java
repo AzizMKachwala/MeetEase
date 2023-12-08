@@ -266,7 +266,7 @@ public class LoginActivity extends AppCompatActivity {
                                                                 finish();
                                                             }
                                                             else {
-                                                                Tools.showCustomToast(LoginActivity.this,"Something Want Wrong",findViewById(R.id.customToastLayout),getLayoutInflater());
+                                                                Tools.showCustomToast(LoginActivity.this,"Something Went Wrong",findViewById(R.id.customToastLayout),getLayoutInflater());
                                                             }
                                                         }
                                                     });
@@ -296,7 +296,7 @@ public class LoginActivity extends AppCompatActivity {
                         token = task.getResult();
                     }
                 });
-        restCall.AddUser("AddUser",name,email,"No Number Found",token,"Password is Not a -123-123-")
+        restCall.AddUser("AddUser",name,email,"No Number Found",token,"Password is Not A -123-123-")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {

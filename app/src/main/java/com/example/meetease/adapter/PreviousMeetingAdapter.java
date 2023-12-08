@@ -106,6 +106,8 @@ public class PreviousMeetingAdapter extends RecyclerView.Adapter<PreviousMeeting
             txtTime = itemView.findViewById(R.id.txtTime);
             txtLocation = itemView.findViewById(R.id.txtLocation);
             ratingBar = itemView.findViewById(R.id.ratingBar);
+
+            txtName.setSelected(true);
         }
     }
 }
