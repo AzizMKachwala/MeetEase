@@ -176,7 +176,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
         PhoneAuthProvider.verifyPhoneNumber(options);
     }
 
-    private PhoneAuthProvider.OnVerificationStateChangedCallbacks
+    private final PhoneAuthProvider.OnVerificationStateChangedCallbacks
             mCallBack = new PhoneAuthProvider.OnVerificationStateChangedCallbacks() {
         @Override
         public void onCodeSent(String s, PhoneAuthProvider.ForceResendingToken forceResendingToken) {
@@ -272,9 +272,9 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     }
 
     public class GenericTextWatcher implements TextWatcher {
-        private EditText currentEditText;
-        private EditText nextEditText;
-        private EditText beforeEdittext;
+        private final EditText currentEditText;
+        private final EditText nextEditText;
+        private final EditText beforeEdittext;
 
         public GenericTextWatcher(EditText beforeEdittext, EditText currentEditText, EditText nextEditText) {
             this.currentEditText = currentEditText;

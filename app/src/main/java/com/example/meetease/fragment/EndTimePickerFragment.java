@@ -74,10 +74,9 @@ public class EndTimePickerFragment extends DialogFragment {
                 else if (hour==Integer.parseInt(preferenceManager.getKeyValueString("start hour","0"))&&minute<Integer.parseInt(preferenceManager.getKeyValueString("start minute","0"))+1) {
                     timePicker.setMinute(Integer.parseInt(preferenceManager.getKeyValueString("start minute","0"))+1);
                 }else {
-                    StringBuilder builder = new StringBuilder();
-                    builder.append(timePicker.getHour() + ":");
-                    builder.append(timePicker.getMinute());
-                    SelectedEndTime = builder.toString();
+                    String builder = timePicker.getHour() + ":" +
+                            timePicker.getMinute();
+                    SelectedEndTime = builder;
 
                     Calendar selectedTime = Calendar.getInstance();
                     selectedTime.set(Calendar.HOUR_OF_DAY, hour);
@@ -92,10 +91,9 @@ public class EndTimePickerFragment extends DialogFragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StringBuilder builder = new StringBuilder();
-                builder.append(timePicker.getHour() + ":");
-                builder.append(timePicker.getMinute());
-                SelectedEndTime = builder.toString();
+                String builder = timePicker.getHour() + ":" +
+                        timePicker.getMinute();
+                SelectedEndTime = builder;
                 buttonClick.saveClick(SelectedEndTime, String.valueOf(timePicker.getHour()), String.valueOf(timePicker.getMinute()));
                 dismiss();
             }

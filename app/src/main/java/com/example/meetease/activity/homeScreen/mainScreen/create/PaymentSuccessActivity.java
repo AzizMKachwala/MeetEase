@@ -35,7 +35,7 @@ public class PaymentSuccessActivity extends AppCompatActivity {
         new CountDownTimer(5000, 1000) {
             @Override
             public void onTick(long l) {
-                txtTimer.setText(String.valueOf(l / 1000) + " Seconds");
+                txtTimer.setText(l / 1000 + " Seconds");
             }
 
             @Override

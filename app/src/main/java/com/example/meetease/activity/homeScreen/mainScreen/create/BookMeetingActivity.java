@@ -92,11 +92,7 @@ public class BookMeetingActivity extends AppCompatActivity {
                         if (timeCurrent.charAt(5) == '0') {
                             currentDay = "" + timeCurrent.charAt(6);
                         }
-                        if (date.equals(currentDay + "/" + currentMonth + "/" + currentYear)) {
-                            preferenceManager.setKeyValueBoolean("abc", true);
-                        } else {
-                            preferenceManager.setKeyValueBoolean("abc", false);
-                        }
+                        preferenceManager.setKeyValueBoolean("abc", date.equals(currentDay + "/" + currentMonth + "/" + currentYear));
 
                         tvStartTime.setText("Select Start Time");
                         tvEndTime.setText("Select End Time");

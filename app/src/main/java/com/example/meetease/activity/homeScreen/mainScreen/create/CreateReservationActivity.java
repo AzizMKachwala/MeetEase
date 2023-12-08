@@ -246,7 +246,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                                 if (roomDetailListNoUpcomingDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)
                                         && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming() != null
                                         && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().size() > 0) {
-                                    if (flag == false) {
+                                    if (!flag) {
                                         AvailableRoomDetails();
                                         flag = true;
                                     } else {
