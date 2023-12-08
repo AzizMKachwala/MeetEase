@@ -10,14 +10,18 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
+
 import com.example.meetease.R;
+import com.example.meetease.activity.homeScreen.HomeScreenActivity;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
+
 import java.util.Arrays;
+
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
 
@@ -27,7 +31,7 @@ public class DetailsActivity extends AppCompatActivity {
     TextView txtName, txtLocation, txtPrice;
     RatingBar ratingBar;
     Button btnBookNow;
-    String checkFavourite;
+//    String checkFavourite;
     RestCall restCall;
     Tools tools;
     String roomId;
@@ -52,6 +56,7 @@ public class DetailsActivity extends AppCompatActivity {
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                startActivity(new Intent(DetailsActivity.this, HomeScreenActivity.class));
                 finish();
             }
         });
@@ -70,7 +75,7 @@ public class DetailsActivity extends AppCompatActivity {
         bookingDate = intent.getStringExtra("bookingDate");
         bookingStartTime = intent.getStringExtra("bookingStartTime");
         bookingEndTime = intent.getStringExtra("bookingEndTime");
-        totalTime = intent.getIntExtra("totalTime",0);
+        totalTime = intent.getIntExtra("totalTime", 0);
 
         txtLocation.setText(roomLocation);
         txtName.setText(roomName);
@@ -95,5 +100,12 @@ public class DetailsActivity extends AppCompatActivity {
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
             }
         });
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        startActivity(new Intent(DetailsActivity.this, HomeScreenActivity.class));
+        finish();
     }
 }

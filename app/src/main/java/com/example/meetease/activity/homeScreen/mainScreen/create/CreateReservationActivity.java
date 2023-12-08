@@ -265,6 +265,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                                                 }
                                             }
                                         }
+
                                         createReservationAdapter = new CreateReservationAdapter(apiList, CreateReservationActivity.this);
                                         recyclerViewMeetingRooms.setAdapter(createReservationAdapter);
                                         createReservationAdapter.setUpInterFace(new CreateReservationAdapter.CreateReservationAdapterDataClick() {
@@ -293,6 +294,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                                                 }
                                                 intent.putExtra("totalTime", hour);
                                                 startActivity(intent);
+                                                finish();
                                             }
 
                                             @Override
