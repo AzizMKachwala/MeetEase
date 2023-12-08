@@ -226,15 +226,13 @@ public class LoginActivity extends AppCompatActivity {
                             public void run() {
 
                                 if (loginDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)){
-
-                                    tools.stopLoading();
                                     preferenceManager.setKeyValueString(VariableBag.user_id, loginDataModel.getUser_id());
                                     preferenceManager.setKeyValueString(VariableBag.full_name, loginDataModel.getFull_name());
                                     preferenceManager.setKeyValueString(VariableBag.mobile, loginDataModel.getMobile());
                                     preferenceManager.setKeyValueString(VariableBag.image, loginDataModel.getProfile_photo());
                                     preferenceManager.setKeyValueString(VariableBag.email, loginDataModel.getEmail());
                                     preferenceManager.setKeyValueString(VariableBag.password, etvPassword.getText().toString());
-                                    restCall.UpdateToken("UpdateFCMToken",myToken,preferenceManager.getKeyValueString(VariableBag.user_id,""))
+                                    restCall.UpdateToken("UpdateFCMToken",myToken,loginDataModel.getUser_id())
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(Schedulers.newThread())
                                             .subscribe(new Subscriber<UserResponse>() {
@@ -259,6 +257,7 @@ public class LoginActivity extends AppCompatActivity {
                                                     runOnUiThread(new Runnable() {
                                                         @Override
                                                         public void run() {
+
                                                             if (userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
                                                                 tools.stopLoading();
                                                                 preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, true);
@@ -266,14 +265,18 @@ public class LoginActivity extends AppCompatActivity {
                                                                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                                                 finish();
                                                             }
+                                                            else {
+                                                                Tools.showCustomToast(LoginActivity.this,"Something Want Wrong",findViewById(R.id.customToastLayout),getLayoutInflater());
+                                                            }
                                                         }
                                                     });
                                                 }
                                             });
                                 }
                                 else {
-                                    tools.showLoading();
-                                    AddUser();
+                                    if(flag.equals("0")){
+                                        AddUser();
+                                    }
                                 }
 
                             }
@@ -293,7 +296,6 @@ public class LoginActivity extends AppCompatActivity {
                         token = task.getResult();
                     }
                 });
-        tools.showLoading();
         restCall.AddUser("AddUser",name,email,"No Number Found",token,"Password is Not a -123-123-")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
@@ -305,11 +307,11 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 tools.stopLoading();
+                                flag="1";
                                 Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
@@ -317,12 +319,15 @@ public class LoginActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(UserResponse userResponse) {
-                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
                                 if(userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
                                     loginUser();
+                                }
+                                else {
+                                    tools.stopLoading();
+                                    flag ="1";
                                 }
                             }
                         });

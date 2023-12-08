@@ -25,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_marginTop="@dimen/_20sdp"
             android:text="Payment Successful"
             android:textSize="@dimen/_30ssp"
             app:layout_constraintEnd_toEndOf="parent"
