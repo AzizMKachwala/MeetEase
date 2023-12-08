@@ -33,6 +33,7 @@
                 android:layout_marginVertical="@dimen/_5sdp"
                 android:background="@drawable/button_shape"
                 android:weightSum="2"
+                android:backgroundTint="@color/blue"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"

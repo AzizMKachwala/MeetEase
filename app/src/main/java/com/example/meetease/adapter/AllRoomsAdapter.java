@@ -28,7 +28,7 @@ public class AllRoomsAdapter extends RecyclerView.Adapter<AllRoomsAdapter.AllRoo
     @NonNull
     @Override
     public AllRoomsDataViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        return new AllRoomsDataViewHolder(Tools.bindXML(R.layout.all_rooms_item,parent));
+        return new AllRoomsDataViewHolder(Tools.bindXML(R.layout.all_rooms_item, parent));
     }
 
     @Override
@@ -36,7 +36,7 @@ public class AllRoomsAdapter extends RecyclerView.Adapter<AllRoomsAdapter.AllRoo
         holder.txtName.setText(roomDetailLists.get(position).getRoom_name());
         holder.txtLocation.setText(roomDetailLists.get(position).getLocation());
 
-        Tools.DisplayImage(context,holder.imgRoom,roomDetailLists.get(position).getRoom_img());
+        Tools.DisplayImage(context, holder.imgRoom, roomDetailLists.get(position).getRoom_img());
     }
 
     @Override
@@ -56,6 +56,7 @@ public class AllRoomsAdapter extends RecyclerView.Adapter<AllRoomsAdapter.AllRoo
             txtLocation = itemView.findViewById(R.id.txtLocation);
             imgRoom = itemView.findViewById(R.id.imgRoom);
 
+            txtName.setSelected(true);
         }
     }
 }

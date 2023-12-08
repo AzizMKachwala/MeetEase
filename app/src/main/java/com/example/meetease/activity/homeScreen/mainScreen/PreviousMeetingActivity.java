@@ -40,7 +40,6 @@ public class PreviousMeetingActivity extends AppCompatActivity {
     RestCall restCall;
     Tools tools;
     SwipeRefreshLayout swipeRefreshLayout;
-    String tag = "";
     PreferenceManager preferenceManager;
 
     @Override
@@ -122,7 +121,6 @@ public class PreviousMeetingActivity extends AppCompatActivity {
 
                     @Override
                     public void onError(Throwable e) {
-
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
