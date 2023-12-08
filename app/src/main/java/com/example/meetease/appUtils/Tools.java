@@ -29,12 +29,10 @@ import java.util.zip.Inflater;
 public class Tools extends AppCompatActivity {
     Context context;
     private final Dialog dialog;
-    LayoutInflater layoutInflater;
 
     public Tools(Context context) {
         this.context = context;
         dialog = new Dialog(context);
-        layoutInflater = getLayoutInflater();
     }
 
     public static View bindXML(int xml, ViewGroup parent ){
@@ -108,8 +106,7 @@ public class Tools extends AppCompatActivity {
     }
 
     public static  <T> void showCustomToast(Context context, String message, T view, LayoutInflater layoutInflater) {
-        LayoutInflater inflater = layoutInflater;
-        View layout = inflater.inflate(R.layout.custom_toast_layout, (ViewGroup) view);
+        View layout = layoutInflater.inflate(R.layout.custom_toast_layout, (ViewGroup) view);
         TextView text = layout.findViewById(R.id.customToastText);
         text.setText(message);
         Toast toast = new Toast(context);

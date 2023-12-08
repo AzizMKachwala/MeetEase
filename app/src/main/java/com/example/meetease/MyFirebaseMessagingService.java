@@ -31,20 +31,14 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
         FirebaseAnalytics.getInstance(this);
-        Log.d("my payload1", "Message data payload: " + remoteMessage);
+        Log.d("my payload1", "Message data payload: " + remoteMessage.getData());
 
         if (remoteMessage.getData().size() > 0) {
-
-
-            if ( true) {
-
-            } else {
-                String title = remoteMessage.getData().get("title");
-                String body = remoteMessage.getData().get("body");
-                String body1 = remoteMessage.getData().get("body1");
-                showNotification(title, body, body1);
-                Log.d("my payload", "Message data payload: " + remoteMessage);
-            }
+            String title = remoteMessage.getData().get("title");
+            String body = remoteMessage.getData().get("body");
+            String body1 = remoteMessage.getData().get("body1");
+            showNotification(title, body, body1);
+            Log.d("my payload", "Message data payload: " + remoteMessage);
         }
     }
 
@@ -57,8 +51,8 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         stackBuilder.addNextIntentWithParentStack(resultIntent);
         PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_UPDATE_CURRENT | PendingIntent.FLAG_IMMUTABLE);
         Notification notification = new NotificationCompat.Builder(MyFirebaseMessagingService.this, "meeting_notification")
-                .setContentTitle(title)
-                .setContentText(body)
+                .setContentTitle(title+"1")
+                .setContentText(body+"2")
                 .setSmallIcon(R.drawable.bg)
                 .setContentIntent(resultPendingIntent)
                 .build();
@@ -72,6 +66,12 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         channel.setDescription("Channel for meeting notifications");
         NotificationManager notificationManager = context.getSystemService(NotificationManager.class);
         notificationManager.createNotificationChannel(channel);
+    }
+
+    @Override
+    public void onMessageSent(@NonNull String msgId) {
+        super.onMessageSent(msgId);
+        Log.i("my mess", "onMessageSent: "+msgId);
     }
 }
 
