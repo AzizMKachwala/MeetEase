@@ -26,10 +26,13 @@ public class PaymentSuccessActivity extends AppCompatActivity {
         setContentView(R.layout.activity_payment_success);
 
         txtTimer = findViewById(R.id.txtTimer);
+        ivPaymentGif = findViewById(R.id.ivPaymentGif);
 
+        Glide.with(this)
+                .load(R.drawable.background_gif)
+                .into(ivPaymentGif);
 
         new CountDownTimer(5000, 1000) {
-
             @Override
             public void onTick(long l) {
                 txtTimer.setText(String.valueOf(l / 1000) + " Seconds");
