@@ -122,11 +122,11 @@
                     style="@style/button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_10sdp"
+                    android:layout_marginBottom="@dimen/_5sdp"
                     android:layout_weight="1"
+                    android:layout_marginHorizontal="@dimen/_10sdp"
                     android:text="BOOK NOW"
-                    android:textSize="@dimen/_10sdp"
-                    app:backgroundTint="@color/lightBlueTransparent" />
+                    android:textSize="@dimen/_10sdp" />
 
             </LinearLayout>
 
