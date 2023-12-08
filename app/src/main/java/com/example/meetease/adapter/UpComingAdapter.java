@@ -46,6 +46,7 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
         holder.txtName.setText(upComingListResponses.get(position).getRoom_name());
         holder.txtPrice.setText(upComingListResponses.get(position).getPrice());
         holder.txtLocation.setText(upComingListResponses.get(position).getLocation());
+        holder.txtSelectedDate.setText(upComingListResponses.get(position).getBooking_date());
         holder.btnViewInfo.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -75,7 +76,7 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
     class UpComingViewHolder extends RecyclerView.ViewHolder {
         Button btnViewInfo;
         ImageView imgRoom, imgFavourite;
-        TextView txtName, txtLocation, txtPrice;
+        TextView txtName, txtLocation, txtPrice, txtSelectedDate;
 
         public UpComingViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -85,6 +86,7 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
             txtName = itemView.findViewById(R.id.txtName);
             txtLocation = itemView.findViewById(R.id.txtLocation);
             txtPrice = itemView.findViewById(R.id.txtPrice);
+            txtSelectedDate = itemView.findViewById(R.id.txtSelectedDate);
 
             txtName.setSelected(true);
         }

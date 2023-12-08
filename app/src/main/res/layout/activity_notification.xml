@@ -7,15 +7,26 @@
     android:background="@color/lightBlueTransparent"
     tools:context=".activity.homeScreen.mainScreen.NotificationActivity">
 
-    <ImageView
-        android:id="@+id/ivBack"
-        android:layout_width="@dimen/_35sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_margin="@dimen/_15sdp"
-        android:paddingStart="@dimen/_5sdp"
-        android:src="@drawable/ic_back"
+    <LinearLayout
+        android:id="@+id/lyt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/all_corners"
+        android:padding="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:paddingStart="@dimen/_5sdp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/txtHeading"
@@ -36,7 +47,7 @@
         android:id="@+id/swipe"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/_60sdp"
+        android:layout_marginTop="@dimen/_70sdp"
         app:layout_constraintTop_toTopOf="parent">
 
         <androidx.recyclerview.widget.RecyclerView

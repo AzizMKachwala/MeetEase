@@ -164,14 +164,15 @@ public class DetailsActivity extends AppCompatActivity {
                                         Tools.DisplayImage(DetailsActivity.this, imgRoom, selectRoom.getRoom_img());
 
                                         roomName = selectRoom.getRoom_name();
-                                        roomPrice = intent.getStringExtra("roomPrice");
-                                        roomLocation = intent.getStringExtra("roomLocation");
-                                        roomRating = intent.getStringExtra("roomRating");
-                                        roomImage = intent.getStringExtra("roomImage");
-                                        bookingDate = intent.getStringExtra("bookingDate");
-                                        bookingStartTime = intent.getStringExtra("bookingStartTime");
-                                        bookingEndTime = intent.getStringExtra("bookingEndTime");
-                                        totalTime = intent.getIntExtra("totalTime", 0);
+                                        roomPrice = selectRoom.getPrice();
+                                        roomLocation = selectRoom.getLocation();
+                                        roomRating = selectRoom.getRating();
+                                        roomImage = selectRoom.getRoom_img();
+//
+//                                        bookingDate = intent.getStringExtra("bookingDate");
+//                                        bookingStartTime = intent.getStringExtra("bookingStartTime");
+//                                        bookingEndTime = intent.getStringExtra("bookingEndTime");
+//                                        totalTime = intent.getIntExtra("totalTime", 0);
                                     }
 
                                 }

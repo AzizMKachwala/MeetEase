@@ -5,18 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/lightBlueTransparent"
-    android:padding="@dimen/_5sdp"
     tools:context=".activity.homeScreen.mainScreen.profile.ProfileShowActivity">
 
-    <ImageView
-        android:id="@+id/ivBack"
-        android:layout_width="@dimen/_35sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_margin="@dimen/_15sdp"
-        android:paddingStart="@dimen/_5sdp"
-        android:src="@drawable/ic_back"
+    <LinearLayout
+        android:id="@+id/lyt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/all_corners"
+        android:padding="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:paddingStart="@dimen/_5sdp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cvProfile"
@@ -27,9 +37,10 @@
         android:elevation="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         app:cardUseCompatPadding="true"
+        android:layout_marginHorizontal="@dimen/_5sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/ivBack">
+        app:layout_constraintTop_toBottomOf="@id/lyt">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -91,6 +102,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
@@ -107,6 +119,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
+                    android:gravity="center_vertical"
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
@@ -131,6 +144,7 @@
         android:elevation="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         app:cardUseCompatPadding="true"
+        android:layout_marginHorizontal="@dimen/_5sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cvProfile">
 
@@ -169,6 +183,7 @@
         android:backgroundTint="@color/blue"
         android:elevation="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_10sdp"
+        android:layout_marginHorizontal="@dimen/_5sdp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/CvUserDetails">

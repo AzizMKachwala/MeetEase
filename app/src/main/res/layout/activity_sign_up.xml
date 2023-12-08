@@ -116,6 +116,8 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:paddingStart="@dimen/_40sdp"
         android:paddingEnd="@dimen/_40sdp"
+        android:textColor="@color/white"
+        app:backgroundTint="@color/blue"
         android:text="SIGNUP"
         android:textSize="@dimen/_15sdp" />
 

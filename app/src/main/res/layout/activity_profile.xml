@@ -7,15 +7,26 @@
     android:background="@color/lightBlueTransparent"
     tools:context=".activity.homeScreen.mainScreen.profile.ProfileActivity">
 
-    <ImageView
-        android:id="@+id/ivBack"
-        android:layout_width="@dimen/_35sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_margin="@dimen/_15sdp"
-        android:paddingStart="@dimen/_5sdp"
-        android:src="@drawable/ic_back"
+    <LinearLayout
+        android:id="@+id/lyt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/all_corners"
+        android:padding="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:paddingStart="@dimen/_5sdp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvEditText"
@@ -135,25 +146,48 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/etvPhoneNo" />
 
+            <Button
+                android:id="@+id/btnSave"
+                style="@style/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_10sdp"
+                android:paddingStart="@dimen/_30sdp"
+                android:paddingEnd="@dimen/_30sdp"
+                android:text="Save"
+                android:textColor="@color/white"
+                app:backgroundTint="@color/darkBlue"
+                android:layout_gravity="center"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_20sdp"
+                android:layout_marginTop="@dimen/_20sdp"
+                android:background="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_40sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:background="@color/white" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginHorizontal="@dimen/_60sdp"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@color/white" />
+
+
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 
-    <Button
-        android:id="@+id/btnSave"
-        style="@style/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingStart="@dimen/_30sdp"
-        android:paddingEnd="@dimen/_30sdp"
-        android:layout_marginTop="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
-        android:text="Save"
-        android:textColor="@color/white"
-        app:backgroundTint="@color/darkBlue"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cvEdit" />
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

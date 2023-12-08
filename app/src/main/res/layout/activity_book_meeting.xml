@@ -7,22 +7,30 @@
     android:background="@color/lightBlueTransparent"
     tools:context=".activity.homeScreen.mainScreen.create.BookMeetingActivity">
 
-    <ImageView
-        android:id="@+id/ivBack"
-        android:layout_width="@dimen/_35sdp"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_margin="@dimen/_15sdp"
-        android:paddingStart="@dimen/_5sdp"
-        android:src="@drawable/ic_back"
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:background="@drawable/all_corners"
+        android:padding="@dimen/_10sdp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:paddingStart="@dimen/_5sdp"
+            android:src="@drawable/ic_back"/>
+
+    </LinearLayout>
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="@dimen/_10sdp"
-        app:cardCornerRadius="@dimen/_10sdp"
         android:backgroundTint="@color/blue"
+        app:cardCornerRadius="@dimen/_10sdp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
@@ -146,7 +154,6 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
-
             <Button
                 android:id="@+id/btnBookNow"
                 style="@style/button"
@@ -157,8 +164,7 @@
                 android:background="@drawable/button_shape"
                 android:text="Search Rooms"
                 android:textColor="@color/black"
-                app:backgroundTint="@color/lightBlue"
-                android:textSize="@dimen/_15sdp"/>
+                android:textSize="@dimen/_15sdp" />
 
             <View
                 android:layout_width="match_parent"
@@ -179,10 +185,11 @@
                 android:layout_height="@dimen/_1sdp"
                 android:layout_marginHorizontal="@dimen/_60sdp"
                 android:layout_marginTop="@dimen/_5sdp"
-                android:layout_marginBottom="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_20sdp"
                 android:background="@color/white" />
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
