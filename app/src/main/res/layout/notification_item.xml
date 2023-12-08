@@ -19,15 +19,29 @@
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/txtNotificationName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Booking Done on 28/11/23"
+                android:text="Booking Done"
                 android:textColor="@color/white"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:textSize="@dimen/_20ssp"
-                android:layout_marginStart="@dimen/_10sdp"/>
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:paddingHorizontal="@dimen/_5sdp"/>
 
             <TextView
+                android:id="@+id/txtNotificationDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Hotel Taj is Booked on 26/12/23 for 11:00 - 12:00"
+                android:textColor="@color/white"
+                android:layout_marginTop="@dimen/_5sdp"
+                android:textSize="@dimen/_15ssp"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:paddingHorizontal="@dimen/_5sdp"/>
+
+            <TextView
+                android:id="@+id/txtCurrentTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="11:30:00"
@@ -36,6 +50,8 @@
                 android:layout_marginBottom="@dimen/_5sdp"
                 android:layout_gravity="end|bottom"
                 android:textSize="@dimen/_10ssp"
+                android:layout_marginHorizontal="@dimen/_5sdp"
+                android:paddingHorizontal="@dimen/_5sdp"
                 android:layout_marginEnd="@dimen/_10sdp"/>
 
         </LinearLayout>

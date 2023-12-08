@@ -74,10 +74,9 @@ public class StartTimePickerFragment extends DialogFragment {
                     }else if (hour==Calendar.getInstance().getTime().getHours()&&minute<Calendar.getInstance().getTime().getMinutes()){
                         timePicker.setMinute(Calendar.getInstance().getTime().getMinutes());
                     }else {
-                        StringBuilder builder = new StringBuilder();
-                        builder.append(timePicker.getHour() + ":");
-                        builder.append(timePicker.getMinute());
-                        SelectedStartTime = builder.toString();
+                        String builder = timePicker.getHour() + ":" +
+                                timePicker.getMinute();
+                        SelectedStartTime = builder;
 
                         Calendar selectedTime = Calendar.getInstance();
                         selectedTime.set(Calendar.HOUR_OF_DAY, hour);
@@ -87,10 +86,9 @@ public class StartTimePickerFragment extends DialogFragment {
                     }
                 }
                 else {
-                    StringBuilder builder = new StringBuilder();
-                    builder.append(timePicker.getHour() + ":");
-                    builder.append(timePicker.getMinute());
-                    SelectedStartTime = builder.toString();
+                    String builder = timePicker.getHour() + ":" +
+                            timePicker.getMinute();
+                    SelectedStartTime = builder;
 
                     Calendar selectedTime = Calendar.getInstance();
                     selectedTime.set(Calendar.HOUR_OF_DAY, hour);
@@ -106,10 +104,9 @@ public class StartTimePickerFragment extends DialogFragment {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                StringBuilder builder = new StringBuilder();
-                builder.append(timePicker.getHour() + ":");
-                builder.append(timePicker.getMinute());
-                SelectedStartTime = builder.toString();
+                String builder = timePicker.getHour() + ":" +
+                        timePicker.getMinute();
+                SelectedStartTime = builder;
                 buttonClick.saveClick(SelectedStartTime, String.valueOf(timePicker.getHour()), String.valueOf(timePicker.getMinute()));
                 dismiss();
             }

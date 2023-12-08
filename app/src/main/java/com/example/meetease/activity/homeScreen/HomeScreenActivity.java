@@ -134,11 +134,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             builder.setView(view);
 
             builder.setCancelable(false);
-            builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+            builder.setPositiveButton("Yes", (dialog, which) -> {
                 dialog.cancel();
                 finish();
             });
-            builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+            builder.setNegativeButton("No", (dialog, which) -> {
                 dialog.cancel();
             });
             AlertDialog alertDialog = builder.create();
@@ -229,7 +229,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
             builder.setView(view1);
 
             builder.setCancelable(false);
-            builder.setPositiveButton("Yes", (DialogInterface.OnClickListener) (dialog, which) -> {
+            builder.setPositiveButton("Yes", (dialog, which) -> {
                 dialog.cancel();
                 preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, false);
 
@@ -245,7 +245,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
                 changeScreen(LoginActivity.class);
                 finish();
             });
-            builder.setNegativeButton("No", (DialogInterface.OnClickListener) (dialog, which) -> {
+            builder.setNegativeButton("No", (dialog, which) -> {
                 dialog.cancel();
             });
             AlertDialog alertDialog = builder.create();

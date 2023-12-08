@@ -3,11 +3,11 @@ package com.example.meetease.activity.entryModule;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
 import android.text.method.PasswordTransformationMethod;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -86,6 +86,7 @@ public class LoginActivity extends AppCompatActivity {
                 signInWithGoogle();
             }
         });
+
         btnLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -226,14 +227,14 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void run() {
 
-                                if (loginDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                if (loginDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     preferenceManager.setKeyValueString(VariableBag.user_id, loginDataModel.getUser_id());
                                     preferenceManager.setKeyValueString(VariableBag.full_name, loginDataModel.getFull_name());
                                     preferenceManager.setKeyValueString(VariableBag.mobile, loginDataModel.getMobile());
                                     preferenceManager.setKeyValueString(VariableBag.image, loginDataModel.getProfile_photo());
                                     preferenceManager.setKeyValueString(VariableBag.email, loginDataModel.getEmail());
                                     preferenceManager.setKeyValueString(VariableBag.password, etvPassword.getText().toString());
-                                    restCall.UpdateToken("UpdateFCMToken",myToken,"0",loginDataModel.getUser_id())
+                                    restCall.UpdateToken("UpdateFCMToken", myToken, "0", loginDataModel.getUser_id())
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(Schedulers.newThread())
                                             .subscribe(new Subscriber<UserResponse>() {
@@ -265,20 +266,16 @@ public class LoginActivity extends AppCompatActivity {
                                                                 startActivity(new Intent(LoginActivity.this, HomeScreenActivity.class));
                                                                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                                                 finish();
-                                                            }
-                                                            else {
-                                                                Tools.showCustomToast(LoginActivity.this,"Something Want Wrong",findViewById(R.id.customToastLayout),getLayoutInflater());
+                                                            } else {
+                                                                Tools.showCustomToast(LoginActivity.this, "Something Went Wrong", findViewById(R.id.customToastLayout), getLayoutInflater());
                                                             }
                                                         }
                                                     });
                                                 }
                                             });
-                                }
-                                else {
-                                    if(flag.equals("0")){
+                                } else {
+                                    if (flag.equals("0")) {
                                         AddUser();
-                                    }else {
-                                        Tools.showCustomToast(LoginActivity.this,loginDataModel.getMessage(),findViewById(R.id.customToastLayout),getLayoutInflater());
                                     }
                                 }
 
@@ -288,7 +285,7 @@ public class LoginActivity extends AppCompatActivity {
                 });
     }
 
-    void AddUser(){
+    void AddUser() {
         FirebaseMessaging.getInstance().getToken()
                 .addOnCompleteListener(new OnCompleteListener<String>() {
                     @Override
@@ -299,7 +296,7 @@ public class LoginActivity extends AppCompatActivity {
                         token = task.getResult();
                     }
                 });
-        restCall.AddUser("AddUser",name,email,"No Number Found",token,"")
+        restCall.AddUser("AddUser", name, email, "No Number Found", token, "Password is Not A -123-123-")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -314,7 +311,7 @@ public class LoginActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                flag="1";
+                                flag = "1";
                                 Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
@@ -325,13 +322,11 @@ public class LoginActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if(userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)){
+                                if (userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
                                     loginUser();
-                                }
-                                else {
-                                    Tools.showCustomToast(LoginActivity.this,"Something Went Wrong",findViewById(R.id.customToastLayout),getLayoutInflater());
+                                } else {
                                     tools.stopLoading();
-                                    flag ="1";
+                                    flag = "1";
                                 }
                             }
                         });
