@@ -71,10 +71,10 @@ public class NotificationActivity extends AppCompatActivity {
                         String token = task.getResult();
                         String msg = token;
                         Log.d("token", msg);
-                        Toast.makeText(NotificationActivity.this, msg, Toast.LENGTH_SHORT).show();
                     }
                 });
     }
+
     private final ActivityResultLauncher<String> requestPermissionLauncher =
             registerForActivityResult(new ActivityResultContracts.RequestPermission(), isGranted -> {
                 if (isGranted) {
@@ -90,10 +90,8 @@ public class NotificationActivity extends AppCompatActivity {
             if (ContextCompat.checkSelfPermission(this, android.Manifest.permission.POST_NOTIFICATIONS) ==
                     PackageManager.PERMISSION_GRANTED) {
                 // FCM SDK (and your app) can post notifications.
-            }
-            else if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
-            }
-            else {
+            } else if (shouldShowRequestPermissionRationale(android.Manifest.permission.POST_NOTIFICATIONS)) {
+            } else {
                 requestPermissionLauncher.launch(android.Manifest.permission.POST_NOTIFICATIONS);
             }
         }

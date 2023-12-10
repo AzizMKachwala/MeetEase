@@ -271,6 +271,7 @@
         android:layout_marginBottom="@dimen/_10sdp"
         android:layout_marginEnd="@dimen/_10sdp"
         android:text="Contact Us"
+        android:textColor="@color/white"
         app:backgroundTint="@color/blue"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

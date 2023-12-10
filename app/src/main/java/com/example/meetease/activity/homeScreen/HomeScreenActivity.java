@@ -116,11 +116,11 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         tvSettingName.setText(preferenceManager.getKeyValueString(VariableBag.full_name, ""));
         tvSettingEmail.setText(preferenceManager.getKeyValueString(VariableBag.email, ""));
         txtHelloName.setText("Hello, " + preferenceManager.getKeyValueString(VariableBag.full_name, ""));
+        Tools.DisplayImage(this, ivSettingProfile, preferenceManager.getKeyValueString(VariableBag.image, ""));
     }
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
         if (scrollView.getVisibility() == View.VISIBLE) {
             scrollView.setVisibility(View.GONE);
             tvTrans.setVisibility(View.GONE);

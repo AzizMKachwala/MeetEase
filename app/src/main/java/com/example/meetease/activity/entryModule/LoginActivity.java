@@ -259,7 +259,6 @@ public class LoginActivity extends AppCompatActivity {
                                                     runOnUiThread(new Runnable() {
                                                         @Override
                                                         public void run() {
-
                                                             if (userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
                                                                 tools.stopLoading();
                                                                 preferenceManager.setKeyValueBoolean(VariableBag.SessionManage, true);
@@ -274,6 +273,8 @@ public class LoginActivity extends AppCompatActivity {
                                                 }
                                             });
                                 } else {
+
+                                    Tools.showCustomToast(LoginActivity.this, loginDataModel.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                                     if (flag.equals("0")) {
                                         AddUser();
                                     }

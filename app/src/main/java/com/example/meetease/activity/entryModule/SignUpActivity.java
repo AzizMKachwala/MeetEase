@@ -171,7 +171,6 @@ public class SignUpActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 Tools.showCustomToast(getApplicationContext(), userResponse.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
-
                                 if (userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
                                     startActivity(new Intent(SignUpActivity.this, LoginActivity.class));
                                     overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);

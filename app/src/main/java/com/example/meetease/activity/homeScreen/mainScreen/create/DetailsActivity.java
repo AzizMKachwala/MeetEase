@@ -168,7 +168,7 @@ public class DetailsActivity extends AppCompatActivity {
                                         roomLocation = selectRoom.getLocation();
                                         roomRating = selectRoom.getRating();
                                         roomImage = selectRoom.getRoom_img();
-//
+
 //                                        bookingDate = intent.getStringExtra("bookingDate");
 //                                        bookingStartTime = intent.getStringExtra("bookingStartTime");
 //                                        bookingEndTime = intent.getStringExtra("bookingEndTime");

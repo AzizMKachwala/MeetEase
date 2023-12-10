@@ -67,4 +67,10 @@ public class ProfileShowActivity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Tools.DisplayImage(ProfileShowActivity.this,imageProfile,preferenceManager.getKeyValueString(VariableBag.image,""));
+    }
 }

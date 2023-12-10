@@ -13,7 +13,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
+import com.example.meetease.appUtils.VariableBag;
 
 public class ContactUsActivity extends AppCompatActivity {
 
@@ -21,6 +23,7 @@ public class ContactUsActivity extends AppCompatActivity {
     Button btnSendMessage;
     EditText etvMessage, etvPhone, etvEmail, etvLastName, etvFirstName;
     CardView cvPhone, cvWhatsapp;
+    PreferenceManager preferenceManager;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +39,8 @@ public class ContactUsActivity extends AppCompatActivity {
         etvFirstName = findViewById(R.id.etvFirstName);
         cvPhone = findViewById(R.id.cvPhone);
         cvWhatsapp = findViewById(R.id.cvWhatsapp);
+
+        preferenceManager = new PreferenceManager(ContactUsActivity.this);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -101,7 +106,7 @@ public class ContactUsActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 String phoneNo = "8460190852";
-                String message = "Hello,\nHope You are having a Good day.";
+                String message = "Hello,\nHope You are having a Good day.\nMyself " + preferenceManager.getKeyValueString(VariableBag.full_name, "");
 
                 Uri uri = Uri.parse("https://api.whatsapp.com/send?phone=" + phoneNo + "&text=" + message);
                 Intent sendIntent = new Intent(Intent.ACTION_VIEW, uri);
