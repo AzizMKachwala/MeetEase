@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/lightBlueTransparent"
+    android:orientation="vertical"
     tools:context=".activity.homeScreen.mainScreen.create.DetailsActivity">
 
     <LinearLayout
@@ -31,9 +31,9 @@
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="@dimen/_10sdp"
         android:layout_marginTop="@dimen/_10sdp"
         android:backgroundTint="@color/blue"
+        app:cardCornerRadius="@dimen/_10sdp"
         app:cardUseCompatPadding="true">
 
         <LinearLayout
@@ -65,7 +65,7 @@
                     android:id="@+id/txtName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Hotel Taj"
+                    android:hint="Hotel Taj"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_25sdp"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -103,21 +103,24 @@
                     android:layout_height="@dimen/_20sdp"
                     android:layout_marginStart="@dimen/_5sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:src="@drawable/outline_wifi_24" />
+                    android:src="@drawable/outline_wifi_24"
+                    app:tint="@color/white" />
 
                 <ImageView
                     android:id="@+id/imgProjector"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:src="@drawable/projector" />
+                    android:src="@drawable/projector"
+                    app:tint="@color/white" />
 
                 <ImageView
                     android:id="@+id/imgScreen"
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_marginEnd="@dimen/_5sdp"
-                    android:src="@drawable/screen" />
+                    android:src="@drawable/screen"
+                    app:tint="@color/white" />
 
             </LinearLayout>
 
@@ -127,7 +130,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/_10sdp"
                 android:layout_weight="1"
-                android:text="Ahmedabad"
+                android:hint="Ahmedabad"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_20sdp" />
 
@@ -136,7 +139,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="200$/Hour"
+                android:hint="200$/Hour"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_20sdp" />
 
@@ -156,9 +159,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="0dp"
+            android:text="Book Now"
             android:textColor="@color/white"
-            app:backgroundTint="@color/blue"
-            android:text="Book Now" />
+            app:backgroundTint="@color/blue" />
 
     </LinearLayout>
 

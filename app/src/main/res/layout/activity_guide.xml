@@ -58,13 +58,13 @@
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
             <ImageView
                 android:id="@+id/imgSteps"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_280sdp"
+                android:layout_height="@dimen/_250sdp"
                 android:layout_marginTop="@dimen/_5sdp"
                 android:scaleType="fitXY"
                 android:src="@drawable/back_ground_image" />

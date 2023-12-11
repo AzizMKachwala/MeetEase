@@ -198,6 +198,7 @@ public class LoginActivity extends AppCompatActivity {
                         myToken = task.getResult();
                     }
                 });
+
         restCall.LoginUser("LoginUser", etvEmailOrPhone.getText().toString(), etvPassword.getText().toString().trim(), flag)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
@@ -234,6 +235,7 @@ public class LoginActivity extends AppCompatActivity {
                                     preferenceManager.setKeyValueString(VariableBag.image, loginDataModel.getProfile_photo());
                                     preferenceManager.setKeyValueString(VariableBag.email, loginDataModel.getEmail());
                                     preferenceManager.setKeyValueString(VariableBag.password, etvPassword.getText().toString());
+
                                     restCall.UpdateToken("UpdateFCMToken", myToken, "0", loginDataModel.getUser_id())
                                             .subscribeOn(Schedulers.io())
                                             .observeOn(Schedulers.newThread())
@@ -273,7 +275,6 @@ public class LoginActivity extends AppCompatActivity {
                                                 }
                                             });
                                 } else {
-
                                     Tools.showCustomToast(LoginActivity.this, loginDataModel.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                                     if (flag.equals("0")) {
                                         AddUser();
@@ -297,7 +298,8 @@ public class LoginActivity extends AppCompatActivity {
                         token = task.getResult();
                     }
                 });
-        restCall.AddUser("AddUser", name, email, "No Number Found", token, "Password is Not A -123-123-")
+
+        restCall.AddUser("AddUser", name, email, "0000000000", token, "Password is Not A -123-123-")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {

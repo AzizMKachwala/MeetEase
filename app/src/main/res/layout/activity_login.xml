@@ -30,15 +30,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/txtHeading"
-        android:layout_marginTop="@dimen/_30sdp"
-        android:hint="Email Or Phone"
-        android:padding="@dimen/_10sdp"
-        android:layout_marginBottom="@dimen/_10sdp"
         android:layout_marginHorizontal="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_30sdp"
+        android:layout_marginBottom="@dimen/_10sdp"
         android:drawableStart="@drawable/baseline_email_24"
         android:drawablePadding="@dimen/_10sdp"
+        android:hint="abc@gmail.com"
         android:imeOptions="actionNext"
         android:inputType="textEmailAddress"
+        android:padding="@dimen/_10sdp"
         android:paddingStart="@dimen/_20sdp" />
 
     <RelativeLayout
@@ -52,10 +52,10 @@
             style="@style/edittext"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Password"
             android:layout_marginHorizontal="@dimen/_10sdp"
             android:drawableStart="@drawable/baseline_password_24"
             android:drawablePadding="@dimen/_10sdp"
+            android:hint="Password"
             android:imeOptions="actionDone"
             android:inputType="textPassword"
             android:padding="@dimen/_10sdp" />
@@ -93,9 +93,9 @@
         android:layout_marginTop="@dimen/_20sdp"
         android:paddingStart="@dimen/_40sdp"
         android:paddingEnd="@dimen/_40sdp"
-        app:backgroundTint="@color/blue"
+        android:text="LOGIN"
         android:textColor="@color/white"
-        android:text="LOGIN" />
+        app:backgroundTint="@color/blue" />
 
     <LinearLayout
         android:id="@+id/layout"

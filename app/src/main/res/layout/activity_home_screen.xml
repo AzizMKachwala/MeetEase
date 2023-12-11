@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".activity.homeScreen.HomeScreenActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/bottom_corner"
@@ -24,32 +24,32 @@
             android:src="@drawable/menu_img"
             app:tint="@color/white" />
 
-        <ImageView
-            android:id="@+id/ivNotification"
-            android:layout_width="@dimen/_25sdp"
-            android:layout_height="@dimen/_25sdp"
-            android:layout_marginTop="@dimen/_19sdp"
-            android:src="@drawable/notification_img"
-            app:tint="@color/white" />
-
         <TextView
             android:id="@+id/txtHelloName"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_25sdp"
-            android:layout_marginStart="@dimen/_20sdp"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_33sdp"
             android:layout_marginTop="@dimen/_15sdp"
-            android:layout_marginEnd="@dimen/_10sdp"
+            android:layout_toRightOf="@id/ivSetting"
             android:ellipsize="marquee"
             android:focusable="true"
             android:focusableInTouchMode="true"
-            android:gravity="end"
             android:hint="Hello, Anand"
             android:marqueeRepeatLimit="marquee_forever"
             android:singleLine="true"
             android:textColor="@color/white"
             android:textSize="@dimen/_20sdp"
             android:textStyle="italic" />
-    </LinearLayout>
+
+        <ImageView
+            android:id="@+id/ivNotification"
+            android:layout_width="@dimen/_30sdp"
+            android:layout_height="@dimen/_33sdp"
+            android:layout_margin="@dimen/_15sdp"
+            android:layout_toRightOf="@id/txtHelloName"
+            android:src="@drawable/notification_img"
+            app:tint="@color/white" />
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -360,10 +360,10 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="center_horizontal"
-                    android:textColor="@color/black"
                     android:hint="anandkasodiya7007@gmail.com"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_15sdp" />
 
                 <View

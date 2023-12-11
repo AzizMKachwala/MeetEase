@@ -115,7 +115,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         super.onResume();
         tvSettingName.setText(preferenceManager.getKeyValueString(VariableBag.full_name, ""));
         tvSettingEmail.setText(preferenceManager.getKeyValueString(VariableBag.email, ""));
-        txtHelloName.setText("Hello, " + preferenceManager.getKeyValueString(VariableBag.full_name, ""));
+        txtHelloName.setText("HELLO, " + preferenceManager.getKeyValueString(VariableBag.full_name, ""));
         Tools.DisplayImage(this, ivSettingProfile, preferenceManager.getKeyValueString(VariableBag.image, ""));
     }
 

@@ -243,6 +243,7 @@ public class CreateReservationActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 apiList = roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming();
+                                tools.stopLoading();
                                 if (roomDetailListNoUpcomingDataModel.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)
                                         && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming() != null
                                         && roomDetailListNoUpcomingDataModel.getRoomDetailListNoUpcoming().size() > 0) {
@@ -343,6 +344,7 @@ public class CreateReservationActivity extends AppCompatActivity {
 
                     @Override
                     public void onNext(FavRoomDataModel favRoomDataModel) {
+                        tools.stopLoading();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
