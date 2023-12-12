@@ -1,5 +1,6 @@
 package com.example.meetease.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetease.R;
 import com.example.meetease.appUtils.Tools;
+import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.UpComingListResponse;
 import com.example.meetease.fragment.FilterFragment;
 import com.example.meetease.fragment.ReceiptFragment;
@@ -41,10 +43,10 @@ public class UpComingAdapter extends RecyclerView.Adapter<UpComingAdapter.UpComi
     }
 
     @Override
-    public void onBindViewHolder(@NonNull UpComingViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull UpComingViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.txtName.setText(upComingListResponses.get(position).getRoom_name());
-        holder.txtPrice.setText(upComingListResponses.get(position).getPrice());
+        holder.txtPrice.setText(VariableBag.CURRENCY + upComingListResponses.get(position).getPrice() + "/Hour");
         holder.txtLocation.setText(upComingListResponses.get(position).getLocation());
         holder.txtSelectedDate.setText(upComingListResponses.get(position).getBooking_date());
         holder.btnViewInfo.setOnClickListener(new View.OnClickListener() {

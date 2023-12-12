@@ -89,7 +89,7 @@ public class CreateReservationAdapter extends RecyclerView.Adapter<CreateReserva
 
         holder.txtName.setText(searchList.get(position).getRoom_name());
         holder.txtLocation.setText(searchList.get(position).getLocation());
-        holder.txtPrice.setText(searchList.get(position).getPrice() + VariableBag.CURRENCY);
+        holder.txtPrice.setText(VariableBag.CURRENCY + searchList.get(position).getPrice());
         Tools.DisplayImage(context, holder.imgRoom, searchList.get(position).getRoom_img());
 
         holder.ratingBar.setRating(Float.parseFloat(searchList.get(position).getRating()));

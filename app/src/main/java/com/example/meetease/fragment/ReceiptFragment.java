@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.meetease.R;
+import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 
@@ -40,6 +41,7 @@ public class ReceiptFragment extends DialogFragment {
     private static final String CHANNEL_ID = "pdf_download_channel";
     private NotificationManager notificationManager;
     int progress = 0;
+    PreferenceManager preferenceManager;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -53,11 +55,13 @@ public class ReceiptFragment extends DialogFragment {
         txtTimeSlot = view.findViewById(R.id.txtTimeSlot);
         txtFinalPrice = view.findViewById(R.id.txtFinalPrice);
 
+        preferenceManager = new PreferenceManager(getContext());
+
         String price = getArguments().getString("roomPrice");
 
         txtName.setText(getArguments().getString("roomName"));
         txtLocation.setText(getArguments().getString("roomLocation"));
-        txtPrice.setText(price);
+        txtPrice.setText(VariableBag.CURRENCY + price);
         txtSelectedDate.setText(getArguments().getString("selectedDate"));
         txtTimeSlot.setText(getArguments().getString("startTime") + " - " + getArguments().getString("endTime"));
 
@@ -111,7 +115,7 @@ public class ReceiptFragment extends DialogFragment {
             hourTemp = minuteTemp / 60;
         }
 
-        txtFinalPrice.setText(hourTemp * Integer.parseInt(price) + VariableBag.CURRENCY);
+        txtFinalPrice.setText(VariableBag.CURRENCY + hourTemp * Integer.parseInt(price));
 
         imgPdf = view.findViewById(R.id.imgPdf);
         imgCancel = view.findViewById(R.id.imgCancel);
@@ -160,7 +164,9 @@ public class ReceiptFragment extends DialogFragment {
                 canvas.drawText("Booking Receipt", 20, startY, titlePaint);
                 startY += 20;
 
-                drawText(canvas, "Name:", txtName.getText().toString(), 20, startY, textPaint);
+                drawText(canvas, "UserName:", preferenceManager.getKeyValueString(VariableBag.full_name, ""), 20, startY, textPaint);
+                drawText(canvas, "Email:", preferenceManager.getKeyValueString(VariableBag.email, ""), 20, startY += 20, textPaint);
+                drawText(canvas, "Name:", txtName.getText().toString(), 20, startY += 20, textPaint);
                 drawText(canvas, "Location:", txtLocation.getText().toString(), 20, startY += 20, textPaint);
                 drawText(canvas, "Price:", txtPrice.getText().toString(), 20, startY += 20, textPaint);
                 drawText(canvas, "Date:", txtSelectedDate.getText().toString(), 20, startY += 20, textPaint);

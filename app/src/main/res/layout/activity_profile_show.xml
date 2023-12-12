@@ -32,12 +32,12 @@
         android:id="@+id/cvProfile"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
         android:layout_marginTop="@dimen/_20sdp"
         android:backgroundTint="@color/blue"
         android:elevation="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         app:cardUseCompatPadding="true"
-        android:layout_marginHorizontal="@dimen/_5sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/lyt">
@@ -45,8 +45,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="@dimen/_5sdp"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:padding="@dimen/_5sdp">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageProfile"
@@ -62,9 +62,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="@dimen/_5sdp"
-                android:paddingTop="@dimen/_5sdp"
                 android:layout_weight="1.3"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:paddingTop="@dimen/_5sdp">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -79,9 +79,9 @@
                         android:ellipsize="marquee"
                         android:focusable="true"
                         android:focusableInTouchMode="true"
-                        android:text="your name"
                         android:marqueeRepeatLimit="marquee_forever"
                         android:singleLine="true"
+                        android:text="your name"
                         android:textColor="@color/white"
                         android:textSize="@dimen/_20ssp"
                         android:textStyle="bold"
@@ -102,13 +102,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:text="azizKachwala123456789@gmail.com"
+                    android:gravity="center_vertical"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
+                    android:text="azizKachwala123456789@gmail.com"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_15ssp"
                     android:textStyle="bold" />
@@ -119,13 +119,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:gravity="center_vertical"
                     android:ellipsize="marquee"
                     android:focusable="true"
                     android:focusableInTouchMode="true"
-                    android:text="9988776655"
+                    android:gravity="center_vertical"
                     android:marqueeRepeatLimit="marquee_forever"
                     android:singleLine="true"
+                    android:text="9988776655"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_15ssp"
                     android:textStyle="bold" />
@@ -140,11 +140,11 @@
         android:id="@+id/CvUserDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
         android:backgroundTint="@color/blue"
         android:elevation="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_10sdp"
         app:cardUseCompatPadding="true"
-        android:layout_marginHorizontal="@dimen/_5sdp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/cvProfile">
 
@@ -167,8 +167,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:text="MeetEase"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:text="MeetEase"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp" />
 
@@ -180,10 +180,10 @@
         android:id="@+id/cvAppDetails"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginHorizontal="@dimen/_5sdp"
         android:backgroundTint="@color/blue"
         android:elevation="@dimen/_10sdp"
         app:cardCornerRadius="@dimen/_10sdp"
-        android:layout_marginHorizontal="@dimen/_5sdp"
         app:cardUseCompatPadding="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@id/CvUserDetails">
@@ -207,8 +207,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="@dimen/_10sdp"
-                android:text="v1.1"
                 android:layout_marginTop="@dimen/_5sdp"
+                android:text="v1.1"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_15ssp" />
 
@@ -216,41 +216,49 @@
 
     </androidx.cardview.widget.CardView>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_marginHorizontal="@dimen/_20sdp"
-        android:layout_marginBottom="@dimen/_20sdp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_marginHorizontal="@dimen/_40sdp"
-        android:layout_marginTop="@dimen/_24sdp"
-        android:layout_marginBottom="@dimen/_25sdp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"
-        android:layout_marginHorizontal="@dimen/_60sdp"
-        android:layout_marginTop="@dimen/_28sdp"
-        android:layout_marginBottom="@dimen/_30sdp"
-        android:background="@color/black"
-        app:layout_constraintBottom_toBottomOf="parent" />
-
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/_35sdp"
-        android:gravity="center"
-        android:text="MeetEase"
-        android:textColor="@color/black"
-        android:textSize="@dimen/_18sdp"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent" />
+        android:background="@drawable/top_corner"
+        android:orientation="vertical"
+        android:paddingVertical="@dimen/_10sdp"
+        app:layout_constraintBottom_toBottomOf="parent">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="MeetEase"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_18sdp"
+            android:textStyle="italic"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginHorizontal="@dimen/_60sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginHorizontal="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_5sdp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_marginHorizontal="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:background="@color/white"
+            app:layout_constraintBottom_toBottomOf="parent" />
+
+    </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

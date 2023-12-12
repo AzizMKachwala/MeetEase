@@ -41,7 +41,7 @@
                 android:paddingHorizontal="@dimen/_5sdp"/>
 
             <TextView
-                android:id="@+id/txtCurrentTime"
+                android:id="@+id/txtNotificationTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="11:30:00"

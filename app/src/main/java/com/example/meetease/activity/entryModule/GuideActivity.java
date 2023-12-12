@@ -79,17 +79,17 @@ public class GuideActivity extends AppCompatActivity {
             txtSteps.setText("Step 3:\nSelect the Meeting Room of your choice from the List.");
             imgSteps.setImageResource(R.drawable.show_room_screen_image);
         } else if (pos == 3) {
-            txtSteps.setText("Step 4:\nIf you have some Specific requirements,\nChoose the requirements in the filter.");
+            txtSteps.setText("Step 4:\nIf you want to, Choose the requirements in the filter.");
             imgSteps.setImageResource(R.drawable.filter_screen_image);
         } else if (pos == 4) {
             txtSteps.setText("Step 5:\nSelect the Meeting Room to see the Details.");
             imgSteps.setImageResource(R.drawable.show_room_detail_screen);
         } else if (pos == 5) {
-            txtSteps.setText("Step 6:\nComplete the Payment Process and wait for the Successful Message.");
+            txtSteps.setText("Step 6:\nComplete the Payment Process.");
             imgSteps.setImageResource(R.drawable.final_booking);
             btnNext.setText("Next");
         } else if (pos == 6) {
-            txtSteps.setText("Step 7:\nYou can now check the booking status in the Upcoming Meetings.");
+            txtSteps.setText("Step 7:\nCheck the booking status in the Upcoming Meetings.");
             imgSteps.setImageResource(R.drawable.booking_done);
             btnNext.setText("Finish");
         } else if (pos == 7){

@@ -22,9 +22,13 @@ import android.widget.Toast;
 
 import com.example.meetease.R;
 import com.example.meetease.adapter.NotificationAdapter;
+import com.example.meetease.dataModel.NotificationModel;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class NotificationActivity extends AppCompatActivity {
 
@@ -33,6 +37,7 @@ public class NotificationActivity extends AppCompatActivity {
     TextView tvNoData;
     SwipeRefreshLayout swipe;
     NotificationAdapter notificationAdapter;
+    List<NotificationModel> notificationList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +50,8 @@ public class NotificationActivity extends AppCompatActivity {
         recyclerViewNotification = findViewById(R.id.recyclerViewNotification);
 
         askNotificationPermission();
+
+        tvNoData.setVisibility(View.GONE);
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,8 +78,17 @@ public class NotificationActivity extends AppCompatActivity {
                         String token = task.getResult();
                         String msg = token;
                         Log.d("token", msg);
+
+                        NotificationModel notification = new NotificationModel("TitleDemo", "DescriptionDemo", "NotificationTimeDemo");
+                        notificationList.add(notification);
+                        notificationAdapter.notifyDataSetChanged();
                     }
                 });
+
+
+        recyclerViewNotification.setLayoutManager(new LinearLayoutManager(NotificationActivity.this));
+        notificationAdapter = new NotificationAdapter(NotificationActivity.this, notificationList);
+        recyclerViewNotification.setAdapter(notificationAdapter);
     }
 
     private final ActivityResultLauncher<String> requestPermissionLauncher =

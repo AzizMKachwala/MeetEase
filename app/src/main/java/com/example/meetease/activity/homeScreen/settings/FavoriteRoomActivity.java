@@ -135,10 +135,11 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 tools.stopLoading();
-                                if (favRoomDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)&&favRoomDataModel.getFavRoomListlList() != null && favRoomDataModel.getFavRoomListlList().size()>0){
-                                    RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(FavoriteRoomActivity.this);
-                                    recycleFavRoom.setLayoutManager(layoutManager);
-                                    favoriteRoomAdapter = new FavoriteRoomAdapter(favRoomDataModel.getFavRoomListlList(),FavoriteRoomActivity.this);
+                                if (favRoomDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)
+                                        && favRoomDataModel.getFavRoomListlList() != null
+                                        && favRoomDataModel.getFavRoomListlList().size() > 0) {
+                                    recycleFavRoom.setLayoutManager(new LinearLayoutManager(FavoriteRoomActivity.this));
+                                    favoriteRoomAdapter = new FavoriteRoomAdapter(favRoomDataModel.getFavRoomListlList(), FavoriteRoomActivity.this);
                                     recycleFavRoom.setAdapter(favoriteRoomAdapter);
                                     tvNoData.setVisibility(View.GONE);
                                     favoriteRoomAdapter.setUpInterFace(new FavoriteRoomAdapter.FavoriteAdapterDataClick() {
@@ -147,8 +148,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                                             deleteFavRoom(dataModel.getRoom_details_id());
                                         }
                                     });
-                                }
-                                else {
+                                } else {
                                     tvNoData.setVisibility(View.VISIBLE);
                                 }
                             }
@@ -158,7 +158,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
     }
 
     void deleteFavRoom(String roomId) {
-        restCall.DeleteFavRoom("DeleteFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id,""))
+        restCall.DeleteFavRoom("DeleteFavRoom", roomId, preferenceManager.getKeyValueString(VariableBag.user_id, ""))
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -182,7 +182,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)){
+                                if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     roomDetail();
                                 }
                             }

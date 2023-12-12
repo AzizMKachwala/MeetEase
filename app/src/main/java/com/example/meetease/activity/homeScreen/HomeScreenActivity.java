@@ -18,6 +18,7 @@ import androidx.core.content.ContextCompat;
 import com.example.meetease.R;
 import com.example.meetease.activity.homeScreen.mainScreen.NotificationActivity;
 import com.example.meetease.activity.homeScreen.mainScreen.PreviousMeetingActivity;
+import com.example.meetease.activity.homeScreen.mainScreen.profile.ProfileActivity;
 import com.example.meetease.activity.homeScreen.mainScreen.profile.ProfileShowActivity;
 import com.example.meetease.activity.homeScreen.mainScreen.RateUsActivity;
 import com.example.meetease.activity.homeScreen.settings.FavoriteRoomActivity;
@@ -82,6 +83,13 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
 
         Tools.DisplayImage(this, ivSettingProfile, preferenceManager.getKeyValueString(VariableBag.image, ""));
 
+        ivSettingProfile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeScreenActivity.this, ProfileActivity.class));
+            }
+        });
+
         tvSettingEmail.setSelected(true);
         tvSettingName.setSelected(true);
 
@@ -115,7 +123,7 @@ public class HomeScreenActivity extends AppCompatActivity implements View.OnClic
         super.onResume();
         tvSettingName.setText(preferenceManager.getKeyValueString(VariableBag.full_name, ""));
         tvSettingEmail.setText(preferenceManager.getKeyValueString(VariableBag.email, ""));
-        txtHelloName.setText("HELLO, " + preferenceManager.getKeyValueString(VariableBag.full_name, ""));
+        txtHelloName.setText("Hello, " + preferenceManager.getKeyValueString(VariableBag.full_name, ""));
         Tools.DisplayImage(this, ivSettingProfile, preferenceManager.getKeyValueString(VariableBag.image, ""));
     }
 

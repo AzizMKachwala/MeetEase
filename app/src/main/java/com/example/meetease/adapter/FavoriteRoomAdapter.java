@@ -1,5 +1,6 @@
 package com.example.meetease.adapter;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.view.View;
@@ -84,11 +85,11 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
     }
 
     @Override
-    public void onBindViewHolder(@NonNull FavoriteViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull FavoriteViewHolder holder, @SuppressLint("RecyclerView") int position) {
 
         holder.txtName.setText(searchList.get(position).getRoom_name());
         holder.txtLocation.setText(searchList.get(position).getLocation());
-        holder.txtPrice.setText(searchList.get(position).getPrice() + VariableBag.CURRENCY);
+        holder.txtPrice.setText(VariableBag.CURRENCY + searchList.get(position).getPrice());
         Tools.DisplayImage(context, holder.imgRoom, searchList.get(position).getRoom_img());
         holder.btnBookNow.setOnClickListener(new View.OnClickListener() {
             @Override

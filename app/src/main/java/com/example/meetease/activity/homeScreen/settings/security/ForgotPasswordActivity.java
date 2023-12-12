@@ -48,7 +48,7 @@ public class ForgotPasswordActivity extends AppCompatActivity {
     Button btnSend, btnSave, btnCheckOtp;
     ImageView ivBack;
     TextView tvCode;
-    String verificationId,userId="";
+    String verificationId, userId = "";
     CountryCodePicker countryPicker;
     PreferenceManager preferenceManager;
     private FirebaseAuth mAuth;
@@ -143,23 +143,19 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                if (etvNewPassword.getText().toString().isEmpty()){
+                if (etvNewPassword.getText().toString().isEmpty()) {
                     etvNewPassword.setError("Enter Password");
                     etvNewPassword.requestFocus();
-                }
-                else if (etvConfirmPassword.getText().toString().isEmpty()){
+                } else if (etvConfirmPassword.getText().toString().isEmpty()) {
                     etvConfirmPassword.setError("Enter Confirm Password");
                     etvConfirmPassword.requestFocus();
-                }
-                else if (!Tools.isValidPassword(etvNewPassword.getText().toString())){
+                } else if (!Tools.isValidPassword(etvNewPassword.getText().toString())) {
                     etvNewPassword.setError("Password Must Consist Of Minimum length of 7 with At-least 1 UpperCase, 1 LowerCase, 1 Number & 1 Special Character");
                     etvNewPassword.requestFocus();
-                }
-                else if (!etvNewPassword.getText().toString().equals(etvConfirmPassword.getText().toString())){
+                } else if (!etvNewPassword.getText().toString().equals(etvConfirmPassword.getText().toString())) {
                     etvConfirmPassword.setError("Confirm Password Doesn't Match");
                     etvConfirmPassword.requestFocus();
-                }
-                else {
+                } else {
                     editPassword();
                 }
             }
@@ -299,9 +295,10 @@ public class ForgotPasswordActivity extends AppCompatActivity {
             }
         }
     }
+
     private void loginUser(String mobileNumber) {
         tools.showLoading();
-        restCall.LoginUser("LoginUser", mobileNumber,"","0")
+        restCall.LoginUser("LoginUser", mobileNumber, "", "0")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<LoginDataModel>() {
@@ -334,8 +331,8 @@ public class ForgotPasswordActivity extends AppCompatActivity {
                                     String phone = "+" + countryPicker.getSelectedCountryCode() + mobileNumber;
                                     tools.showLoading();
                                     sendVerificationCode(phone);
-                                }else {
-                                    Tools.showCustomToast(ForgotPasswordActivity.this,"mobile number is not exist",findViewById(R.id.customToastLayout),getLayoutInflater());
+                                } else {
+                                    Tools.showCustomToast(ForgotPasswordActivity.this, "Mobile Number Doesn't Exist", findViewById(R.id.customToastLayout), getLayoutInflater());
                                 }
 
                             }
