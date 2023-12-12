@@ -26,7 +26,6 @@ import rx.schedulers.Schedulers;
 public class AvailableRoomsActivity extends AppCompatActivity {
 
     RecyclerView recyclerViewAllRooms;
-    View btnBookNow;
     TextView tvNoData;
     RestCall restCall;
     ImageView ivBack;
@@ -39,7 +38,6 @@ public class AvailableRoomsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_available_rooms);
 
-        btnBookNow = findViewById(R.id.btnBookNow);
         recyclerViewAllRooms = findViewById(R.id.recyclerViewAllRooms);
         swipeRefreshLayout = findViewById(R.id.swipe);
         tvNoData = findViewById(R.id.tvNoData);
@@ -65,14 +63,6 @@ public class AvailableRoomsActivity extends AppCompatActivity {
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
 
-        btnBookNow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivity(new Intent(AvailableRoomsActivity.this, BookMeetingActivity.class));
-                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-            }
-        });
-
         roomDetail();
     }
 
@@ -92,7 +82,8 @@ public class AvailableRoomsActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                tools.stopLoading();Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
+                                tools.stopLoading();
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                                 tvNoData.setVisibility(View.VISIBLE);
                             }
                         });

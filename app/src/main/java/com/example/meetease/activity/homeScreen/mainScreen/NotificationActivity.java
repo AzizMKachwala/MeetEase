@@ -63,6 +63,7 @@ public class NotificationActivity extends AppCompatActivity {
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
+
                 swipe.setRefreshing(false);
             }
         });
@@ -79,7 +80,11 @@ public class NotificationActivity extends AppCompatActivity {
                         String msg = token;
                         Log.d("token", msg);
 
-                        NotificationModel notification = new NotificationModel("TitleDemo", "DescriptionDemo", "NotificationTimeDemo");
+                        NotificationModel notification = new NotificationModel("TitleDemo1", "DescriptionDemo1", "NotificationTimeDemo1");
+                        notificationList.add(notification);
+                        notification = new NotificationModel("TitleDemo2", "DescriptionDemo2", "NotificationTimeDemo2");
+                        notificationList.add(notification);
+                        notification = new NotificationModel("TitleDemo3", "DescriptionDemo3", "NotificationTimeDemo3");
                         notificationList.add(notification);
                         notificationAdapter.notifyDataSetChanged();
                     }

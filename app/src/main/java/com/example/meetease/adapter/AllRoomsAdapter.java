@@ -1,15 +1,20 @@
 package com.example.meetease.adapter;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.meetease.R;
+import com.example.meetease.activity.homeScreen.mainScreen.create.BookMeetingActivity;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.dataModel.RoomDetailList;
 
@@ -37,6 +42,18 @@ public class AllRoomsAdapter extends RecyclerView.Adapter<AllRoomsAdapter.AllRoo
         holder.txtLocation.setText(roomDetailLists.get(position).getLocation());
 
         Tools.DisplayImage(context, holder.imgRoom, roomDetailLists.get(position).getRoom_img());
+        holder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, BookMeetingActivity.class);
+                intent.putExtra("RoomIdAllRoom",roomDetailLists.get(position).getRoom_d_id());
+                intent.putExtra("RoomNameAllRoom",roomDetailLists.get(position).getRoom_name());
+                intent.putExtra("RoomLocationAllRoom",roomDetailLists.get(position).getLocation());
+                intent.putExtra("RoomPriceAllRoom",roomDetailLists.get(position).getPrice());
+                context.startActivity(intent);
+                ((Activity) context).overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
     }
 
     @Override

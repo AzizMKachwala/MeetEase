@@ -156,6 +156,30 @@ public class BookMeetingActivity extends AppCompatActivity {
                     Toast.makeText(BookMeetingActivity.this, "Select Start Time", Toast.LENGTH_SHORT).show();
                 } else if (tvEndTime.getText().toString().equals("Select End Time") || tvEndTime.getText().toString().isEmpty()) {
                     Toast.makeText(BookMeetingActivity.this, "Select End Time", Toast.LENGTH_SHORT).show();
+                } else if (getIntent().getStringExtra("RoomIdAllRoom") != null) {
+                    String RoomIdAllRoom = getIntent().getStringExtra("RoomIdAllRoom");
+                    String RoomNameAllRoom = getIntent().getStringExtra("RoomNameAllRoom");
+                    String RoomLocationAllRoom = getIntent().getStringExtra("RoomLocationAllRoom");
+                    String RoomPriceAllRoom = getIntent().getStringExtra("RoomPriceAllRoom");
+
+                    Intent intent = new Intent(BookMeetingActivity.this, CreateReservationActivity.class);
+
+                    intent.putExtra("RoomIdAllRoom", RoomIdAllRoom);
+                    intent.putExtra("RoomNameAllRoom", RoomNameAllRoom);
+                    intent.putExtra("RoomLocationAllRoom", RoomLocationAllRoom);
+                    intent.putExtra("RoomPriceAllRoom", RoomPriceAllRoom);
+
+                    intent.putExtra("year", selectYear);
+                    intent.putExtra("month", selectMonth);
+                    intent.putExtra("day", selectDay);
+                    intent.putExtra("startHour", startHour);
+                    intent.putExtra("startMinute", startMinute);
+                    intent.putExtra("endHour", endHour);
+                    intent.putExtra("endMinute", endMinute);
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+
+                    Toast.makeText(BookMeetingActivity.this, "" + RoomIdAllRoom + RoomNameAllRoom + RoomLocationAllRoom + RoomPriceAllRoom, Toast.LENGTH_SHORT).show();
                 } else {
                     Intent intent = new Intent(BookMeetingActivity.this, CreateReservationActivity.class);
                     intent.putExtra("year", selectYear);

@@ -63,6 +63,8 @@ public class PaymentActivity extends AppCompatActivity {
     PreferenceManager preferenceManager;
     int totalTime;
     String roomName, roomPrice, roomLocation, roomRating, roomId, bookingDate, bookingStartTime, bookingEndTime;
+    int totalPrice;
+//    String RoomIdAllRoom,RoomNameAllRoom,RoomLocationAllRoom,RoomPriceAllRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,6 +90,11 @@ public class PaymentActivity extends AppCompatActivity {
         bookingStartTime = intent.getStringExtra("bookingStartTime");
         bookingEndTime = intent.getStringExtra("bookingEndTime");
         totalTime = intent.getIntExtra("totalTime", 0);
+//
+//        RoomIdAllRoom = intent.getStringExtra("RoomIdAllRoom");
+//        RoomNameAllRoom = intent.getStringExtra("RoomNameAllRoom");
+//        RoomLocationAllRoom = intent.getStringExtra("RoomLocationAllRoom");
+//        RoomPriceAllRoom = intent.getStringExtra("RoomPriceAllRoom");
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -96,13 +103,15 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 
+        totalPrice = Integer.parseInt(roomPrice) * totalTime;
+
         txtName.setText(roomName);
         txtLocation.setText(roomLocation);
-        txtPrice.setText(roomPrice);
+        txtPrice.setText(roomPrice + VariableBag.CURRENCY);
         txtSelectedDate.setText(bookingDate);
         txtTimeSlot.setText(bookingStartTime + " - " + bookingEndTime);
-        txtFinalPrice.setText("" + Integer.parseInt(roomPrice) * totalTime);
-        btnPay.setText(" Pay    --->    " + Integer.parseInt(roomPrice) * totalTime + VariableBag.CURRENCY);
+        txtFinalPrice.setText("" + Integer.parseInt(roomPrice) * totalTime + VariableBag.CURRENCY);
+        btnPay.setText(" Pay    --->    " + totalPrice + VariableBag.CURRENCY);
 
         preferenceManager = new PreferenceManager(this);
         tools = new Tools(this);
@@ -118,7 +127,7 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void roomBooking() {
         tools.showLoading();
-        restCall.RoomBooking("AddTimeBooking", preferenceManager.getKeyValueString(VariableBag.user_id, ""), roomId, bookingDate, bookingStartTime, bookingEndTime)
+        restCall.RoomBooking("AddTimeBooking", preferenceManager.getKeyValueString(VariableBag.user_id, ""), roomId, bookingDate, bookingStartTime, bookingEndTime, totalPrice)
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {

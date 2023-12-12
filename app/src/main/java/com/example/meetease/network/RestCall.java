@@ -68,7 +68,8 @@ public interface RestCall {
             @Field("room_details_id") String room_d_id,
             @Field("booking_date") String booking_date,
             @Field("start_time") String start_time,
-            @Field("end_time") String end_time);
+            @Field("end_time") String end_time,
+            @Field("total_price") int total_price);
 
     @FormUrlEncoded
     @POST("Controller/BookingController.php")
@@ -91,26 +92,31 @@ public interface RestCall {
             @Field("tag") String tag,
             @Field("room_details_id") String room_detail_id,
             @Field("user_id") String user_id);
+
     @FormUrlEncoded
     @POST("Controller/FavRoomController.php")
     Single<FavRoomDataModel> GetFevRoom(
             @Field("tag") String tag,
             @Field("user_id") String user_id);
+
     @FormUrlEncoded
     @POST("Controller/UserController.php")
     Single<UserResponse> deleteUser(
             @Field("tag") String tag,
             @Field("user_id") String user_id);
+
     @FormUrlEncoded
     @POST("Controller/OldNewBooking.php")
     Single<UpComingResponse> UpcomingBookings(
             @Field("tag") String tag,
             @Field("user_id") String user_id);
+
     @FormUrlEncoded
     @POST("Controller/OldNewBooking.php")
     Single<UpComingResponse> CloseBooking(
             @Field("tag") String tag,
             @Field("user_id") String user_id);
+
     @FormUrlEncoded
     @POST("Controller/UserController.php")
     Single<UserResponse> UpdateToken(
