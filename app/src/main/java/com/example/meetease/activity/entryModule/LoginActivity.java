@@ -227,7 +227,6 @@ public class LoginActivity extends AppCompatActivity {
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-
                                 if (loginDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
                                     preferenceManager.setKeyValueString(VariableBag.user_id, loginDataModel.getUser_id());
                                     preferenceManager.setKeyValueString(VariableBag.full_name, loginDataModel.getFull_name());
@@ -275,7 +274,7 @@ public class LoginActivity extends AppCompatActivity {
                                                 }
                                             });
                                 } else if (!loginDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
-                                    Toast.makeText(LoginActivity.this, loginDataModel.getMessage(), Toast.LENGTH_SHORT).show();
+                                    Tools.showCustomToast(getApplicationContext(), "" + loginDataModel.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                                 } else {
                                     if (flag.equals("0")) {
                                         AddUser();
