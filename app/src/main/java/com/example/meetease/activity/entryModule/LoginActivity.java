@@ -1,9 +1,6 @@
 package com.example.meetease.activity.entryModule;
 
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.method.HideReturnsTransformationMethod;
@@ -15,13 +12,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.example.meetease.R;
+import com.example.meetease.activity.homeScreen.HomeScreenActivity;
+import com.example.meetease.activity.homeScreen.settings.security.ForgotPasswordActivity;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
 import com.example.meetease.dataModel.LoginDataModel;
-import com.example.meetease.activity.homeScreen.HomeScreenActivity;
-import com.example.meetease.activity.homeScreen.settings.security.ForgotPasswordActivity;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
@@ -80,10 +80,20 @@ public class LoginActivity extends AppCompatActivity {
         tools = new Tools(LoginActivity.this);
         preferenceManager = new PreferenceManager(LoginActivity.this);
 
+        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
+                .requestIdToken(getString(R.string.client_id))
+                .requestEmail()
+                .build();
+
+        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
+
         viewGoogle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                signInWithGoogle();
+                if (mAuth.getCurrentUser() != null) {
+                    mAuth.signOut();
+                }
+                clearGoogle();
             }
         });
 
@@ -135,14 +145,23 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
+    private void clearGoogle() {
+        GoogleSignInAccount account = GoogleSignIn.getLastSignedInAccount(this);
+        if (account != null) {
+            mGoogleSignInClient.revokeAccess()
+                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            signInWithGoogle();
+                        }
+                    });
+        } else {
+            signInWithGoogle();
+        }
+    }
+
     private void signInWithGoogle() {
         tools.showLoading();
-        GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken(getString(R.string.client_id))
-                .requestEmail()
-                .build();
-
-        mGoogleSignInClient = GoogleSignIn.getClient(this, gso);
         Intent signInIntent = mGoogleSignInClient.getSignInIntent();
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
