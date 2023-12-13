@@ -268,12 +268,14 @@ public class LoginActivity extends AppCompatActivity {
                                                                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                                                                 finish();
                                                             } else {
-                                                                Tools.showCustomToast(LoginActivity.this, "Something Went Wrong", findViewById(R.id.customToastLayout), getLayoutInflater());
+                                                                Tools.showCustomToast(LoginActivity.this, userResponse.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                                                             }
                                                         }
                                                     });
                                                 }
                                             });
+                                } else if (!loginDataModel.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
+                                    Toast.makeText(LoginActivity.this, loginDataModel.getMessage(), Toast.LENGTH_SHORT).show();
                                 } else {
                                     if (flag.equals("0")) {
                                         AddUser();
@@ -287,18 +289,7 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     void AddUser() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            return;
-                        }
-                        token = task.getResult();
-                    }
-                });
-
-        restCall.AddUser("AddUser", name, email, "0000000000", token, "Password is Not A -123-123-")
+        restCall.AddUser("AddUser", name, email, "0000000000", "1234567", "Password is Not A -123-123-")
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {
@@ -327,6 +318,8 @@ public class LoginActivity extends AppCompatActivity {
                                 if (userResponse.getStatus().equalsIgnoreCase(VariableBag.SUCCESS_RESULT)) {
                                     loginUser();
                                 } else {
+                                    Toast.makeText(LoginActivity.this, userResponse.getMessage(), Toast.LENGTH_SHORT).show();
+
                                     tools.stopLoading();
                                     flag = "1";
                                 }

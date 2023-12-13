@@ -69,7 +69,7 @@ public interface RestCall {
             @Field("booking_date") String booking_date,
             @Field("start_time") String start_time,
             @Field("end_time") String end_time,
-            @Field("total_price") int total_price);
+            @Field("total_price") String total_price);
 
     @FormUrlEncoded
     @POST("Controller/BookingController.php")

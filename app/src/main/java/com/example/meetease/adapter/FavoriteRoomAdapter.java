@@ -31,7 +31,7 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
     FavoriteAdapterDataClick favoriteAdapterDataClick;
 
     public interface FavoriteAdapterDataClick {
-        void imgFavClick(FavRoomListDataModel dataModel);
+        void imgFavClick(FavRoomListDataModel dataModel,String position);
     }
 
     public void updateData(List<FavRoomListDataModel> dataModelList) {
@@ -115,7 +115,7 @@ public class FavoriteRoomAdapter extends RecyclerView.Adapter<FavoriteRoomAdapte
                     holder.imgFavourite.setImageResource(R.drawable.baseline_favourite_24);
                     checkFavourite = "1";
                 }
-                favoriteAdapterDataClick.imgFavClick(searchList.get(position));
+                favoriteAdapterDataClick.imgFavClick(searchList.get(position),""+searchList.size());
             }
         });
     }

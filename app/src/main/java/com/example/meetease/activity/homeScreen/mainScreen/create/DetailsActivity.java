@@ -94,7 +94,7 @@ public class DetailsActivity extends AppCompatActivity {
             totalTime = intent.getIntExtra("totalTime", 0);
             txtLocation.setText(roomLocation);
             txtName.setText(roomName);
-            txtPrice.setText(roomPrice + VariableBag.CURRENCY + "/Hour");
+            txtPrice.setText(VariableBag.CURRENCY + roomPrice + "/Hour");
             ratingBar.setRating(Float.parseFloat(roomRating));
             Tools.DisplayImage(DetailsActivity.this, imgRoom, roomImage);
         }

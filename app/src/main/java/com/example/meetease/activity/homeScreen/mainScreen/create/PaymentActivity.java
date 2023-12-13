@@ -1,17 +1,5 @@
 package com.example.meetease.activity.homeScreen.mainScreen.create;
 
-import static android.Manifest.permission.READ_EXTERNAL_STORAGE;
-import static android.Manifest.permission.WRITE_EXTERNAL_STORAGE;
-
-import androidx.annotation.NonNull;
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.app.NotificationCompat;
-import androidx.core.content.ContextCompat;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
@@ -19,36 +7,25 @@ import android.app.PendingIntent;
 import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Typeface;
-import android.graphics.pdf.PdfDocument;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.NotificationCompat;
 
 import com.example.meetease.R;
-import com.example.meetease.activity.homeScreen.HomeScreenActivity;
 import com.example.meetease.activity.homeScreen.mainScreen.UpComingMeetingActivity;
 import com.example.meetease.appUtils.PreferenceManager;
 import com.example.meetease.appUtils.Tools;
 import com.example.meetease.appUtils.VariableBag;
-import com.example.meetease.fragment.StartTimePickerFragment;
 import com.example.meetease.network.RestCall;
 import com.example.meetease.network.RestClient;
 import com.example.meetease.network.UserResponse;
-
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
 
 import rx.Subscriber;
 import rx.schedulers.Schedulers;
@@ -63,9 +40,8 @@ public class PaymentActivity extends AppCompatActivity {
     PreferenceManager preferenceManager;
     int totalTime;
     String roomName, roomPrice, roomLocation, roomRating, roomId, bookingDate, bookingStartTime, bookingEndTime;
-    int totalPrice;
     String RoomIdAllRoom, RoomNameAllRoom, RoomLocationAllRoom, RoomPriceAllRoom;
-    int totalPriceAllRoom;
+    int totalPriceAllRoom, totalPrice;
     String selectedDate, endTimeAllRoom, startTimeAllRoom;
 
     @Override
@@ -97,7 +73,7 @@ public class PaymentActivity extends AppCompatActivity {
         RoomNameAllRoom = intent.getStringExtra("RoomNameAllRoom");
         RoomLocationAllRoom = intent.getStringExtra("RoomLocationAllRoom");
         RoomPriceAllRoom = intent.getStringExtra("RoomPriceAllRoom");
-        totalPriceAllRoom = intent.getIntExtra("totalPrice", 0);
+        totalPriceAllRoom = intent.getIntExtra("totalPriceAllRoom", 0);
         selectedDate = intent.getStringExtra("sd");
         endTimeAllRoom = intent.getStringExtra("et");
         startTimeAllRoom = intent.getStringExtra("st");
@@ -121,16 +97,18 @@ public class PaymentActivity extends AppCompatActivity {
             txtPrice.setText(roomPrice + VariableBag.CURRENCY);
             txtSelectedDate.setText(bookingDate);
             txtTimeSlot.setText(bookingStartTime + " - " + bookingEndTime);
-            txtFinalPrice.setText("" + totalPrice + VariableBag.CURRENCY);
-            btnPay.setText(" Pay    --->    " + totalPrice + VariableBag.CURRENCY);
+            txtFinalPrice.setText("" + VariableBag.CURRENCY + totalPrice);
+            btnPay.setText(" Pay    --->    " + VariableBag.CURRENCY + totalPrice);
+
         } else if (intent.getStringExtra("RoomIdAllRoom") != null) {
+
             txtName.setText(RoomNameAllRoom);
             txtLocation.setText(RoomLocationAllRoom);
             txtPrice.setText(RoomPriceAllRoom + VariableBag.CURRENCY);
             txtSelectedDate.setText(selectedDate);
             txtTimeSlot.setText(startTimeAllRoom + " - " + endTimeAllRoom);
-            txtFinalPrice.setText("" + totalPriceAllRoom + VariableBag.CURRENCY);
-            btnPay.setText(" Pay    --->    " + totalPriceAllRoom + VariableBag.CURRENCY);
+            txtFinalPrice.setText(VariableBag.CURRENCY + "" + totalPriceAllRoom);
+            btnPay.setText(" Pay    --->    " + VariableBag.CURRENCY + totalPriceAllRoom);
         }
 
         btnPay.setOnClickListener(new View.OnClickListener() {
@@ -143,7 +121,21 @@ public class PaymentActivity extends AppCompatActivity {
 
     private void roomBooking() {
         tools.showLoading();
-        restCall.RoomBooking("AddTimeBooking", preferenceManager.getKeyValueString(VariableBag.user_id, ""), roomId, bookingDate, bookingStartTime, bookingEndTime, totalPrice)
+
+        String ST = "", ET = "";
+        String RID = "";
+        Intent intent = getIntent();
+        if (intent.getStringExtra("roomId") != null) {
+            ST = bookingStartTime;
+            ET = bookingEndTime;
+            RID = roomId;
+        } else if (intent.getStringExtra("RoomIdAllRoom") != null) {
+            ST = startTimeAllRoom;
+            ET = endTimeAllRoom;
+            RID = RoomIdAllRoom;
+        }
+
+        restCall.RoomBooking("AddTimeBooking", preferenceManager.getKeyValueString(VariableBag.user_id, ""), RID, txtSelectedDate.getText().toString(), ST, ET, txtFinalPrice.getText().toString())
                 .subscribeOn(Schedulers.io())
                 .observeOn(Schedulers.newThread())
                 .subscribe(new Subscriber<UserResponse>() {

@@ -40,6 +40,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
     PreferenceManager preferenceManager;
     Tools tools;
     FavoriteRoomAdapter favoriteRoomAdapter;
+    String position1 = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -124,7 +125,7 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                             public void run() {
                                 tools.stopLoading();
                                 tvNoData.setVisibility(View.VISIBLE);
-                                Tools.showCustomToast(getApplicationContext(), e.getLocalizedMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
+                                Tools.showCustomToast(getApplicationContext(), "No Internet", findViewById(R.id.customToastLayout), getLayoutInflater());
                             }
                         });
                     }
@@ -144,8 +145,9 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                                     tvNoData.setVisibility(View.GONE);
                                     favoriteRoomAdapter.setUpInterFace(new FavoriteRoomAdapter.FavoriteAdapterDataClick() {
                                         @Override
-                                        public void imgFavClick(FavRoomListDataModel dataModel) {
+                                        public void imgFavClick(FavRoomListDataModel dataModel, String position) {
                                             deleteFavRoom(dataModel.getRoom_details_id());
+                                            position1 = position;
                                         }
                                     });
                                 } else {
@@ -183,7 +185,13 @@ public class FavoriteRoomActivity extends AppCompatActivity {
                             @Override
                             public void run() {
                                 if (userResponse.getStatus().equals(VariableBag.SUCCESS_RESULT)) {
-                                    roomDetail();
+                                    if (position1.equals("1")) {
+                                        recycleFavRoom.setVisibility(View.GONE);
+                                        tvNoData.setVisibility(View.VISIBLE);
+                                    } else {
+                                        roomDetail();
+                                    }
+
                                 }
                             }
                         });
