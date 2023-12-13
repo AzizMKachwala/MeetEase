@@ -64,7 +64,9 @@ public class PaymentActivity extends AppCompatActivity {
     int totalTime;
     String roomName, roomPrice, roomLocation, roomRating, roomId, bookingDate, bookingStartTime, bookingEndTime;
     int totalPrice;
-//    String RoomIdAllRoom,RoomNameAllRoom,RoomLocationAllRoom,RoomPriceAllRoom;
+    String RoomIdAllRoom, RoomNameAllRoom, RoomLocationAllRoom, RoomPriceAllRoom;
+    int totalPriceAllRoom;
+    String selectedDate, endTimeAllRoom, startTimeAllRoom;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -90,11 +92,15 @@ public class PaymentActivity extends AppCompatActivity {
         bookingStartTime = intent.getStringExtra("bookingStartTime");
         bookingEndTime = intent.getStringExtra("bookingEndTime");
         totalTime = intent.getIntExtra("totalTime", 0);
-//
-//        RoomIdAllRoom = intent.getStringExtra("RoomIdAllRoom");
-//        RoomNameAllRoom = intent.getStringExtra("RoomNameAllRoom");
-//        RoomLocationAllRoom = intent.getStringExtra("RoomLocationAllRoom");
-//        RoomPriceAllRoom = intent.getStringExtra("RoomPriceAllRoom");
+
+        RoomIdAllRoom = intent.getStringExtra("RoomIdAllRoom");
+        RoomNameAllRoom = intent.getStringExtra("RoomNameAllRoom");
+        RoomLocationAllRoom = intent.getStringExtra("RoomLocationAllRoom");
+        RoomPriceAllRoom = intent.getStringExtra("RoomPriceAllRoom");
+        totalPriceAllRoom = intent.getIntExtra("totalPrice", 0);
+        selectedDate = intent.getStringExtra("sd");
+        endTimeAllRoom = intent.getStringExtra("et");
+        startTimeAllRoom = intent.getStringExtra("st");
 
         ivBack.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -103,19 +109,29 @@ public class PaymentActivity extends AppCompatActivity {
             }
         });
 
-        totalPrice = Integer.parseInt(roomPrice) * totalTime;
-
-        txtName.setText(roomName);
-        txtLocation.setText(roomLocation);
-        txtPrice.setText(roomPrice + VariableBag.CURRENCY);
-        txtSelectedDate.setText(bookingDate);
-        txtTimeSlot.setText(bookingStartTime + " - " + bookingEndTime);
-        txtFinalPrice.setText("" + Integer.parseInt(roomPrice) * totalTime + VariableBag.CURRENCY);
-        btnPay.setText(" Pay    --->    " + totalPrice + VariableBag.CURRENCY);
-
         preferenceManager = new PreferenceManager(this);
         tools = new Tools(this);
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
+
+        if (intent.getStringExtra("roomId") != null) {
+            totalPrice = Integer.parseInt(roomPrice) * totalTime;
+
+            txtName.setText(roomName);
+            txtLocation.setText(roomLocation);
+            txtPrice.setText(roomPrice + VariableBag.CURRENCY);
+            txtSelectedDate.setText(bookingDate);
+            txtTimeSlot.setText(bookingStartTime + " - " + bookingEndTime);
+            txtFinalPrice.setText("" + totalPrice + VariableBag.CURRENCY);
+            btnPay.setText(" Pay    --->    " + totalPrice + VariableBag.CURRENCY);
+        } else if (intent.getStringExtra("RoomIdAllRoom") != null) {
+            txtName.setText(RoomNameAllRoom);
+            txtLocation.setText(RoomLocationAllRoom);
+            txtPrice.setText(RoomPriceAllRoom + VariableBag.CURRENCY);
+            txtSelectedDate.setText(selectedDate);
+            txtTimeSlot.setText(startTimeAllRoom + " - " + endTimeAllRoom);
+            txtFinalPrice.setText("" + totalPriceAllRoom + VariableBag.CURRENCY);
+            btnPay.setText(" Pay    --->    " + totalPriceAllRoom + VariableBag.CURRENCY);
+        }
 
         btnPay.setOnClickListener(new View.OnClickListener() {
             @Override

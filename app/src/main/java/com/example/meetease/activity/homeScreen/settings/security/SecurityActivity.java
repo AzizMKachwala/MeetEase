@@ -30,7 +30,7 @@ public class SecurityActivity extends AppCompatActivity {
     PreferenceManager preferenceManager;
     SwitchCompat switchOnOff;
     ImageView ivBack;
-    ConstraintLayout lytChangePassword, lytDeleteUser;
+    ConstraintLayout lytChangePassword, lytDeleteUser, lytForgotPassword;
     RestCall restCall;
     Tools tools;
 
@@ -44,6 +44,7 @@ public class SecurityActivity extends AppCompatActivity {
         ivBack = findViewById(R.id.ivBack);
         lytChangePassword = findViewById(R.id.lytChangePassword);
         lytDeleteUser = findViewById(R.id.lytDeleteUser);
+        lytForgotPassword = findViewById(R.id.lytForgotPassword);
 
         restCall = RestClient.createService(RestCall.class, VariableBag.BASE_URL, VariableBag.API_KEY);
         preferenceManager = new PreferenceManager(SecurityActivity.this);
@@ -65,6 +66,15 @@ public class SecurityActivity extends AppCompatActivity {
             }
         });
 
+        lytForgotPassword.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(SecurityActivity.this, ForgotPasswordActivity.class));
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                finish();
+            }
+        });
+
         lytDeleteUser.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -73,7 +83,7 @@ public class SecurityActivity extends AppCompatActivity {
                 View view1 = getLayoutInflater().inflate(R.layout.dialog_password_verify, null);
                 EditText etvPassword = view1.findViewById(R.id.etvPassword);
                 builder.setView(view1);
-                
+
 
                 builder.setPositiveButton("Verify", new DialogInterface.OnClickListener() {
                     @Override

@@ -63,7 +63,6 @@ public class NotificationActivity extends AppCompatActivity {
         swipe.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-
                 swipe.setRefreshing(false);
             }
         });
@@ -89,7 +88,6 @@ public class NotificationActivity extends AppCompatActivity {
                         notificationAdapter.notifyDataSetChanged();
                     }
                 });
-
 
         recyclerViewNotification.setLayoutManager(new LinearLayoutManager(NotificationActivity.this));
         notificationAdapter = new NotificationAdapter(NotificationActivity.this, notificationList);

@@ -275,7 +275,6 @@ public class LoginActivity extends AppCompatActivity {
                                                 }
                                             });
                                 } else {
-                                    Tools.showCustomToast(LoginActivity.this, loginDataModel.getMessage(), findViewById(R.id.customToastLayout), getLayoutInflater());
                                     if (flag.equals("0")) {
                                         AddUser();
                                     }
